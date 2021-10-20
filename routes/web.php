@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\Sister;
+use App\Models\Coba;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return Sister::get('/referensi/profil_pt');
+    return Coba::getSDM('/referensi/agama');
 });
