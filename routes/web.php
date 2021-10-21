@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return Coba::getSDM('/referensi/agama');
+    return Coba::getAgama();
 });
