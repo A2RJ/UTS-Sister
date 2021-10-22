@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Sister;
+use App\API\Sister;
 
 class Coba extends Sister
 {
