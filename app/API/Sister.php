@@ -2,15 +2,37 @@
 
 namespace App\API;
 
-use App\API\Routes;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
-use App\API\DataPokok;
-use App\API\Dokumen;
-use App\API\Kolaborator;
-use App\API\Referensi;
 
 class Sister extends Model
 {
-   use Routes, Referensi, Dokumen, DataPokok, Kolaborator;   
+   use Routes,
+      Referensi,
+      Dokumen,
+      Kolaborator,
+      DataPokok,
+      Inpassing,
+      JabatanFungsional,
+      Kepangkatan,
+      Penugasan,
+      Pengajaran,
+      BimbinganMahasiswa,
+      PengujianMahasiswa,
+      Datasering,
+      OrasiIlmiah,
+      BahanAjar;
+   
+   /**
+    * index
+    *
+    * @return void
+    */
+   public static function index()
+   {
+      return json_encode([
+         "vendor" => env("VENDOR"),
+         "programmer" => env("PROG"),
+         "readMe" => env("README")
+      ]);
+   }
 }

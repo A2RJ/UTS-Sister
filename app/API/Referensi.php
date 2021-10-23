@@ -5,37 +5,73 @@ namespace App\API;
  * Referensi
  */
 trait Referensi
-{
+{    
+    /**
+     * getAgama
+     * Fungsi untuk mengambil agama
+     * @Referensi http://sister.uts.ac.id/ws.php/1.0#get-/referensi/agama
+     * @return void
+     */
     public static function getAgama()
     {
         return self::get('/referensi/agama');
     }
-
+    
+    /**
+     * getBidangStudi
+     *
+     * @return void
+     */
     public static function getBidangStudi()
     {
         return self::get('/referensi/bidang_studi');
     }
-
+    
+    /**
+     * getBidangUsaha
+     *
+     * @return void
+     */
     public static function getBidangUsaha()
     {
         return self::get('/referensi/bidang_usaha');
     }
-
+    
+    /**
+     * getGelarAkademik
+     *
+     * @return void
+     */
     public static function getGelarAkademik()
     {
         return self::get('/referensi/gelar_akademik');
     }
-
+    
+    /**
+     * getGolonganPangkat
+     *
+     * @return void
+     */
     public static function getGolonganPangkat()
     {
         return self::get('/referensi/golongan_pangkat');
     }
-
+    
+    /**
+     * getIkatanKerja
+     *
+     * @return void
+     */
     public static function getIkatanKerja()
     {
         return self::get('/referensi/ikatan_kerja');
     }
-
+    
+    /**
+     * getJabatanFungsional
+     *
+     * @return void
+     */
     public static function getJabatanFungsional()
     {
         return self::get('/referensi/jabatan_fungsional');

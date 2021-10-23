@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Http;
  * Routes
  */
 trait Routes
-{
+{    
+    /**
+     * index
+     *
+     * @return void
+     */
     private static function index()
     {
        if (!session('token')) {
@@ -20,7 +25,14 @@ trait Routes
           session(['token' => $token['token']]);
        }
     }
-
+    
+    /**
+     * trowError
+     *
+     * @param  mixed $response
+     * @param  mixed $e
+     * @return void
+     */
     private static function trowError($response, $e)
     {
         if ($response['detail'] == "Token expired") {
@@ -28,7 +40,14 @@ trait Routes
             self::index();
         }
     }
-
+    
+    /**
+     * get
+     *
+     * @param  mixed $url
+     * @param  mixed $array
+     * @return void
+     */
     public static function get($url, $array = null)
     {
         self::index();
@@ -42,7 +61,14 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-
+    
+    /**
+     * post
+     *
+     * @param  mixed $url
+     * @param  mixed $array
+     * @return void
+     */
     public static function post($url, $array)
     {
         self::index();
@@ -50,7 +76,14 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-
+    
+    /**
+     * put
+     *
+     * @param  mixed $url
+     * @param  mixed $array
+     * @return void
+     */
     public static function put($url, $array)
     {
         self::index();
@@ -58,7 +91,13 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-
+    
+    /**
+     * deleteID
+     *
+     * @param  mixed $url
+     * @return void
+     */
     public static function deleteID($url)
     {
         self::index();

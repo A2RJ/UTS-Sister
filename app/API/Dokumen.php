@@ -16,9 +16,11 @@ trait Dokumen
 
     public static function postDokumen($request)
     {
-        return self::post('/dokumen', [
-            'file' => $request->file,
-            'id_sdm' => $request->id_sdm,
+        return Http::attach(
+            'file',
+            $request->file,
+            'photo.jpg'
+        )->post(`/dokumen`, [
             'id_jenis_dokumen' => $request->id_jenis_dokumen,
             'nama' => $request->nama,
             'tautan' => $request->tautan,
