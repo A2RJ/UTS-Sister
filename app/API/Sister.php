@@ -20,7 +20,11 @@ class Sister extends Model
       PengujianMahasiswa,
       Datasering,
       OrasiIlmiah,
-      BahanAjar;
+      BahanAjar,
+      BimbinganDosen,
+      TugasTambahan,
+      Penelitian,
+      Publikasi;
    
    /**
     * index

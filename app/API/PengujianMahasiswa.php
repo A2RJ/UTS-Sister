@@ -2,12 +2,14 @@
 
 namespace App\API;
 
+use Illuminate\Http\Request;
+
 /**
  * Pengujian Mahasiswa
  */
 trait PengujianMahasiswa
 {
-    public static function getPengujianMahasiswa($request)
+    public static function getPengujianMahasiswa(Request $request)
     {
         return self::get(`/pengujian_mahasiswa`, [
             "id_sdm" => $request->id_sdm,
@@ -25,7 +27,7 @@ trait PengujianMahasiswa
         return self::get(`/pengujian_mahasiswa/$id_aktivitas_mahasiswa/bidang_ilmu`);
     }
 
-    public static function putPengujianMahasiswa($request)
+    public static function putPengujianMahasiswa(Request $request)
     {
         return self::put(`/pengujian_mahasiswa/$request->id_aktivitas_mahasiswa/bidang_ilmu`, [
             $request->id_kelompok_bidang
