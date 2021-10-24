@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Http;
 trait Routes
 {    
     /**
-     * index
+     * token
      *
      * @return void
      */
-    private static function index()
+    private static function token()
     {
-       if (!session('token')) {
+       if (session('token') == null) {
           $token = Http::post(env('SISTER_SERVER') . '/authorize', [
              'username' => env('SISTER_USERNAME'),
              'password' => env('SISTER_PASSWORD'),
@@ -35,9 +35,9 @@ trait Routes
      */
     private static function trowError($response, $e)
     {
-        if ($response['detail'] == "Token expired") {
+        if ($response['detail'] == "Token expired" || $response['detail'] == "Token tidak ditemukan") {
             session()->forget('token');
-            self::index();
+            self::token();
         }
     }
     
@@ -50,7 +50,7 @@ trait Routes
      */
     public static function get($url, $array = null)
     {
-        self::index();
+        self::token();
         if ($array) {
             return Http::withToken(session(('token')))->get(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
                 self::trowError($response, $e);
@@ -71,7 +71,7 @@ trait Routes
      */
     public static function post($url, $array)
     {
-        self::index();
+        self::token();
         return Http::withToken(session(('token')))->post(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
             self::trowError($response, $e);
         })->json();
@@ -86,7 +86,7 @@ trait Routes
      */
     public static function put($url, $array)
     {
-        self::index();
+        self::token();
         return Http::withToken(session(('token')))->put(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
             self::trowError($response, $e);
         })->json();
@@ -100,7 +100,7 @@ trait Routes
      */
     public static function deleteID($url)
     {
-        self::index();
+        self::token();
         return Http::withToken(session(('token')))->delete(env('SISTER_SERVER') . $url)->throw(function ($response, $e) {
             self::trowError($response, $e);
         })->json();

@@ -53,8 +53,7 @@ class Sister extends Model
    {
       return json_encode([
          "vendor" => env("VENDOR"),
-         "programmer" => env("PROG"),
-         "readMe" => env("README")
+         "join" => env("JOIN")
       ]);
    }
 }

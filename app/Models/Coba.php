@@ -12,4 +12,6 @@ class Coba extends Sister
      * @var string
      */
     protected $table = 'user';
+
+    protected $coba = "HAHAHAHA";
 }
