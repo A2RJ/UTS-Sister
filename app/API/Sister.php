@@ -24,7 +24,25 @@ class Sister extends Model
       BimbinganDosen,
       TugasTambahan,
       Penelitian,
-      Publikasi;
+      Publikasi,
+      KekayanIntelektual,
+      Pengabdian,
+      Pembicara,
+      JabatanStruktural,
+      AnggotaProfesi,
+      Jurnal,
+      Penghargaan,
+      Scientist,
+      PenunjangLain,
+      PendidikanFormal,
+      Diklat,
+      RiwayatPekerjaan,
+      SertifikasiProfesi,
+      SertifikasiDosen,
+      Tes,
+      Beasiswa,
+      Kesejahteraan,
+      Tunjangan;
    
    /**
     * index

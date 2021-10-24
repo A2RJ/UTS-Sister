@@ -1,6 +1,7 @@
 # Relasi
 - Mengubah data bidang ilmu seorang SDM/ dari /referensi/kelompok_bidang dengan tipe IPTEK
 - Ubah data bimbingan mahasiswa/ dari /referensi/kelompok_bidang  dengan tipe IPTEK
+- Semua Bidang Ilmu pada modul relasi ke kelompok bidang (id_kelompok_bidang)
 
 # Next Update
 - Untuk data yg membutuhkan relasi, misalkan dokumen, jadikan otomatis dalam 1 fungsi saja, jadi hanya kirim params dengan tidak 2 fungsi yg dipanggil.
