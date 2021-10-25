@@ -16,6 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return Coba::getRefSemester();
-    return Sister::$AnggotaProfesi;
+    return View('layout.index');
 });

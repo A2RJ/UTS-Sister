@@ -7,6 +7,45 @@ namespace App\API;
  */
 trait KekayanIntelektual
 {
+    static $KekayanIntelektual = [
+        "view" => ["create", "read", "update"],
+        "id_kategori_kegiatan" => "select",
+        "id_jenis_publikasi" => "select",
+        "id_kategori_capaian_luaran" => "select",
+        "id_litabmas" => "text",
+        "judul" => "text",
+        "tanggal" => "date",
+        "nomor_paten" => "text",
+        "pemberi_paten" => "text",
+        "penerbit" => "text",
+        "isbn" => "text",
+        "jumlah_halaman" => "text",
+        "tautan" => "text",
+        "keterangan" => "text",
+        "dokumen" => "file",
+        "urutan_corresponding_author" => "text",
+        "penulis_dosen" => [
+            "id_sdm" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ],
+        "penulis_mahasiswa" => [
+            "id_peserta_didik" => "text",
+            "nama" => "text",
+            "no_induk" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ],
+        "penulis_lain" => [
+            "id_orang" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ]
+    ];
+
     public static function getKekayanIntelektual($id_sdm)
     {
         return self::get("/kekayaan_intelektual?id_sdm=$id_sdm");

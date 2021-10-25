@@ -7,6 +7,20 @@ namespace App\API;
  */
 trait JabatanFungsional
 {
+    static $JabatanFungsional = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_jabatan_fungsional" => "text",
+        "sk" => "text",
+        "tanggal_mulai" => "date",
+        "angka_kredit" => "text",
+        "kelebihan_pengajaran" => "textarea",
+        "kelebihan_penelitian" => "textarea",
+        "kelebihan_pengabdian" => "textarea",
+        "kelebihan_penunjang" => "textarea",
+        "dokumen" => "file"
+    ];
+
     public static function getJabatanFungsional($id_sdm)
     {
         return self::get("/jabatan_fungsional?id_sdm=$id_sdm");

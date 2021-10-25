@@ -7,6 +7,19 @@ namespace App\API;
  */
 trait Inpassing
 {
+    static $Inpassing = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_pangkat_golongan" => "select",
+        "sk" => "text",
+        "tanggal_sk" => "date",
+        "tanggal_mulai" => "date",
+        "angka_kredit" => "text",
+        "masa_kerja_tahun" => "text",
+        "masa_kerja_bulan" => "text",
+        "dokumen" => "text",
+    ];
+
     public static function getInpassing($id_sdm)
     {
         return self::get("/inpassing?id_sdm=$id_sdm");

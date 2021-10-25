@@ -7,6 +7,17 @@ namespace App\API;
  */
 trait JabatanStruktural
 {
+    static $JabatanStruktural = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_kategori_kegiatan" => "select",
+        "id_jabatan_negara" => "text",
+        "sk_jabatan" => "text",
+        "tanggal_mulai_jabatan" => "date",
+        "tanggal_selesai_jabatan" => "date",
+        "dokumen" => "file",
+    ];
+
     public static function getJabatanStruktural($id_sdm)
     {
         return self::get("/jabatan_struktural?id_sdm=$id_sdm");

@@ -7,6 +7,17 @@ namespace App\API;
  */
 trait Kepangkatan
 {
+    static $Kepangkatan = [
+        "id_sdm" => "text",
+        "id_pangkat_golongan" => "select",
+        "sk" => "text",
+        "tanggal_sk" => "date",
+        "tanggal_mulai" => "date",
+        "masa_kerja_tahun" => "text",
+        "masa_kerja_bulan" => "text",
+        "dokumen" => "file",
+    ];
+
     public static function getKepangkatan($id_sdm)
     {
         return self::get("/kepangkatan?id_sdm=$id_sdm");

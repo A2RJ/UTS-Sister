@@ -7,6 +7,19 @@ namespace App\API;
  */
 trait Jurnal
 {
+    static $Jurnal = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_kategori_kegiatan" => "select",
+        "id_media_publikasi" => "select",
+        "peran" => "text",
+        "sk_penugasan" => "text",
+        "tanggal_mulai" => "date",
+        "tanggal_selesai" => "date",
+        "aktif" => "text",
+        "dokumen" => "file"
+    ];
+
     public static function getJurnal($id_sdm)
     {
         return self::get("/pengelola_jurnal?id_sdm=$id_sdm");

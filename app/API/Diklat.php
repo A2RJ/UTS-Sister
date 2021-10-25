@@ -7,6 +7,27 @@ namespace App\API;
  */
 trait Diklat
 {
+    static $Diklat = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "select",
+        "id_kategori_kegiatan" => "select",
+        "id_jenis_diklat" => "select",
+        "nama" => "text",
+        "penyelenggara" => "text",
+        "peran" => "text",
+        "tingkat" => "text",
+        "jumlah_jam" => "text",
+        "no_sertifikat" => "text",
+        "tanggal_sertifikat" => "date",
+        "tahun" => "date",
+        "lokasi" => "text",
+        "tanggal_mulai" => "date",
+        "tanggal_selesai" => "date",
+        "sk_penugasan" => "text",
+        "tanggal_sk_penugasan" => "date",
+        "dokumen" => "text",
+    ];
+
     public static function getDiklat($id_sdm)
     {
         return self::get("/diklat?id_sdm=$id_sdm");

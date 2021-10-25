@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Http;
  */
 trait Dokumen
 {
+    static $Dokumen = [
+        "view" => ["create"],
+        'id_jenis_dokumen' => "selelct",
+        'nama' => "text",
+        'tautan' => "text",
+        'keterangan' => "textarea",
+    ];
+
     public static function getDokumen($id_sdm)
     {
         return self::get("/dokumen?id_sdm=$id_sdm");

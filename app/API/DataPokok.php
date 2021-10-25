@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 trait DataPokok
 {
     static $DataPokokAlamat = [
-        "view" => ["create", "read", "update"],
+        "view" => ["update"],
         "email" => "email",
         "alamat" => "text",
         "rt" => "text",
@@ -22,6 +22,18 @@ trait DataPokok
         "telepon_rumah" => "text",
         "telepon_hp" => "text",
         "dokumen" => "file",
+    ];
+
+    static $DataPokoBidangIlmu = [
+        "view" => ["update"],
+        "id_kelompok_bidang" => "text",
+    ];
+    
+    static $dataPokokLain = [
+        "view" => ["update"],
+        "npwp" => "text",
+        "nama_wp" => "text",
+        "dokumen" => "file"
     ];
 
     public static function getAjuan($id_sdm)
@@ -63,7 +75,7 @@ trait DataPokok
 
     public static function putBidangIlmu($request)
     {
-        return self::put("/data_pribadi/bidang_ilmu/$request->id_sdm", [$request->id]);
+        return self::put("/data_pribadi/bidang_ilmu/$request->id_sdm", [$request->id_kelompok_bidang]);
     }
 
     public static function getFoto($id_sdm)
