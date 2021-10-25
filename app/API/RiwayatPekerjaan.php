@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait RiwayatPekerjaan
 {
-    public static function getRiwayatPekerjaan($request)
+    public static function getRiwayatPekerjaan($id_sdm)
     {
-        return self::get(`/riwayat_pekerjaan`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/riwayat_pekerjaan?id_sdm=$id_sdm");
     }
 
     public static function postRiwayatPekerjaan($request)
     {
-        return self::post(`/riwayat_pekerjaan`, [
+        return self::post("/riwayat_pekerjaan", [
             "id_sdm" => $request->id_sdm,
             "id_bidang_usaha" => $request->id_bidang_usaha,
             "id_jenis_pekerjaan" => $request->id_jenis_pekerjaan,
@@ -32,12 +30,12 @@ trait RiwayatPekerjaan
     }
     public static function getRiwayatPekerjaanID($id_riwayat_pekerjaan)
     {
-        return self::get(`/riwayat_pekerjaan/$id_riwayat_pekerjaan`);
+        return self::get("/riwayat_pekerjaan/$id_riwayat_pekerjaan");
     }
 
     public static function putRiwayatPekerjaan($request)
     {
-        return self::put(`/riwayat_pekerjaan/$request->id_riwayat_pekerjaan`, [
+        return self::put("/riwayat_pekerjaan/$request->id_riwayat_pekerjaan", [
             "id_sdm" => $request->id_sdm,
             "id_bidang_usaha" => $request->id_bidang_usaha,
             "id_jenis_pekerjaan" => $request->id_jenis_pekerjaan,
@@ -54,6 +52,6 @@ trait RiwayatPekerjaan
 
     public static function deleteRiwayatPekerjaan($id_riwayat_pekerjaan)
     {
-        return self::delete(`/riwayat_pekerjaan/$id_riwayat_pekerjaan`);
+        return self::delete("/riwayat_pekerjaan/$id_riwayat_pekerjaan");
     }
 }

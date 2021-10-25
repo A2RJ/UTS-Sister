@@ -9,14 +9,12 @@ trait JabatanFungsional
 {
     public static function getJabatanFungsional($id_sdm)
     {
-        return self::get(`/jabatan_fungsional`, [
-            "id_sdm" => $id_sdm
-        ]);
+        return self::get("/jabatan_fungsional?id_sdm=$id_sdm");
     }
 
     public static function postJabatanFungsional($request)
     {
-        return self::post(`/jabatan_fungsional`, [
+        return self::post("/jabatan_fungsional", [
             "id_sdm" => $request->id_sdm,
             "id_jabatan_fungsional" => $request->id_jabatan_fungsional,
             "sk" => $request->sk,
@@ -32,12 +30,12 @@ trait JabatanFungsional
 
     public static function getJabatanFungsionalID($id_jabatan_fungsional)
     {
-        return self::get(`/jabatan_fungsional/$id_jabatan_fungsional`);
+        return self::get("/jabatan_fungsional/$id_jabatan_fungsional");
     }
 
     public static function putJabatanFungsional($request)
     {
-        return self::put(`/jabatan_fungsional/$request->id_jabatan_fungsional`, [
+        return self::put("/jabatan_fungsional/$request->id_jabatan_fungsional", [
             "id_sdm" => $request->id_sdm,
             "id_jabatan_fungsional" => $request->id_jabatan_fungsional,
             "sk" => $request->sk,
@@ -53,20 +51,20 @@ trait JabatanFungsional
 
     public static function deleteJabatanFungsional($request)
     {
-        return self::delete(`/jabatan_fungsional/$request->id_jabatan_fungsional`, [
+        return self::delete("/jabatan_fungsional/$request->id_jabatan_fungsional", [
             "dokumen" => $request->dokumen
         ]);
     }
 
     public static function getJabatanFungsionalAjuan($id_sdm)
     {
-        return self::get(`/jabatan_fungsional/ajuan/`, [
+        return self::get("/jabatan_fungsional/ajuan/", [
             "id_sdm" => $id_sdm
         ]);
     }
 
     public static function getJabatanFungsionalAjuanID($id_sdm)
     {
-        return self::get(`/jabatan_fungsional/ajuan/$id_sdm`);
+        return self::get("/jabatan_fungsional/ajuan/$id_sdm");
     }
 }

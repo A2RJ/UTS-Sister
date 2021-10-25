@@ -9,10 +9,7 @@ trait Kolaborator
 {
     public static function getKolaborator($nama, $nik)
     {
-        return self::get('/kolaborator_eksternal', [
-            'nama' => $nama,
-            'nik' => $nik
-        ]);
+        return self::get("/kolaborator_eksternal?nama=$nama&nik=$nik");
     }
 
     public static function postKolaborator($request)
@@ -38,12 +35,12 @@ trait Kolaborator
 
     public static function getKolaboratorID($params)
     {
-        return self::get(`/kolaborator_eksternal/$params`);
+        return self::get("/kolaborator_eksternal/$params");
     }
 
     public static function putKolaboratorID($request)
     {
-        return self::put(`/kolaborator_eksternal/$request->id`, [
+        return self::put("/kolaborator_eksternal/$request->id", [
             "nama" => $request->nama,
             "kode_negara" => $request->kode_negara,
             "jenis_kelamin" => $request->jenis_kelamin,
@@ -64,6 +61,6 @@ trait Kolaborator
 
     public static function deleteKolaboratorID($param)
     {
-        return self::deleteID(`/kolaborator_eksternal/$param`);
+        return self::deleteID("/kolaborator_eksternal/$param");
     }
 }

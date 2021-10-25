@@ -9,14 +9,12 @@ trait Datasering
 {
     public static function getDatasering($id_sdm)
     {
-        return self::get(`/detasering`, [
-            "id_sdm" => $id_sdm
-        ]);
+        return self::get("/detasering?id_sdm=$id_sdm");
     }
 
     public static function postDatasering($request)
     {
-        return self::post(`/detasering`, [
+        return self::post("/detasering", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_perguruan_tinggi" => $request->id_perguruan_tinggi,
@@ -33,12 +31,12 @@ trait Datasering
 
     public static function getDataseringID($id_datasering)
     {
-        return self::get(`/detasering/$id_datasering`);
+        return self::get("/detasering/$id_datasering");
     }
 
     public static function putDatasering($request)
     {
-        return self::put(`/detasering/$request->id_datasering`, [
+        return self::put("/detasering/$request->id_datasering", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_perguruan_tinggi" => $request->id_perguruan_tinggi,
@@ -55,6 +53,6 @@ trait Datasering
 
     public static function deleteDatasering($id_datasering)
     {
-        return self::delete(`/detasering/$id_datasering`);
+        return self::delete("/detasering/$id_datasering");
     }
 }

@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Tunjangan
 {
-    public static function getTunjanganKesejahteraan($request)
+    public static function getTunjanganKesejahteraan($id_sdm)
     {
-        return self::get(`/tunjangan`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/tunjangan?id_sdm=$id_sdm");
     }
 
     public static function postTunjanganKesejahteraan($request)
     {
-        return self::post(`/tunjangan`, [
+        return self::post("/tunjangan", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_tunjangan" => $request->id_jenis_tunjangan,
             "nama" => $request->nama,
@@ -29,12 +27,12 @@ trait Tunjangan
     }
     public static function getTunjanganKesejahteraanID($id_tunjangan)
     {
-        return self::get(`/tunjangan/$id_tunjangan`);
+        return self::get("/tunjangan/$id_tunjangan");
     }
 
     public static function putTunjanganKesejahteraan($request)
     {
-        return self::put(`/tunjangan/$request->id_tunjangan`, [
+        return self::put("/tunjangan/$request->id_tunjangan", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_tunjangan" => $request->id_jenis_tunjangan,
             "nama" => $request->nama,
@@ -48,6 +46,6 @@ trait Tunjangan
 
     public static function deleteTunjanganKesejahteraan($id_tunjangan)
     {
-        return self::delete(`/tunjangan/$id_tunjangan`);
+        return self::delete("/tunjangan/$id_tunjangan");
     }
 }

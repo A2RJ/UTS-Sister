@@ -14,7 +14,7 @@ trait Referensi
      */
     public static function getRefAgama()
     {
-        return self::get('/referensi/agama');
+        return self::get("/referensi/agama");
     }
     
     /**
@@ -24,7 +24,7 @@ trait Referensi
      */
     public static function getRefBidangStudi()
     {
-        return self::get('/referensi/bidang_studi');
+        return self::get("/referensi/bidang_studi");
     }
     
     /**
@@ -34,7 +34,7 @@ trait Referensi
      */
     public static function getRefBidangUsaha()
     {
-        return self::get('/referensi/bidang_usaha');
+        return self::get("/referensi/bidang_usaha");
     }
     
     /**
@@ -44,7 +44,7 @@ trait Referensi
      */
     public static function getRefGelarAkademik()
     {
-        return self::get('/referensi/gelar_akademik');
+        return self::get("/referensi/gelar_akademik");
     }
     
     /**
@@ -54,7 +54,7 @@ trait Referensi
      */
     public static function getRefGolonganPangkat()
     {
-        return self::get('/referensi/golongan_pangkat');
+        return self::get("/referensi/golongan_pangkat");
     }
     
     /**
@@ -64,7 +64,7 @@ trait Referensi
      */
     public static function getRefIkatanKerja()
     {
-        return self::get('/referensi/ikatan_kerja');
+        return self::get("/referensi/ikatan_kerja");
     }
     
     /**
@@ -74,165 +74,146 @@ trait Referensi
      */
     public static function getRefJabatanFungsional()
     {
-        return self::get('/referensi/jabatan_fungsional');
+        return self::get("/referensi/jabatan_fungsional");
     }
 
     public static function getRefJabatanNegara()
     {
-        return self::get('/referensi/jabatan_negara');
+        return self::get("/referensi/jabatan_negara");
     }
 
     public static function getRefJabatanTugasTambahan()
     {
-        return self::get('/referensi/jabatan_tugas_tambahan');
+        return self::get("/referensi/jabatan_tugas_tambahan");
     }
 
     public static function getRefJenisBeasiswa()
     {
-        return self::get('/referensi/jenis_beasiswa');
+        return self::get("/referensi/jenis_beasiswa");
     }
 
     public static function getRefJenisDiklat()
     {
-        return self::get('/referensi/jenis_diklat');
+        return self::get("/referensi/jenis_diklat");
     }
 
     public static function getRefJenisDokumen()
     {
-        return self::get('/referensi/jenis_dokumen');
+        return self::get("/referensi/jenis_dokumen");
     }
 
     public static function getRefJenisKeluar()
     {
-        return self::get('/referensi/jenis_keluar');
+        return self::get("/referensi/jenis_keluar");
     }
 
     public static function getRefJenisKepanitiaan()
     {
-        return self::get('/referensi/jenis_kepanitiaan');
+        return self::get("/referensi/jenis_kepanitiaan");
     }
 
     public static function getRefJenisKesejahteraan()
     {
-        return self::get('/referensi/jenis_kesejahteraan');
+        return self::get("/referensi/jenis_kesejahteraan");
     }
 
     public static function getRefJenisPekerjaan()
     {
-        return self::get('/referensi/jenis_pekerjaan');
+        return self::get("/referensi/jenis_pekerjaan");
     }
 
     public static function getRefJenisPenghargaan()
     {
-        return self::get('/referensi/jenis_penghargaan');
+        return self::get("/referensi/jenis_penghargaan");
     }
 
     public static function getRefJenisPublikasi()
     {
-        return self::get('/referensi/jenis_publikasi');
+        return self::get("/referensi/jenis_publikasi");
     }
 
     public static function getRefJenisTes()
     {
-        return self::get('/referensi/jenis_tes');
+        return self::get("/referensi/jenis_tes");
     }
 
     public static function getRefJenisTunjangan()
     {
-        return self::get('/referensi/jenis_tunjangan');
+        return self::get("/referensi/jenis_tunjangan");
     }
 
     public static function getRefKategoriCapaianLuaran()
     {
-        return self::get('/referensi/kategori_capaian_luaran');
+        return self::get("/referensi/kategori_capaian_luaran");
     }
 
     public static function getRefKategoriKegiatan($tipe, $menu)
     {
-        return self::get('/referensi/kategori_kegiatan', [
-            'tipe' => $tipe,
-            'menu' => $menu
-        ]);
+        return self::get("/referensi/kategori_kegiatan?tipe=$tipe&menu=$menu");
     }
 
     public static function getRefKelompokBidang($iptek)
     {
-        return self::get('/referensi/kelompok_bidang', [
-            'iptek' => $iptek
-        ]);
+        return self::get("/referensi/kelompok_bidang?iptek=$iptek");
     }
 
     public static function getRefMahasiswaPDDIKTI($id_perguruan_tinggi, $id_program_studi, $keyword)
     {
-        return self::get('/referensi/mahasiswa_pddikti', [
-            'id_perguruan_tinggi' => $id_perguruan_tinggi,
-            'id_program_studi' => $id_program_studi,
-            'keyword' => $keyword,
-        ]);
+        return self::get("/referensi/mahasiswa_pddikti?id_perguruan_tinggi=$id_perguruan_tinggi&id_program_studi=$id_program_studi&keyword=$keyword");
     }
 
     public static function getRefMediaPublikasi($nama)
     {
-        return self::get('/referensi/media_publikasi', [
-            'nama' => $nama
-        ]);
+        return self::get("/referensi/media_publikasi?nama=$nama");
     }
 
     public static function getRefNegara()
     {
-        return self::get('/referensi/negara');
+        return self::get("/referensi/negara");
     }
 
     public static function getRefPT()
     {
-        return self::get('/referensi/perguruan_tinggi');
+        return self::get("/referensi/perguruan_tinggi");
     }
 
     public static function getRefProfilePT()
     {
-        return self::get('/referensi/profil_pt');
+        return self::get("/referensi/profil_pt");
     }
 
     public static function getRefSDM($nama, $nidn, $nip)
     {
-        return self::get('/referensi/sdm', [
-            'nama' => $nama,
-            'nidn' => $nidn,
-            'nip' => $nip
-        ]);
+        return self::get("/referensi/sdm?nama=$nama&nidn=$nidn&nip=$nip");
     }
 
     public static function getRefSemester()
     {
-        return self::get('/referensi/semester');
+        return self::get("/referensi/semester");
     }
 
     public static function getRefStatuskepegawaian()
     {
-        return self::get('/referensi/status_kepegawaian');
+        return self::get("/referensi/status_kepegawaian");
     }
 
     public static function getRefSumberGaji()
     {
-        return self::get('/referensi/sumber_gaji');
+        return self::get("/referensi/sumber_gaji");
     }
 
     public static function getRefTingkatPenghargaan()
     {
-        return self::get('/referensi/tingkat_penghargaan');
+        return self::get("/referensi/tingkat_penghargaan");
     }
 
     public static function getRefUnitKerja($id_perguruan_tinggi)
     {
-        return self::get('/referensi/unit_kerja', [
-            'id_perguruan_tinggi' => $id_perguruan_tinggi
-        ]);
+        return self::get("/referensi/unit_kerja?id_perguruan_tinggi=$id_perguruan_tinggi");
     }
 
     public static function getRefWilayah($id_level_wilayah)
     {
-        return self::get('/referensi/wilayah', [
-            'id_level_wilayah' => $id_level_wilayah
-        ]);
+        return self::get("/referensi/wilayah?id_level_wilayah=$id_level_wilayah");
     }
 }

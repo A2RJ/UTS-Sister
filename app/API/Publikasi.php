@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Publikasi
 {
-    public static function getPublikasi($request)
+    public static function getPublikasi($id_sdm)
     {
-        return self::get(`/publikasi`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/publikasi?id_sdm=$id_sdm");
     }
 
     public static function postPublikasi($request)
     {
-        return self::post(`/publikasi`, [
+        return self::post("/publikasi", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_publikasi" => $request->id_jenis_publikasi,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -74,12 +72,12 @@ trait Publikasi
     }
     public static function getPublikasiID($id_Publikasi)
     {
-        return self::get(`/publikasi/$id_Publikasi`);
+        return self::get("/publikasi/$id_Publikasi");
     }
 
     public static function putPublikasi($request)
     {
-        return self::put(`/publikasi/$request->id_Publikasi`, [
+        return self::put("/publikasi/$request->id_Publikasi", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_publikasi" => $request->id_jenis_publikasi,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -138,17 +136,17 @@ trait Publikasi
 
     public static function deletePublikasi($id_Publikasi)
     {
-        return self::delete(`/publikasi/$id_Publikasi`);
+        return self::delete("/publikasi/$id_Publikasi");
     }
 
     public static function getPublikasiBidang($id_Publikasi)
     {
-        return self::get(`/publikasi/$id_Publikasi/bidang_ilmu`);
+        return self::get("/publikasi/$id_Publikasi/bidang_ilmu");
     }
 
     public static function putPublikasiBidang($request)
     {
-        return self::put(`/publikasi/$request->id_Publikasi/bidang_ilmu`, [
+        return self::put("/publikasi/$request->id_Publikasi/bidang_ilmu", [
             $request->id_kelompok_bidang
         ]);
     }

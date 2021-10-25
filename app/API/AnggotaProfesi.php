@@ -2,21 +2,38 @@
 
 namespace App\API;
 
+use Illuminate\Http\Request;
+
 /**
  * Anggota Profesi
  */
 trait AnggotaProfesi
 {
-    public static function getAnggotaProfesi($request)
+    private function validate($request)
     {
-        return self::get(`/anggota_profesi`, [
-            "id_sdm" => $request->id_sdm
+        return $request->validate([
+            "id_sdm" => 'required',
+            "id_kategori_kegiatan" => 'required',
+            "nama_organisasi" => 'required',
+            "peran" => 'required',
+            "tanggal_mulai_keanggotaan" => 'required',
+            "tanggal_selesai_keanggotaan" => 'required',
+            "instansi_profesi" => 'required',
+            "tanggal_selesai_jabatan" => 'required',
+            "dokumen" => 'required',
         ]);
     }
-
-    public static function postAnggotaProfesi($request)
+    public static function getAnggotaProfesi($id_sdm)
     {
-        return self::post(`/anggota_profesi`, [
+        return self::get("/anggota_profesi?id_sdm=$id_sdm");
+    }
+
+    public static function postAnggotaProfesi(Request $request)
+    {
+        $self = new Self;
+        $self->validate($request);
+
+        return self::post("/anggota_profesi", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "nama_organisasi" => $request->nama_organisasi,
@@ -30,12 +47,15 @@ trait AnggotaProfesi
     }
     public static function getAnggotaProfesiID($id_anggota_profesi)
     {
-        return self::get(`/anggota_profesi/$id_anggota_profesi`);
+        return self::get("/anggota_profesi/$id_anggota_profesi");
     }
 
-    public static function putAnggotaProfesi($request)
+    public static function putAnggotaProfesi(Request $request)
     {
-        return self::put(`/anggota_profesi/$request->id_anggota_profesi`, [
+        $self = new Self;
+        $self->validate($request);
+        
+        return self::put("/anggota_profesi/$request->id_anggota_profesi", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "nama_organisasi" => $request->nama_organisasi,
@@ -50,6 +70,6 @@ trait AnggotaProfesi
 
     public static function deleteAnggotaProfesi($id_anggota_profesi)
     {
-        return self::delete(`/anggota_profesi/$id_anggota_profesi`);
+        return self::delete("/anggota_profesi/$id_anggota_profesi");
     }
 }

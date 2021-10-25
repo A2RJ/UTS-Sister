@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Http;
  */
 trait Dokumen
 {
-    public static function getDokumen()
+    public static function getDokumen($id_sdm)
     {
-        return self::get('/dokumen');
+        return self::get("/dokumen?id_sdm=$id_sdm");
     }
 
     public static function postDokumen($request)
@@ -20,7 +20,7 @@ trait Dokumen
             'file',
             $request->file,
             'photo.jpg'
-        )->post(`/dokumen`, [
+        )->post("/dokumen", [
             'id_jenis_dokumen' => $request->id_jenis_dokumen,
             'nama' => $request->nama,
             'tautan' => $request->tautan,
@@ -30,7 +30,7 @@ trait Dokumen
 
     public static function getDokumenID($param)
     {
-        return self::get(`/dokumen/$param`);
+        return self::get("/dokumen/$param");
     }
 
     public static function postDokumenID($request)
@@ -39,7 +39,7 @@ trait Dokumen
             'file',
             $request->file,
             'photo.jpg'
-        )->post(`/dokumen/$request->id`, [
+        )->post("/dokumen/$request->id", [
             'id_jenis_dokumen' => $request->id_jenis_dokumen,
             'nama' => $request->nama,
             'tautan' => $request->tautan,
@@ -49,11 +49,11 @@ trait Dokumen
 
     public static function deleteDokumenID($param)
     {
-        return self::deleteID(`/dokumen/$param/`);
+        return self::deleteID("/dokumen/$param/");
     }
 
     public static function downloadDokumenID($param)
     {
-        return self::get(`/dokumen/$param/download`)->download(public_path('/'));
+        return self::get("/dokumen/$param/download")->download(public_path('/'));
     }
 }

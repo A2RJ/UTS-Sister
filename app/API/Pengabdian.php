@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Pengabdian
 {
-    public static function getPengabdian($request)
+    public static function getPengabdian($id_sdm)
     {
-        return self::get(`/pengabdian`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/pengabdian?id_sdm=$id_sdm");
     }
 
     public static function postPengabdian($request)
     {
-        return self::post(`/pengabdian`, [
+        return self::post("/pengabdian", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "judul" => $request->judul,
             "id_afiliasi" => $request->id_afiliasi,
@@ -67,12 +65,12 @@ trait Pengabdian
     }
     public static function getPengabdianID($id_pengabdian)
     {
-        return self::get(`/pengabdian/$id_pengabdian`);
+        return self::get("/pengabdian/$id_pengabdian");
     }
 
     public static function putPengabdian($request)
     {
-        return self::put(`/pengabdian/$request->id_pengabdian`, [
+        return self::put("/pengabdian/$request->id_pengabdian", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "judul" => $request->judul,
             "id_afiliasi" => $request->id_afiliasi,
@@ -124,17 +122,17 @@ trait Pengabdian
 
     public static function deletePengabdian($id_pengabdian)
     {
-        return self::delete(`/pengabdian/$id_pengabdian`);
+        return self::delete("/pengabdian/$id_pengabdian");
     }
 
     public static function getPengabdianBidang($id_pengabdian)
     {
-        return self::get(`/pengabdian/$id_pengabdian/bidang_ilmu`);
+        return self::get("/pengabdian/$id_pengabdian/bidang_ilmu");
     }
 
     public static function putPengabdianBidang($request)
     {
-        return self::put(`/pengabdian/$request->id_pengabdian/bidang_ilmu`, [
+        return self::put("/pengabdian/$request->id_pengabdian/bidang_ilmu", [
             $request->id_kelompok_bidang
         ]);
     }

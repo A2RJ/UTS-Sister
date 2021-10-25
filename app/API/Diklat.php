@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Diklat
 {
-    public static function getDiklat($request)
+    public static function getDiklat($id_sdm)
     {
-        return self::get(`/diklat`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/diklat?id_sdm=$id_sdm");
     }
 
     public static function postDiklat($request)
     {
-        return self::post(`/diklat`, [
+        return self::post("/diklat", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_diklat" => $request->id_jenis_diklat,
@@ -38,12 +36,12 @@ trait Diklat
     }
     public static function getDiklatID($id_diklat)
     {
-        return self::get(`/diklat/$id_diklat`);
+        return self::get("/diklat/$id_diklat");
     }
 
     public static function putDiklat($request)
     {
-        return self::put(`/diklat/$request->id_diklat`, [
+        return self::put("/diklat/$request->id_diklat", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_diklat" => $request->id_jenis_diklat,
@@ -66,6 +64,6 @@ trait Diklat
 
     public static function deleteDiklat($id_diklat)
     {
-        return self::delete(`/diklat/$id_diklat`);
+        return self::delete("/diklat/$id_diklat");
     }
 }

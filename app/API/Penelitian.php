@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Penelitian
 {
-    public static function getPenelitian($request)
+    public static function getPenelitian($id_sdm)
     {
-        return self::get(`/penelitian`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        $return = self::get("/penelitian?id_sdm=$id_sdm");
     }
 
     public static function postPenelitian($request)
     {
-        return self::post(`/penelitian`, [
+        return self::post("/penelitian", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "judul" => $request->judul,
             "id_afiliasi" => $request->id_afiliasi,
@@ -64,12 +62,12 @@ trait Penelitian
     }
     public static function getPenelitianID($id_penelitian)
     {
-        return self::get(`/penelitian/$id_penelitian`);
+        return self::get("/penelitian/$id_penelitian");
     }
 
     public static function putPenelitian($request)
     {
-        return self::put(`/penelitian/$request->id_penelitian`, [
+        return self::put("/penelitian/$request->id_penelitian", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "judul" => $request->judul,
             "id_afiliasi" => $request->id_afiliasi,
@@ -118,17 +116,17 @@ trait Penelitian
 
     public static function deletePenelitian($id_penelitian)
     {
-        return self::delete(`/penelitian/$id_penelitian`);
+        return self::delete("/penelitian/$id_penelitian");
     }
 
     public static function getPenelitianBidang($id_penelitian)
     {
-        return self::get(`/penelitian/$id_penelitian/bidang_ilmu`);
+        return self::get("/penelitian/$id_penelitian/bidang_ilmu");
     }
 
     public static function putPenelitianBidang($request)
     {
-        return self::put(`/penelitian/$request->id_penelitian/bidang_ilmu`, [
+        return self::put("/penelitian/$request->id_penelitian/bidang_ilmu", [
             $request->id_kelompok_bidang
         ]);
     }

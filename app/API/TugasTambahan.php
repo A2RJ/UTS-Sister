@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait TugasTambahan
 {
-    public static function getTugasTambahan($request)
+    public static function getTugasTambahan($id_sdm)
     {
-        return self::get(`/tugas_tambahan`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/tugas_tambahan?id_sdm=$id_sdm");
     }
 
     public static function postTugasTambahan($request)
     {
-        return self::post(`/tugas_tambahan`, [
+        return self::post("/tugas_tambahan", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_tugas" => $request->id_jenis_tugas,
@@ -31,12 +29,12 @@ trait TugasTambahan
     }
     public static function getTugasTambahanID($id_tugas_tambahan)
     {
-        return self::get(`/tugas_tambahan/$id_tugas_tambahan`);
+        return self::get("/tugas_tambahan/$id_tugas_tambahan");
     }
 
     public static function putTugasTambahan($request)
     {
-        return self::put(`/tugas_tambahan/$request->id_tugas_tambahan`, [
+        return self::put("/tugas_tambahan/$request->id_tugas_tambahan", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_tugas" => $request->id_jenis_tugas,
@@ -52,6 +50,6 @@ trait TugasTambahan
 
     public static function deleteTugasTambahan($id_tugas_tambahan)
     {
-        return self::delete(`/tugas_tambahan/$id_tugas_tambahan`);
+        return self::delete("/tugas_tambahan/$id_tugas_tambahan");
     }
 }

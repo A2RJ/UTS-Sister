@@ -11,9 +11,7 @@ trait DataPokok
 {
     public static function getAjuan($id_sdm)
     {
-        return self::get("/data_pribadi/ajuan", [
-            "id_sdm" => $id_sdm
-        ]);
+        return self::get("/data_pribadi/ajuan?id_sdm=$id_sdm");
     }
 
     public static function getAjuanID($id)
@@ -64,7 +62,7 @@ trait DataPokok
             'file',
             $request->file,
             'photo.jpg'
-        )->post(`/data_pribadi/foto/$request->id_sdm`);
+        )->post("/data_pribadi/foto/$request->id_sdm");
     }
 
     public static function getKeluarga($id_sdm)

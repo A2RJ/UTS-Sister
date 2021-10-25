@@ -45,14 +45,14 @@ trait Routes
      * get
      *
      * @param  mixed $url
-     * @param  mixed $array
+     * @param  mixed $request
      * @return void
      */
-    public static function get($url, $array = null)
+    public static function get($url, $request = null)
     {
         self::token();
-        if ($array) {
-            return Http::withToken(session(('token')))->get(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
+        if ($request) {
+            return Http::withToken(session(('token')))->get(env('SISTER_SERVER') . $url, $request)->throw(function ($response, $e) {
                 self::trowError($response, $e);
             })->json();
         }
@@ -66,13 +66,13 @@ trait Routes
      * post
      *
      * @param  mixed $url
-     * @param  mixed $array
+     * @param  mixed $request
      * @return void
      */
-    public static function post($url, $array)
+    public static function post($url, $request)
     {
         self::token();
-        return Http::withToken(session(('token')))->post(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
+        return Http::withToken(session(('token')))->post(env('SISTER_SERVER') . $url, $request)->throw(function ($response, $e) {
             self::trowError($response, $e);
         })->json();
     }
@@ -81,13 +81,13 @@ trait Routes
      * put
      *
      * @param  mixed $url
-     * @param  mixed $array
+     * @param  mixed $request
      * @return void
      */
-    public static function put($url, $array)
+    public static function put($url, $request)
     {
         self::token();
-        return Http::withToken(session(('token')))->put(env('SISTER_SERVER') . $url, $array)->throw(function ($response, $e) {
+        return Http::withToken(session(('token')))->put(env('SISTER_SERVER') . $url, $request)->throw(function ($response, $e) {
             self::trowError($response, $e);
         })->json();
     }

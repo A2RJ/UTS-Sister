@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Penghargaan
 {
-    public static function getPenghargaan($request)
+    public static function getPenghargaan($id_sdm)
     {
-        return self::get(`/penghargaan`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/penghargaan?id_sdm=$id_sdm");
     }
 
     public static function postPenghargaan($request)
     {
-        return self::post(`/penghargaan`, [
+        return self::post("/penghargaan", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_tingkat_penghargaan" => $request->id_tingkat_penghargaan,
@@ -29,12 +27,12 @@ trait Penghargaan
     }
     public static function getPenghargaanID($id_penghargaan)
     {
-        return self::get(`/penghargaan/$id_penghargaan`);
+        return self::get("/penghargaan/$id_penghargaan");
     }
 
     public static function putPenghargaan($request)
     {
-        return self::put(`/penghargaan/$request->id_penghargaan`, [
+        return self::put("/penghargaan/$request->id_penghargaan", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_tingkat_penghargaan" => $request->id_tingkat_penghargaan,
@@ -48,6 +46,6 @@ trait Penghargaan
 
     public static function deletePenghargaan($id_penghargaan)
     {
-        return self::delete(`/penghargaan/$id_penghargaan`);
+        return self::delete("/penghargaan/$id_penghargaan");
     }
 }

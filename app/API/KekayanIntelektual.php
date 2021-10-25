@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait KekayanIntelektual
 {
-    public static function getKekayanIntelektual($request)
+    public static function getKekayanIntelektual($id_sdm)
     {
-        return self::get(`/kekayaan_intelektual`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/kekayaan_intelektual?id_sdm=$id_sdm");
     }
 
     public static function postKekayanIntelektual($request)
     {
-        return self::post(`/kekayaan_intelektual`, [
+        return self::post("/kekayaan_intelektual", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_publikasi" => $request->id_jenis_publikasi,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -62,12 +60,12 @@ trait KekayanIntelektual
     }
     public static function getKekayanIntelektualID($id_kekayaan_intelektual)
     {
-        return self::get(`/kekayaan_intelektual/$id_kekayaan_intelektual`);
+        return self::get("/kekayaan_intelektual/$id_kekayaan_intelektual");
     }
 
     public static function putKekayanIntelektual($request)
     {
-        return self::put(`/kekayaan_intelektual/$request->id_kekayaan_intelektual`, [
+        return self::put("/kekayaan_intelektual/$request->id_kekayaan_intelektual", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_jenis_publikasi" => $request->id_jenis_publikasi,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -114,17 +112,17 @@ trait KekayanIntelektual
 
     public static function deleteKekayanIntelektual($id_kekayaan_intelektual)
     {
-        return self::delete(`/kekayaan_intelektual/$id_kekayaan_intelektual`);
+        return self::delete("/kekayaan_intelektual/$id_kekayaan_intelektual");
     }
 
     public static function getKekayanIntelektualBidang($id_kekayaan_intelektual)
     {
-        return self::get(`/kekayaan_intelektual/$id_kekayaan_intelektual/bidang_ilmu`);
+        return self::get("/kekayaan_intelektual/$id_kekayaan_intelektual/bidang_ilmu");
     }
 
     public static function putKekayanIntelektualBidang($request)
     {
-        return self::put(`/kekayaan_intelektual/$request->id_kekayaan_intelektual/bidang_ilmu`, [
+        return self::put("/kekayaan_intelektual/$request->id_kekayaan_intelektual/bidang_ilmu", [
             $request->id_kelompok_bidang
         ]);
     }

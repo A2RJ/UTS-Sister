@@ -15,9 +15,7 @@ trait Penugasan
      */
     public static function getPenugasan($id_sdm)
     {
-        return self::get(`/penugasan`, [
-            "id_sdm" => $id_sdm
-        ]);
+        return self::get("/penugasan?id_sdm=$id_sdm");
     }
     
     /**
@@ -28,6 +26,6 @@ trait Penugasan
      */
     public static function getPenugasanID($id_penugasan)
     {
-        return self::get(`/penugasan/$id_penugasan`);
+        return self::get("/penugasan/$id_penugasan");
     }
 }

@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait PenunjangLain
 {
-    public static function getPenunjangLain($request)
+    public static function getPenunjangLain($id_sdm)
     {
-        return self::get(`/penunjang_lain`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/penunjang_lain?id_sdm=$id_sdm");
     }
 
     public static function postPenunjangLain($request)
     {
-        return self::post(`/penunjang_lain`, [
+        return self::post("/penunjang_lain", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "nama" => $request->nama,
             "id_jenis_kepanitiaan" => $request->id_jenis_kepanitiaan,
@@ -36,12 +34,12 @@ trait PenunjangLain
     }
     public static function getPenunjangLainID($id_penunjang_lain)
     {
-        return self::get(`/penunjang_lain/$id_penunjang_lain`);
+        return self::get("/penunjang_lain/$id_penunjang_lain");
     }
 
     public static function putPenunjangLain($request)
     {
-        return self::put(`/penunjang_lain/$request->id_penunjang_lain`, [
+        return self::put("/penunjang_lain/$request->id_penunjang_lain", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "nama" => $request->nama,
             "id_jenis_kepanitiaan" => $request->id_jenis_kepanitiaan,
@@ -62,6 +60,6 @@ trait PenunjangLain
 
     public static function deletePenunjangLain($id_penunjang_lain)
     {
-        return self::delete(`/penunjang_lain/$id_penunjang_lain`);
+        return self::delete("/penunjang_lain/$id_penunjang_lain");
     }
 }

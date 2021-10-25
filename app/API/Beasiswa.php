@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Beasiswa
 {
-    public static function getBeasiswa($request)
+    public static function getBeasiswa($id_sdm)
     {
-        return self::get(`/beasiswa`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/beasiswa?id_sdm=$id_sdm");
     }
 
     public static function postBeasiswa($request)
     {
-        return self::post(`/beasiswa`, [
+        return self::post("/beasiswa", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_beasiswa" => $request->id_jenis_beasiswa,
             "nama" => $request->nama,
@@ -27,12 +25,12 @@ trait Beasiswa
     }
     public static function getBeasiswaID($id_beasiswa)
     {
-        return self::get(`/beasiswa/$id_beasiswa`);
+        return self::get("/beasiswa/$id_beasiswa");
     }
 
     public static function putBeasiswa($request)
     {
-        return self::put(`/beasiswa/$request->id_beasiswa`, [
+        return self::put("/beasiswa/$request->id_beasiswa", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_beasiswa" => $request->id_jenis_beasiswa,
             "nama" => $request->nama,
@@ -44,6 +42,6 @@ trait Beasiswa
 
     public static function deleteBeasiswa($id_beasiswa)
     {
-        return self::delete(`/beasiswa/$id_beasiswa`);
+        return self::delete("/beasiswa/$id_beasiswa");
     }
 }

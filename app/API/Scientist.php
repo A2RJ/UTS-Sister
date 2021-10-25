@@ -7,16 +7,14 @@ namespace App\API;
  */
 trait Scientist
 {
-    public static function getScientist($request)
+    public static function getScientist($id_sdm)
     {
-        return self::get(`/visiting_scientist`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/visiting_scientist?id_sdm=$id_sdm");
     }
 
     public static function postScientist($request)
     {
-        return self::post(`/visiting_scientist`, [
+        return self::post("/visiting_scientist", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -32,12 +30,12 @@ trait Scientist
     }
     public static function getScientistID($id_visiting_scientist)
     {
-        return self::get(`/visiting_scientist/$id_visiting_scientist`);
+        return self::get("/visiting_scientist/$id_visiting_scientist");
     }
 
     public static function putScientist($request)
     {
-        return self::put(`/visiting_scientist/$request->id_visiting_scientist`, [
+        return self::put("/visiting_scientist/$request->id_visiting_scientist", [
             "id_sdm" => $request->id_sdm,
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
@@ -54,6 +52,6 @@ trait Scientist
 
     public static function deleteScientist($id_visiting_scientist)
     {
-        return self::delete(`/visiting_scientist/$id_visiting_scientist`);
+        return self::delete("/visiting_scientist/$id_visiting_scientist");
     }
 }

@@ -7,28 +7,26 @@ namespace App\API;
  */
 trait Tes
 {
-    public static function getTes($request)
+    public static function getTes($id_sdm)
     {
-        return self::get(`/nilai_tes`, [
-            "id_sdm" => $request->id_sdm
-        ]);
+        return self::get("/nilai_tes?id_sdm=$id_sdm");
     }
 
     public static function getTesID($id_nilai_tes)
     {
-        return self::get(`/nilai_tes/$id_nilai_tes`);
+        return self::get("/nilai_tes/$id_nilai_tes");
     }
 
     public static function getTesAjuan($request)
     {
-        return self::get(`/nilai_tes/ajuan`, [
+        return self::get("/nilai_tes/ajuan", [
             "id_sdm" => $request->id_sdm
         ]);
     }
 
     public static function postTesAjuan($request)
     {
-        return self::post(`/nilai_tes/ajuan`, [
+        return self::post("/nilai_tes/ajuan", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_tes" => $request->id_jenis_tes,
             "nama" => $request->nama,
@@ -42,12 +40,12 @@ trait Tes
 
     public static function getTesAjuanID($id_nilai_tes)
     {
-        return self::get(`/nilai_tes/ajuan/$id_nilai_tes`);
+        return self::get("/nilai_tes/ajuan/$id_nilai_tes");
     }
 
     public static function putTesAjuan($request)
     {
-        return self::put(`/nilai_tes/ajuan/$request->id_nilai_tes`, [
+        return self::put("/nilai_tes/ajuan/$request->id_nilai_tes", [
             "id_sdm" => $request->id_sdm,
             "id_jenis_tes" => $request->id_jenis_tes,
             "nama" => $request->nama,
@@ -61,6 +59,6 @@ trait Tes
 
     public static function deleteTesAjuan($id_nilai_tes)
     {
-        return self::delete(`/nilai_tes/ajuan/$id_nilai_tes`);
+        return self::delete("/nilai_tes/ajuan/$id_nilai_tes");
     }
 }

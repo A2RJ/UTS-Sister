@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return Coba::index();
+    // return Coba::getRefSemester();
+    return Coba::getPengabdian(env('ID_SDM'));
 });

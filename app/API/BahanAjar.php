@@ -9,14 +9,12 @@ trait BahanAjar
 {
     public static function getBahanAjar($id_sdm)
     {
-        return self::get(`/bahan_ajar`, [
-            "id_sdm" => $id_sdm
-        ]);
+        return self::get("/bahan_ajar?id_sdm=$id_sdm");
     }
 
     public static function postBahanAjar($request)
     {
-        return self::post(`/bahan_ajar`, [
+        return self::post("/bahan_ajar", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
             "id_penelitian_pengabdian" => $request->id_penelitian_pengabdian,
@@ -59,12 +57,12 @@ trait BahanAjar
 
     public static function getBahanAjarID($id_bahan_ajar)
     {
-        return self::get(`/bahan_ajar/$id_bahan_ajar`);
+        return self::get("/bahan_ajar/$id_bahan_ajar");
     }
 
     public static function putBahanAjar($request)
     {
-        return self::put(`/bahan_ajar/$request->id_bahan_ajar`, [
+        return self::put("/bahan_ajar/$request->id_bahan_ajar", [
             "id_kategori_kegiatan" => $request->id_kategori_kegiatan,
             "id_kategori_capaian_luaran" => $request->id_kategori_capaian_luaran,
             "id_penelitian_pengabdian" => $request->id_penelitian_pengabdian,
@@ -107,6 +105,6 @@ trait BahanAjar
 
     public static function deleteBahanAjar($id_bahan_ajar)
     {
-        return self::delete(`/bahan_ajar/$id_bahan_ajar`);
+        return self::delete("/bahan_ajar/$id_bahan_ajar");
     }
 }
