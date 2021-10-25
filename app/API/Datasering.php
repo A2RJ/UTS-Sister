@@ -7,6 +7,21 @@ namespace App\API;
  */
 trait Datasering
 {
+    static $Datasering = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_kategori_kegiatan" => "select",
+        "id_perguruan_tinggi" => "select",
+        "tanggal_mulai" => "date",
+        "tanggal_selesai" => "date",
+        "bidang_tugas" => "text",
+        "deskripsi_kegiatan" => "textarea",
+        "metode_pelaksanaan" => "text",
+        "sk_penugasan" => "text",
+        "tanggal_sk_penugasan" => "date",
+        "dokumen" => "text",
+    ];
+
     public static function getDatasering($id_sdm)
     {
         return self::get("/detasering?id_sdm=$id_sdm");

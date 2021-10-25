@@ -7,6 +7,41 @@ namespace App\API;
  */
 trait BahanAjar
 {
+    static $BahanAjar = [
+        "view" => ["create", "read", "update"],
+        "id_kategori_kegiatan" => "select",
+        "id_kategori_capaian_luaran" => "select",
+        "id_penelitian_pengabdian" => "select",
+        "id_jenis_bahan_ajar" => "select",
+        "judul" => "text",
+        "isbn" => "text",
+        "nama_penerbit" => "text",
+        "tanggal_terbit" => "date",
+        "sk_penugasan" => "text",
+        "tanggal_sk_penugasan" => "date",
+        "dokumen" => "file",
+        "penulis_dosen" => [
+            "id_sdm" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ],
+        "penulis_mahasiswa" => [
+            "id_peserta_didik" => "text",
+            "nama" => "text",
+            "no_induk" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ],
+        "penulis_lain" =>            [
+            "id_orang" => "text",
+            "no_urut" => "text",
+            "afiliasi" => "text",
+            "peran" => "text",
+        ]
+    ];
+
     public static function getBahanAjar($id_sdm)
     {
         return self::get("/bahan_ajar?id_sdm=$id_sdm");

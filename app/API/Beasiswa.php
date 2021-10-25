@@ -7,6 +7,16 @@ namespace App\API;
  */
 trait Beasiswa
 {
+    static $Beasiswa = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => "text",
+        "id_jenis_beasiswa" => "text",
+        "nama" => "text",
+        "tahun_mulai" => "date",
+        "tahun_selesai" => "date",
+        "masih_menerima" => "select"
+    ];
+
     public static function getBeasiswa($id_sdm)
     {
         return self::get("/beasiswa?id_sdm=$id_sdm");

@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\Http;
  */
 trait DataPokok
 {
+    static $DataPokokAlamat = [
+        "view" => ["create", "read", "update"],
+        "email" => "email",
+        "alamat" => "text",
+        "rt" => "text",
+        "rw" => "text",
+        "dusun" => "text",
+        "kelurahan" => "text",
+        "id_kota_kabupaten" => "select",
+        "kode_pos" => "text",
+        "telepon_rumah" => "text",
+        "telepon_hp" => "text",
+        "dokumen" => "file",
+    ];
+
     public static function getAjuan($id_sdm)
     {
         return self::get("/data_pribadi/ajuan?id_sdm=$id_sdm");

@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
  */
 trait AnggotaProfesi
 {
+    static $AnggotaProfesi = [
+        "view" => ["create", "read", "update"],
+        "id_sdm" => 'text',
+        "id_kategori_kegiatan" => 'text',
+        "nama_organisasi" => 'text',
+        "peran" => 'text',
+        "tanggal_mulai_keanggotaan" => 'date',
+        "tanggal_selesai_keanggotaan" => 'date',
+        "instansi_profesi" => 'text',
+        "tanggal_selesai_jabatan" => 'date',
+        "dokumen" => 'file'
+    ];
+
     private function validate($request)
     {
         return $request->validate([

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
  * Routes
  */
 trait Routes
-{    
+{
     /**
      * token
      *
@@ -16,19 +16,19 @@ trait Routes
      */
     private static function token()
     {
-       if (session('token') == null) {
-          $token = Http::post(env('SISTER_SERVER') . '/authorize', [
-             'username' => env('SISTER_USERNAME'),
-             'password' => env('SISTER_PASSWORD'),
-             'id_pengguna' => env('SISTER_ID')
-          ]);
-          session(['token' => $token['token']]);
-       }
+        if (session('token') == null) {
+            $token = Http::post(env('SISTER_SERVER') . '/authorize', [
+                'username' => env('SISTER_USERNAME'),
+                'password' => env('SISTER_PASSWORD'),
+                'id_pengguna' => env('SISTER_ID')
+            ]);
+            session(['token' => $token['token']]);
+        }
     }
-    
+
     /**
      * trowError
-     *
+     * Gunakan $response->status() untuk check status
      * @param  mixed $response
      * @param  mixed $e
      * @return void
@@ -40,7 +40,7 @@ trait Routes
             self::token();
         }
     }
-    
+
     /**
      * get
      *
@@ -61,7 +61,7 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-    
+
     /**
      * post
      *
@@ -76,7 +76,7 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-    
+
     /**
      * put
      *
@@ -91,7 +91,7 @@ trait Routes
             self::trowError($response, $e);
         })->json();
     }
-    
+
     /**
      * deleteID
      *
