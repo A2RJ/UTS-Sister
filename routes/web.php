@@ -1,6 +1,7 @@
 <?php
 
 use App\API\Sister;
+use App\Models\API;
 use App\Models\Coba;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // API::
     return View('layout.index');
 });
