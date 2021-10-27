@@ -28,7 +28,7 @@ trait DataPokok
         "view" => ["update"],
         "id_kelompok_bidang" => "text",
     ];
-    
+
     static $dataPokokLain = [
         "view" => ["update"],
         "npwp" => "text",

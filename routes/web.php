@@ -17,6 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // API::
-    return View('layout.index');
+    return View('Profil.DataPribadi.index');
 });
