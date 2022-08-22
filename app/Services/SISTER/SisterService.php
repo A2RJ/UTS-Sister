@@ -15,29 +15,21 @@ class SisterService
     public function checkToken()
     {
         if (!Session::has('token')) {
-            $this->getToken();
+            $res = Http::post(env('SISTER_URL') . "/token", [
+                'username' => env('SISTER_USERNAME'),
+                'password' => env('SISTER_PAS   SWORD')
+            ]);
+            $token = $res->json()['token'];
+            Session::put('token', $token);
         }
-    }
-
-    public function getToken()
-    {
-        $res = Http::post(env('SISTER_URL') . "/token", [
-            'username' => env('SISTER_USERNAME'),
-            'password' => env('SISTER_PASSWORD')
-        ]);
-        $token = $res->json()['token'];
-        Session::put('token', $token);
-    }
-
-    public function sister()
-    {
-        return Http::withHeaders([
-            'token' => Session::get('token')
-        ])->baseUrl(env('SISTER_URL'));
     }
 
     public function index()
     {
-        return $this->sister()->get('/');
+        try {
+            Http::sister()->get('/');
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 }
