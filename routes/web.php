@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Sister;
 use App\Services\SISTER\ExampleSisterService;
 use App\Services\SISTER\SisterService;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sister', function (ExampleSisterService $exampleSisterService) {
-    return $exampleSisterService->index();
+Route::get('/sister', function () {
+    return Sister::authorize();
 });
