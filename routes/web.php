@@ -27,3 +27,6 @@ Route::prefix("referensi")->group(function () {
         return Sister::$referensi();
     });
 });
+Route::get("profile", function () {
+    return Sister::dataPribadi(env("SISTER_ID_SDM"));
+});

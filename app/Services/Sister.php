@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Traits\Sister\DataPribadi;
 use Illuminate\Support\Facades\Http;
 use App\Traits\Sister\Referensi;
 use Illuminate\Support\Arr;
 
 class Sister
 {
-    use Referensi;
+    use Referensi, DataPribadi;
 
     public static function authorize()
     {
@@ -28,6 +29,5 @@ class Sister
         } else {
             return response()->json([$res->json()], 500);
         }
-        echo "Berhasil";
     }
 }
