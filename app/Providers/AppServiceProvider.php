@@ -26,9 +26,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Http::macro('sister', function () {
-            return Http::withHeaders([
-                'token' => Session::get('token')
-            ])->baseUrl(env('SISTER_URL'));
+            return Http::baseUrl(env('SISTER_URL'));
+        });
+        Http::macro('referensi', function () {
+            return Http::withToken(
+                session('token')
+            )->baseUrl(env('SISTER_URL') . "/referensi");
         });
     }
 }

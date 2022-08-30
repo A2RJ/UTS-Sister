@@ -1,8 +1,6 @@
 <?php
 
 use App\Services\Sister;
-use App\Services\SISTER\ExampleSisterService;
-use App\Services\SISTER\SisterService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +20,10 @@ Route::get('/', function () {
 
 Route::get('/sister', function () {
     return Sister::authorize();
+});
+
+Route::prefix("referensi")->group(function () {
+    Route::get("/{referensi}", function ($referensi) {
+        return Sister::$referensi();
+    });
 });
