@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
-use App\Traits\Sister\DataPribadi;
+use App\Traits\Sister\Profil\Profil;
 use Illuminate\Support\Facades\Http;
-use App\Traits\Sister\Referensi;
 use Illuminate\Support\Arr;
 
 class Sister
 {
-    use Referensi, DataPribadi;
+    use Profil;
 
     public static function authorize()
     {

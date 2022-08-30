@@ -28,5 +28,5 @@ Route::prefix("referensi")->group(function () {
     });
 });
 Route::get("profile", function () {
-    return Sister::dataPribadi(env("SISTER_ID_SDM"));
+    return Sister::inpassing(env("SISTER_ID_SDM"));
 });

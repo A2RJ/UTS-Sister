@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Traits\Sister;
+namespace App\Traits\Sister\Profil;
 
+use App\Traits\Sister\Profil\Inpassing;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
 trait DataPribadi
 {
+    use Inpassing;
     static public function ajuan($id_sdm)
     {
         return Http::dataPribadi()->get("/ajuan?id_sdm=$id_sdm");
@@ -20,6 +22,11 @@ trait DataPribadi
     static public function bidangIlmu($id_sdm)
     {
         return Http::dataPribadi()->get("/bidang_ilmu/$id_sdm");
+    }
+
+    static public function alamat($id_sdm)
+    {
+        return Http::dataPribadi()->get("/alamat/$id_sdm");
     }
 
     static public function foto($id_sdm)
@@ -56,7 +63,11 @@ trait DataPribadi
         $res = Http::pool(fn (Pool $pool) => [
             $pool->dataPribadi()->get("/profil/$id_sdm"),
             $pool->dataPribadi()->get("/kependudukan/$id_sdm"),
-            $pool->dataPribadi()->get("/kepegawaian/$id_sdm")
+            $pool->dataPribadi()->get("/keluarga/$id_sdm"),
+            $pool->dataPribadi()->get("/bidang_ilmu/$id_sdm"),
+            $pool->dataPribadi()->get("/alamat/$id_sdm"),
+            $pool->dataPribadi()->get("/kepegawaian/$id_sdm"),
+            $pool->dataPribadi()->get("/lain/$id_sdm")
         ]);
 
         return response()->pool($res);

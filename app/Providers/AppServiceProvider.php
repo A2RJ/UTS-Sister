@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             $collect = [];
             for ($i = 0; $i < count($item); $i++) {
                 if ($item[$i]->ok()) {
-                    $collect = collect($collect)->merge($item[$i]->json());
+                    $collect = array_merge($collect, $item[$i]->json());
                 } else {
                     // $collect = collect($collect)->merge(["error" => [
                     //     "request_ke" => $i + 1,
