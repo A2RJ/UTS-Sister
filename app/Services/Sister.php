@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Traits\Sister\Kualifikasi\Kualifikasi;
 use App\Traits\Sister\Profil\Profil;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Arr;
 
 class Sister
 {
-    use Profil;
+    use Profil, Kualifikasi;
 
     public static function authorize()
     {

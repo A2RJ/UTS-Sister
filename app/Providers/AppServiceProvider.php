@@ -44,18 +44,12 @@ class AppServiceProvider extends ServiceProvider
                 session('token')
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });
-        Response::macro('pool', function ($item) {
+        Response::macro('pool', function ($item, $key) {
             $collect = [];
             for ($i = 0; $i < count($item); $i++) {
-                if ($item[$i]->ok()) {
-                    $collect = array_merge($collect, $item[$i]->json());
-                } else {
-                    // $collect = collect($collect)->merge(["error" => [
-                    //     "request_ke" => $i + 1,
-                    //     "detail" => $item[$i]->json()
-                    // ]]);
-                    return response()->json(array_merge($item[$i]->json(), ["request_ke" => $i + 1]), 500);
-                }
+                $collect = array_merge($collect, [
+                    $key[$i] => $item[$i]->json()
+                ]);
             }
             return $collect;
         });

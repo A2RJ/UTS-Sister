@@ -69,7 +69,6 @@ trait DataPribadi
             $pool->dataPribadi()->get("/kepegawaian/$id_sdm"),
             $pool->dataPribadi()->get("/lain/$id_sdm")
         ]);
-
-        return response()->pool($res);
+        return response()->pool($res, ["profil", "kependudukan", "keluarga", "bidang_ilmu", "alamat", "kepegawaian", "lain"]);
     }
 }
