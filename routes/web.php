@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return Sister::authorize();
 });
@@ -27,6 +23,7 @@ Route::prefix("referensi")->group(function () {
         return Sister::$referensi();
     });
 });
+
 Route::prefix("profil")->group(function () {
     Route::get("/", function () {
         return Sister::dataPribadi(env("SISTER_ID_SDM"));
@@ -95,6 +92,47 @@ Route::prefix("kualifikasi")->group(function () {
         });
         Route::get("/{id}", function ($id) {
             return Sister::detailRiwayatPekerjaan($id);
+        });
+    });
+});
+
+Route::prefix("kompetensi")->group(function () {
+    Route::prefix("sertifikasi")->group(function () {
+        Route::get("/", function () {
+            return Sister::sertifikasiProfesi((env("SISTER_ID_SDM")));
+        });
+        Route::get("/{id}", function ($id) {
+            return Sister::detailSertifikasiProfesi($id);
+        });
+    });
+    Route::prefix("test")->group(function () {
+        Route::get("/", function () {
+            return Sister::nilaiTes((env("SISTER_ID_SDM")));
+        });
+        Route::get("/{id}", function ($id) {
+            return Sister::detailNilaiTes($id);
+        });
+        Route::get("/ajuan", function () {
+            return Sister::ajuanNilaiTes((env("SISTER_ID_SDM")));
+        });
+        Route::get("/ajuan/{id}", function ($id) {
+            return Sister::detailAjuanNilaiTes($id);
+        });
+    });
+});
+Route::prefix("pelaks_pendidikan")->group(function () {
+    Route::prefix("pengajaran")->group(function () {
+        Route::get("/", function () {
+            return Sister::pendidikanFormal(env("SISTER_ID_SDM"));
+        });
+        Route::get("/{id}", function ($id) {
+            return Sister::detailPendidikanFormal($id);
+        });
+        Route::get("/ajuan", function () {
+            return Sister::ajuanPendidikanFormal(env("SISTER_ID_SDM"));
+        });
+        Route::get("/ajuan/{id}", function ($id) {
+            return Sister::detailAjuanPendidikanFormal($id);
         });
     });
 });
