@@ -1,7 +1,7 @@
  <nav class="sidebar">
      <div class="sidebar-header">
          <a href="#" class="sidebar-brand">
-             Noble<span>UI</span>
+             {{ env('APP_BRAND1') }}<span>{{ env('APP_BRAND2') }}</span>
          </a>
          <div class="sidebar-toggler not-active">
              <span></span>
