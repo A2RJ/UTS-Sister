@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Services\Sister;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,7 @@ use Illuminate\View\View;
 |
 */
 
-Route::get('/', function () {
-    // return Sister::authorize();
-    return View("Index");
-});
+Route::get('/', [DashboardController::class, 'index']);
 
 Route::prefix("referensi")->group(function () {
     Route::get("/{referensi}", function ($referensi) {
