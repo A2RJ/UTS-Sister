@@ -2,6 +2,7 @@
 
 use App\Services\Sister;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return Sister::authorize();
+    // return Sister::authorize();
+    return View("Index");
 });
 
 Route::prefix("referensi")->group(function () {
