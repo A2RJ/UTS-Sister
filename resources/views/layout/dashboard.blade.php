@@ -46,7 +46,7 @@
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ env('ASSETS_URL') }}/assets/images/favicon.png" />
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
 </head>
 
 <body>

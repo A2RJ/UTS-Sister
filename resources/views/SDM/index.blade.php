@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h6 class="card-title">Daftar SDM Universitas Teknologi Sumbawa</h6>
                     <p class="text-muted mb-3">
-                        Klik "Pilih sdm" untuk melihat detail sdm
+                        Klik "Pilih sdm" untuk melihat detail sdm.
                     </p>
                     <form action="/" class="row">
                         <div class="col-auto">
