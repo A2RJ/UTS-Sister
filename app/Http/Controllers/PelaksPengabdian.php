@@ -9,46 +9,64 @@ class PelaksPengabdian extends Controller
 {
     public function pengabdian()
     {
-        return Sister::pengabdian(session('id_sdm'));
+        return view('PelaksPengabdian.Pengabdian.Index', [
+            // 'data' => Sister::pengabdian(session('id_sdm'))
+        ]);
     }
 
     public function detailPengabdian($id)
     {
-        return Sister::detailPengabdian($id);
+        return view('PelaksPengabdian.Pengabdian.Id', [
+            // 'data' => Sister::detailPengabdian($id)
+        ]);
     }
 
     public function bidangIlmuPengabdian($id)
     {
-        return Sister::bidangIlmuPengabdian($id);
+        return view('PelaksPengabdian.Pengabdian.BidangIlmu', [
+            // 'data' => Sister::bidangIlmuPengabdian($id)
+        ]);
     }
 
     public function pengelolJurnal()
     {
-        return Sister::pengelolaJurnal(session('id_sdm'));
+        return view('PelaksPengabdian.PengelolaJurnal.Index', [
+            // 'data' => Sister::pengelolaJurnal(session('id_sdm'))
+        ]);
     }
 
     public function detailPengelolaJurnal($id)
     {
-        return Sister::detailPengelolaJurnal($id);
+        return view('PelaksPengabdian.PengelolaJurnal.Id', [
+            // 'data' => Sister::detailPengelolaJurnal($id)
+        ]);
     }
 
     public function pembicara()
     {
-        return Sister::pembicara(session('id_sdm'));
+        return view('PelaksPengabdian.Pembicara.Index', [
+            // 'data' => Sister::pembicara(session('id_sdm'))
+        ]);
     }
 
     public function detailPembicara($id)
     {
-        return Sister::detailPembicara($id);
+        return view('PelaksPengabdian.Pembicara.Id', [
+            // 'data' => Sister::detailPembicara($id)
+        ]);
     }
 
     public function jabatanStruktural()
     {
-        return Sister::jabatanStruktural(session('id_sdm'));
+        return view('PelaksPengabdian.JabatanStruktural.Index', [
+            // 'data' => Sister::jabatanStruktural(session('id_sdm'))
+        ]);
     }
 
     public function detailJabatanStruktural($id)
     {
-        return Sister::detailJabatanStruktural($id);
+        return view('PelaksPengabdian.JabatanStruktural.Id', [
+            // 'data' => Sister::detailJabatanStruktural($id)
+        ]);
     }
 }

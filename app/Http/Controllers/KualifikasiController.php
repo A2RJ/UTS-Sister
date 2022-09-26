@@ -9,41 +9,57 @@ class KualifikasiController extends Controller
 {
     public function pendidikanFormal()
     {
-        return Sister::pendidikanFormal(session('id_sdm'));
+        return view('Kualifikasi.PendidikanFormal.Index', [
+            // 'data' => Sister::pendidikanFormal(session('id_sdm'))
+        ]);
     }
 
     public function detailPendidikanFormal($id)
     {
-        return Sister::detailPendidikanFormal($id);
+        return view('Kualifikasi.PendidikanFormal.Id', [
+            // 'data' => Sister::detailPendidikanFormal($id)
+        ]);
     }
 
     public function ajuanPendidikanFormal()
     {
-        return Sister::ajuanPendidikanFormal(session('id_sdm'));
+        return view('Kualifikasi.PendidikanFormal.Ajuan.Index', [
+            // 'data' => Sister::ajuanPendidikanFormal(session('id_sdm'))
+        ]);
     }
 
     public function detailAjuanPendidikanFormal($id)
     {
-        return Sister::detailAjuanPendidikanFormal($id);
+        return view('Kualifikasi.PendidikanFormal.Ajuan.Id', [
+            // 'data' => Sister::detailAjuanPendidikanFormal($id)
+        ]);
     }
 
     public function diklat()
     {
-        return Sister::diklat(session('id_sdm'));
+        return view('Kualifikasi.Diklat.Index', [
+            // 'data' => Sister::diklat(session('id_sdm'))
+        ]);
     }
 
     public function detailDiklat($id)
     {
-        return Sister::detailDiklat($id);
+        return view('Kualifikasi.Diklat.Id', [
+            // 'data' => Sister::detailDiklat($id)
+        ]);
     }
 
     public function riwayatPekerjaan()
     {
-        return Sister::riwayat_pekerjaan(session('id_sdm'));
+        return view('Kualifikasi.RiwayatPekerjaan.Index', [
+            // 'data' => Sister::riwayat_pekerjaan(session('id_sdm'))
+        ]);
     }
 
     public function detailRiwayatPekerjaan($id)
     {
-        return Sister::detailRiwayatPekerjaan($id);
+        return view('Kualifikasi.RiwayatPekerjaan.Id', [
+            // 'data' => Sister::detailRiwayatPekerjaan($id)
+        ]);
     }
 }

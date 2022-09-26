@@ -8,31 +8,43 @@ class PenunjangController extends Controller
 {
     public function anggotaProfesi()
     {
-        return Sister::anggotaProfesi(session('id_sdm'));
+        return view('Penunjang.AnggotaProfresi.Index', [
+            // 'data' => Sister::anggotaProfesi(session('id_sdm'))
+        ]);
     }
 
     public function detailAnggotaProfesi($id)
     {
-        return Sister::detailAnggotaProfesi($id);
+        return view('Penunjang.AnggotaProfresi.Id', [
+            // 'data' => Sister::detailAnggotaProfesi($id)
+        ]);
     }
 
     public function penghargaan()
     {
-        return Sister::penghargaan(session('id_sdm'));
+        return view('Penunjang.Penghargaan.Index', [
+            // 'data' => Sister::penghargaan(session('id_sdm'))
+        ]);
     }
 
     public function detailPenghargaan($id)
     {
-        return Sister::detailPenghargaan($id);
+        return view('Penunjang.Penghargaan.Id', [
+            // 'data' => Sister::detailPenghargaan($id)
+        ]);
     }
 
     public function penunjangLain()
     {
-        return Sister::penunjangLain(session('id_sdm'));
+        return view('Penunjang.PenunjangLain.Index', [
+            // 'data' => Sister::penunjangLain(session('id_sdm'))
+        ]);
     }
 
     public function detailPenunjangLain($id)
     {
-        return Sister::detailPenunjangLain($id);
+        return view('Penunjang.PenunjangLain.Id', [
+            // 'data' => Sister::detailPenunjangLain($id)
+        ]);
     }
 }

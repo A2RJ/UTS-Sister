@@ -24,45 +24,49 @@ class SidebarMenu extends Component
                 "id" => 1,
                 "name" => "Profil",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Data pribadi",
-                        "link" => "Menu 1"
+                        "link" => route('datapribadi')
                     ],
                     [
                         "name" => "Inpassing",
-                        "link" => "Menu 2"
+                        "link" => route('inpassing')
                     ],
                     [
-                        "name" => "Kualifikasi",
-                        "link" => "Menu 2"
+                        "name" => "Jabatan Fungsional",
+                        "link" => route('jabatan-fungsional')
+                    ],
+                    [
+                        "name" => "Kepangkatan",
+                        "link" => route('kepangkatan')
                     ],
                     [
                         "name" => "Penempatan",
-                        "link" => "Menu 2"
+                        "link" => route('penempatan')
                     ]
                 ],
-                "role" => ["admin_dsdm"]
             ],
             [
                 "id" => 2,
                 "name" => "Kualifikasi",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Pendidikan formal",
-                        "link" => "Menu 1"
+                        "link" => route('pendidikan-formal')
                     ],
                     [
                         "name" => "Diklat",
-                        "link" => "Menu 2"
+                        "link" => route('diklat')
                     ],
                     [
                         "name" => "Riwayat Pekerjaan",
-                        "link" => "Menu 2"
+                        "link" => route('riwayat-pekerjaan')
                     ]
                 ],
-                "role" => ["admin_dsdm"]
             ],
             [
                 "id" => 3,
@@ -70,12 +74,12 @@ class SidebarMenu extends Component
                 "type" => "dropdown",
                 "children" => [
                     [
-                        "name" => "Sertifikasi",
-                        "link" => "Menu 1"
+                        "name" => "Sertifikasi Profesi",
+                        "link" => route('sertifikasi-profesi')
                     ],
                     [
                         "name" => "Tes",
-                        "link" => "Menu 2"
+                        "link" => route('test')
                     ]
                 ],
                 "role" => ["admin_dsdm"]
@@ -84,113 +88,113 @@ class SidebarMenu extends Component
                 "id" => 4,
                 "name" => "Pelaks. pendidikan",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Pengajaran",
-                        "link" => "Menu 1"
+                        "link" => route('pengajaran')
                     ],
                     [
                         "name" => "Bimbingan mahasiswa",
-                        "link" => "Menu 1"
+                        "link" => route('bimbingan-mahasiswa')
                     ],
                     [
                         "name" => "Pengujian mahasiswa",
-                        "link" => "Menu 1"
+                        "link" => route('pengujian-mahasiswa')
                     ],
                     [
                         "name" => "Visiting scientist",
-                        "link" => "Menu 1"
+                        "link" => route('visiting-scientist')
                     ],
-                    [
-                        "name" => "Pembinaan mahasiswa",
-                        "link" => "Menu 1"
-                    ],
+                    // [
+                    //     "name" => "Pembinaan mahasiswa",
+                    //     "link" => route('')
+                    // ],
                     [
                         "name" => "Bahan ajar",
-                        "link" => "Menu 1"
+                        "link" => route('bahan-ajar')
                     ],
                     [
-                        "name" => "Datasering",
-                        "link" => "Menu 1"
+                        "name" => "Detasering",
+                        "link" => route('detasering')
                     ],
                     [
                         "name" => "Orasi ilmiah",
-                        "link" => "Menu 1"
+                        "link" => route('orasi-ilmiah')
                     ],
                     [
                         "name" => "Pembimbing dosen",
-                        "link" => "Menu 1"
+                        "link" => route('pembimbing-dosen')
                     ],
                     [
                         "name" => "Tugas tambahan",
-                        "link" => "Menu 1"
+                        "link" => route('tugas-tambahan')
                     ],
                 ],
-                "role" => ["admin_dsdm"]
             ],
             [
                 "id" => 5,
                 "name" => "Pelaks. penelitian",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Penelitian",
-                        "link" => "Menu 1"
+                        "link" => route('penelitian')
                     ],
                     [
                         "name" => "Publikasi karya",
-                        "link" => "Menu 2"
+                        "link" => route('publikasi-karya')
                     ],
                     [
                         "name" => "Paten/HKI",
-                        "link" => "Menu 2"
+                        "link" => route('paten-hki')
                     ],
                 ],
-                "role" => ["admin_dsdm"]
             ],
             [
                 "id" => 6,
                 "name" => "Pelaks. pengabdian",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Pengabdian",
-                        "link" => "Menu 1"
+                        "link" => route('pengabdian')
                     ],
                     [
                         "name" => "Pengelola jurnal",
-                        "link" => "Menu 2"
+                        "link" => route('penglola-jurnal')
                     ],
                     [
                         "name" => "Pembicara",
-                        "link" => "Menu 2"
+                        "link" => route('pembicara')
                     ],
                     [
                         "name" => "Jabatan struktural",
-                        "link" => "Menu 2"
+                        "link" => route('jabatan-struktural')
                     ],
                 ],
-                "role" => ["admin_dsdm"]
             ],
             [
                 "id" => 7,
                 "name" => "Penunjang",
                 "type" => "dropdown",
+                "role" => ["admin_dsdm"],
                 "children" => [
                     [
                         "name" => "Anggota profesi",
-                        "link" => "Menu 1"
+                        "link" => route('anggota-profesi')
                     ],
                     [
                         "name" => "Penghargaan",
-                        "link" => "Menu 2"
+                        "link" => route('penghargaan')
                     ],
                     [
                         "name" => "Penunjang lain",
-                        "link" => "Menu 2"
+                        "link" => route('penunjang-lain')
                     ]
                 ],
-                "role" => ["admin_dsdm"]
             ],
             // [
             //     "id" => 2,

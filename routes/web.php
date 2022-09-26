@@ -74,31 +74,28 @@ Route::prefix('kompetensi')->controller(KompetensiController::class)->group(func
         Route::get('/{id}', 'detailSertifikasiProfesi')->name('sertifikasi-profesi.detail');
     });
     Route::prefix("test")->group(function () {
-        Route::get('/', 'nilaiTest')->name('nilai-test');
-        Route::get('/{id}', 'detailNilaiTest')->name('nilai-test.detail');
+        Route::get('/', 'test')->name('test');
+        Route::get('/{id}', 'detailTest')->name('test.detail');
         Route::prefix('ajuan')->group(function () {
-            Route::get('/', 'ajuanNilaiTest')->name('nilai-test.ajuan');
-            Route::get('/{id}', 'detailAjuanNilaiTest')->name('nilai-test.ajuan-detail');
+            Route::get('/', 'ajuanTest')->name('test.ajuan');
+            Route::get('/{id}', 'detailAjuanTest')->name('test.ajuan-detail');
         });
     });
 });
 
 Route::prefix('pelaks-pendidikan')->controller(PelaksPendidikanController::class)->group(function () {
     Route::prefix("pengajaran")->group(function () {
-        Route::get('/', 'pendidikanFormal')->name('pendidikan-formal');
-        Route::get('/{id}', 'detailPendidikanFormal')->name('pendidikan-formal.detail');
-        Route::prefix('ajuan')->group(function () {
-            Route::get('/', 'ajuanPendidikanFormal')->name('pendidikan-formal.ajuan');
-            Route::get('/{id}', 'detailAjuanPendidikanFormal')->name('pendidikan-formal.ajuan-detail');
-        });
+        Route::get('/', 'pengajaran')->name('pengajaran');
+        Route::get('/{id}', 'detailPengajaran')->name('pengajaran.detail');
+        Route::get('/{id}/bidang-ilmu', 'bidangIlmuPengajaran')->name('pengajaran.bidang-ilmu');
     });
     Route::prefix('bimbingan-mahasiswa')->group(function () {
-        Route::get('/{id_semester}', 'bimbinganMhs')->name('bimbingan-mahasiswa');
+        Route::get('/{id_semester?}', 'bimbinganMhs')->name('bimbingan-mahasiswa');
         Route::get('/{id}/detail', 'detailBimbinganMhs')->name('bimbingan-mahasiswa.detail');
         Route::get('/{id}/bidang-ilmu', 'bidangIlmuBimbinganMhs')->name('bimbingan-mahasiswa.bidang-ilmu');
     });
     Route::prefix('pengujian-mahasiswa')->group(function () {
-        Route::get('/{id_semester}', 'pengujianMhs')->name('pengujian-mahasiswa');
+        Route::get('/{id_semester?}', 'pengujianMhs')->name('pengujian-mahasiswa');
         Route::get('/{id}/detail', 'detailPengujianMhs')->name('pengujian-mahasiswa.detail');
         Route::get('/{id}/bidang-ilmu', 'bidangIlmuPengujianMhs')->name('pengujian-mahasiswa.bidang-ilmu');
     });

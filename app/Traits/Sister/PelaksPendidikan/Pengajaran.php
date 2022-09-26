@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 trait Pengajaran
 {
-    static public function pegajaran($id_sdm)
+    static public function pengajaran($id_sdm)
     {
         return Http::withToken(session("token"))->get(env("SISTER_URL") . "/pengajaran?id_sdm=$id_sdm");
     }

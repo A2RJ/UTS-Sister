@@ -3,39 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Services\Sister;
-use Illuminate\Http\Request;
 
 class KompetensiController extends Controller
 {
     public function sertfikasiProfesi()
     {
-        return view('SertifikasiProfesi', [
-            Sister::sertifikasiProfesi((session('id_sdm')))
+        return view('Kompetensi.SertifikasiProfesi.Index', [
+            // Sister::sertifikasiProfesi((session('id_sdm')))
         ]);
     }
 
     public function detailSertifikasiProfesi($id)
     {
-        return Sister::detailSertifikasiProfesi($id);
+        return view('Kompetensi.SertifikasiProfesi.Id', [
+            // 'data' => Sister::detailSertifikasiProfesi($id)
+        ]);
     }
 
-    public function nilaiTes()
+    public function tes()
     {
-        return Sister::nilaiTes((session('id_sdm')));
+        return view('Kompetensi.Tes.Index', [
+            'data' => Sister::tes((session('id_sdm')))
+        ]);
     }
 
-    public function detailNilaiTes($id)
+    public function detailTes($id)
     {
-        return Sister::detailNilaiTes($id);
+        return view('Kompetensi.Tes.Id', [
+            // 'data' => Sister::detailTes($id)
+        ]);
     }
 
-    public function ajuanNilaiTes()
+    public function ajuanTes()
     {
-        return Sister::ajuanNilaiTes((session('id_sdm')));
+        return view('Kompetensi.Tes.Ajuan.Index', [
+            // 'data' => Sister::ajuanTes((session('id_sdm')))
+        ]);
     }
 
-    public function detailAjuanNilaiTes($id)
+    public function detailAjuanTes($id)
     {
-        return Sister::detailAjuanNilaiTes($id);
+        return view('Kompetensi.Tes.Ajuan.Id', [
+            // 'data' => Sister::detailAjuanTes($id)
+        ]);
     }
 }

@@ -7,113 +7,150 @@ use Illuminate\Http\Request;
 
 class PelaksPendidikanController extends Controller
 {
-    public function pendidikanFormal()
+    public function Pengajaran()
     {
-        return Sister::pendidikanFormal(session('id_sdm'));
+        return view('PelaksPendidikan.Pengajaran.Index', [
+            // 'data' => Sister::pengajaran(session('id_sdm'))
+        ]);
     }
 
-    public function detailPendidikanFormal($id)
+    public function detailPengajaran($id)
     {
-        return Sister::detailPendidikanFormal($id);
+        return view('PelaksPendidikan.Pengajaran.Id', [
+            // 'data' => Sister::detailPengajaran($id)
+        ]);
     }
 
-    public function ajuanPendidikanFormal()
+    public function bidangIlmuPengajaran()
     {
-        return Sister::ajuanPendidikanFormal(session('id_sdm'));
+        return view('PelaksPendidikan.Pengajaran.BidangIlmu', [
+            // 'data' => Sister::bidangIlmuPengajaran(session('id_sdm'))
+        ]);
     }
 
-    public function detailAjuanPendidikanFormal($id)
+    public function bimbinganMhs($id_semester = '')
     {
-        return Sister::detailAjuanPendidikanFormal($id);
-    }
-
-    public function bimbinganMhs($id_semester)
-    {
-        return Sister::bimbinganMhs(session('id_sdm'), $id_semester);
+        return view('PelaksPendidikan.BimbinganMhs.Index', [
+            // 'data' => Sister::bimbinganMhs(session('id_sdm'), $id_semester)
+        ]);
     }
 
     public function detailBimbinganMhs($id)
     {
-        return Sister::detailBimbinganMhs($id);
+        return view('PelaksPendidikan.BimbinganMhs.Id', [
+            // 'data' => Sister::detailBimbinganMhs($id)
+        ]);
     }
 
     public function bidangIlmuBimbinganMhs($id)
     {
-        return Sister::bidangIlmuBimbinganMhs($id);
+        return view('PelaksPendidikan.BimbinganMhs.BidangIlmu', [
+            // 'data' => Sister::bidangIlmuBimbinganMhs($id)
+        ]);
     }
 
-    public function pengujianMhs($id_semester)
+    public function pengujianMhs($id_semester = '')
     {
-        return Sister::pengujianMhs(session('id_sdm'), $id_semester);
+        return view('PelaksPendidikan.PengujianMhs.Index', [
+            // 'data' => Sister::pengujianMhs(session('id_sdm'), $id_semester)
+        ]);
     }
 
     public function detailPengujianMhs($id)
     {
-        return Sister::detailPengujianMhs($id);
+        return view('PelaksPendidikan.PengujianMhs.Id', [
+            // 'data' => Sister::detailPengujianMhs($id)
+        ]);
     }
 
     public function bidangIlmuPengujianMhs($id)
     {
-        return Sister::bidangIlmuPengujianMhs($id);
+        return view('PelaksPendidikan.PengujianMhs.BidangIlmu', [
+            // 'data' => Sister::bidangIlmuPengujianMhs($id)
+        ]);
     }
 
     public function vistingScientist()
     {
-        return Sister::visitingScientist(session('id_sdm'));
+        return view('PelaksPendidikan.VisitingScientist.Index', [
+            // 'data' => Sister::visitingScientist(session('id_sdm'))
+        ]);
     }
 
     public function detailVistingScientist($id)
     {
-        return Sister::detailVisitingScientist($id);
+        return view('PelaksPendidikan.VisitingScientist.Id', [
+            // 'data' => Sister::detailVisitingScientist($id)
+        ]);
     }
 
     public function bahanAjar()
     {
-        return Sister::bahanAjar(session('id_sdm'));
+        return view('PelaksPendidikan.BahanAjar.Index', [
+            // 'data' => Sister::bahanAjar(session('id_sdm'))
+        ]);
     }
 
     public function detailBahanAjar($id)
     {
-        return Sister::detailBahanAjar($id);
+        return view('PelaksPendidikan.BahanAjar.Id', [
+            // 'data' => Sister::detailBahanAjar($id)
+        ]);
     }
 
     public function detasering()
     {
-        return Sister::detasering(session('id_sdm'));
+        return view('PelaksPendidikan.Detasering.Index', [
+            // 'data' => Sister::detasering(session('id_sdm'))
+        ]);
     }
 
     public function detailDetasering($id)
     {
-        return Sister::detailDetasering($id);
+        return view('PelaksPendidikan.Detasering.Id', [
+            // 'data' => Sister::detailDetasering($id)
+        ]);
     }
 
     public function orasiIlmiah()
     {
-        return Sister::orasiIlmiah(session('id_sdm'));
+        return view('PelaksPendidikan.OrasiIlmiah.Index', [
+            // 'data' => Sister::orasiIlmiah(session('id_sdm'))
+        ]);
     }
 
     public function detailOrasiIlmiah($id)
     {
-        return Sister::detailOrasiIlmiah($id);
+        return view('PelaksPendidikan.OrasiIlmiah.Id', [
+            // 'data' => Sister::detailOrasiIlmiah($id)
+        ]);
     }
 
     public function pembimbingDosen()
     {
-        return Sister::pembimbingDosen(session('id_sdm'));
+        return view('PelaksPendidikan.PembimbingDosen.Index', [
+            // 'data' => Sister::pembimbingDosen(session('id_sdm'))
+        ]);
     }
 
     public function detailPembimbingDosen($id)
     {
-        return Sister::detailPembimbingDosen($id);
+        return view('PelaksPendidikan.PembimbingDosen.Id', [
+            // 'data' => Sister::detailPembimbingDosen($id)
+        ]);
     }
 
     public function tugasTambahan()
     {
-        return Sister::tugasTambahan(session('id_sdm'));
+        return view('PelaksPendidikan.TugasTambahan.Index', [
+            // 'data' => Sister::tugasTambahan(session('id_sdm'))
+        ]);
     }
 
     public function detailTugasTambahan($id)
     {
-        return Sister::detailTugasTambahan($id);
+        return view('PelaksPendidikan.TugasTambahan.Id', [
+            // 'data' => Sister::detailTugasTambahan($id)
+        ]);
     }
 }
