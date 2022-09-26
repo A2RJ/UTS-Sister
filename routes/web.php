@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('index');
+Route::get('set-sdm/{id_sdm}', [DashboardController::class, 'setSession'])->name('set-sdm');
 
 Route::prefix("referensi")->controller(ReferensiController::class)->group(function () {
     Route::get('/{referensi}', 'referensi')->name('referensi');
@@ -74,11 +75,11 @@ Route::prefix('kompetensi')->controller(KompetensiController::class)->group(func
         Route::get('/{id}', 'detailSertifikasiProfesi')->name('sertifikasi-profesi.detail');
     });
     Route::prefix("test")->group(function () {
-        Route::get('/', 'test')->name('test');
-        Route::get('/{id}', 'detailTest')->name('test.detail');
+        Route::get('/', 'tes')->name('tes');
+        Route::get('/{id}', 'detailTes')->name('tes.detail');
         Route::prefix('ajuan')->group(function () {
-            Route::get('/', 'ajuanTest')->name('test.ajuan');
-            Route::get('/{id}', 'detailAjuanTest')->name('test.ajuan-detail');
+            Route::get('/', 'ajuanTes')->name('tes.ajuan');
+            Route::get('/{id}', 'detailAjuanTes')->name('tes.ajuan-detail');
         });
     });
 });

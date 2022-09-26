@@ -11,6 +11,11 @@
                     <p class="text-muted mb-3">
                         Klik "Pilih sdm" untuk melihat detail sdm.
                     </p>
+
+                    <p>
+                        session: {{ session('id_sdm') }} <br>
+                        token: {{ session('token') }}
+                    </p>
                     <form action="/" class="row">
                         <div class="col-auto">
                             <label for="nama" class="visually-hidden">Password</label>
@@ -43,7 +48,9 @@
                                         <td>{{ $item->id_sdm }}</td>
                                         <td>{{ $item->nidn }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-success">Pilih SDM</button>
+                                            <a href="{{ route('set-sdm', ['id_sdm' => $item->id_sdm]) }}">
+                                                <button class="btn btn-sm btn-success">Pilih SDM</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -79,7 +79,7 @@ class SidebarMenu extends Component
                     ],
                     [
                         "name" => "Tes",
-                        "link" => route('test')
+                        "link" => route('tes')
                     ]
                 ],
                 "role" => ["admin_dsdm"]

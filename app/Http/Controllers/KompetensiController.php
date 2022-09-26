@@ -6,17 +6,17 @@ use App\Services\Sister;
 
 class KompetensiController extends Controller
 {
-    public function sertfikasiProfesi()
+    public function sertifikasiProfesi()
     {
         return view('Kompetensi.SertifikasiProfesi.Index', [
-            // Sister::sertifikasiProfesi((session('id_sdm')))
+            'data' => Sister::sertifikasiProfesi((session('id_sdm')))
         ]);
     }
 
     public function detailSertifikasiProfesi($id)
     {
         return view('Kompetensi.SertifikasiProfesi.Id', [
-            // 'data' => Sister::detailSertifikasiProfesi($id)
+            'data' => Sister::detailSertifikasiProfesi($id)
         ]);
     }
 
@@ -30,21 +30,21 @@ class KompetensiController extends Controller
     public function detailTes($id)
     {
         return view('Kompetensi.Tes.Id', [
-            // 'data' => Sister::detailTes($id)
+            'data' => Sister::detailTes($id)
         ]);
     }
 
     public function ajuanTes()
     {
         return view('Kompetensi.Tes.Ajuan.Index', [
-            // 'data' => Sister::ajuanTes((session('id_sdm')))
+            'data' => Sister::ajuanTes((session('id_sdm')))
         ]);
     }
 
     public function detailAjuanTes($id)
     {
         return view('Kompetensi.Tes.Ajuan.Id', [
-            // 'data' => Sister::detailAjuanTes($id)
+            'data' => Sister::detailAjuanTes($id)
         ]);
     }
 }

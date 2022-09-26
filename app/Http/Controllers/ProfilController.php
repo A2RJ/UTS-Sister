@@ -9,7 +9,7 @@ class ProfilController extends Controller
     public function dataPribadi()
     {
         return view('Profil.Index', [
-            // 'data' => Sister::dataPribadi(session('id_sdm'))
+            'data' => Sister::dataPribadi(session('id_sdm'))
         ]);
     }
 
@@ -30,7 +30,7 @@ class ProfilController extends Controller
     public function detailJabatanFungsional($id)
     {
         return view('Profil.JabatanFungsional.Id', [
-            // 'data' => Sister::detailJapung($id)
+            'data' => Sister::detailJapung($id)
         ]);
     }
 
@@ -44,7 +44,7 @@ class ProfilController extends Controller
     public function detailAjuanJabatanFungsional($id)
     {
         return view('Profil.JabatanFungsional.Ajuan.Id', [
-            // 'data' => Sister::detailAjuanJapung($id)
+            'data' => Sister::detailAjuanJapung($id)
         ]);
     }
 
@@ -58,7 +58,7 @@ class ProfilController extends Controller
     public function detailKepangkatan($id)
     {
         return view('Profil.Kepangkatan.Id', [
-            // 'data' => Sister::detailKepangkatan($id)
+            'data' => Sister::detailKepangkatan($id)
         ]);
     }
 
@@ -72,7 +72,7 @@ class ProfilController extends Controller
     public function detailPenempatan($id)
     {
         return view('Profil.Penempatan.Id', [
-            // 'data' => Sister::detailPenugasan($id)
+            'data' => Sister::detailPenugasan($id)
         ]);
     }
 }
