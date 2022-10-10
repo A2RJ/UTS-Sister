@@ -8,71 +8,81 @@ class ProfilController extends Controller
 {
     public function dataPribadi()
     {
+        $response = Sister::dataPribadi(session('id_sdm'));
+        $penugasan = Sister::penugasan(session('id_sdm'))[0];
+        $kepegawaian = array_merge($response['kepegawaian'], $penugasan);
+
         return view('Profil.Index', [
-            'data' => Sister::dataPribadi(session('id_sdm'))
+            'profil' => $response['profil'],
+            'kependudukan' => $response['kependudukan'],
+            'keluarga' => $response['keluarga'],
+            'bidang_ilmu' => $response['bidang_ilmu'],
+            'alamat' => $response['alamat'],
+            'kepegawaian' => $kepegawaian,
+            'lain' => $response['lain'],
         ]);
     }
 
     public function inpassing()
     {
         return view('Profil.Inpassing', [
-            'data' => Sister::inpassing(session('id_sdm'))
+            'data' => json_decode(Sister::inpassing(session('id_sdm')), true)
         ]);
     }
 
     public function jabatanFungsional()
     {
         return view('Profil.JabatanFungsional.Index', [
-            'data' => Sister::japung(session('id_sdm'))
+            'data' => json_decode(Sister::japung(session('id_sdm')), true)
         ]);
     }
 
     public function detailJabatanFungsional($id)
     {
         return view('Profil.JabatanFungsional.Id', [
-            'data' => Sister::detailJapung($id)
+            'data' => json_decode(Sister::detailJapung($id), true)
         ]);
     }
 
     public function ajuanJabatanFungsional()
     {
         return view('Profil.JabatanFungsional.Ajuan.Index', [
-            'data' => Sister::ajuanJapung(session('id_sdm'))
+            'data' => json_decode(Sister::ajuanJapung(session('id_sdm')), true)
         ]);
     }
 
     public function detailAjuanJabatanFungsional($id)
     {
         return view('Profil.JabatanFungsional.Ajuan.Id', [
-            'data' => Sister::detailAjuanJapung($id)
+            'data' => json_decode(Sister::detailAjuanJapung($id), true)
         ]);
     }
 
     public function kepangkatan()
     {
         return view('Profil.Kepangkatan.Index', [
-            'data' => Sister::kepangkatan(session('id_sdm'))
+            'data' => json_decode(Sister::kepangkatan(session('id_sdm')), true)
         ]);
     }
 
     public function detailKepangkatan($id)
     {
         return view('Profil.Kepangkatan.Id', [
-            'data' => Sister::detailKepangkatan($id)
+            'data' => json_decode(Sister::detailKepangkatan($id), true)
         ]);
     }
 
     public function penempatan()
     {
         return view('Profil.Penempatan.Index', [
-            'data' => Sister::penugasan(session('id_sdm'))
+            'data' => json_decode(Sister::penugasan(session('id_sdm')), true)
         ]);
     }
 
     public function detailPenempatan($id)
     {
         return view('Profil.Penempatan.Id', [
-            'data' => Sister::detailPenugasan($id)
+            'data' => json_decode(Sister::detailPenugasan($id), true)
         ]);
     }
 }

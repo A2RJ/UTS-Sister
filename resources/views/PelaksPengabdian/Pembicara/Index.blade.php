@@ -3,5 +3,16 @@
 @section('title', 'Title')
 
 @section('content')
-    {{ var_dump($data->body()) }}
+    <b>Pembicara</b>
+    <ul>
+        @foreach ($data as $pembicara)
+            <li>{{ $loop->iteration }} -
+                {{ $pembicara['judul_makalah'] }} -
+                {{ $pembicara['nama_pertemuan'] }}
+                {{ $pembicara['penyelenggara'] }}
+                {{ $pembicara['tanggal_pelaksanaan'] }}
+            </li>
+        @endforeach
+    </ul>
+    </div>
 @endsection

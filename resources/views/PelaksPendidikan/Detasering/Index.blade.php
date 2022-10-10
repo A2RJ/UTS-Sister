@@ -3,5 +3,16 @@
 @section('title', 'Title')
 
 @section('content')
-    {{ var_dump($data->body()) }}
+    <b>Detasering</b>
+    <ul>
+        @foreach ($data as $detasering)
+            <li>{{ $loop->iteration }}- {{ $detasering['kategori_kegiatan'] }} -
+                {{ $detasering['perguruan_tinggi'] }} -
+                {{ $detasering['bidang_tugas'] }} -
+                {{ $detasering['sk_penugasan'] }} -
+                {{ $detasering['tanggal_sk_penugasan'] }}
+            </li>
+        @endforeach
+    </ul>
+    </div>
 @endsection

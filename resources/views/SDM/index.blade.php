@@ -13,7 +13,8 @@
                     </p>
 
                     <p>
-                        session: {{ session('id_sdm') }} <br>
+                        ID SDM: {{ session('id_sdm') }} <br>
+                        Nama SDM: {{ session('nama_sdm') }} <br>
                         token: {{ session('token') }}
                     </p>
                     <form action="/" class="row">
@@ -48,7 +49,8 @@
                                         <td>{{ $item->id_sdm }}</td>
                                         <td>{{ $item->nidn }}</td>
                                         <td>
-                                            <a href="{{ route('set-sdm', ['id_sdm' => $item->id_sdm]) }}">
+                                            <a
+                                                href="{{ route('set-sdm', ['id_sdm' => $item->id_sdm, 'nama_sdm' => $item->nama_sdm]) }}">
                                                 <button class="btn btn-sm btn-success">Pilih SDM</button>
                                             </a>
                                         </td>

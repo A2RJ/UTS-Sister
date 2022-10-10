@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('index');
-Route::get('set-sdm/{id_sdm}', [DashboardController::class, 'setSession'])->name('set-sdm');
+Route::get('set-sdm/{id_sdm}/{nama_sdm}', [DashboardController::class, 'setSession'])->name('set-sdm');
 
 Route::prefix("referensi")->controller(ReferensiController::class)->group(function () {
     Route::get('/{referensi}', 'referensi')->name('referensi');
