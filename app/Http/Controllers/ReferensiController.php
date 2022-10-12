@@ -6,8 +6,8 @@ use App\Services\Sister;
 
 class ReferensiController extends Controller
 {
-    public function referensi($referensi)
+    public function referensi($referensi, $params = false)
     {
-        return Sister::$referensi();
+        return Sister::$referensi($params);
     }
 }

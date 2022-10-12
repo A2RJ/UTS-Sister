@@ -10,4 +10,9 @@ trait Inpassing
     {
         return Http::withToken(session("token"))->get(env("SISTER_URL") . "/inpassing?id_sdm=$id_sdm");
     }
+
+    static public function detailInpassing($id)
+    {
+        return Http::withToken(session("token"))->get(env("SISTER_URL") . "/inpassing/$id");
+    }
 }

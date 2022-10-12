@@ -17,6 +17,21 @@ trait Referensi
         return Http::referensi()->get("/bidang_studi");
     }
 
+    static public function listDokumen($id_sdm)
+    {
+        return Http::withToken(session("token"))->get(env("SISTER_URL") . "/dokumen?id_sdm=$id_sdm");
+    }
+
+    static public function detailDokumen($id)
+    {
+        return Http::withToken(session("token"))->get(env("SISTER_URL") . "/dokumen/$id");
+    }
+
+    static public function downladDokumen($id)
+    {
+        return Http::withToken(session("token"))->get(env("SISTER_URL") . "/dokumen/$id/download");
+    }
+
     static public function sdm()
     {
         $res = Http::referensi()->get("/sdm?nama=widi");

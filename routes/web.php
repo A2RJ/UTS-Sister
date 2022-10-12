@@ -31,7 +31,11 @@ Route::prefix("referensi")->controller(ReferensiController::class)->group(functi
 
 Route::prefix('profil')->controller(ProfilController::class)->group(function () {
     Route::get("/data-pribadi", 'dataPribadi')->name('datapribadi');
-    Route::get("/inpassing", 'inpassing')->name('inpassing');
+    Route::prefix('inpassing')->group(function () {
+        Route::get("/", 'inpassing')->name('inpassing');
+        Route::get("/{id}", 'detailInpassing')->name('inpassing.detail');
+        Route::get("/{id}/download", 'downloadInpassing')->name('inpassing.download');
+    });
     Route::prefix('jabatan-fungsional')->group(function () {
         Route::get("/", 'jabatanFungsional')->name('jabatan-fungsional');
         Route::get("/{id}", 'detailJabatanFungsional')->name('jabatan-fungsional.detail');

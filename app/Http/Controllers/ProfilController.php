@@ -25,9 +25,21 @@ class ProfilController extends Controller
 
     public function inpassing()
     {
-        return view('Profil.Inpassing', [
+        return view('Profil.Inpassing.Inpassing', [
             'data' => json_decode(Sister::inpassing(session('id_sdm')), true)
         ]);
+    }
+
+    public function detailInpassing($id)
+    {
+        return view('Profil.Inpassing.Id', [
+            'data' => json_decode(Sister::detailInpassing($id), true)
+        ]);
+    }
+
+    public function downloadInpassing($id)
+    {
+        return view('Profil.Inpassing.download', ['id' => $id]);
     }
 
     public function jabatanFungsional()

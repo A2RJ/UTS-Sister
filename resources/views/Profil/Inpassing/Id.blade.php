@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <table>
-            {{-- <tr>
+            <tr>
                 <td>Pangkat/Golongan</td>
                 <td>{{ $data['pangkat'] }}</td>
             </tr>
@@ -33,7 +33,7 @@
             <tr>
                 <td>Masa Kerja (Bulan)</td>
                 <td>{{ $data['masa_kerja_bulan'] }}</td>
-            </tr> --}}
+            </tr>
         </table>
 
         <div>
@@ -49,15 +49,14 @@
                 </tr>
                 @foreach ($data['dokumen'] as $dokumen)
                     <tr>
+                        <td>{{ $dokumen['id'] }}</td>
                         <td>{{ $dokumen['nama'] }}</td>
                         <td>{{ $dokumen['nama_file'] }}</td>
                         <td>{{ $dokumen['jenis_file'] }}</td>
                         <td>{{ $dokumen['tanggal_upload'] }}</td>
                         <td>{{ $dokumen['jenis_dokumen'] }}</td>
                         <td>
-                            <a href="">
-                                Download
-                            </a>
+                            <a href="{{ route('inpassing.download', ['id' => $dokumen['id']]) }}">Download</a>
                             <a href="">
                                 Detail
                             </a>
