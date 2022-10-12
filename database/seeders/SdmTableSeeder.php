@@ -18,7 +18,6 @@ class SdmTableSeeder extends Seeder
         DB::table('sdm')->delete();
 
         DB::table('sdm')->insert(array(
-            0 =>
             array(
                 'id' => 1,
                 'id_sdm' => 'b27d3846-f8c2-470b-9b64-bd2dab5e8db4',
@@ -29,7 +28,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            1 =>
             array(
                 'id' => 2,
                 'id_sdm' => '4733ea8c-86d1-4b31-bb3c-81ccc7790a3a',
@@ -40,7 +38,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            2 =>
             array(
                 'id' => 3,
                 'id_sdm' => 'c27990b7-4950-4457-bcac-2b49a986dfd7',
@@ -51,7 +48,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            3 =>
             array(
                 'id' => 4,
                 'id_sdm' => '8c5412ac-5e1b-4312-95ad-3a5a9bb262c3',
@@ -62,7 +58,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            4 =>
             array(
                 'id' => 5,
                 'id_sdm' => '04d5b96a-0bcd-4012-81dd-e827a11cf186',
@@ -73,7 +68,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            5 =>
             array(
                 'id' => 6,
                 'id_sdm' => '5ca3ff10-a1bc-45ac-819c-d1eb01074181',
@@ -84,7 +78,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            6 =>
             array(
                 'id' => 7,
                 'id_sdm' => 'c0f5a6e8-2e8a-4581-a374-06d381ae5776',
@@ -95,7 +88,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            7 =>
             array(
                 'id' => 8,
                 'id_sdm' => 'ac6297ce-e01d-4e11-8df2-a18004f8ef70',
@@ -106,7 +98,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            8 =>
             array(
                 'id' => 9,
                 'id_sdm' => '8633b271-649b-4b5f-b3cd-951b60186f47',
@@ -117,7 +108,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            9 =>
             array(
                 'id' => 10,
                 'id_sdm' => '6ccabf53-bc1c-4cf0-bc6b-4feb24dc6bc4',
@@ -128,7 +118,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            10 =>
             array(
                 'id' => 11,
                 'id_sdm' => '7a43cb00-4ace-4c74-85ba-c9c901d1c586',
@@ -139,7 +128,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            11 =>
             array(
                 'id' => 12,
                 'id_sdm' => 'cc1812dd-06df-4ba0-9620-3c7014cc2454',
@@ -150,7 +138,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            12 =>
             array(
                 'id' => 13,
                 'id_sdm' => '1057aa5c-8039-4590-b066-2952840848a9',
@@ -161,7 +148,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            13 =>
             array(
                 'id' => 14,
                 'id_sdm' => 'bf500375-0383-4f56-a274-b4c822e246dd',
@@ -172,7 +158,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            14 =>
             array(
                 'id' => 15,
                 'id_sdm' => '9f8d18e9-905d-48cf-9bbf-0925e02c98d9',
@@ -183,7 +168,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            15 =>
             array(
                 'id' => 16,
                 'id_sdm' => '79702834-ea3d-413e-adcf-446f6ed7b2c8',
@@ -194,7 +178,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            16 =>
             array(
                 'id' => 17,
                 'id_sdm' => 'a5ae8f34-be5e-4341-bd2f-e4732893de15',
@@ -205,7 +188,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            17 =>
             array(
                 'id' => 18,
                 'id_sdm' => 'be5b7c76-4a10-4573-8e64-fd4629c35e14',
@@ -216,7 +198,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            18 =>
             array(
                 'id' => 19,
                 'id_sdm' => 'a1a82b4e-054a-4736-a55a-131049066221',
@@ -227,7 +208,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            19 =>
             array(
                 'id' => 20,
                 'id_sdm' => 'fb86dd00-6659-48cf-97de-c64e956910ba',
@@ -238,7 +218,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            20 =>
             array(
                 'id' => 21,
                 'id_sdm' => 'f16206ed-c209-4671-9668-3ba554a4a45c',
@@ -249,7 +228,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            21 =>
             array(
                 'id' => 22,
                 'id_sdm' => '4ec9acec-09c7-47ea-abb4-a74b06ff5381',
@@ -260,7 +238,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            22 =>
             array(
                 'id' => 23,
                 'id_sdm' => 'b34d060e-3384-40f9-8735-82fa13c92968',
@@ -271,7 +248,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            23 =>
             array(
                 'id' => 24,
                 'id_sdm' => '9b134710-7e9a-4743-9d4b-3dacff75a539',
@@ -282,7 +258,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            24 =>
             array(
                 'id' => 25,
                 'id_sdm' => '6b46e4e5-e450-4565-891a-05982d1fa46b',
@@ -293,7 +268,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            25 =>
             array(
                 'id' => 26,
                 'id_sdm' => '32fa6528-2425-46d3-82cf-4e3eed7c544f',
@@ -304,7 +278,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            26 =>
             array(
                 'id' => 27,
                 'id_sdm' => '605be507-775a-494a-9f5d-531ba0ccdb2c',
@@ -315,7 +288,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            27 =>
             array(
                 'id' => 28,
                 'id_sdm' => '3b30635c-bc35-4bee-a831-c96801f050f7',
@@ -326,7 +298,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            28 =>
             array(
                 'id' => 29,
                 'id_sdm' => 'f4207c5d-87a6-417d-b4f2-3e8b6f27f174',
@@ -337,7 +308,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            29 =>
             array(
                 'id' => 30,
                 'id_sdm' => '5c45bcfc-4263-4cf8-a7f8-171b69e36550',
@@ -348,7 +318,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            30 =>
             array(
                 'id' => 31,
                 'id_sdm' => '2c877b8d-78ba-4258-9588-fca00857f677',
@@ -359,7 +328,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            31 =>
             array(
                 'id' => 32,
                 'id_sdm' => 'f11ef02f-4b23-4c52-bc45-a63ce55724d5',
@@ -370,7 +338,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            32 =>
             array(
                 'id' => 33,
                 'id_sdm' => 'a6390f12-393a-4596-9587-b3bce2efedb1',
@@ -381,7 +348,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            33 =>
             array(
                 'id' => 34,
                 'id_sdm' => 'e47a9417-6abf-4cf7-a917-484f3464d7fc',
@@ -392,7 +358,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            34 =>
             array(
                 'id' => 35,
                 'id_sdm' => 'd5074114-6346-4390-8aa7-3725e115f11a',
@@ -403,7 +368,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            35 =>
             array(
                 'id' => 36,
                 'id_sdm' => '6f2499d3-1a4b-4c35-a5af-6e86aa55e0b2',
@@ -414,7 +378,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            36 =>
             array(
                 'id' => 37,
                 'id_sdm' => '4db2ca9e-d785-4022-a63b-cce054fd0fc2',
@@ -425,7 +388,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            37 =>
             array(
                 'id' => 38,
                 'id_sdm' => '17eeca6e-78e8-49d5-93e3-903849bc9202',
@@ -436,7 +398,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            38 =>
             array(
                 'id' => 39,
                 'id_sdm' => 'ef98fc8f-ea73-4631-a929-5e29aa4a9c59',
@@ -447,7 +408,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            39 =>
             array(
                 'id' => 40,
                 'id_sdm' => '96a1199c-6ad2-457e-b4eb-eb1f0c04046a',
@@ -458,7 +418,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            40 =>
             array(
                 'id' => 41,
                 'id_sdm' => '79e040ba-9391-4fb2-883f-3b6271c1b285',
@@ -469,7 +428,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            41 =>
             array(
                 'id' => 42,
                 'id_sdm' => '64ba6fa1-bcaf-41e3-afb3-b92a87a2f4d5',
@@ -480,7 +438,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            42 =>
             array(
                 'id' => 43,
                 'id_sdm' => 'c650deb5-b53b-4c03-9db9-014809edc4ed',
@@ -491,7 +448,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            43 =>
             array(
                 'id' => 44,
                 'id_sdm' => 'c6299f23-1021-4b5b-97d2-7ae7ce09d7d2',
@@ -502,7 +458,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            44 =>
             array(
                 'id' => 45,
                 'id_sdm' => 'ab141232-cede-4de5-bb77-4cbf0160b7ac',
@@ -513,7 +468,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            45 =>
             array(
                 'id' => 46,
                 'id_sdm' => 'c59ef432-9dd1-438b-b0d4-69aba3ced524',
@@ -524,7 +478,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            46 =>
             array(
                 'id' => 47,
                 'id_sdm' => '2dbbf278-4ceb-4efd-a394-63090590b061',
@@ -535,7 +488,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            47 =>
             array(
                 'id' => 48,
                 'id_sdm' => '6eb94396-9caa-44fa-bbd2-1305a92a09c5',
@@ -546,7 +498,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            48 =>
             array(
                 'id' => 49,
                 'id_sdm' => '520c036e-9118-4f8c-a386-bd091161b4f7',
@@ -557,7 +508,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            49 =>
             array(
                 'id' => 50,
                 'id_sdm' => '10940207-f808-4dca-b8be-efbc95b50302',
@@ -568,7 +518,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            50 =>
             array(
                 'id' => 51,
                 'id_sdm' => 'fcba1606-3d2f-4477-b378-6d2f1b8e768e',
@@ -579,7 +528,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            51 =>
             array(
                 'id' => 52,
                 'id_sdm' => 'ed79712a-2eab-4838-8e22-1d9c6ffff82f',
@@ -590,7 +538,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            52 =>
             array(
                 'id' => 53,
                 'id_sdm' => 'd53e745f-aa86-49b3-88c1-54c3856199b5',
@@ -601,7 +548,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            53 =>
             array(
                 'id' => 54,
                 'id_sdm' => 'a40fff34-3145-457f-8fba-67757e10edad',
@@ -612,7 +558,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            54 =>
             array(
                 'id' => 55,
                 'id_sdm' => '9f5363f0-00fe-4657-8448-10054b9bca7c',
@@ -623,7 +568,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            55 =>
             array(
                 'id' => 56,
                 'id_sdm' => 'ce84c79f-b7d3-4bbc-87bb-e36d02f4d771',
@@ -634,7 +578,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            56 =>
             array(
                 'id' => 57,
                 'id_sdm' => '92c43834-ddc3-4356-a077-f7fe69e94bb6',
@@ -645,7 +588,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            57 =>
             array(
                 'id' => 58,
                 'id_sdm' => 'e9056bc8-9742-421c-bcb6-9999ea9e89a5',
@@ -656,7 +598,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            58 =>
             array(
                 'id' => 59,
                 'id_sdm' => '7cc1e588-2a62-4158-ac54-dd556f6a2988',
@@ -667,7 +608,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            59 =>
             array(
                 'id' => 60,
                 'id_sdm' => '94402006-b08e-4693-a555-e812a2b6c8b9',
@@ -678,7 +618,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            60 =>
             array(
                 'id' => 61,
                 'id_sdm' => 'd4d8ed1c-e73e-42c8-bd54-307120161d41',
@@ -689,7 +628,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            61 =>
             array(
                 'id' => 62,
                 'id_sdm' => '397eaa21-7507-4e35-818c-3dd26c6d05ab',
@@ -700,7 +638,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            62 =>
             array(
                 'id' => 63,
                 'id_sdm' => '0c1f2006-141a-425e-8b71-a9d9f241be87',
@@ -711,7 +648,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            63 =>
             array(
                 'id' => 64,
                 'id_sdm' => 'b4417bca-6f71-4e19-b815-7bdec7272ed2',
@@ -722,7 +658,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            64 =>
             array(
                 'id' => 65,
                 'id_sdm' => 'a49939b8-8b71-411e-bbba-524bcb4b07ec',
@@ -733,7 +668,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            65 =>
             array(
                 'id' => 66,
                 'id_sdm' => 'ef5a1dc3-9b61-459f-a4e2-f9aacce02a7f',
@@ -744,7 +678,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            66 =>
             array(
                 'id' => 67,
                 'id_sdm' => 'a35e115b-3226-4dee-9c53-cb4b89509939',
@@ -755,7 +688,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            67 =>
             array(
                 'id' => 68,
                 'id_sdm' => 'c1d55be9-c379-4893-b61b-6316a0604fcf',
@@ -766,7 +698,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            68 =>
             array(
                 'id' => 69,
                 'id_sdm' => '1f5c5afd-3ac8-4a5e-8b76-808c3cdfe8dc',
@@ -777,7 +708,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            69 =>
             array(
                 'id' => 70,
                 'id_sdm' => 'e088f7e4-5541-4a34-a2c0-302d0e04d810',
@@ -788,7 +718,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            70 =>
             array(
                 'id' => 71,
                 'id_sdm' => '6aab70ca-d878-4e48-af87-d566633262c5',
@@ -799,7 +728,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            71 =>
             array(
                 'id' => 72,
                 'id_sdm' => '8aaffe0b-e8ef-409b-bdec-ec9cc65d58ac',
@@ -810,7 +738,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            72 =>
             array(
                 'id' => 73,
                 'id_sdm' => '932d98a2-3bc1-43ff-8d4c-bda2206c0550',
@@ -821,7 +748,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            73 =>
             array(
                 'id' => 74,
                 'id_sdm' => '025622d6-b024-431e-91a1-7d71654931e6',
@@ -832,7 +758,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            74 =>
             array(
                 'id' => 75,
                 'id_sdm' => '5c844a5b-0db1-4692-b41f-923bd7544da8',
@@ -843,7 +768,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            75 =>
             array(
                 'id' => 76,
                 'id_sdm' => '3561027a-4bc9-410b-9913-dfea6d9f555e',
@@ -854,7 +778,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            76 =>
             array(
                 'id' => 77,
                 'id_sdm' => 'b2e9d162-b72d-4604-8050-319524f1f781',
@@ -865,7 +788,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            77 =>
             array(
                 'id' => 78,
                 'id_sdm' => 'bbb3cbbc-947f-4d1b-bc85-07db6fc6e66d',
@@ -876,7 +798,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            78 =>
             array(
                 'id' => 79,
                 'id_sdm' => '88685ec1-b616-424f-9259-465874e3e1bd',
@@ -887,7 +808,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            79 =>
             array(
                 'id' => 80,
                 'id_sdm' => '0187e64f-a68f-44dc-9f8f-b320718d29d1',
@@ -898,7 +818,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            80 =>
             array(
                 'id' => 81,
                 'id_sdm' => 'd9b1cffd-c834-421f-9513-d2183ec504a9',
@@ -909,7 +828,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            81 =>
             array(
                 'id' => 82,
                 'id_sdm' => 'be588091-0587-42db-a547-4f20c4991f11',
@@ -920,7 +838,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            82 =>
             array(
                 'id' => 83,
                 'id_sdm' => '4656709d-c825-418d-b1f2-b8c67efe37e1',
@@ -931,7 +848,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            83 =>
             array(
                 'id' => 84,
                 'id_sdm' => '0e6281d7-5b32-4d52-8619-e86023066780',
@@ -942,7 +858,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            84 =>
             array(
                 'id' => 85,
                 'id_sdm' => '34242e05-40cf-41fb-9ab9-2ec5c61ea292',
@@ -953,7 +868,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            85 =>
             array(
                 'id' => 86,
                 'id_sdm' => '383830bf-5956-447d-88af-e17e52bc2e99',
@@ -964,7 +878,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            86 =>
             array(
                 'id' => 87,
                 'id_sdm' => 'c24e0390-d243-4f67-852f-c50361711b92',
@@ -975,7 +888,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'PNS Diperbantukan',
                 'jenis_sdm' => 'Dosen',
             ),
-            87 =>
             array(
                 'id' => 88,
                 'id_sdm' => 'bc57e9a8-9e7d-4673-8d40-f676dbca9918',
@@ -986,7 +898,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            88 =>
             array(
                 'id' => 89,
                 'id_sdm' => 'be2332a1-3d31-4236-9ca7-cc23b2acbeff',
@@ -997,7 +908,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            89 =>
             array(
                 'id' => 90,
                 'id_sdm' => '12b9afb8-8eb2-43db-9f96-8bca5a5872b4',
@@ -1008,7 +918,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            90 =>
             array(
                 'id' => 91,
                 'id_sdm' => '0cd7481a-f1f4-4499-9749-e3b749181e94',
@@ -1019,7 +928,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            91 =>
             array(
                 'id' => 92,
                 'id_sdm' => '6cfee1c7-a31e-4c9d-be26-59c23b303a55',
@@ -1030,7 +938,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            92 =>
             array(
                 'id' => 93,
                 'id_sdm' => 'ab780add-aa23-4b6b-85bf-dab801067d41',
@@ -1041,7 +948,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            93 =>
             array(
                 'id' => 94,
                 'id_sdm' => '21ae61f4-9f4d-4b9d-ad69-dec843b6f47b',
@@ -1052,7 +958,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            94 =>
             array(
                 'id' => 95,
                 'id_sdm' => '329e92ea-d9fe-4a61-ac2d-4ee201dda41c',
@@ -1063,7 +968,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            95 =>
             array(
                 'id' => 96,
                 'id_sdm' => '4987a1bc-9c65-424e-b457-2e02b5478a5d',
@@ -1074,7 +978,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            96 =>
             array(
                 'id' => 97,
                 'id_sdm' => 'd1662e1c-e640-48a1-985e-77275dea39da',
@@ -1085,7 +988,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            97 =>
             array(
                 'id' => 98,
                 'id_sdm' => '5ded2223-3d3d-4cd4-bbab-8e041f1aec6c',
@@ -1096,7 +998,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            98 =>
             array(
                 'id' => 99,
                 'id_sdm' => 'd25d3396-bf4f-47e3-a309-c7f116f2d6eb',
@@ -1107,7 +1008,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            99 =>
             array(
                 'id' => 100,
                 'id_sdm' => '29da6779-274c-47a1-8bc3-4dfaa879c460',
@@ -1118,7 +1018,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            100 =>
             array(
                 'id' => 101,
                 'id_sdm' => '74aaf8bc-d760-4d12-a4ca-87a0f0b14be2',
@@ -1129,7 +1028,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            101 =>
             array(
                 'id' => 102,
                 'id_sdm' => '955f18bf-1ded-48cc-b4b6-96018508abd1',
@@ -1140,7 +1038,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            102 =>
             array(
                 'id' => 103,
                 'id_sdm' => '106a1e14-5b51-4633-a4ea-3baab7b57a99',
@@ -1151,7 +1048,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            103 =>
             array(
                 'id' => 104,
                 'id_sdm' => '32682923-f443-48f8-8440-57b1e9ad98da',
@@ -1162,7 +1058,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            104 =>
             array(
                 'id' => 105,
                 'id_sdm' => '2b35b350-cd2d-4c25-a93d-63e1bc70763c',
@@ -1173,7 +1068,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            105 =>
             array(
                 'id' => 106,
                 'id_sdm' => 'c490f5c7-75ee-4bba-bd5c-ee465fd0537b',
@@ -1184,7 +1078,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            106 =>
             array(
                 'id' => 107,
                 'id_sdm' => '9567cdc4-3325-4142-a096-56709946e5da',
@@ -1195,7 +1088,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            107 =>
             array(
                 'id' => 108,
                 'id_sdm' => 'da4f1d09-fe34-4595-a192-bfbf1aad44c9',
@@ -1206,7 +1098,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            108 =>
             array(
                 'id' => 109,
                 'id_sdm' => 'ed6a444e-10a2-4dc9-a004-15e6a5b2bc38',
@@ -1217,7 +1108,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            109 =>
             array(
                 'id' => 110,
                 'id_sdm' => '3199c7e7-c22b-4213-8541-d938ba64f74e',
@@ -1228,7 +1118,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            110 =>
             array(
                 'id' => 111,
                 'id_sdm' => 'd16d4d84-ed96-4fa7-b6bd-561e95c7622a',
@@ -1239,7 +1128,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            111 =>
             array(
                 'id' => 112,
                 'id_sdm' => '182afdb4-0063-491c-a9dd-8761765d4bd5',
@@ -1250,7 +1138,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            112 =>
             array(
                 'id' => 113,
                 'id_sdm' => '1c5fcb27-53a5-4648-bd95-08e7a481a56f',
@@ -1261,7 +1148,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            113 =>
             array(
                 'id' => 114,
                 'id_sdm' => 'bdc479e4-ac1c-47f5-a92d-82845bba20a7',
@@ -1272,7 +1158,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            114 =>
             array(
                 'id' => 115,
                 'id_sdm' => '3e16e49a-2c9c-4ee2-bc50-a24c822634dd',
@@ -1283,7 +1168,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            115 =>
             array(
                 'id' => 116,
                 'id_sdm' => 'fba59ddf-dcbf-42eb-81d1-e5bdcbeb2789',
@@ -1294,7 +1178,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            116 =>
             array(
                 'id' => 117,
                 'id_sdm' => '7fa779e6-f786-4af2-ace5-2904eb8f150d',
@@ -1305,7 +1188,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            117 =>
             array(
                 'id' => 118,
                 'id_sdm' => '8d4ed0f4-09d3-4a26-94b7-d769a877034c',
@@ -1316,7 +1198,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            118 =>
             array(
                 'id' => 119,
                 'id_sdm' => 'e07d3ecb-3fa4-477e-a7e0-de1bd1121b0d',
@@ -1327,7 +1208,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            119 =>
             array(
                 'id' => 120,
                 'id_sdm' => '4fd9ba1d-91b7-4ded-9eab-a68f169de6ee',
@@ -1338,7 +1218,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            120 =>
             array(
                 'id' => 121,
                 'id_sdm' => '9551f89f-dee7-430b-b841-31704725bce3',
@@ -1349,7 +1228,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            121 =>
             array(
                 'id' => 122,
                 'id_sdm' => '845222d3-0906-43fe-8060-e67b45c18fdf',
@@ -1360,7 +1238,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            122 =>
             array(
                 'id' => 123,
                 'id_sdm' => 'b4075b3d-6702-46a8-b18e-625591df510a',
@@ -1371,7 +1248,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            123 =>
             array(
                 'id' => 124,
                 'id_sdm' => 'be45cfee-86c5-4d05-a325-95c906b24102',
@@ -1382,7 +1258,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            124 =>
             array(
                 'id' => 125,
                 'id_sdm' => '263500e8-285a-409c-919f-b079770bca9a',
@@ -1393,7 +1268,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            125 =>
             array(
                 'id' => 126,
                 'id_sdm' => 'abd763f1-24a4-4417-94ed-9c26ac35896b',
@@ -1404,7 +1278,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            126 =>
             array(
                 'id' => 127,
                 'id_sdm' => '6ad44b2d-b9e7-4952-9609-09f81866a26f',
@@ -1415,7 +1288,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            127 =>
             array(
                 'id' => 128,
                 'id_sdm' => '31de77ee-485f-4e12-8dad-38eafc2497d5',
@@ -1426,7 +1298,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            128 =>
             array(
                 'id' => 129,
                 'id_sdm' => '3d366a35-ae08-4328-998a-53677fde7a8b',
@@ -1437,7 +1308,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            129 =>
             array(
                 'id' => 130,
                 'id_sdm' => 'aaf4ef31-bfd8-41bd-9f7e-a96a013a19c4',
@@ -1448,7 +1318,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            130 =>
             array(
                 'id' => 131,
                 'id_sdm' => 'bcb6a6e1-4405-4eb6-a5c2-e8a1729d1cfb',
@@ -1459,7 +1328,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            131 =>
             array(
                 'id' => 132,
                 'id_sdm' => '51761bc0-c446-40ee-aeb9-5285c1d0e4c9',
@@ -1470,7 +1338,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            132 =>
             array(
                 'id' => 133,
                 'id_sdm' => '97df4b39-0ca5-46a4-89f3-bc1b85ea30ec',
@@ -1481,7 +1348,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            133 =>
             array(
                 'id' => 134,
                 'id_sdm' => '247c1cd9-2772-4840-8896-75d4b149171e',
@@ -1492,7 +1358,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            134 =>
             array(
                 'id' => 135,
                 'id_sdm' => '850f100b-a91d-49fe-bcd0-fec677373ce6',
@@ -1503,7 +1368,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            135 =>
             array(
                 'id' => 136,
                 'id_sdm' => '60a43ad9-5ed0-435a-a7cb-1fdb46100ab2',
@@ -1514,7 +1378,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            136 =>
             array(
                 'id' => 137,
                 'id_sdm' => 'b8363865-7d31-42d5-8e33-55061819f12f',
@@ -1525,7 +1388,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            137 =>
             array(
                 'id' => 138,
                 'id_sdm' => 'd33e090f-eedf-429e-8119-a7d17684642e',
@@ -1536,7 +1398,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            138 =>
             array(
                 'id' => 139,
                 'id_sdm' => 'dde0aa6d-ebb8-475e-9585-f6be26bace3f',
@@ -1547,7 +1408,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            139 =>
             array(
                 'id' => 140,
                 'id_sdm' => 'a6113a4d-e2bd-4818-866d-d3aeb1e013a8',
@@ -1558,7 +1418,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            140 =>
             array(
                 'id' => 141,
                 'id_sdm' => '01250a4b-7c7d-4514-9f2d-72f21e8c587b',
@@ -1569,7 +1428,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            141 =>
             array(
                 'id' => 142,
                 'id_sdm' => '5707effb-6234-4e5a-8d68-8b9bf13eb7e2',
@@ -1580,7 +1438,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            142 =>
             array(
                 'id' => 143,
                 'id_sdm' => 'eca34cd2-49db-43a2-bca1-5f334a944742',
@@ -1591,7 +1448,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            143 =>
             array(
                 'id' => 144,
                 'id_sdm' => '5644ee89-b2a0-4e80-9af4-1e71f4216725',
@@ -1602,7 +1458,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            144 =>
             array(
                 'id' => 145,
                 'id_sdm' => 'c64d00db-9344-47df-8e5b-0cfd4dae295d',
@@ -1613,7 +1468,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            145 =>
             array(
                 'id' => 146,
                 'id_sdm' => '7e0f97a6-ab1e-45a7-812a-9327234ba77a',
@@ -1624,7 +1478,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            146 =>
             array(
                 'id' => 147,
                 'id_sdm' => 'dbf909ae-4969-41f5-b7e4-dc733078f228',
@@ -1635,7 +1488,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            147 =>
             array(
                 'id' => 148,
                 'id_sdm' => 'e3676a0f-7383-4897-80f2-03c1851ca59c',
@@ -1646,7 +1498,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            148 =>
             array(
                 'id' => 149,
                 'id_sdm' => '90693710-aab4-4cd0-b4c4-be101eaa7c8d',
@@ -1657,7 +1508,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            149 =>
             array(
                 'id' => 150,
                 'id_sdm' => 'd028b607-2390-4ca0-8851-73e5ecabcbbe',
@@ -1668,7 +1518,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            150 =>
             array(
                 'id' => 151,
                 'id_sdm' => '6b9de31d-b8c1-4103-b287-dcbc84efc981',
@@ -1679,7 +1528,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            151 =>
             array(
                 'id' => 152,
                 'id_sdm' => '2fcc1e5c-01d2-4b97-8c51-ab54fdd0736a',
@@ -1690,7 +1538,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            152 =>
             array(
                 'id' => 153,
                 'id_sdm' => 'd25309fa-3689-47a1-bd6f-28424161b666',
@@ -1701,7 +1548,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            153 =>
             array(
                 'id' => 154,
                 'id_sdm' => 'fef6b30e-0666-411a-b153-377662e5b265',
@@ -1712,7 +1558,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            154 =>
             array(
                 'id' => 155,
                 'id_sdm' => 'fdd68fa3-83ab-4caa-b925-6fcac182b703',
@@ -1723,7 +1568,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            155 =>
             array(
                 'id' => 156,
                 'id_sdm' => '1aef2c68-f40a-4232-821d-609d2ce8b87c',
@@ -1734,7 +1578,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            156 =>
             array(
                 'id' => 157,
                 'id_sdm' => 'd5ab5110-c3d1-4789-9e7d-05a91f3820dd',
@@ -1745,7 +1588,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            157 =>
             array(
                 'id' => 158,
                 'id_sdm' => 'b0239348-eb85-4594-8129-bc541a22145b',
@@ -1756,7 +1598,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            158 =>
             array(
                 'id' => 159,
                 'id_sdm' => 'f09cf638-7df6-45ad-9f12-85d207b39fc0',
@@ -1767,7 +1608,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            159 =>
             array(
                 'id' => 160,
                 'id_sdm' => '866e08e2-12b0-47f0-bbd5-c4007427ab46',
@@ -1778,7 +1618,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            160 =>
             array(
                 'id' => 161,
                 'id_sdm' => '99baf8d6-7e49-43e4-b14d-17ab6e545353',
@@ -1789,7 +1628,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            161 =>
             array(
                 'id' => 162,
                 'id_sdm' => '666314d3-dd65-4969-922b-ff26993c8909',
@@ -1800,7 +1638,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            162 =>
             array(
                 'id' => 163,
                 'id_sdm' => 'b544f237-a438-4e8f-b8a6-871e4ed5bbe5',
@@ -1811,7 +1648,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            163 =>
             array(
                 'id' => 164,
                 'id_sdm' => 'a2119124-343e-472e-951c-9aaf6590fe25',
@@ -1822,7 +1658,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            164 =>
             array(
                 'id' => 165,
                 'id_sdm' => '461e05d0-f657-4184-b174-a898798db452',
@@ -1833,7 +1668,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            165 =>
             array(
                 'id' => 166,
                 'id_sdm' => '50dd9a94-7da4-465d-aa99-9907936af050',
@@ -1844,7 +1678,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            166 =>
             array(
                 'id' => 167,
                 'id_sdm' => '074c75af-7617-4662-9337-4a2864652c82',
@@ -1855,7 +1688,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            167 =>
             array(
                 'id' => 168,
                 'id_sdm' => 'b1de06fd-c31f-4642-a2ee-a6e97783e3a4',
@@ -1866,7 +1698,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            168 =>
             array(
                 'id' => 169,
                 'id_sdm' => '9af68a44-f060-4a6a-bbd1-1133f0953dfd',
@@ -1877,7 +1708,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            169 =>
             array(
                 'id' => 170,
                 'id_sdm' => '79c621e7-4310-4221-a168-4245ebf0c593',
@@ -1888,7 +1718,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            170 =>
             array(
                 'id' => 171,
                 'id_sdm' => 'b345f527-c622-4ab5-bfe4-4aa89edb8cdd',
@@ -1899,7 +1728,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            171 =>
             array(
                 'id' => 172,
                 'id_sdm' => '6b3fd44c-7188-4d67-a564-fa7efa9c08a0',
@@ -1910,7 +1738,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            172 =>
             array(
                 'id' => 173,
                 'id_sdm' => '75a1c52a-d624-4968-8954-e643d51f44d6',
@@ -1921,7 +1748,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            173 =>
             array(
                 'id' => 174,
                 'id_sdm' => '6af55a19-5059-4766-9ffe-d62b03e6530b',
@@ -1932,7 +1758,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            174 =>
             array(
                 'id' => 175,
                 'id_sdm' => 'a3550ca3-ef79-431d-a63b-ba246ba5baba',
@@ -1943,7 +1768,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            175 =>
             array(
                 'id' => 176,
                 'id_sdm' => 'c01f7c9f-bd0c-46f0-aac3-e3f1f221c4d2',
@@ -1954,7 +1778,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            176 =>
             array(
                 'id' => 177,
                 'id_sdm' => 'bb8f7085-5cb0-4db3-b982-2d02529e4d3d',
@@ -1965,7 +1788,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            177 =>
             array(
                 'id' => 178,
                 'id_sdm' => '2bd5683d-939c-4e41-8542-96ce3638e837',
@@ -1976,7 +1798,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            178 =>
             array(
                 'id' => 179,
                 'id_sdm' => '73c5d91b-d4d0-4958-821b-2edd4788081c',
@@ -1987,7 +1808,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            179 =>
             array(
                 'id' => 180,
                 'id_sdm' => 'ccd3fd73-3508-40ce-afe8-c810be6209c1',
@@ -1998,7 +1818,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            180 =>
             array(
                 'id' => 181,
                 'id_sdm' => '8b95c740-47a8-4f8d-8bc2-ed8ee1206cb2',
@@ -2009,7 +1828,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            181 =>
             array(
                 'id' => 182,
                 'id_sdm' => '2165f129-cb12-4e7c-bb67-1191e358b390',
@@ -2020,7 +1838,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            182 =>
             array(
                 'id' => 183,
                 'id_sdm' => '4139bff1-7c49-47ce-933a-810f45f3c8e0',
@@ -2031,7 +1848,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            183 =>
             array(
                 'id' => 184,
                 'id_sdm' => '34fe5c57-2500-4595-a359-0779cd8cee66',
@@ -2042,7 +1858,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            184 =>
             array(
                 'id' => 185,
                 'id_sdm' => 'e58cf48b-5a2d-42d6-9318-c64b3ac3bf36',
@@ -2053,7 +1868,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            185 =>
             array(
                 'id' => 186,
                 'id_sdm' => '9644c62d-c0da-409f-81c9-6b8a4add6e3d',
@@ -2064,7 +1878,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            186 =>
             array(
                 'id' => 187,
                 'id_sdm' => 'b32bc3aa-6355-49ac-bc78-5ce650278159',
@@ -2075,7 +1888,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            187 =>
             array(
                 'id' => 188,
                 'id_sdm' => '890b64b4-2b36-4482-9326-bbf0cff61313',
@@ -2086,7 +1898,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            188 =>
             array(
                 'id' => 189,
                 'id_sdm' => '80f90cf9-a0a3-4532-8d4e-9d320608c66b',
@@ -2097,7 +1908,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            189 =>
             array(
                 'id' => 190,
                 'id_sdm' => 'f282a942-4bda-4178-9944-8b43214f6134',
@@ -2108,7 +1918,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            190 =>
             array(
                 'id' => 191,
                 'id_sdm' => 'ab315405-b040-493d-b6e8-ed60126d16b9',
@@ -2119,7 +1928,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            191 =>
             array(
                 'id' => 192,
                 'id_sdm' => '0333a394-8520-467e-8f49-f2b1e1f0c89e',
@@ -2130,7 +1938,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            192 =>
             array(
                 'id' => 193,
                 'id_sdm' => 'ccd1ab64-dc2d-43b5-bfee-9607d442c8b5',
@@ -2141,7 +1948,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            193 =>
             array(
                 'id' => 194,
                 'id_sdm' => 'fde0392c-cc12-467d-b693-280bb493a984',
@@ -2152,7 +1958,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            194 =>
             array(
                 'id' => 195,
                 'id_sdm' => '9a83c479-b507-491a-8064-69c24fa03c98',
@@ -2163,7 +1968,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            195 =>
             array(
                 'id' => 196,
                 'id_sdm' => '480636a5-c924-40ab-a957-d35baeb253c0',
@@ -2174,7 +1978,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            196 =>
             array(
                 'id' => 197,
                 'id_sdm' => '4ad77dc5-5d59-47aa-96fd-7644875de92b',
@@ -2185,7 +1988,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            197 =>
             array(
                 'id' => 198,
                 'id_sdm' => '46db3b29-71f8-48a6-bda4-6e7314b2a3a1',
@@ -2196,7 +1998,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            198 =>
             array(
                 'id' => 199,
                 'id_sdm' => '28248b98-e072-4a24-a862-860f273084bd',
@@ -2207,7 +2008,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            199 =>
             array(
                 'id' => 200,
                 'id_sdm' => '352e07c1-61f5-4dc3-a972-6df799ed13c2',
@@ -2218,7 +2018,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            200 =>
             array(
                 'id' => 201,
                 'id_sdm' => '0eff8a58-bf25-426f-9a6d-faf3482ade6b',
@@ -2229,7 +2028,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            201 =>
             array(
                 'id' => 202,
                 'id_sdm' => '0c4c0ead-d729-4a16-8539-5e154aea0948',
@@ -2240,7 +2038,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            202 =>
             array(
                 'id' => 203,
                 'id_sdm' => 'af9909ed-1435-4872-98c9-a87f69454bb8',
@@ -2251,7 +2048,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            203 =>
             array(
                 'id' => 204,
                 'id_sdm' => 'f1254d63-1d53-4449-b7e8-c9675ac580ce',
@@ -2262,7 +2058,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            204 =>
             array(
                 'id' => 205,
                 'id_sdm' => 'ef25ad69-ec81-48cb-8e8f-2e1c809e78d4',
@@ -2273,7 +2068,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            205 =>
             array(
                 'id' => 206,
                 'id_sdm' => '88add6cc-11b7-42fe-9234-b4a55e3c7152',
@@ -2284,7 +2078,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            206 =>
             array(
                 'id' => 207,
                 'id_sdm' => 'bbb53bfc-6dda-4f36-8207-174586cc7207',
@@ -2295,7 +2088,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            207 =>
             array(
                 'id' => 208,
                 'id_sdm' => '2b06287a-5ea3-464a-bab8-43f757d75a61',
@@ -2306,7 +2098,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            208 =>
             array(
                 'id' => 209,
                 'id_sdm' => '35e4977e-e128-49c0-a7c6-819c5735c161',
@@ -2317,7 +2108,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            209 =>
             array(
                 'id' => 210,
                 'id_sdm' => '00b65c38-38b1-4bb3-82bc-5689bf50e80f',
@@ -2328,7 +2118,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            210 =>
             array(
                 'id' => 211,
                 'id_sdm' => 'eecb5615-0e86-4b0c-a3cc-3cca87303f6d',
@@ -2339,7 +2128,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            211 =>
             array(
                 'id' => 212,
                 'id_sdm' => '49606eb2-a934-452f-b0fd-d5b700a5554b',
@@ -2350,7 +2138,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            212 =>
             array(
                 'id' => 213,
                 'id_sdm' => '8c6e38db-b253-4bbd-a724-0aedb2ea30ab',
@@ -2361,7 +2148,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            213 =>
             array(
                 'id' => 214,
                 'id_sdm' => '844ee40c-6177-4b6c-9cf7-56da87bbce3a',
@@ -2372,7 +2158,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            214 =>
             array(
                 'id' => 215,
                 'id_sdm' => '946dd70f-c758-4b57-8d8f-2078df8d827c',
@@ -2383,7 +2168,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            215 =>
             array(
                 'id' => 216,
                 'id_sdm' => '588ca920-6c12-47a0-8e4b-225422053d0e',
@@ -2394,7 +2178,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            216 =>
             array(
                 'id' => 217,
                 'id_sdm' => 'de3ceeae-1176-4533-bc75-22b4b4ef6f4f',
@@ -2405,7 +2188,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            217 =>
             array(
                 'id' => 218,
                 'id_sdm' => '8b11fffc-90f1-4c17-8299-a73c543dab20',
@@ -2416,7 +2198,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            218 =>
             array(
                 'id' => 219,
                 'id_sdm' => '097e1fb5-097d-438a-aba0-dc44ad1a2c78',
@@ -2427,7 +2208,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            219 =>
             array(
                 'id' => 220,
                 'id_sdm' => '6079fcf1-1b5e-49dc-96fe-d5ed5edafb7c',
@@ -2438,7 +2218,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            220 =>
             array(
                 'id' => 221,
                 'id_sdm' => '2740d95b-1fa9-4cc7-8515-eb33eb550299',
@@ -2449,7 +2228,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            221 =>
             array(
                 'id' => 222,
                 'id_sdm' => 'bd83ef91-666a-4080-ad37-271c3663fbfa',
@@ -2460,7 +2238,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            222 =>
             array(
                 'id' => 223,
                 'id_sdm' => '6373891b-bb7a-477f-a66d-00f3dbd9b713',
@@ -2471,7 +2248,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            223 =>
             array(
                 'id' => 224,
                 'id_sdm' => 'd1c49df0-1ad5-48a5-9be6-550cc1b50a86',
@@ -2482,7 +2258,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            224 =>
             array(
                 'id' => 225,
                 'id_sdm' => '9b452d59-8524-4949-ad89-f8fc814285e2',
@@ -2493,7 +2268,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            225 =>
             array(
                 'id' => 226,
                 'id_sdm' => 'dbdc0c55-f1f6-4a9f-9018-bfde2487235f',
@@ -2504,7 +2278,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            226 =>
             array(
                 'id' => 227,
                 'id_sdm' => 'b3e1ff50-9e1a-4321-9d99-e98ea2539d1b',
@@ -2515,7 +2288,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            227 =>
             array(
                 'id' => 228,
                 'id_sdm' => 'dd1be504-7028-402e-8ced-3b43b34ded18',
@@ -2526,7 +2298,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            228 =>
             array(
                 'id' => 229,
                 'id_sdm' => '788e8723-fa27-4528-8b40-a6fbeb54288f',
@@ -2537,7 +2308,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            229 =>
             array(
                 'id' => 230,
                 'id_sdm' => '2fab9426-a235-4830-b735-d7d10b38e99e',
@@ -2548,7 +2318,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            230 =>
             array(
                 'id' => 231,
                 'id_sdm' => '1e8ea031-b6c3-424a-864c-43f5c22e2eba',
@@ -2559,7 +2328,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            231 =>
             array(
                 'id' => 232,
                 'id_sdm' => '4c663e0f-699c-45d5-9172-326fdaff2cd0',
@@ -2570,7 +2338,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            232 =>
             array(
                 'id' => 233,
                 'id_sdm' => '2c96fa8d-14ab-4b83-a83a-d291a0b22d91',
@@ -2581,7 +2348,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            233 =>
             array(
                 'id' => 234,
                 'id_sdm' => '70614608-3a7a-4b6a-9922-4967aef71f3c',
@@ -2592,7 +2358,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Tenaga Kependidikan',
             ),
-            234 =>
             array(
                 'id' => 235,
                 'id_sdm' => '9a9482ea-9b09-4604-9148-f66a746103ef',
@@ -2603,7 +2368,6 @@ class SdmTableSeeder extends Seeder
                 'nama_status_pegawai' => 'NON PNS',
                 'jenis_sdm' => 'Dosen',
             ),
-            235 =>
             array(
                 'id' => 236,
                 'id_sdm' => 'a7d73f3e-df9d-4ec5-ae71-c437e58d533b',

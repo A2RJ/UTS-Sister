@@ -28,24 +28,26 @@
     <!-- End fonts -->
 
     <!-- core:css -->
-    <link rel="stylesheet" href="{{ env('ASSETS_URL') }}/assets/vendors/core/core.css">
+    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.css') }}">
     <!-- endinject -->
 
     <!-- Plugin css for this page -->
     <link rel="stylesheet"
-        href="{{ env('ASSETS_URL') }}/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+        href="{{ asset('/themeforest/NobleUI/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <!-- End plugin css for this page -->
 
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{ env('ASSETS_URL') }}/assets/fonts/feather-font/css/iconfont.css">
-    <link rel="stylesheet" href="{{ env('ASSETS_URL') }}/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet"
+        href="{{ asset('/themeforest/NobleUI/template/assets/fonts/feather-font/css/iconfont.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/themeforest/NobleUI/template/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <!-- endinject -->
 
     <!-- Layout styles -->
-    <link rel="stylesheet" href="{{ env('ASSETS_URL') }}/assets/css/demo1/style.css">
+    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/css/demo1/style.css') }}">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="{{ env('ASSETS_URL') }}/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
     @vite('resources/js/app.js')
 </head>
 
@@ -79,7 +81,7 @@
     </div>
 
     <!-- core:js -->
-    <script src="{{ env('ASSETS_URL') }}/assets/vendors/core/core.js"></script>
+    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->
 
     <!-- Plugin js for this page -->
@@ -87,8 +89,8 @@
     <!-- End plugin js for this page -->
 
     <!-- inject:js -->
-    <script src="{{ env('ASSETS_URL') }}/assets/vendors/feather-icons/feather.min.js"></script>
-    <script src="{{ env('ASSETS_URL') }}/assets/js/template.js"></script>
+    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('/themeforest/NobleUI/template/assets/js/template.') }}js"></script>
     <!-- endinject -->
     {{-- Custom js --}}
     @yield('custom_js')
