@@ -7,10 +7,14 @@
         <b>Pengajaran</b>
         <ul>
             @foreach ($data as $pengajaran)
-                <li>{{ $loop->iteration }}- {{ $pengajaran['semester'] }} -
-                    {{ $pengajaran['mata_kuliah'] }} -
-                    {{ $pengajaran['kelas'] }} - {{ $pengajaran['jumlah_mahasiswa'] }}-
-                    {{ $pengajaran['sks'] }}</li>
+                <li>
+                    <a href="{{ route('pengajaran.detail', ['id' => $pengajaran['id']]) }}">
+                        {{ $loop->iteration }}- {{ $pengajaran['semester'] }} -
+                        {{ $pengajaran['mata_kuliah'] }} -
+                        {{ $pengajaran['kelas'] }} - {{ $pengajaran['jumlah_mahasiswa'] }}-
+                        {{ $pengajaran['sks'] }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

@@ -6,11 +6,14 @@
     <b>Detasering</b>
     <ul>
         @foreach ($data as $detasering)
-            <li>{{ $loop->iteration }}- {{ $detasering['kategori_kegiatan'] }} -
-                {{ $detasering['perguruan_tinggi'] }} -
-                {{ $detasering['bidang_tugas'] }} -
-                {{ $detasering['sk_penugasan'] }} -
-                {{ $detasering['tanggal_sk_penugasan'] }}
+            <li>
+                <a href="{{ route('detasering.detail', ['id' => $detasering['id']]) }}">
+                    {{ $loop->iteration }}- {{ $detasering['kategori_kegiatan'] }} -
+                    {{ $detasering['perguruan_tinggi'] }} -
+                    {{ $detasering['bidang_tugas'] }} -
+                    {{ $detasering['sk_penugasan'] }} -
+                    {{ $detasering['tanggal_sk_penugasan'] }}
+                </a>
             </li>
         @endforeach
     </ul>

@@ -6,9 +6,12 @@
     <b>Visiting scientist</b>
     <ul>
         @foreach ($data as $visitingScientist)
-            <li>{{ $loop->iteration }}- {{ $visitingScientist['perguruan_tinggi'] }} -
-                {{ $visitingScientist['lama_kegiatan'] }} -
-                {{ $visitingScientist['tanggal'] }}
+            <li>
+                <a href="{{ route('visiting-scientist.detail', ['id' => $visitingScientist['id']]) }}">
+                    {{ $loop->iteration }}- {{ $visitingScientist['perguruan_tinggi'] }} -
+                    {{ $visitingScientist['lama_kegiatan'] }} -
+                    {{ $visitingScientist['tanggal'] }}
+                </a>
             </li>
         @endforeach
     </ul>
