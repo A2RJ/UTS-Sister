@@ -10,9 +10,13 @@
         <b>Diklat</b>
         <ul>
             @foreach ($data as $diklat)
-                <li>{{ $loop->iteration }}- {{ $diklat['jenis_diklat'] }} - {{ $diklat['nama'] }} -
-                    {{ $diklat['penyelenggara'] }} -
-                    {{ $diklat['tahun_lulus'] }}</li>
+                <li>
+                    <a href="{{ route('diklat.detail', ['id' => $diklat['id']]) }}">
+                        {{ $loop->iteration }}- {{ $diklat['jenis_diklat'] }} - {{ $diklat['nama'] }} -
+                        {{ $diklat['penyelenggara'] }} -
+                        {{ $diklat['tahun_lulus'] }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

@@ -46,7 +46,7 @@ Route::prefix('profil')->controller(ProfilController::class)->group(function () 
     });
     Route::prefix("kepangkatan")->group(function () {
         Route::get("/", 'kepangkatan')->name('kepangkatan');
-        Route::get("/{id}", 'detailKepangktan')->name('kepangkatan.detail');
+        Route::get("/{id}", 'detailKepangkatan')->name('kepangkatan.detail');
     });
     Route::prefix("penempatan")->group(function () {
         Route::get("/", 'penempatan')->name('penempatan');
@@ -78,6 +78,7 @@ Route::prefix('kompetensi')->controller(KompetensiController::class)->group(func
         Route::get('/', 'sertifikasiProfesi')->name('sertifikasi-profesi');
         Route::get('/{id}', 'detailSertifikasiProfesi')->name('sertifikasi-profesi.detail');
     });
+    Route::get("sertifikasi-dosen/{id}", 'detailSertifikasiDosen')->name('sertifikasi-dosen.detail');
     Route::prefix("test")->group(function () {
         Route::get('/', 'tes')->name('tes');
         Route::get('/{id}', 'detailTes')->name('tes.detail');

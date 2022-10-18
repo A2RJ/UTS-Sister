@@ -37,7 +37,7 @@ class Sister
             "username" => env("SISTER_USERNAME"),
             "password" => env("SISTER_PASSWORD"),
             "id_pengguna" => env("SISTER_ID"),
-            "role" => "Sister-WS Basic"
+            "role" => env('SISTER_ROLE')
         ]);
 
         if (Arr::exists($res, 'token')) {

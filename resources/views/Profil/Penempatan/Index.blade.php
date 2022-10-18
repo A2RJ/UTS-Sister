@@ -7,10 +7,15 @@
         <b>Penempatan</b>
         <ul>
             @foreach ($data as $penempatan)
-                <li>{{ $loop->iteration }}- {{ $penempatan['status_kepegawaian'] }} - {{ $penempatan['ikatan_kerja'] }} -
-                    {{ $penempatan['unit_kerja'] }} - {{ $penempatan['jenjang_pendidikan'] }} -
-                    {{ $penempatan['perguruan_tinggi'] }} - {{ $penempatan['tanggal_mulai'] }} -
-                    {{ $penempatan['tanggal_keluar'] }}</li>
+                <li>
+                    <a href="{{ route('penempatan.detail', ['id' => $penempatan['id']]) }}">
+                        {{ $loop->iteration }}- {{ $penempatan['status_kepegawaian'] }} - {{ $penempatan['ikatan_kerja'] }}
+                        -
+                        {{ $penempatan['unit_kerja'] }} - {{ $penempatan['jenjang_pendidikan'] }} -
+                        {{ $penempatan['perguruan_tinggi'] }} - {{ $penempatan['tanggal_mulai'] }} -
+                        {{ $penempatan['tanggal_keluar'] }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

@@ -7,10 +7,14 @@
         <b>Pendidikan Formal</b>
         <ul>
             @foreach ($data as $pendidikanFormal)
-                <li>{{ $loop->iteration }}- {{ $pendidikanFormal['jenjang_pendidikan'] }} -
-                    {{ $pendidikanFormal['gelar_akademik'] }} -
-                    {{ $pendidikanFormal['bidang_studi'] }} - {{ $pendidikanFormal['nama_perguruan_tinggi'] }}-
-                    {{ $pendidikanFormal['tahun_lulus'] }}</li>
+                <li>
+                    <a href="{{ route('pendidikan-formal.detail', ['id' => $pendidikanFormal['id']]) }}">
+                        {{ $loop->iteration }}- {{ $pendidikanFormal['jenjang_pendidikan'] }} -
+                        {{ $pendidikanFormal['gelar_akademik'] }} -
+                        {{ $pendidikanFormal['bidang_studi'] }} - {{ $pendidikanFormal['nama_perguruan_tinggi'] }}-
+                        {{ $pendidikanFormal['tahun_lulus'] }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

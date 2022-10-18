@@ -7,8 +7,12 @@
         <b>Kepangkatan</b>
         <ul>
             @foreach ($data as $kepangkatan)
-                <li>{{ $loop->iteration }}- {{ $kepangkatan['pangkat_golongan'] }} - {{ $kepangkatan['sk'] }} -
-                    {{ $kepangkatan['tanggal_mulai'] }}</li>
+                <li>
+                    <a href="{{ route('kepangkatan.detail', ['id' => $kepangkatan['id']]) }}">
+                        {{ $loop->iteration }}- {{ $kepangkatan['pangkat_golongan'] }} - {{ $kepangkatan['sk'] }} -
+                        {{ $kepangkatan['tanggal_mulai'] }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>
