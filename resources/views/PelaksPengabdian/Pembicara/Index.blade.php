@@ -7,10 +7,12 @@
     <ul>
         @foreach ($data as $pembicara)
             <li>{{ $loop->iteration }} -
-                {{ $pembicara['judul_makalah'] }} -
-                {{ $pembicara['nama_pertemuan'] }}
-                {{ $pembicara['penyelenggara'] }}
-                {{ $pembicara['tanggal_pelaksanaan'] }}
+                <a href="{{ route('pembicara.detail', ['id' => $pembicara['id']]) }}">
+                    {{ $pembicara['judul_makalah'] }} -
+                    {{ $pembicara['nama_pertemuan'] }}
+                    {{ $pembicara['penyelenggara'] }}
+                    {{ $pembicara['tanggal_pelaksanaan'] }}
+                </a>
             </li>
         @endforeach
     </ul>

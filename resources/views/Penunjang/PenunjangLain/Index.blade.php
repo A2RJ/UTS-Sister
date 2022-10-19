@@ -7,8 +7,10 @@
     <ul>
         @foreach ($data as $penunjangLain)
             <li>{{ $loop->iteration }} -
-                {{ $penunjangLain['nama'] }} -
-                {{ $penunjangLain['instansi'] }}
+                <a href="{{ route('penunjang-lain.detail', ['id' => $penunjangLain['id']]) }}">
+                    {{ $penunjangLain['nama'] }} -
+                    {{ $penunjangLain['instansi'] }}
+                </a>
                 {{ $penunjangLain['sk_penugasan'] }}
                 {{ $penunjangLain['tanggal_mulai'] }}
                 {{ $penunjangLain['tanggal_selesai'] }}

@@ -7,8 +7,10 @@
     <ul>
         @foreach ($data as $penghargaan)
             <li>{{ $loop->iteration }} -
-                {{ $penghargaan['jenis_penghargaan'] }} -
-                {{ $penghargaan['nama'] }}
+                <a href="{{ route('penghargaan.detail', ['id' => $penghargaan['id']]) }}">
+                    {{ $penghargaan['jenis_penghargaan'] }} -
+                    {{ $penghargaan['nama'] }}
+                </a>
                 {{ $jabatanSktruktural['tahun'] }}
                 {{ $jabatanSktruktural['instansi_pemberi'] }}
             </li>

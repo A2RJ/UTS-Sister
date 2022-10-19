@@ -13,7 +13,7 @@ class PelaksPenelitian extends Controller
         ]);
     }
 
-    public function detailPeneltian($id)
+    public function detailPenelitian($id)
     {
         return view('PelaksPenelitian.Penelitian.Id', [
             'data' => json_decode(Sister::detailPenelitian($id), true)

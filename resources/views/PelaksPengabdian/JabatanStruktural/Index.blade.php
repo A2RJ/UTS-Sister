@@ -5,12 +5,11 @@
 @section('content')
     <b>Jabatan Struktural</b>
     <ul>
-        @foreach ($data as $jabatanSktruktural)
+        @foreach ($data as $jabatanStruktural)
             <li>{{ $loop->iteration }} -
-                {{ $jabatanSktruktural['jabatan'] }} -
-                {{ $jabatanSktruktural['sk_jabatan'] }}
-                {{ $jabatanSktruktural['tanggal_mulai_jabatan'] }}
-                {{ $jabatanSktruktural['tanggal_selesai_jabatan'] }}
+                <a href="{{ route('jabatan-struktural.detail', ['id' => $jabatanStruktural['id']]) }}"></a>
+                {{ $jabatanStruktural['tanggal_mulai_jabatan'] }}
+                {{ $jabatanStruktural['tanggal_selesai_jabatan'] }}
             </li>
         @endforeach
     </ul>

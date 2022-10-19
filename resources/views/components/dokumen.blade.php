@@ -10,6 +10,7 @@
     </tr>
     @foreach ($document as $item)
         <tr>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $item['nama'] }}</td>
             <td>{{ $item['nama_file'] }}</td>
             <td>{{ $item['jenis_file'] }}</td>
