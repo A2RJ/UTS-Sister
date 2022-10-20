@@ -4,16 +4,36 @@
 
 @section('content')
     <div class="container">
-        <b>Jabatan fungsional</b>
-        <ul>
-            @foreach ($data as $jafung)
-                <li>
-                    <a href="{{ route('jabatan-fungsional.detail', ['id' => $jafung['id']]) }}">
-                        {{ $loop->iteration }}- {{ $jafung['jabatan_fungsional'] }} - {{ $jafung['sk'] }} -
-                        {{ $jafung['tanggal_mulai'] }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
+        <b>Inpassing</b>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>No.</th>
+                    <th>Jabatan Fungsional</th>
+                    <th>Nomor SK</th>
+                    <th>Terhitung Mulai Tanggal</th>
+                    <th>Aksi</th>
+                </tr>
+                @if (count($data) === 0)
+                    <tr>
+                        <td colspan="6" class="text-center">Data not found</td>
+                    </tr>
+                @else
+                    @foreach ($data as $inpassing)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $inpassing['jabatan_fungsional'] }}</td>
+                            <td>{{ $inpassing['sk'] }}</td>
+                            <td>{{ $inpassing['tanggal_mulai'] }}</td>
+                            <td>
+                                <a href="{{ route('jabatan-fungsional.detail', ['id' => $inpassing['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </table>
+        </div>
     </div>
 @endsection

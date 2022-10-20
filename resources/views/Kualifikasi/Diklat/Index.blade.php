@@ -6,18 +6,35 @@
 @section('title', 'Title')
 
 @section('content')
-    <div class="container">
+    <div class="card">
         <b>Diklat</b>
-        <ul>
-            @foreach ($data as $diklat)
-                <li>
-                    <a href="{{ route('diklat.detail', ['id' => $diklat['id']]) }}">
-                        {{ $loop->iteration }}- {{ $diklat['jenis_diklat'] }} - {{ $diklat['nama'] }} -
-                        {{ $diklat['penyelenggara'] }} -
-                        {{ $diklat['tahun_lulus'] }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Diklat</th>
+                    <th>Jenis Diklat</th>
+                    <th>Penyelenggara</th>
+                    <th>Tahun</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+                @foreach ($data as $diklat)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $diklat['nama'] }}</td>
+                        <td>{{ $diklat['jenis_diklat'] }}</td>
+                        <td>{{ $diklat['penyelenggara'] }}</td>
+                        <td>{{ $diklat['tahun_lulus'] }}</td>
+                        <td>{{ $diklat['status'] }}</td>
+                        <td>
+                            <a href="{{ route('diklat.detail', ['id' => $diklat['id']]) }}">
+                                <button class="btn btn-sm btn-outline-sm">Detail</button>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
     </div>
 @endsection

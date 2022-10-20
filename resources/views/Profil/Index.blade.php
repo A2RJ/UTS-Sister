@@ -3,70 +3,189 @@
 @section('title', 'Title')
 
 @section('content')
-    <div class="container">
-        <div class="profil">
-            <b>Profil</b>
-            <p>nidn: {{ $kepegawaian['nidn'] }}</p>
-            <p>nama: {{ $profil['nama'] }} </p>
-            <p>jenis kelamin: {{ $profil['jenis_kelamin'] }} </p>
-            <p>tempat lahir: {{ $profil['tempat_lahir'] }} </p>
-            <p>tanggal lahir: {{ $profil['tanggal_lahir'] }} </p>
-        </div>
-        <div class="kependudukan">
-            <b>kependudukan</b>
-            <p>NIK: {{ $kependudukan['nik'] }}</p>
-            <p>agama: {{ $kependudukan['agama'] }}</p>
-            <p>kewarganegaraan: {{ $kependudukan['kewarganegaraan'] }}</p>
-        </div>
-        <div class="keluarga">
-            <b>keluarga</b>
-            <p>Status perkawinan: {{ $keluarga['id_status_kawin'] }} </p>
-            <p>Nama suami/istri: {{ $keluarga['nama_pasangan'] }}</p>
-            <p>NIP Suami/Istri: {{ $keluarga['nip_pasangan'] }}</p>
-            <p>Pekerjaan Suami/Istri: {{ $keluarga['pekerjaan_pasangan'] }}</p>
-            <p>Terhitung mulai tanggal pns suami/istri: <b>Tidak ada data dari API</b></p>
-        </div>
-        <div class="bidang_ilmu">
-            <b>Bidang kelimuan</b>
-            <ul>
-                @foreach ($bidang_ilmu as $listIlmu)
-                    <li>{{ $loop->iteration }} - {{ $listIlmu['kelompok_bidang'] }}</li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="alamat">
-            <b>alamat</b>
-            <p>Email: {{ $alamat['email'] }}</p>
-            <p>Alamat: {{ $alamat['alamat'] }}</p>
-            <p>RT: {{ $alamat['rt'] }}</p>
-            <p>RW: {{ $alamat['rw'] }}</p>
-            <p>Dusun: {{ $alamat['dusun'] }}</p>
-            <p>Desa/Kelurahan: {{ $alamat['kelurahan'] }}</p>
-            <p>Kota/Kabupaten: {{ $alamat['kota_kabupaten'] }}</p>
-            <p>Provinsi: <b>Get dari API</b></p>
-            <p>Kode pos: {{ $alamat['kode_pos'] }}</p>
-            <p>No. Telepon rumah: {{ $alamat['telepon_rumah'] }}</p>
-            <p>No. hp: {{ $alamat['telepon_hp'] }}</p>
-        </div>
-        <div class="kepegawaian">
-            <b>Kepegawaian</b>
-            <p>Program studi: {{ $kepegawaian['unit_kerja'] }}</p>
-            <p>NIP (Khusus PNS): {{ $kepegawaian['nip'] }}</p>
-            <p>Status kepegawaian: {{ $kepegawaian['status_kepegawaian'] }}</p>
-            <p>Status Keaktifan: {{ $kepegawaian['tanggal_keluar'] == false ? 'aktif' : $kepegawaian['tanggal_keluar'] }}
-            </p>
-            <p>Nomor SK CPNS: {{ $kepegawaian['sk_cpns'] }} </p>
-            <p>SK CPNS Terhitung Mulai Tanggal: {{ $kepegawaian['tanggal_sk_cpns'] }} </p>
-            <p>Nomor SK TMMD: {{ $kepegawaian['sk_tmmd'] }}</p>
-            <p>Tanggal Mulai Menjadi Dosen (TMMD): {{ $kepegawaian['tmmd'] }} </p>
-            <p>Pangkat/Golongan: <b>Tidak ada data / check API docs</b></p>
-            <p>Sumber Gaji: {{ $kepegawaian['sumber_gaji'] }}</p>
-        </div>
-        <div class="lain-lain">
-            <b>Lain-lain</b>
-            <p>NPWP: {{ $lain['npwp'] }}</p>
-            <p>Nama Wajib Pajak: {{ $lain['nama_wp'] }}</p>
-            <p>SINTA ID: <b>Tidak tersedia</b></p>
+    <div class="card">
+        <div class="row">
+            <div class="col-sm-6">
+                <b>Profil</b>
+                <table>
+                    <tr>
+                        <td>NIDN</td>
+                        <td>: {{ $kepegawaian['nidn'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>: {{ $profil['nama'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Kelamin</td>
+                        <td>: {{ $profil['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tempat Lahir</td>
+                        <td>: {{ $profil['tempat_lahir'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tempat Lahir</td>
+                        <td>: {{ \Carbon\Carbon::parse($profil['tanggal_lahir'])->isoFormat('Do MMMM YYYY') }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <b>kependudukan</b>
+                <table>
+                    <tr>
+                        <td>NIK</td>
+                        <td>: {{ $kependudukan['nik'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Agama</td>
+                        <td>: {{ $kependudukan['agama'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kewarganegaraan</td>
+                        <td>: {{ $kependudukan['kewarganegaraan'] }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <b>keluarga</b>
+                <table>
+                    <tr>
+                        <td>Status Perkawinan</td>
+                        <td>: {{ $keluarga['id_status_kawin'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Suami/Istri</td>
+                        <td>: {{ $keluarga['nama_pasangan'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP Suami/Istri</td>
+                        <td>: {{ $keluarga['nip_pasangan'] ? $keluarga['nip_pasangan'] : 'Tidak ada' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pekerjaan Suami/Istri</td>
+                        <td>: {{ $keluarga['pekerjaan_pasangan'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Terhitung Mulai Tanggal PNS Suami/Istri</td>
+                        <td>: <b>Data tidak ada di API</b></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <b>Bidang kelimuan</b>
+                <ul>
+                    @foreach ($bidang_ilmu as $listIlmu)
+                        <li>{{ $listIlmu['kelompok_bidang'] }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <b>alamat</b>
+                <table>
+                    <tr>
+                        <td>Email</td>
+                        <td>: {{ $alamat['email'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Alamat</td>
+                        <td>: {{ $alamat['alamat'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>RT</td>
+                        <td>: {{ $alamat['rt'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>RW</td>
+                        <td>: {{ $alamat['rw'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dusun</td>
+                        <td>: {{ $alamat['dusun'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Desa/Kelurahan</td>
+                        <td>: {{ $alamat['kelurahan'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kota/Kabupaten</td>
+                        <td>: {{ $alamat['kota_kabupaten'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Provinsi</td>
+                        <td>: <b>Get dari API</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kode pos</td>
+                        <td>: {{ $alamat['kode_pos'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>No. Telepon rumah</td>
+                        <td>: {{ $alamat['telepon_rumah'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>No. hp</td>
+                        <td>: {{ $alamat['telepon_hp'] }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <b>Kepegawaian</b>
+                <table>
+                    <tr>
+                        <td>Program studi</td>
+                        <td>: {{ $kepegawaian['unit_kerja'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP (Khusus PNS)</td>
+                        <td>: {{ $kepegawaian['nip'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Status kepegawaian</td>
+                        <td>: {{ $kepegawaian['status_kepegawaian'] }}</td>
+                    <tr>
+                        <td>Status Keaktifan</td>
+                        <td>: {{ $kepegawaian['tanggal_keluar'] == false ? 'aktif' : $kepegawaian['tanggal_keluar'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nomor SK CPNS</td>
+                        <td>: {{ $kepegawaian['sk_cpns'] }} </td>
+                    </tr>
+                    <tr>
+                        <td>SK CPNS Terhitung Mulai Tanggal</td>
+                        <td>: {{ $kepegawaian['tanggal_sk_cpns'] }} </td>
+                    </tr>
+                    <tr>
+                        <td>Nomor SK TMMD</td>
+                        <td>: {{ $kepegawaian['sk_tmmd'] }}</td>
+                    <tr>
+                        <td>Tanggal Mulai Menjadi Dosen (TMMD)</td>
+                        <td>: {{ $kepegawaian['tmmd'] }} </td>
+                        <p>Pangkat/Golongan: <b>Tidak ada data / check API docs</b></p>
+                    </tr>
+                    <tr>
+                        <td>Sumber Gaji</td>
+                        <td>: {{ $kepegawaian['sumber_gaji'] }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <b>Lain-lain</b>
+                <table>
+                    <tr>
+                        <td>NPWP</td>
+                        <td>: {{ $lain['npwp'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Wajib Pajak</td>
+                        <td>: {{ $lain['nama_wp'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>SINTA ID</td>
+                        <td>: <b>Tidak tersedia</b></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
