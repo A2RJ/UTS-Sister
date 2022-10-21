@@ -1,21 +1,41 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Pengujian Mahasiswa')
 
 @section('content')
-    <div class="container">
+    <div class="card p-2">
         <b>Pengujian Mahasiswa</b>
-        <ul>
-            @foreach ($data as $pengujianMahasiswa)
-                <li>
-                    <a href="{{ route('pengujian-mahasiswa.detail', ['id' => $pengujianMahasiswa['id']]) }}">
-                        {{ $loop->iteration }}- {{ $pengujianMahasiswa['id_katgiat'] }} -
-                        {{ $pengujianMahasiswa['judul'] }} -
-                        {{ $pengujianMahasiswa['jenis_pengujian'] }} - {{ $pengujianMahasiswa['program_studi'] }}-
-                        {{ $pengujianMahasiswa['semester'] }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>No.</th>
+                    <th>Judul Pengujian</th>
+                    <th>Bidang Keilmuan</th>
+                    <th>Jenis Pengujian</th>
+                    <th>Program Studi</th>
+                    <th>Aksi</th>
+                </tr>
+                @if (count($data) === 0)
+                    <tr>
+                        <td colspan="6" class="text-center">Data not found</td>
+                    </tr>
+                @else
+                    @foreach ($data as $pengujianMahasiswa)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $pengujianMahasiswa['judul'] }} ({{ $pengujianMahasiswa['semester'] }})</td>
+                            <td>{{ $pengujianMahasiswa['id_katgiat'] }}</td>
+                            <td>{{ $pengujianMahasiswa['jenis_pengujian'] }}</td>
+                            <td>{{ $pengujianMahasiswa['program_studi'] }}</td>
+                            <td>
+                                <a href="{{ route('pengujian-mahasiswa.detail', ['id' => $pengujianMahasiswa['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </table>
+        </div>
     </div>
 @endsection

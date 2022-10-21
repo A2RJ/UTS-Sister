@@ -1,12 +1,9 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Diklat')
 
 @section('content')
-@section('title', 'Title')
-
-@section('content')
-    <div class="card">
+    <div class="card p-2">
         <b>Diklat</b>
         <div class="table-responsive">
             <table class="table">
@@ -19,21 +16,27 @@
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
-                @foreach ($data as $diklat)
+                @if (count($data) === 0)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $diklat['nama'] }}</td>
-                        <td>{{ $diklat['jenis_diklat'] }}</td>
-                        <td>{{ $diklat['penyelenggara'] }}</td>
-                        <td>{{ $diklat['tahun_lulus'] }}</td>
-                        <td>{{ $diklat['status'] }}</td>
-                        <td>
-                            <a href="{{ route('diklat.detail', ['id' => $diklat['id']]) }}">
-                                <button class="btn btn-sm btn-outline-sm">Detail</button>
-                            </a>
-                        </td>
+                        <td colspan="7" class="text-center">Data not found</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($data as $diklat)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $diklat['nama'] }}</td>
+                            <td>{{ $diklat['jenis_diklat'] }}</td>
+                            <td>{{ $diklat['penyelenggara'] }}</td>
+                            <td>{{ $diklat['tahun_lulus'] }}</td>
+                            <td>{{ $diklat['status'] }}</td>
+                            <td>
+                                <a href="{{ route('diklat.detail', ['id' => $diklat['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-sm">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

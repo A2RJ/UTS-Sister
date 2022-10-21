@@ -1,9 +1,9 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Penempatan')
 
 @section('content')
-    <div class="container">
+    <div class="card p-2">
         <b>Penempatan</b>
         <div class="table-responsive">
             <table class="table">
@@ -20,7 +20,7 @@
                 </tr>
                 @if (count($data) === 0)
                     <tr>
-                        <td colspan="6" class="text-center">Data not found</td>
+                        <td colspan="9" class="text-center">Data not found</td>
                     </tr>
                 @else
                     @foreach ($data as $penempatan)

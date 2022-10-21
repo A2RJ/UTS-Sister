@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Sertifikasi')
 
 @section('content')
     <div class="card p-2">
@@ -16,36 +16,42 @@
                     <th>Tahun Sertifikasi</th>
                     <th>Aksi</th>
                 </tr>
-                @foreach ($data['profesi'] as $profesi)
+                @if (count($data['profesi']) === 0 && count($data['dosen']) === 0)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $profesi['jenis_sertifikasi'] }}</td>
-                        <td>{{ $profesi['bidang_studi'] }}</td>
-                        <td>{{ $profesi['nomor_registrasi'] }}</td>
-                        <td>{{ $profesi['sk_sertifikasi'] }}</td>
-                        <td>{{ $profesi['tahun_sertifikasi'] }}</td>
-                        <td>
-                            <a href="{{ route('sertifikasi-profesi.detail', ['id' => $profesi['id']]) }}">
-                                <button class="btn btn-sm btn-outline-primary">Detail</button>
-                            </a>
-                        </td>
+                        <td colspan="6" class="text-center">Data not found</td>
                     </tr>
-                @endforeach
-                @foreach ($data['dosen'] as $dosen)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $profesi['jenis_sertifikasi'] }}</td>
-                        <td>{{ $profesi['bidang_studi'] }}</td>
-                        <td>{{ $profesi['nomor_registrasi'] }}</td>
-                        <td>{{ $profesi['sk_sertifikasi'] }}</td>
-                        <td>{{ $profesi['tahun_sertifikasi'] }}</td>
-                        <td>
-                            <a href="{{ route('sertifikasi-profesi.detail', ['id' => $profesi['id']]) }}">
-                                <button class="btn btn-sm btn-outline-primary">Detail</button>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
+                @else
+                    @foreach ($data['profesi'] as $profesi)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $profesi['jenis_sertifikasi'] }}</td>
+                            <td>{{ $profesi['bidang_studi'] }}</td>
+                            <td>{{ $profesi['nomor_registrasi'] }}</td>
+                            <td>{{ $profesi['sk_sertifikasi'] }}</td>
+                            <td>{{ $profesi['tahun_sertifikasi'] }}</td>
+                            <td>
+                                <a href="{{ route('sertifikasi-profesi.detail', ['id' => $profesi['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @foreach ($data['dosen'] as $dosen)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $profesi['jenis_sertifikasi'] }}</td>
+                            <td>{{ $profesi['bidang_studi'] }}</td>
+                            <td>{{ $profesi['nomor_registrasi'] }}</td>
+                            <td>{{ $profesi['sk_sertifikasi'] }}</td>
+                            <td>{{ $profesi['tahun_sertifikasi'] }}</td>
+                            <td>
+                                <a href="{{ route('sertifikasi-profesi.detail', ['id' => $profesi['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

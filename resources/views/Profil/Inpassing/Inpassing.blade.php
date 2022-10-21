@@ -1,9 +1,9 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Inpassing')
 
 @section('content')
-    <div class="container">
+    <div class="card p-2">
         <b>Inpassing</b>
         <div class="table-responsive">
             <table class="table">

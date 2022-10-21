@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Tes')
 
 @section('content')
     <div class="card p-2">
@@ -16,21 +16,27 @@
                     <th>Tahun</th>
                     <th>Aksi</th>
                 </tr>
-                @foreach ($data as $sertifikasiProfesi)
+                @if (count($data) === 0)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $sertifikasiProfesi['nama'] }}</td>
-                        <td>{{ $sertifikasiProfesi['skor'] }}</td>
-                        <td>{{ $sertifikasiProfesi['jenis_tes'] }}</td>
-                        <td>{{ $sertifikasiProfesi['penyelenggara'] }}</td>
-                        <td>{{ $sertifikasiProfesi['tahun'] }}</td>
-                        <td>
-                            <a href="{{ route('tes.detail', ['id' => $sertifikasiProfesi['id']]) }}">
-                                <button class="btn btn-sm btn-outline-primary">Detail</button>
-                            </a>
-                        </td>
+                        <td colspan="5" class="text-center">Data not found</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($data as $sertifikasiProfesi)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sertifikasiProfesi['nama'] }}</td>
+                            <td>{{ $sertifikasiProfesi['skor'] }}</td>
+                            <td>{{ $sertifikasiProfesi['jenis_tes'] }}</td>
+                            <td>{{ $sertifikasiProfesi['penyelenggara'] }}</td>
+                            <td>{{ $sertifikasiProfesi['tahun'] }}</td>
+                            <td>
+                                <a href="{{ route('tes.detail', ['id' => $sertifikasiProfesi['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

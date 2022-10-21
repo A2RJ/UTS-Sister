@@ -1,13 +1,13 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Profil SDM')
 
 @section('content')
-    <div class="card">
+    <div class="card p-2">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>Profil</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>NIDN</td>
                         <td>: {{ $kepegawaian['nidn'] }}</td>
@@ -30,9 +30,9 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>kependudukan</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>NIK</td>
                         <td>: {{ $kependudukan['nik'] }}</td>
@@ -47,9 +47,9 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>keluarga</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>Status Perkawinan</td>
                         <td>: {{ $keluarga['id_status_kawin'] }}</td>
@@ -72,17 +72,21 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>Bidang kelimuan</b>
-                <ul>
-                    @foreach ($bidang_ilmu as $listIlmu)
-                        <li>{{ $listIlmu['kelompok_bidang'] }}</li>
-                    @endforeach
-                </ul>
+                <div class="table-responsive">
+                    <table class="table">
+                        @foreach ($bidang_ilmu as $listIlmu)
+                            <tr>
+                                <td>{{ $listIlmu['kelompok_bidang'] }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>alamat</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>Email</td>
                         <td>: {{ $alamat['email'] }}</td>
@@ -129,9 +133,9 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>Kepegawaian</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>Program studi</td>
                         <td>: {{ $kepegawaian['unit_kerja'] }}</td>
@@ -169,9 +173,9 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-2">
                 <b>Lain-lain</b>
-                <table>
+                <table class="table">
                     <tr>
                         <td>NPWP</td>
                         <td>: {{ $lain['npwp'] }}</td>

@@ -1,10 +1,10 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Kepangkatan')
 
 @section('content')
-    <div class="container">
-        <b>Inpassing</b>
+    <div class="card p-2">
+        <b>Kepangkatan</b>
         <div class="table-responsive">
             <table class="table">
                 <tr>
@@ -16,17 +16,17 @@
                 </tr>
                 @if (count($data) === 0)
                     <tr>
-                        <td colspan="6" class="text-center">Data not found</td>
+                        <td colspan="5" class="text-center">Data not found</td>
                     </tr>
                 @else
-                    @foreach ($data as $inpassing)
+                    @foreach ($data as $kepangkatan)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $inpassing['pangkat_golongan'] }}</td>
-                            <td>{{ $inpassing['sk'] }}</td>
-                            <td>{{ $inpassing['tanggal_mulai'] }}</td>
+                            <td>{{ $kepangkatan['pangkat_golongan'] }}</td>
+                            <td>{{ $kepangkatan['sk'] }}</td>
+                            <td>{{ $kepangkatan['tanggal_mulai'] }}</td>
                             <td>
-                                <a href="{{ route('kepangkatan.detail', ['id' => $inpassing['id']]) }}">
+                                <a href="{{ route('kepangkatan.detail', ['id' => $kepangkatan['id']]) }}">
                                     <button class="btn btn-sm btn-outline-primary">Detail</button>
                                 </a>
                             </td>

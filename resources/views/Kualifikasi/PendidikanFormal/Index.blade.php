@@ -1,9 +1,9 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Pendidikan Formal')
 
 @section('content')
-    <div class="card">
+    <div class="card p-2">
         <b>Pendidikan Formal</b>
         <div class="table-responsive">
             <table class="table">
@@ -16,21 +16,27 @@
                     <th>Tahun Lulus</th>
                     <th>Aksi</th>
                 </tr>
-                @foreach ($data as $pendidikanFormal)
+                @if (count($data) === 0)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $pendidikanFormal['jenjang_pendidikan'] }}</td>
-                        <td>{{ $pendidikanFormal['gelar_akademik'] }}</td>
-                        <td>{{ $pendidikanFormal['bidang_studi'] }}</td>
-                        <td>{{ $pendidikanFormal['nama_perguruan_tinggi'] }}</td>
-                        <td>{{ $pendidikanFormal['tahun_lulus'] }}</td>
-                        <td>
-                            <a href="{{ route('pendidikan-formal.detail', ['id' => $pendidikanFormal['id']]) }}">
-                                <button class="btn btn-sm btn-outline-primary">Detail</button>
-                            </a>
-                        </td>
+                        <td colspan="7" class="text-center">Data not found</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($data as $pendidikanFormal)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $pendidikanFormal['jenjang_pendidikan'] }}</td>
+                            <td>{{ $pendidikanFormal['gelar_akademik'] }}</td>
+                            <td>{{ $pendidikanFormal['bidang_studi'] }}</td>
+                            <td>{{ $pendidikanFormal['nama_perguruan_tinggi'] }}</td>
+                            <td>{{ $pendidikanFormal['tahun_lulus'] }}</td>
+                            <td>
+                                <a href="{{ route('pendidikan-formal.detail', ['id' => $pendidikanFormal['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

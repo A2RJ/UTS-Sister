@@ -1,24 +1,47 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Pengabdian')
 
 @section('content')
-    <b>Pengabdian</b>
-    <ul>
-        @foreach ($data as $pengabdian)
-            <li>{{ $loop->iteration }} -
-                <a href="{{ route('pengabdian.detail', ['id' => $pengabdian['id']]) }}">
-                    {{ $pengabdian['judul'] }} -
-                    {{ $pengabdian['tahun_pelaksanaan'] }} -
-                    {{ $pengabdian['lama_kegiatan'] }}
-                </a>
-                <ul>
-                    @foreach ($pengabdian['bidang_keilmuan'] as $bidang)
-                        <li>{{ var_dump($bidang) }}</li>
+    <div class="card p-2">
+        <b>Pengabdian</b>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td>No.</td>
+                    <td>Judul</td>
+                    <td>Bidang Keilmuan</td>
+                    <td>Tahun Pelaksanaan</td>
+                    <td>Lama Kegiatan</td>
+                    <td>Aksi</td>
+                </tr>
+                @if (count($data) === 0)
+                    <tr>
+                        <td colspan="6" class="text-center">Data not found</td>
+                    </tr>
+                @else
+                    @foreach ($data as $pengabdian)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $pengabdian['judul'] }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($pengabdian['bidang_keilmuan'] as $bidang)
+                                        <li>{{ $bidang }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{ $pengabdian['tahun_pelaksanaan'] }}</td>
+                            <td>{{ $pengabdian['lama_kegiatan'] }} Tahun</td>
+                            <td>
+                                <a href="{{ route('pengabdian.detail', ['id' => $pengabdian['id']]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
                     @endforeach
-                </ul>
-            </li>
-        @endforeach
-    </ul>
+                @endif
+            </table>
+        </div>
     </div>
 @endsection
