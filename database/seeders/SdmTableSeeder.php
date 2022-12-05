@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SDM;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +16,9 @@ class SdmTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sdm')->delete();
+        SDM::truncate();
 
-        DB::table('sdm')->insert(array(
+        SDM::create(array(
             array(
                 'id' => 1,
                 'id_sdm' => 'b27d3846-f8c2-470b-9b64-bd2dab5e8db4',
