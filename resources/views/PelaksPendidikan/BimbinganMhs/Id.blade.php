@@ -3,7 +3,8 @@
 @section('title', 'Title')
 
 @section('content')
-    <table>
+<div class="card p-2">
+    <table class="table table-bordered">
         <tr>
             <td>Judul Aktivitas Pemimbing</td>
             <td>{{ $data['judul'] }}</td>
@@ -67,4 +68,5 @@
             </tr>
         @endforeach
     </table>
+</div>
 @endsection

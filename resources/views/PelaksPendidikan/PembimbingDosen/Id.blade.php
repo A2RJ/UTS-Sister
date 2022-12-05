@@ -3,7 +3,8 @@
 @section('title', 'Title')
 
 @section('content')
-    <table>
+<div class="card p-2">
+    <table class="table table-bordered">
         <tr>
             <td>Nama Pembimbing</td>
             <td>{{ $data['nama_pembimbing'] }}</td>
@@ -53,4 +54,5 @@
             <td>{{ $data['unit_kerja'] }}</td>
         </tr>
     </table>
+</div>
 @endsection

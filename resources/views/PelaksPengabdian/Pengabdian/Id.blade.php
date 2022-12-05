@@ -3,6 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
+<div class="card p-2">
     <table>
         <tr>
             <td>Skim Kegiatan</td>
@@ -81,4 +82,5 @@
             </tr>
         @endforeach
     </table>
+</div>
 @endsection

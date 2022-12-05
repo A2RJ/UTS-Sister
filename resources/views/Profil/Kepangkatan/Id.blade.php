@@ -3,6 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
+<div class="card p-2">
     <table>
         <tr>
             <td>Golongan</td>
@@ -49,6 +50,6 @@
                 <td>{{ $dokumen['tanggal_upload'] }}</td>
             </tr>
         @endforeach
-
     </table>
+</div>
 @endsection

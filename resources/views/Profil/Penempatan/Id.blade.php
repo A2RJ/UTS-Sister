@@ -3,6 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
+<div class="card p-2">
     <table>
         <tr>
             <td>Status Kepegawaian</td>
@@ -45,4 +46,5 @@
             <td>{{ $data['ikatan_kerja'] }}</td>
         </tr>
     </table>
+</div>
 @endsection

@@ -6,7 +6,7 @@
     <div class="card p-3">
         <b>Pengajaran</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>No.</th>
                     <th>Mata Kuliah</th>

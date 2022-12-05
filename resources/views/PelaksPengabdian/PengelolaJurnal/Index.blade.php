@@ -6,7 +6,7 @@
     <div class="card p-2">
         <b>Publikasi Jurnal</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <td>No.</td>
                     <td>Nama Jurnal</td>

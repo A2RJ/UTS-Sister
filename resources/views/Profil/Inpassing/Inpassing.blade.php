@@ -6,7 +6,7 @@
     <div class="card p-2">
         <b>Inpassing</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>No.</th>
                     <th>Pangkat/Golongan</th>

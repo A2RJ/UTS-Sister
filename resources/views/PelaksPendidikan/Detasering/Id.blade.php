@@ -3,7 +3,8 @@
 @section('title', 'Title')
 
 @section('content')
-    <table>
+<div class="card p-2">
+    <table class="table table-bordered">
         <tr>
             <td>Kategori Kegiatan</td>
             <td>{{ $data['kategori_kegiatan'] }}</td>
@@ -42,4 +43,5 @@
         </tr>
         <x-dokumen :document="$data['dokumen']"></x-dokumen>
     </table>
+</div>
 @endsection

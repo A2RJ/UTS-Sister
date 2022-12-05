@@ -6,7 +6,7 @@
     <div class="card p-2">
         <b>Visiting scientist</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>No.</th>
                     <th>Perguruan Tinggi Pengundang</th>

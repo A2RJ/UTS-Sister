@@ -3,6 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
+<div class="card p-2">
     <table>
         <tr>
             <td>Jabatan</td>
@@ -26,4 +27,5 @@
         </tr>
         <x-dokumen :document="$data['dokumen']"></x-dokumen>
     </table>
+</div>
 @endsection

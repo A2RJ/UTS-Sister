@@ -6,7 +6,7 @@
     <div class="card p-2">
         <b>Bahan Ajar</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>No.</th>
                     <th>Judul Bahan Ajar</th>

@@ -3,7 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
-    <div class="container">
+    <div class="card p-2">
         <table>
             <tr>
                 <td>Jabatan Fungsional</td>

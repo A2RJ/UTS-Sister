@@ -6,7 +6,7 @@
     <div class="card p-2">
         <b>Bimbingan Mahasiswa</b>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <td>No.</td>
                     <td>Semester</td>

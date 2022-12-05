@@ -3,7 +3,8 @@
 @section('title', 'Title')
 
 @section('content')
-    <table>
+<div class="card p-2">
+    <table class="table table-bordered">
         <tr style="color: red">
             <td>NOTE</td>
             <td>Bedakan table by jenis:
@@ -63,4 +64,5 @@
             </tr>
         @endforeach
     </table>
+</div>
 @endsection

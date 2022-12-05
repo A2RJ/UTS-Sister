@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-sm-6 mb-2">
                 <b>Profil</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>NIDN</td>
                         <td>: {{ $kepegawaian['nidn'] }}</td>
@@ -32,7 +32,7 @@
             </div>
             <div class="col-sm-6 mb-2">
                 <b>kependudukan</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>NIK</td>
                         <td>: {{ $kependudukan['nik'] }}</td>
@@ -47,9 +47,9 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-sm-6 mb-2">
+            <div class="col-sm-6 mb-2 table-responsive">
                 <b>keluarga</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>Status Perkawinan</td>
                         <td>: {{ $keluarga['id_status_kawin'] }}</td>
@@ -75,7 +75,7 @@
             <div class="col-sm-6 mb-2">
                 <b>Bidang kelimuan</b>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-bordered">
                         @foreach ($bidang_ilmu as $listIlmu)
                             <tr>
                                 <td>{{ $listIlmu['kelompok_bidang'] }}</td>
@@ -86,7 +86,7 @@
             </div>
             <div class="col-sm-6 mb-2">
                 <b>alamat</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>Email</td>
                         <td>: {{ $alamat['email'] }}</td>
@@ -135,7 +135,7 @@
             </div>
             <div class="col-sm-6 mb-2">
                 <b>Kepegawaian</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>Program studi</td>
                         <td>: {{ $kepegawaian['unit_kerja'] }}</td>
@@ -175,7 +175,7 @@
             </div>
             <div class="col-sm-6 mb-2">
                 <b>Lain-lain</b>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td>NPWP</td>
                         <td>: {{ $lain['npwp'] }}</td>

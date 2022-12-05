@@ -12,12 +12,12 @@
                         Klik "Pilih sdm" untuk melihat detail sdm.
                     </p>
 
-                    <p>
+                    <b>
                         ID SDM: {{ session('id_sdm') }} <br>
                         Nama SDM: {{ session('nama_sdm') }} <br>
-                        token: {{ session('token') }}
-                    </p>
-                    <form action="/" class="row">
+                        <!-- token: {{ session('token') }} -->
+                    </b>
+                    <form action="/" class="row mt-3">
                         <div class="col-auto">
                             <label for="nama" class="visually-hidden">Password</label>
                             <input type="text" class="form-control" id="nama" name="nama"
@@ -31,7 +31,7 @@
                         </div>
                     </form>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>#</th>
