@@ -50,18 +50,23 @@ class RolesController extends Controller
         $response = $this->getRole($child_id);
         $this->recursiveChildren([$response]);
 
+        $result = [];
         for ($i = 0; $i < count($this->roles); $i++) {
             $parent = $this->roles[$i];
             for ($j = 0; $j < count($this->roles); $j++) {
                 $child = $this->roles[$j];
                 if ($parent->parent_id === $child->child_id) {
-                    for ($h = 0; $h < $j; $h++) {
-                        echo "*";
-                    }
-                    echo $parent->role . "<br>";
+                    // for ($h = 0; $h < $j; $h++) {
+                    //     echo "*";
+                    // }
+                    // echo $parent->role . "<br>";
+                    $parent->tab = $j;
+                    array_push($result, $parent);
                 }
             }
         }
+
+        return [$response, $result];
     }
 
     private function recursiveChildren($data)
@@ -73,14 +78,5 @@ class RolesController extends Controller
                 $this->recursiveChildren($childs);
             }
         }
-
-        // for ($i = 0; $i < count($data); $i++) {
-        //     // echo $data[$i]->role . " " . $this->count . "<br>";
-        //     array_push($this->roles, $data[$i]);
-        //     $childs = $this->getChildren($data[$i]->child_id);
-        //     if (count($childs)) {
-        //         $this->recursiveChildren($childs);
-        //     }
-        // }
     }
 }
