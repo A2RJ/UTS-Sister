@@ -45,28 +45,51 @@ class RolesController extends Controller
         return Role::where("parent_id", $child_id)->get();
     }
 
+    private function test_odd($var)
+    {
+        return ($var & 1);
+    }
+
     public function getChildrens($child_id)
     {
         $response = $this->getRole($child_id);
         $this->recursiveChildren([$response]);
 
         $result = [];
+        $current = 0;
+        // for ($i = 0; $i < count($this->roles); $i++) {
+        //     $parent = $this->roles[$i];
+        //     if ($i === 0) {
+        //         $parent->tab = 0;
+        //         array_push($result, $parent);
+        //     }
+        //     for ($j = 0; $j < count($this->roles); $j++) {
+        //         $child = $this->roles[$j];
+        //         if ($parent->parent_id === $child->child_id) {
+        //             $parent->tab = $j + 1;
+        //             array_push($result, $parent);
+        //         }
+        //     }
+        // }
+
+        $newArray = [];
         for ($i = 0; $i < count($this->roles); $i++) {
-            $parent = $this->roles[$i];
-            for ($j = 0; $j < count($this->roles); $j++) {
-                $child = $this->roles[$j];
-                if ($parent->parent_id === $child->child_id) {
-                    // for ($h = 0; $h < $j; $h++) {
-                    //     echo "*";
-                    // }
-                    // echo $parent->role . "<br>";
-                    $parent->tab = $j;
-                    array_push($result, $parent);
+            $current = $this->roles[$i];
+            if ($i !== 0) {
+                $prev = $this->roles[$i - 1];
+                if ($prev->child_id === $current->parent_id) {
+                    array_push($newArray, [
+                        $i => $current
+                    ]);
                 }
+            } else {
+                array_push($newArray, [
+                    $i => $current
+                ]);
             }
         }
 
-        return [$response, $result];
+        return $newArray;
     }
 
     private function recursiveChildren($data)

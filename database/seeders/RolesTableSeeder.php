@@ -52,6 +52,11 @@ class RolesTableSeeder extends Seeder
                 "child_id" => "wr4"
             ],
             [
+                "role" => "pasca sarjana",
+                "parent_id" => "r",
+                "child_id" => "pasca"
+            ],
+            [
                 "role" => "direktorat akademik",
                 "parent_id" => "wr1",
                 "child_id" => "dir_akademik"
@@ -72,6 +77,16 @@ class RolesTableSeeder extends Seeder
                 "child_id" => "staffdsti"
             ],
             [
+                "role" => "staff 4 direktorat sistem dan teknologi informasi",
+                "parent_id" => "staffdsti",
+                "child_id" => "staffdsti22"
+            ],
+            [
+                "role" => "staff 5 direktorat sistem dan teknologi informasi",
+                "parent_id" => "staffdsti22",
+                "child_id" => "staffdsti3"
+            ],
+            [
                 "role" => "staff 2 direktorat sistem dan teknologi informasi",
                 "parent_id" => "dsti",
                 "child_id" => "staffdsti2"
@@ -83,7 +98,7 @@ class RolesTableSeeder extends Seeder
             ],
             [
                 "role" => "dekan fakultas rekaya sistem",
-                "parent_id" => "wr1",
+                "parent_id" => "dir_akademik",
                 "child_id" => "frs"
             ],
             [
