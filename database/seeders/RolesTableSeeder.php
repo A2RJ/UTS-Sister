@@ -6,7 +6,7 @@ use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class roles extends Seeder
+class RolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,11 +19,13 @@ class roles extends Seeder
      *
      * Warek 3 search child
      * Roles::where("parent_id", $role->child_id)->get()
+     *
+     * use child_id to relations with user,
+     * buat table untuk simpan role dari user untuk simpan jika ada user dengan 2 role
      */
     public function run()
     {
-        Role::truncate();
-        Role::create([
+        $roles = [
             [
                 "role" => "rektor",
                 "parent_id" => "none",
@@ -59,6 +61,39 @@ class roles extends Seeder
                 "parent_id" => "wr3",
                 "child_id" => "dsti"
             ],
-        ]);
+            [
+                "role" => "direktorat jurnal dan publikasi",
+                "parent_id" => "wr3",
+                "child_id" => "jurnal"
+            ],
+            [
+                "role" => "staff direktorat sistem dan teknologi informasi",
+                "parent_id" => "dsti",
+                "child_id" => "staffdsti"
+            ],
+            [
+                "role" => "staff 2 direktorat sistem dan teknologi informasi",
+                "parent_id" => "dsti",
+                "child_id" => "staffdsti2"
+            ],
+            [
+                "role" => "staff dalam direktorat sistem dan teknologi informasi",
+                "parent_id" => "staffdsti",
+                "child_id" => "staffdalam"
+            ],
+            [
+                "role" => "dekan fakultas rekaya sistem",
+                "parent_id" => "wr1",
+                "child_id" => "frs"
+            ],
+            [
+                "role" => "wakil dekan fakultas rekaya sistem",
+                "parent_id" => "frs",
+                "child_id" => "dfrs"
+            ],
+        ];
+
+        Role::truncate();
+        Role::insert($roles);
     }
 }

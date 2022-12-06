@@ -18,7 +18,7 @@ class SdmTableSeeder extends Seeder
     {
         SDM::truncate();
 
-        SDM::create(array(
+        SDM::insert(array(
             array(
                 'id' => 1,
                 'id_sdm' => 'b27d3846-f8c2-470b-9b64-bd2dab5e8db4',
