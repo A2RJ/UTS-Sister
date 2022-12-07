@@ -75,9 +75,11 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
         /**
-     * Laravel sanctum https://laravel.com/docs/9.x/sanctum
-     */
+         * Laravel sanctum https://laravel.com/docs/9.x/sanctum
+         */
         // 'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         // 'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
+
+        "dynamic" => \App\Http\Middleware\Custom\Dynamic::class
     ];
 }

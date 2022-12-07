@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\StructuresController;
+use App\Http\Controllers\Admin\UtilityController;
 use App\Http\Requests\RequestToken;
+use App\Models\Route as ModelsRoute;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -19,6 +21,13 @@ use Illuminate\Validation\ValidationException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+Route::prefix("admin")->group(function () {
+    Route::controller(UtilityController::class)->group(function () {
+        Route::get("/routes",  "routes");
+    });
+});
 
 Route::prefix("/sanctum")->controller(SanctumAuthController::class)->group(function () {
     Route::get('/user', "user")->middleware('auth:sanctum');

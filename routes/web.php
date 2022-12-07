@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
+use App\Http\Controllers\Admin\UtilityController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BKD\DashboardController;
@@ -193,4 +195,8 @@ Route::middleware("auth")->group(function () {
             });
         });
     });
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('routes', [UtilityController::class, "routeList"])->middleware("dynamic:role,user");
 });
