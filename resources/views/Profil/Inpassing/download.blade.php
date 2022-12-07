@@ -1,4 +1,4 @@
-@extends('layout.blank')
+@extends('layouts.blank')
 
 <div>
     <p>Hallo {{ $id }}</p>
