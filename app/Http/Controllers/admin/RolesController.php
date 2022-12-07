@@ -7,47 +7,48 @@ use App\Models\Role;
 
 class RolesController extends Controller
 {
-    private $roles = [];
-    private $rolesWithChildren = [];
-
     public function index()
     {
         return Role::all();
     }
 
+    public function role($child_id)
+    {
+        return Role::role($child_id);
+    }
+
+    public function parent($child_id)
+    {
+        return Role::parent($child_id);
+    }
+
+    public function parents($child_id)
+    {
+        return Role::parents($child_id);
+    }
+
+    public function parentWFlow($child_id)
+    {
+        return Role::parentWFlow($child_id);
+    }
+
+    public function children($child_id)
+    {
+        return Role::children($child_id);
+    }
+
+    public function childrens($child_id)
+    {
+        return Role::childrens($child_id);
+    }
+
+    public function childrenWFlow($child_id)
+    {
+        return Role::childrenWFlow($child_id);
+    }
+
     public function parentNChildren($child_id)
     {
-        $current = Role::where("child_id", $child_id)->first();
-        return response()->json([
-            "current" => $current,
-            "parent" => $this->getParent($current->parent_id),
-            "child" => $this->getChildren($current->child_id)
-        ]);
-    }
-
-    public function getRole($child_id)
-    {
-        return Role::where("child_id", $child_id)->first();
-    }
-
-    public function getRoles($child_id)
-    {
-        return $this->getParent($child_id);
-    }
-
-    public function getParent($child_id)
-    {
-        return Role::where("child_id", $child_id)->get();
-    }
-
-    public function getChildren($child_id)
-    {
-        return Role::where("parent_id", $child_id)->get();
-    }
-
-
-    public function getChildrens($child_id)
-    {
-        return Role::getAllChildren($child_id);
+        return Role::parentNChildren($child_id);
     }
 }

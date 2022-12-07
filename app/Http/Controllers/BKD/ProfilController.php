@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\BKD;
 
+use App\Http\Controllers\Controller;
 use App\Services\Sister;
 
 class ProfilController extends Controller

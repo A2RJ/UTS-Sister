@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Title')
+@section('title', 'Dashboard BKD')
 
 @section('content')
     <div class="row">
@@ -18,7 +18,7 @@
                         <!-- token: {{ session('token') }} -->
                     </b>
                     <form action="/" class="row mt-3">
-                        <div class="col-auto">
+                        <div class="col-10">
                             <label for="nama" class="visually-hidden">Password</label>
                             <input type="text" class="form-control" id="nama" name="nama"
                                 placeholder="Cari nama SDM" autocomplete="off">
@@ -50,7 +50,7 @@
                                         <td>{{ $item->nidn }}</td>
                                         <td>
                                             <a
-                                                href="{{ route('set-sdm', ['id_sdm' => $item->id_sdm, 'nama_sdm' => $item->nama_sdm]) }}">
+                                                href="{{ route('bkd.set-sdm', ['id_sdm' => $item->id_sdm, 'nama_sdm' => $item->nama_sdm]) }}">
                                                 <button class="btn btn-sm btn-success">Pilih SDM</button>
                                             </a>
                                         </td>
@@ -58,7 +58,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $sdm->links() }}
+                        <div class="mt-2 float-right">
+                            {{ $sdm->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
