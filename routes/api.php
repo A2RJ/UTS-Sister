@@ -1,8 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\StructuresController;
+use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\StructuresController;
+use App\Http\Requests\RequestToken;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware("auth:sanctum")->group(function () {
-Route::get("/user", function (Request $request) {
-    return $request->user();
+Route::prefix("/sanctum")->controller(SanctumAuthController::class)->group(function () {
+    Route::get('/user', "user")->middleware('auth:sanctum');
+    Route::post('/token', "token");
 });
 
 Route::prefix("structures")->controller(StructuresController::class)->group(function () {
@@ -36,4 +41,3 @@ Route::prefix("structures")->controller(StructuresController::class)->group(func
     Route::get("/parent_with_children/{child_id}", "parentNChildren");
     Route::get("/parent_with_children/{child_id}/all", "parentNChildren");
 });
-// });
