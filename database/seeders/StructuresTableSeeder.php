@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Structure;
 use Illuminate\Database\Seeder;
 
-class RolesTableSeeder extends Seeder
+class StructuresTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -108,7 +107,7 @@ class RolesTableSeeder extends Seeder
             ],
         ];
 
-        Role::truncate();
-        Role::insert($roles);
+        Structure::truncate();
+        Structure::insert($roles);
     }
 }
