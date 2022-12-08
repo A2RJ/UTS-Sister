@@ -26,8 +26,13 @@ class StructuresTableSeeder extends Seeder
     {
         $roles = [
             [
-                "role" => "rektor",
+                "role" => "admin",
                 "parent_id" => "none",
+                "child_id" => "admin",
+            ],
+            [
+                "role" => "rektor",
+                "parent_id" => "admin",
                 "child_id" => "r",
             ],
             [
