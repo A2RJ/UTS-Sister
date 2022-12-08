@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Ability;
 use App\Http\Requests\Ability\StoreAbilityRequest;
 use App\Http\Requests\Ability\UpdateAbilityRequest;

@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'faculties',
-            function (Blueprint $table) {
-                $table->id();
-                $table->string("faculty");
-            }
-        );
+        Schema::create('study_programs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("faculty_id")->nullable()->constrained("faculties")->cascadeOnUpdate()->nullOnDelete();
+            $table->string("study_program");
+        });
     }
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faculties');
+        Schema::dropIfExists('study_programs');
     }
 };

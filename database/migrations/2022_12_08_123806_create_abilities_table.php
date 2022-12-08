@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('abilities', function (Blueprint $table) {
-            $table->id();
-            $table->string("ability");
-        });
+        // Schema::create('abilities', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('ability');
+        // });
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abilities');
+        // Schema::dropIfExists('abilities');
     }
 };

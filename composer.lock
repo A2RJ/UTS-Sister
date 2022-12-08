@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29c775fe4216a3c55824810441895051",
+    "content-hash": "ed99da70ff5aff96ebafe7435c7971bf",
     "packages": [
         {
             "name": "brick/math",
@@ -6474,23 +6474,23 @@
         },
         {
             "name": "kitloong/laravel-migrations-generator",
-            "version": "v6.4.1",
+            "version": "v6.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kitloong/laravel-migrations-generator.git",
-                "reference": "fd8c3d38c05cda0ec2182499b7ee2fa580367a01"
+                "reference": "be7b69e289ca952ac107fdbbddb4f0c7d73f4c9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/fd8c3d38c05cda0ec2182499b7ee2fa580367a01",
-                "reference": "fd8c3d38c05cda0ec2182499b7ee2fa580367a01",
+                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/be7b69e289ca952ac107fdbbddb4f0c7d73f4c9a",
+                "reference": "be7b69e289ca952ac107fdbbddb4f0c7d73f4c9a",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.4|^3.0",
                 "ext-pdo": "*",
                 "illuminate/support": "^5.6|^6.0|^7.0|^8.0|^9.0",
-                "myclabs/php-enum": "^1.8",
+                "myclabs/php-enum": "^1.6|^1.7|^1.8",
                 "php": ">=7.1.3"
             },
             "require-dev": {
@@ -6500,6 +6500,7 @@
                 "nunomaduro/larastan": "^0.4|^0.5|^0.6|^0.7|^1.0|^2.0",
                 "orchestra/testbench": "^3.6|^4.0|^5.0|^6.0|^7.0",
                 "phpmd/phpmd": "^2.10",
+                "slevomat/coding-standard": "^6.0|^7.0|^8.5",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
@@ -6536,7 +6537,7 @@
             ],
             "support": {
                 "issues": "https://github.com/kitloong/laravel-migrations-generator/issues",
-                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v6.4.1"
+                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v6.6.3"
             },
             "funding": [
                 {
@@ -6544,7 +6545,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-09-02T15:35:05+00:00"
+            "time": "2022-12-07T15:57:40+00:00"
         },
         {
             "name": "laravel/pint",

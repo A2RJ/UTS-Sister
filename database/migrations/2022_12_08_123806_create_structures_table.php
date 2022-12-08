@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('routes', function (Blueprint $table) {
+        Schema::create('structures', function (Blueprint $table) {
             $table->id();
-            $table->string("method")->default(null);
-            $table->string("uri")->default(null);
-            $table->string("name")->default(null);
-            $table->text("action")->default(null);
+            $table->string("role");
+            $table->string("parent_id");
+            $table->string("child_id");
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('routes');
+        Schema::dropIfExists('structures');
     }
 };
