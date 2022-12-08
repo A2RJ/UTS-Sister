@@ -25,7 +25,7 @@ class UtilityController extends Controller
 
     public function routeList()
     {
-        // $routes = Route::all();
-        // return view('admin.routes.index', compact('routes'));
+        $routes = Route::all();
+        return view('admin.routes.index', compact('routes'));
     }
 }

@@ -4,12 +4,44 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Structure;
+use App\Http\Requests\StructureRequest\StoreStructureRequest;
+use App\Http\Requests\StructureRequest\UpdateStructureRequest;
 
-class StructuresController extends Controller
+class StructureController extends Controller
 {
     public function index()
     {
         return Structure::all();
+    }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store(StoreStructureRequest $request)
+    {
+        //
+    }
+
+    public function show(Structure $structure)
+    {
+        //
+    }
+
+    public function edit(Structure $structure)
+    {
+        //
+    }
+
+    public function update(UpdateStructureRequest $request, Structure $structure)
+    {
+        //
+    }
+
+    public function destroy(Structure $structure)
+    {
+        //
     }
 
     public function role($child_id)

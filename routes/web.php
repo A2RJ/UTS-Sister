@@ -197,6 +197,6 @@ Route::middleware("auth")->group(function () {
     });
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('routes', [UtilityController::class, "routeList"])->middleware("dynamic");
-});
+// Route::prefix('admin')->group(function () {
+//     Route::get('routes', [UtilityController::class, "routeList"])->middleware("dynamic");
+// });

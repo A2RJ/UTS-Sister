@@ -10,6 +10,25 @@ class HumanResource extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "sdm_id",
+        "sdm_name",
+        "nidn",
+        "nip",
+        "active_status_name",
+        "employee_status",
+        "sdm_type",
+        "is_sister_exist",
+        "faculty_id",
+        "study_program_id",
+        "structure_id",
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'sdm_id';
+    }
+
     public static function searchSDM()
     {
         $sdm = self::query();
