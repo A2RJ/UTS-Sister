@@ -107,7 +107,6 @@ class StructuresTableSeeder extends Seeder
             ],
         ];
 
-        Structure::truncate();
         Structure::insert($roles);
     }
 }

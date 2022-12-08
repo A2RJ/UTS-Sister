@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SDM extends Model
+class HumanResource extends Model
 {
     use HasFactory;
 
-    public $table = "sdm";
-
     public static function searchSDM()
     {
-        $sdm = SDM::query();
+        $sdm = self::query();
         $nama_sdm = request('nama');
         if ($nama_sdm) {
-            return $sdm->where('nama_sdm', "LIKE", "%$nama_sdm%")->paginate();
+            return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->paginate();
         } else {
             return $sdm->paginate();
         }

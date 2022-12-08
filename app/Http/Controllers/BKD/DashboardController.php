@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BKD;
 
 use App\Http\Controllers\Controller;
-use App\Models\SDM;
+use App\Models\HumanResource;
 use App\Services\Sister;
 
 class DashboardController extends Controller
@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         Sister::authorize();
         return view("SDM.index", [
-            "sdm" => SDM::searchSDM()
+            "sdm" => HumanResource::searchSDM()
         ]);
     }
 
