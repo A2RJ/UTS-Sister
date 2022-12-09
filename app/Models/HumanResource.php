@@ -25,6 +25,60 @@ class HumanResource extends Model
         "structure_id",
     ];
 
+    public static $active_status_name = [
+        [
+            'text' => 'Aktif',
+            'value' => 'Aktif'
+        ],
+        [
+            'text' => 'Tidak Aktif',
+            'value' => 'Tidak Aktif'
+        ]
+    ];
+    public static $employee_status = [
+        [
+            'text' => 'PNS',
+            'value' => 'PNS'
+        ],
+        [
+            'text' => 'NON PNS',
+            'value' => 'NON PNS'
+        ]
+    ];
+    public static $sdm_type = [
+        [
+            'text' => 'Dosen',
+            'value' => 'Dosen'
+        ],
+        [
+            'text' => 'Dosen DT',
+            'value' => 'Dosen DT'
+        ],
+        [
+            'text' => 'Tenaga kependidikan',
+            'value' => 'Tenaga kependidikan'
+        ],
+        [
+            'text' => 'Security',
+            'value' => 'Security'
+        ],
+        [
+            'text' => 'Customer Service',
+            'value' => 'Customer Service'
+        ]
+    ];
+
+    public static $is_sister_exist = [
+        [
+            'text' => 'Terdaftar',
+            'value' => 1
+        ],
+        [
+            'text' => 'Tidak Terdaftar',
+            'value' => 0
+        ]
+    ];
+
     public function getRouteKeyName()
     {
         return 'sdm_id';
