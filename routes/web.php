@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
 use App\Http\Controllers\Admin\UtilityController;
+use App\Http\Controllers\Attendance\AttendanceSettingController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\BKD\DashboardController;
+use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\BKD\KompetensiController;
 use App\Http\Controllers\BKD\KualifikasiController;
 use App\Http\Controllers\BKD\PelaksPendidikanController;
@@ -36,8 +38,10 @@ Route::middleware("auth")->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::prefix('bkd')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('bkd.index');
-        Route::get('set-sdm/{id_sdm}/{nama_sdm}', [DashboardController::class, 'setSession'])->name('bkd.set-sdm');
+        Route::prefix("sdm")->controller(SDMController::class)->group(function () {
+            Route::get('/', 'index')->name('sdm.index');
+            Route::get('set-sdm/{sdm_id}/{sdm_name}',  'setSession')->name('sdm.set-sdm');
+        });
 
         Route::prefix('profil')->controller(ProfilController::class)->group(function () {
             Route::get("/data-pribadi", 'dataPribadi')->name('datapribadi');
@@ -193,6 +197,15 @@ Route::middleware("auth")->group(function () {
                 Route::get('/', 'penunjangLain')->name('penunjang-lain');
                 Route::get('/{id}', 'detailPenunjangLain')->name('penunjang-lain.detail');
             });
+        });
+    });
+
+    Route::prefix("attendance")->group(function () {
+        Route::controller(AttendanceSettingController::class)->group(function () {
+            Route::get("/", "index")->name("attendance.home");
+        });
+        Route::prefix("human_resource")->controller(HumanResourceController::class)->group(function () {
+            Route::get('/create', 'create')->name('human_resource.create');
         });
     });
 });

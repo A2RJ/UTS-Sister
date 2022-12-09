@@ -24,7 +24,6 @@ class StoreHumanResourceRequest extends FormRequest
     public function rules()
     {
         return [
-            "sdm_id" => ['required', 'unique:human_resources,sdm_id'],
             "sdm_name" => ['required'],
             "nidn" => ['nullable', 'numeric'],
             "nip" => ['nullable', 'numeric'],

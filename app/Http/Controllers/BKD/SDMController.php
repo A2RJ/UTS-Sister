@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\BKD;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HumanResource\StoreHumanResourceRequest;
+use App\Http\Requests\HumanResource\UpdateHumanResourceRequest;
 use App\Models\HumanResource;
 use App\Services\Sister;
 
-class DashboardController extends Controller
+class SDMController extends Controller
 {
     public function index()
     {
         Sister::authorize();
-        return view("SDM.index", [
+        return view("sister.SDM.index", [
             "sdm" => HumanResource::searchSDM()
         ]);
     }
 
-    public function setSession($id_sdm, $nama_sdm)
+    public function setSession($sdm_id, $sdm_name)
     {
         Sister::authorize();
-        session(['id_sdm' => $id_sdm, 'nama_sdm' => $nama_sdm]);
+        session(['sdm_id' => $sdm_id, 'sdm_name' => $sdm_name]);
         return redirect(route('index'));
     }
 }
