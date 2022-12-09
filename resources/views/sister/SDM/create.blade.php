@@ -6,7 +6,7 @@
 <div class="container p-5 card">
     <h4 class="mb-4">Form tambah civitas</h4>
 
-    <form id="contactForm" method="POST" action="{{ route('human_resource.store') }}">
+    <x-form action="{{ route('human_resource.store') }}">
         @csrf
         <x-select name="name" label="label" current="value" :select="[[
             'text' => 'Text',
@@ -69,9 +69,6 @@
                 <option value="Warek 2 Keuangan">Warek 2 Keuangan</option>
             </select>
         </div>
-        <div class="d-grid">
-            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-        </div>
-    </form>
+    </x-form>
 </div>
 @endsection
