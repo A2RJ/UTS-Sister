@@ -14,14 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('meetings', function (Blueprint $table) {
-            $table->comment('');
-            $table->integer('id', true);
+            $table->id();
             $table->foreignId("subject_id")->nullable()->constrained("subjects")->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId("subject_class_id")->nullable()->constrained("subjects_class")->cascadeOnUpdate()->nullOnDelete();
             $table->date('start')->useCurrent();
-            $table->date('end')->useCurrent();
-            $table->text('filename_start');
-            $table->text('filename_end');
+            $table->date('end')->nullable();
+            $table->text('file_start');
+            $table->text('file_end')->nullable();
         });
     }
 

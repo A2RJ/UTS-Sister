@@ -9,7 +9,7 @@ class Route extends Model
 {
     use HasFactory;
 
-    public $fillable = ["method", "uri", "name", "action"];
+    protected $fillable = ["method", "uri", "name", "action"];
 
     public $timestamps = false;
 }

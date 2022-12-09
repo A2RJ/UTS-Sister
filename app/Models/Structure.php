@@ -16,6 +16,11 @@ class Structure extends Model
 
     public $timestamps = false;
 
+    public function humanResource()
+    {
+        return $this->hasOne(HumanResource::class);
+    }
+
     public static function role($child_id)
     {
         return self::where("child_id", $child_id)->first();

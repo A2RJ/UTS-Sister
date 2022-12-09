@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HumanResource extends Model
@@ -38,5 +39,25 @@ class HumanResource extends Model
         } else {
             return $sdm->paginate();
         }
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'nip', 'nip');
+    }
+
+    public function faculty()
+    {
+        return $this->hasOne(Faculty::class);
+    }
+
+    public function studyProgram()
+    {
+        return $this->hasOne(StudyProgram::class);
+    }
+
+    public function structure()
+    {
+        return $this->hasOne(Structure::class);
     }
 }
