@@ -38,7 +38,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>ID</th>
+                                <th>ID SDM</th>
                                 <th>NIDN</th>
                                 <th>Aksi</th>
                             </tr>
@@ -51,8 +51,17 @@
                                 <td>{{ $item->sdm_id }}</td>
                                 <td>{{ $item->nidn }}</td>
                                 <td>
+                                    <a href="{{ route('human_resource.show', ['human_resource' => $item->sdm_id]) }}">
+                                        <button class="btn btn-sm btn-outline-primary">Detail</button>
+                                    </a>
                                     <a href="{{ route('sdm.set-sdm', ['sdm_id' => $item->sdm_id, 'sdm_name' => $item->sdm_name]) }}">
-                                        <button class="btn btn-sm btn-success">Pilih SDM</button>
+                                        <button class="btn btn-sm btn-outline-success">Set SDM</button>
+                                    </a>
+                                    <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
+                                        <button class="btn btn-sm btn-outline-warning">Edit</button>
+                                    </a>
+                                    <a href="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" onclick="return confirm('Are you sure')">
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                                     </a>
                                 </td>
                             </tr>

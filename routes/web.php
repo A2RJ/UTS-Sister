@@ -204,9 +204,7 @@ Route::middleware("auth")->group(function () {
         Route::controller(AttendanceSettingController::class)->group(function () {
             Route::get("/", "index")->name("attendance.home");
         });
-        Route::prefix("human_resource")->controller(HumanResourceController::class)->group(function () {
-            Route::get('/create', 'create')->name('human_resource.create');
-        });
+        Route::resource("/human_resource", HumanResourceController::class);
     });
 });
 

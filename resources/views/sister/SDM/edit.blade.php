@@ -1,16 +1,16 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Create SDM')
+@section('title', 'Update SDM')
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">Form tambah civitas</h4>
+    <h4 class="mb-4">Form edit civitas</h4>
 
-    <form id="contactForm" method="POST" action="{{ route('human_resource.store') }}">
+    <form id="contactForm" method="POST" action="{{ route('human_resource.update', $humanResource->sdm_id) }}">
         @csrf
         <div class="mb-3">
             <label class="form-label" for="nama">Nama</label>
-            <input class="form-control @error('sdm_name') is-invalid @enderror" id="nama" type="text" placeholder="Nama" value="{{ old('sdm_name') }}" />
+            <input class="form-control @error('sdm_name') is-invalid @enderror" id="nama" type="text" placeholder="Nama" value="{{ $humanResource->sdm_name }}" />
             <div class="invalid-feedback">Nama is required.</div>
         </div>
         <div class="mb-3">
