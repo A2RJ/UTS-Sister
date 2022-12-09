@@ -15,13 +15,13 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="nidn">NIDN</label>
-            <input class="form-control" id="nidn" type="text" placeholder="NIDN" data-sb-validations="required" />
-            <div class="invalid-feedback" data-sb-feedback="nidn:required">NIDN is required.</div>
+            <input class="form-control" id="nidn" type="text" placeholder="NIDN" required />
+            <div class="invalid-feedback">NIDN is required.</div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="nip">NIP</label>
-            <input class="form-control" id="nip" type="text" placeholder="NIP" data-sb-validations="required" />
-            <div class="invalid-feedback" data-sb-feedback="nip:required">NIP is required.</div>
+            <input class="form-control" id="nip" type="text" placeholder="NIP" required />
+            <div class="invalid-feedback">NIP is required.</div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="status">Status</label>
