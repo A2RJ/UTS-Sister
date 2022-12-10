@@ -15,7 +15,7 @@ class Classes extends Model
 
     public $timestamps = false;
 
-    public function studyProgram()
+    public function study_program()
     {
         return $this->belongsTo(StudyProgram::class);
     }

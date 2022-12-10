@@ -11,6 +11,8 @@ class Faculty extends Model
 
     protected $fillable = ["faculty"];
 
+    public $timestamps = false;
+
     public function studyProgram()
     {
         return $this->hasMany(StudyProgram::class);
@@ -19,5 +21,21 @@ class Faculty extends Model
     public function humanResource()
     {
         return $this->hasOne(HumanResource::class);
+    }
+
+    public static function search()
+    {
+        $query = self::query();
+        $faculty = request('faculty');
+        if ($faculty) {
+            return $query->where('faculty', "LIKE", "%$faculty%")->paginate();
+        } else {
+            return $query->paginate();
+        }
+    }
+
+    public static function selectOption()
+    {
+        return self::select("id as value", "faculty as text")->get();
     }
 }

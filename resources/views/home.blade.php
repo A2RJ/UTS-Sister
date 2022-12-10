@@ -19,7 +19,7 @@
                     <br>
                     <a href="{{ route('sdm.index') }}">Go to BKD</a>
                     <br>
-                    <a href="{{ route('attendance.home') }}">Go to Attendance</a>
+                    <a href="{{ route('attendance.index') }}">Go to Attendance</a>
                 </div>
             </div>
         </div>

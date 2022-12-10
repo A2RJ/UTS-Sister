@@ -26,13 +26,8 @@ class StoreMeetingRequest extends FormRequest
     {
         return [
             "subject_id" => ['required'],
-            "subject_class_id" => ['required'],
-            "start" => ['required'],
-            "filename_start" => [
-                'required',
-                File::types(['jpg', 'jpeg', 'png'])
-                    ->max(24 * 1024),
-            ],
+            "meeting_name" => ['required'],
+            "datetime_local" => ['required'],
         ];
     }
 }

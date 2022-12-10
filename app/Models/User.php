@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    public $table = "human_resources";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +22,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'nip',
         'email',
         'password',
     ];

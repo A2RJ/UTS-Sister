@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('sdm_id', 300)->nullable();
             $table->string('sdm_name', 300)->nullable();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->string('nidn', 300)->nullable();
             $table->string('nip', 300)->nullable();
             $table->string('active_status_name', 300)->nullable();

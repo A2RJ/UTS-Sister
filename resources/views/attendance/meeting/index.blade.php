@@ -1,0 +1,37 @@
+@extends('layouts.dashboard')
+
+@section('title', 'List Jadwal Pertemuan Mata Kuliah')
+
+@section('content')
+<div class="container p-5 card">
+    <h4 class="mb-4">List jadwal mata kuliah</h4>
+    <div class="mb-3">
+        <a href="{{ route('meeting.create') }}">
+            <button class="btn btn-sm btn-primary">Tambah jadwal</button>
+        </a>
+    </div>
+
+    <x-success-message />
+    <x-table :header="['Mata Kuliah', 'Pertemuan' , 'Waktu' , 'Jam Dimulai' , 'Jam Diakhiri' , 'Foto Mulai' , 'Foto Selesai', 'Aksi']">
+        @foreach ($meetings as $meeting)
+        <tr>
+            <td>{{ $loop->iteration}}</td>
+            <td>{{ $meeting->subject->subject }}</td>
+            <td>{{ $meeting->meeting_name }}</td>
+            <td>{{ $meeting->datetime_local ? date("Y-m-d H:i", strtotime($meeting->datetime_local)) : '' }}</td>
+            <td>{{ $meeting->meeting_start }}</td>
+            <td>{{ $meeting->meeting_end }}</td>
+            <td>{{ $meeting->file_start }}</td>
+            <td>{{ $meeting->file_end }}</td>
+            <td>
+                <a href="#">Edit</a>
+                <x-delete action="{{ route('meeting.destroy', $meeting->id) }}" />
+            </td>
+        </tr>
+        @endforeach
+    </x-table>
+    <div class="mt-2 float-right">
+        {{ $meetings->links() }}
+    </div>
+</div>
+@endsection

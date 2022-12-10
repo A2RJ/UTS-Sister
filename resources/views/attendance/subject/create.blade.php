@@ -1,40 +1,17 @@
-<div class="container px-5 my-5">
-    <form>
-        <div class="mb-3">
-            <label class="form-label" for="mataKuliah">Mata kuliah</label>
-            <input class="form-control" id="mataKuliah" type="text" placeholder="Mata kuliah" required />
-            <div class="invalid-feedback">Mata kuliah is required.</div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="jumlahSks">Jumlah SKS</label>
-            <input class="form-control" id="jumlahSks" type="text" placeholder="Jumlah SKS" required />
-            <div class="invalid-feedback">Jumlah SKS is required.</div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="jumlahPertemuan">Jumlah pertemuan </label>
-            <input class="form-control" id="jumlahPertemuan" type="text" placeholder="Jumlah pertemuan " required />
-            <div class="invalid-feedback">Jumlah pertemuan is required.</div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="programStudi">Program studi</label>
-            <select class="form-select" id="programStudi" aria-label="Program studi">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="pilihDosen">Pilih dosen</label>
-            <select class="form-select" id="pilihDosen" aria-label="Pilih dosen">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
+@extends('layouts.dashboard')
 
-    </form>
+@section('title', 'Tambah Mata Kuliah')
+
+@section('content')
+<div class="container p-5 card">
+    <h4 class="mb-4">Form mata kuliah</h4>
+
+    <x-form action="{{ route('subject.store') }}" displayError="true">
+        <x-input name="subject" label="Mata Kuliah" placeholder="Mata Kuliah" />
+        <x-input name="sks" label="Jumlah SKS" placeholder="Jumlah SKS" />
+        <x-input name="number_of_meetings" label="Jumlah Pertemuan" placeholder="Jumlah Pertemuan" />
+        <x-select name="study_program_id" label="Program Studi" :select="$study_programs" />
+        <x-select name="sdm_id" label="Dosen" :select="$human_resources" />
+    </x-form>
 </div>
+@endsection

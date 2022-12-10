@@ -21,6 +21,22 @@ class Structure extends Model
         return $this->hasOne(HumanResource::class);
     }
 
+    public static function search()
+    {
+        $query = self::query();
+        $role = request('role');
+        if ($role) {
+            return $query->where('role', "LIKE", "%$role%")->paginate();
+        } else {
+            return $query->paginate();
+        }
+    }
+
+    public static function selectOption()
+    {
+        return self::select("id as value", "role as text")->get();
+    }
+
     public static function role($child_id)
     {
         return self::where("child_id", $child_id)->first();
@@ -46,16 +62,6 @@ class Structure extends Model
             "child" => self::children($role->child_id)
         ]);
     }
-
-    // public static function allParentNChildren($child_id)
-    // {
-    //     $role = self::role($child_id);
-    //     return response()->json([
-    //         "role" => $role,
-    //         "parent" => self::parent($role->child_id),
-    //         "child" => self::children($role->child_id)
-    //     ]);
-    // }
 
     public static function childrenWFlow($child_id)
     {

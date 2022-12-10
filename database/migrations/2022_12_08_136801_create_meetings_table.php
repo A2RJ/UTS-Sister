@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->foreignId("subject_id")->nullable()->constrained("subjects")->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId("subject_class_id")->nullable()->constrained("subjects_class")->cascadeOnUpdate()->nullOnDelete();
-            $table->date('start')->useCurrent();
-            $table->date('end')->nullable();
-            $table->text('file_start');
+            $table->string("meeting_name");
+            $table->string("datetime_local")->nullable();
+            $table->date('meeting_start')->nullable();
+            $table->date('meeting_end')->nullable();
+            $table->text('file_start')->nullable();
             $table->text('file_end')->nullable();
         });
     }

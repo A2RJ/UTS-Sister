@@ -11,9 +11,4 @@ class AttendanceSettingController extends Controller
     {
         return view('attendance.setting.index');
     }
-
-    public function create()
-    {
-        return view();
-    }
 }

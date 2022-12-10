@@ -17,7 +17,7 @@
         <x-select name="is_sister_exist" label="Terdaftar sister" :select="$is_sister_exist" :current="$human_resource->is_sister_exist" />
         <x-select name="faculty_id" label="Fakultas" :select="$faculty" :current="$human_resource->faculty_id" />
         <x-select name="study_program_id" label="Program studi" :select="$study_program" :current="$human_resource->study_program_id" />
-        <x-select name="structure_id" label="Jabatan struktural" :select="$structure" :current="$human_resource->structure_id" />
+        <x-select name="structure_id" label="Jabatan struktural" :select="$structures" :current="$human_resource->structure_id" />
     </x-form>
 </div>
 @endsection

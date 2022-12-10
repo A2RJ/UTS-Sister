@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\HumanResource;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class HumanResourcesTableSeeder extends Seeder
 {
@@ -16,7 +18,7 @@ class HumanResourcesTableSeeder extends Seeder
      */
     public function run()
     {
-        HumanResource::insert(array(
+        $human_resources = array(
             array(
                 'id' => 1,
                 'sdm_id' => 'b27d3846-f8c2-470b-9b64-bd2dab5e8db4',
@@ -1753,20 +1755,20 @@ class HumanResourcesTableSeeder extends Seeder
                 'study_program_id' => null,
                 'structure_id' => null,
             ),
-            array(
-                'id' => 125,
-                'sdm_id' => '263500e8-285a-409c-919f-b079770bca9a',
-                'sdm_name' => 'LUKMANUL HAKIM',
-                'nidn' => '0804088801',
-                'nip' => '',
-                'active_status_name' => 'Aktif',
-                'employee_status' => 'NON PNS',
-                'sdm_type' => 'Dosen',
-                'is_sister_exist' => true,
-                'faculty_id' => null,
-                'study_program_id' => null,
-                'structure_id' => null,
-            ),
+            // array(
+            //     'id' => 125,
+            //     'sdm_id' => '263500e8-285a-409c-919f-b079770bca9a',
+            //     'sdm_name' => 'LUKMANUL HAKIM',
+            //     'nidn' => '0804088801',
+            //     'nip' => '',
+            //     'active_status_name' => 'Aktif',
+            //     'employee_status' => 'NON PNS',
+            //     'sdm_type' => 'Dosen',
+            //     'is_sister_exist' => true,
+            //     'faculty_id' => null,
+            //     'study_program_id' => null,
+            //     'structure_id' => null,
+            // ),
             array(
                 'id' => 126,
                 'sdm_id' => 'abd763f1-24a4-4417-94ed-9c26ac35896b',
@@ -3321,6 +3323,42 @@ class HumanResourcesTableSeeder extends Seeder
                 'study_program_id' => null,
                 'structure_id' => null,
             ),
-        ));
+            array(
+                'id' => 237,
+                'sdm_id' => '3656456-df9d-46456-aefdgrg71-376454568',
+                'sdm_name' => 'ARDIANSYAH PUTRA',
+                'nidn' => '16011998',
+                'nip' => '',
+                'active_status_name' => 'Aktif',
+                'employee_status' => 'NON PNS',
+                'sdm_type' => 'Tenaga Kependidikan',
+                'is_sister_exist' => true,
+                'faculty_id' => null,
+                'study_program_id' => null,
+                'structure_id' => null,
+            ),
+        );
+
+        $human_resources = collect($human_resources)->map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'sdm_id' => $item['sdm_id'],
+                'sdm_name' => $item['sdm_name'],
+                'email' => Str::lower(
+                    preg_replace("/\s+/", ".", $item['sdm_name'])
+                ) . '@uts.ac.id',
+                'password' => Hash::make($item['nidn']),
+                'nidn' => $item['nidn'],
+                'nip' => $item['nip'],
+                'active_status_name' => $item['active_status_name'],
+                'employee_status' => $item['employee_status'],
+                'sdm_type' => $item['sdm_type'],
+                'is_sister_exist' => $item['is_sister_exist'],
+                'faculty_id' => $item['faculty_id'],
+                'study_program_id' => $item['study_program_id'],
+                'structure_id' => $item['structure_id'],
+            ];
+        })->toArray();
+        HumanResource::insert($human_resources);
     }
 }

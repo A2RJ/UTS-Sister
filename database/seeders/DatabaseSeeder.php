@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             StructuresTableSeeder::class,
             FacultiesTableSeeder::class,
             StudyProgramsTableSeeder::class,
-            UsersTableSeeder::class
         ]);
+        $this->call(ClassesTableSeeder::class);
+        $this->call(MeetingsTableSeeder::class);
     }
 }

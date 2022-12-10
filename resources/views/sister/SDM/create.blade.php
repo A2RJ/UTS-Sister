@@ -7,7 +7,6 @@
     <h4 class="mb-4">Form tambah civitas</h4>
 
     <x-form action="{{ route('human_resource.store') }}" displayError="true">
-        @csrf
         <x-input name="sdm_name" label="Nama SDM" placeholder="Nama" />
         <x-input name="nidn" label="NIDN" placeholder="NIDN" />
         <x-input name="nip" label="NIP" placeholder="NIP" />
@@ -17,7 +16,7 @@
         <x-select name="is_sister_exist" label="Terdaftar sister" :select="$is_sister_exist" />
         <x-select name="faculty_id" label="Fakultas" :select="$faculty" />
         <x-select name="study_program_id" label="Program studi" :select="$study_program" />
-        <x-select name="structure_id" label="Jabatan struktural" :select="$structure" />
+        <x-select name="structure_id" label="Jabatan struktural" :select="$structures" />
     </x-form>
 </div>
 @endsection

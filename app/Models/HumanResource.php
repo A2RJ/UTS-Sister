@@ -35,6 +35,7 @@ class HumanResource extends Model
             'value' => 'Tidak Aktif'
         ]
     ];
+
     public static $employee_status = [
         [
             'text' => 'PNS',
@@ -45,6 +46,7 @@ class HumanResource extends Model
             'value' => 'NON PNS'
         ]
     ];
+
     public static $sdm_type = [
         [
             'text' => 'Dosen',
@@ -93,6 +95,11 @@ class HumanResource extends Model
         } else {
             return $sdm->paginate();
         }
+    }
+
+    public static function selectOption()
+    {
+        return self::select('id as value', 'sdm_name as text')->get();
     }
 
     public function user()

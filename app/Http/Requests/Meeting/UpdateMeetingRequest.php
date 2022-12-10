@@ -25,8 +25,17 @@ class UpdateMeetingRequest extends FormRequest
     public function rules()
     {
         return [
-            "end" => ['required'],
-            "filename_end" => [
+            // "subject_id" => ['required'],
+            // "meeting_name" => ['required'],
+            // "datetime_local" => ['required'],
+            // "meeting_start" => ['require'],
+            // "file_start" => [
+            //     'require',
+            //     File::types(['jpg', 'jpeg', 'png'])
+            //     ->max(24 * 1024),
+            // ],
+            // "meeting_end" => ['required'],
+            "file_end" => [
                 'required',
                 File::types(['jpg', 'jpeg', 'png'])
                     ->max(24 * 1024),

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\HumanResource;
 use App\Http\Requests\HumanResource\StoreHumanResourceRequest;
 use App\Http\Requests\HumanResource\UpdateHumanResourceRequest;
+use App\Models\Faculty;
+use App\Models\Structure;
+use App\Models\StudyProgram;
 use Illuminate\Support\Facades\Hash;
 
 class HumanResourceController extends Controller
@@ -18,12 +21,18 @@ class HumanResourceController extends Controller
 
     public function create()
     {
-        return view('sister.SDM.create');
+        return view('sister.SDM.create')
+            ->with('active_status_name', HumanResource::$active_status_name)
+            ->with('employee_status', HumanResource::$employee_status)
+            ->with('is_sister_exist', HumanResource::$is_sister_exist)
+            ->with('sdm_type', HumanResource::$sdm_type)
+            ->with('faculty', Faculty::selectOption())
+            ->with('study_program', StudyProgram::selectOption())
+            ->with('structures', Structure::selectOption());
     }
 
     public function store(StoreHumanResourceRequest $request)
     {
-        $request->sdm_id = Hash::make($request->sdm_name);
         $form = $request->safe()->only([
             "sdm_name",
             "nidn",
@@ -36,18 +45,35 @@ class HumanResourceController extends Controller
             "study_program_id",
             "structure_id",
         ]);
+        $form['sdm_id'] = Hash::make($request->sdm_name);
         HumanResource::create($form);
         return $this->responseRedirect("$request->sdm_name created");
     }
 
     public function show(HumanResource $humanResource)
     {
-        return view('sister.SDM.show', compact($humanResource));
+        return view('sister.SDM.show')
+            ->with('human_resource', $humanResource)
+            ->with('active_status_name', HumanResource::$active_status_name)
+            ->with('employee_status', HumanResource::$employee_status)
+            ->with('is_sister_exist', HumanResource::$is_sister_exist)
+            ->with('sdm_type', HumanResource::$sdm_type)
+            ->with('faculty', Faculty::selectOption())
+            ->with('study_program', StudyProgram::selectOption())
+            ->with('structures', Structure::selectOption());
     }
 
     public function edit(HumanResource $humanResource)
     {
-        return view('sister.SDM.update', compact($humanResource));
+        return view('sister.SDM.edit')
+            ->with('human_resource', $humanResource)
+            ->with('active_status_name', HumanResource::$active_status_name)
+            ->with('employee_status', HumanResource::$employee_status)
+            ->with('is_sister_exist', HumanResource::$is_sister_exist)
+            ->with('sdm_type', HumanResource::$sdm_type)
+            ->with('faculty', Faculty::selectOption())
+            ->with('study_program', StudyProgram::selectOption())
+            ->with('structures', Structure::selectOption());
     }
 
     public function update(UpdateHumanResourceRequest $request, HumanResource $humanResource)

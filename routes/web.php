@@ -1,10 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\HumanResourceController;
-use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
-use App\Http\Controllers\Admin\UtilityController;
-use App\Http\Controllers\Attendance\AttendanceSettingController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Admin\FacultyController;
+use App\Http\Controllers\Admin\HumanResourceController;
+use App\Http\Controllers\Admin\StructureController;
+use App\Http\Controllers\Admin\StudyProgramController;
+
+use App\Http\Controllers\Attendance\AttendanceSettingController;
+use App\Http\Controllers\Attendance\ClassController;
+use App\Http\Controllers\Attendance\MeetingController;
+use App\Http\Controllers\Attendance\SubjectController;
 
 use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\BKD\KompetensiController;
@@ -14,10 +21,8 @@ use App\Http\Controllers\BKD\PelaksPenelitian;
 use App\Http\Controllers\BKD\PelaksPengabdian;
 use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
-use App\Http\Controllers\BKD\ReferensiController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -200,14 +205,14 @@ Route::middleware("auth")->group(function () {
         });
     });
 
-    Route::prefix("attendance")->group(function () {
-        Route::controller(AttendanceSettingController::class)->group(function () {
-            Route::get("/", "index")->name("attendance.home");
-        });
+    Route::prefix("/")->group(function () {
+        Route::resource("/attendance", AttendanceSettingController::class);
+        Route::resource("/faculty", FacultyController::class)->except(['show']);
+        Route::resource("/study_program", StudyProgramController::class);
+        Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
+        Route::resource("/class", ClassController::class);
+        Route::resource("/subject", SubjectController::class);
+        Route::resource("/meeting", MeetingController::class);
     });
 });
-
-// Route::prefix('admin')->group(function () {
-//     Route::get('routes', [UtilityController::class, "routeList"])->middleware("dynamic");
-// });

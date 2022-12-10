@@ -9,7 +9,7 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["subject_id", "subject_class_id", "start", "end", "file_start", "file_end"];
+    protected $fillable = ["subject_id", "meeting_name", "datetime_local", "meeting_start", "meeting_end", "file_start", "file_end"];
 
     public $timestamps = false;
 
@@ -21,5 +21,19 @@ class Meeting extends Model
     public function subjectClass()
     {
         return $this->belongsTo(SubjectClass::class);
+    }
+
+    public static function bulkCreateMeetings($subject_id, $numberOfMeetings)
+    {
+        $numbers = range(1, $numberOfMeetings);
+        $newNumbers = array_map(function ($number) use ($subject_id) {
+            return [
+                "subject_id" => $subject_id,
+                "meeting_name" => "Pertemuan ke " . $number,
+                "datetime_local" => null
+            ];
+        }, $numbers);
+
+        self::insert($newNumbers);
     }
 }

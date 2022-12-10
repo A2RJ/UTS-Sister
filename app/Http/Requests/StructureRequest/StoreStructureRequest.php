@@ -13,7 +13,7 @@ class StoreStructureRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreStructureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'role' => ['required', 'string'],
+            'parent_id' => ['required']
         ];
     }
 }

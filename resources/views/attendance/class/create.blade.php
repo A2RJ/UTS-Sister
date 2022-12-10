@@ -1,17 +1,14 @@
-<div class="container px-5 my-5">
-    <form method="POST" action="">
-        <div class="mb-3">
-            <label class="form-label" for="programStudi">Program studi</label>
-            <input class="form-control" id="programStudi" type="text" placeholder="Program studi" required />
-            <div class="invalid-feedback">Program studi is required.</div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="kelas">Kelas</label>
-            <input class="form-control" id="kelas" type="text" placeholder="Kelas" required />
-            <div class="invalid-feedback">Kelas is required.</div>
-        </div>
-        <div class="d-grid">
-            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-        </div>
-    </form>
+@extends('layouts.dashboard')
+
+@section('title', 'Tambah Kelas')
+
+@section('content')
+<div class="container p-5 card">
+    <h4 class="mb-4">Form tambah civitas</h4>
+
+    <x-form action="{{ route('class.store') }}" displayError="true">
+        <x-select name="study_program_id" label="Program studi" :select="$study_program" />
+        <x-input name="class" label="Kelas" placeholder="Kelas" />
+    </x-form>
 </div>
+@endsection

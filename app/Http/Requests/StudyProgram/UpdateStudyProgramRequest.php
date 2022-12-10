@@ -13,7 +13,7 @@ class UpdateStudyProgramRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateStudyProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'study_program' => ['required'],
+            'faculty_id' => ['required']
         ];
     }
 }
