@@ -212,6 +212,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/class", ClassController::class);
+        Route::get('/subject/by-lecturer', [SubjectController::class, 'byLecturer'])->name('subject.byLecturer');
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
     });

@@ -9,6 +9,7 @@ use App\Http\Requests\Subject\UpdateSubjectRequest;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\StudyProgram;
+use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -58,5 +59,16 @@ class SubjectController extends Controller
     {
         $subject->delete();
         return redirect(route('subject.index'))->with('message', 'Berhasil delete mata kuliah');
+    }
+
+    public function byLecturer()
+    {
+        return view('attendance.subject.index')
+            ->with('subjects', Subject::with('study_program', 'human_resource')->where('sdm_id', auth()->id())->paginate());
+    }
+
+    public function byLecturerApi(Request $request)
+    {
+        return response(Subject::with('study_program')->where('sdm_id', $request->user()->id)->paginate(), 200);
     }
 }

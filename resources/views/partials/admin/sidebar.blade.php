@@ -61,6 +61,12 @@
                      <span class="link-title">Jadwal Mata Kuliah</span>
                  </a>
              </li>
+             <li class="nav-item">
+                 <form action="/logout" method="POST">
+                     @csrf
+                     <button class="btn btn-danger">Logout</button>
+                 </form>
+             </li>
              <!-- <li class="nav-item">
                  <a class="nav-link" data-bs-toggle="collapse" href="#dropdownSDM" role="button" aria-expanded="false" aria-controls="dropdownSDM">
                      <i class="link-icon" data-feather="mail"></i>

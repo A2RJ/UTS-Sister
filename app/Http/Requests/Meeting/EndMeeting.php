@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Meeting;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
-class StoreMeetingRequest extends FormRequest
+class EndMeeting extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,11 @@ class StoreMeetingRequest extends FormRequest
     public function rules()
     {
         return [
-            "subject_id" => ['required'],
-            "meeting_name" => ['required'],
-            "datetime_local" => ['required'],
+            "file_end" => [
+                'required',
+                File::types(['jpg', 'jpeg', 'png'])
+                    ->max(24 * 1024),
+            ],
         ];
     }
 }

@@ -31,7 +31,6 @@ class ClassController extends Controller
 
     public function show(Classes $class)
     {
-        //
     }
 
     public function edit(Classes $class)

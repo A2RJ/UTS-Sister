@@ -24,7 +24,7 @@ class Controller extends BaseController
 
     public function response($data, $view = false)
     {
-        return $this->isApi ? response($data) : view($view, compact($data));
+        return $this->isApi ? response($data) : $view;
     }
 
     public function responseRedirect($data)

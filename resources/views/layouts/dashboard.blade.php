@@ -53,6 +53,10 @@
         @include('partials.admin.sidebar')
         @endif
 
+        @if (auth()->user()->sdm_type == "Dosen")
+        @include('partials.dosen.sidebar')
+        @endif
+
         <div class="page-wrapper">
 
             @include('partials.navbar')
