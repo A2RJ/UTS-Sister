@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Meeting extends Model
 {
@@ -35,5 +36,21 @@ class Meeting extends Model
         }, $numbers);
 
         self::insert($newNumbers);
+    }
+
+    public static function upload($request, $name)
+    {
+        if ($request->hasFile($name)) {
+            $file = $request->file($name);
+            $originalFileName = $file->getClientOriginalName();
+            $fileName = uniqid() . time() . $originalFileName . '.' . $file->extension();
+            $file->move(public_path('uploads'), $fileName);
+            if (!File::exists(storage_path('uploads/' . $fileName))) {
+                return false;
+            }
+            return $fileName;
+        } else {
+            return false;
+        }
     }
 }

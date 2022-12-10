@@ -49,7 +49,9 @@
 
 <body>
     <div class="main-wrapper">
-        @include('partials.sidebar')
+        @if (auth()->user()->structure_id == "1")
+        @include('partials.admin.sidebar')
+        @endif
 
         <div class="page-wrapper">
 

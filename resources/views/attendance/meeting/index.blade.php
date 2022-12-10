@@ -24,7 +24,7 @@
             <td>{{ $meeting->file_start }}</td>
             <td>{{ $meeting->file_end }}</td>
             <td>
-                <a href="#">Edit</a>
+                <a href="{{ route('meeting.edit', $meeting->id) }}">Edit</a>
                 <x-delete action="{{ route('meeting.destroy', $meeting->id) }}" />
             </td>
         </tr>

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             StudyProgramsTableSeeder::class,
         ]);
         $this->call(ClassesTableSeeder::class);
+        $this->call(SubjectsTableSeeder::class);
         $this->call(MeetingsTableSeeder::class);
     }
 }

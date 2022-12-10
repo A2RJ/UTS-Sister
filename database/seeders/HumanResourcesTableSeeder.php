@@ -3335,7 +3335,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => true,
                 'faculty_id' => null,
                 'study_program_id' => null,
-                'structure_id' => null,
+                'structure_id' => 1,
             ),
         );
 

@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h6 class="card-title">Daftar SDM Universitas Teknologi Sumbawa</h6>
                 <a href="{{ route('human_resource.create') }}">
-                    <button type="submit" class="btn btn-primary mb-3">Create</button>
+                    <button type="submit" class="btn btn-primary mb-3">Tambah</button>
                 </a>
                 <p class="text-muted mb-3">
                     Klik "Pilih sdm" untuk melihat detail sdm.
@@ -20,7 +20,8 @@
                     Nama SDM: {{ session('sdm_name') }} <br>
                     <!-- token: {{ session('token') }} -->
                 </b>
-                <form action="/" class="row mt-3">
+                <form action="{{ route('sdm.index') }}" method="GET" class="row mt-3">
+                    @csrf
                     <div class="col-9">
                         <label for="nama" class="visually-hidden">Password</label>
                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Cari nama SDM" autocomplete="off">
