@@ -10,7 +10,7 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["subject_id", "meeting_name", "datetime_local", "meeting_start", "meeting_end", "file_start", "file_end"];
+    protected $fillable = ["subject_id", "meeting_name", "date", "meeting_start", "meeting_end", "file_start", "file_end"];
 
     public $timestamps = false;
 
@@ -31,7 +31,7 @@ class Meeting extends Model
             return [
                 "subject_id" => $subject_id,
                 "meeting_name" => "Pertemuan ke " . $number,
-                "datetime_local" => null
+                "date" => null
             ];
         }, $numbers);
 

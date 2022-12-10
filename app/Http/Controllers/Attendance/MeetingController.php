@@ -28,7 +28,7 @@ class MeetingController extends Controller
 
     public function store(StoreMeetingRequest $request)
     {
-        $form = $request->safe()->only(["subject_id", "meeting_name", "datetime_local"]);
+        $form = $request->safe()->only(["subject_id", "meeting_name", "date"]);
         Meeting::create($form);
         return redirect(route('meeting.index'))->with('message', 'Berhasil tambah jadwal perkuliahan');
     }
@@ -47,7 +47,7 @@ class MeetingController extends Controller
 
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
-        $form = $request->safe()->only(["subject_id", "meeting_name", "datetime_local", "meeting_start", "meeting_end", "file_start", "file_end"]);
+        $form = $request->safe()->only(["subject_id", "meeting_name", "date", "meeting_start", "meeting_end", "file_start", "file_end"]);
         $file_start = Meeting::upload($request, "file_start", auth()->user()->id);
         $form['file_start'] = $file_start ? $file_start : $meeting->file_start;
         $file_end = Meeting::upload($request, "file_end", auth()->user()->id);

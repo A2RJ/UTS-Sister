@@ -9,6 +9,7 @@ use App\Http\Requests\Subject\UpdateSubjectRequest;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\StudyProgram;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -99,5 +100,15 @@ class SubjectController extends Controller
             ->groupBy('subjects.id')
             ->first();
         return response($results);
+    }
+
+    public function today(Request $request)
+    {
+        $results = Subject::whereHas('meetings', function ($query) {
+            $query->whereDate('date', Carbon::today());
+        })
+            ->where('subjects.sdm_id', $request->user()->id)
+            ->paginate();
+        return $results;
     }
 }

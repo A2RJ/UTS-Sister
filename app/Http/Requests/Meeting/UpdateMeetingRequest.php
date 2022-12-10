@@ -27,7 +27,7 @@ class UpdateMeetingRequest extends FormRequest
         return [
             "subject_id" => ['required'],
             "meeting_name" => ['required'],
-            "datetime_local" => ['required'],
+            "date" => ['required'],
             "meeting_start" => ['nullable'],
             "meeting_end" => ['nullable'],
             "file_start" => [

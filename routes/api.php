@@ -39,6 +39,7 @@ Route::prefix('attendance')->middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {
         Route::controller(SubjectController::class)->group(function () {
             Route::get('/', 'byLecturerApi');
+            Route::get('/today', 'today');
             Route::get('/{subject_id}', 'subjectAggregateId');
         });
         Route::controller(MeetingController::class)->group(function () {

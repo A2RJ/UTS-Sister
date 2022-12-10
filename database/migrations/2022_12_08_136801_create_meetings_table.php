@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("subject_id")->nullable()->constrained("subjects")->cascadeOnUpdate()->nullOnDelete();
             $table->string("meeting_name");
-            $table->string("datetime_local")->nullable();
+            $table->string("date")->nullable();
             $table->string('meeting_start')->nullable();
             $table->string('meeting_end')->nullable();
             $table->text('file_start')->nullable();

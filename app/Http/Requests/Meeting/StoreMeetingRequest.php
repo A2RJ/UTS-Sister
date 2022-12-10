@@ -26,7 +26,7 @@ class StoreMeetingRequest extends FormRequest
         return [
             "subject_id" => ['required'],
             "meeting_name" => ['required'],
-            "datetime_local" => ['required'],
+            "date" => ['required'],
         ];
     }
 }

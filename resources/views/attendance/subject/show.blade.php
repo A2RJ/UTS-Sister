@@ -14,7 +14,7 @@
             <td>{{ $loop->iteration}}</td>
             <!-- <td>{{ $meeting->subject->subject }}</td> -->
             <td>{{ $meeting->meeting_name }}</td>
-            <td>{{ $meeting->datetime_local }}</td>
+            <td>{{ $meeting->date }}</td>
             <td>{{ $meeting->meeting_start }}</td>
             <td>{{ $meeting->meeting_end }}</td>
             <td>{{ $meeting->file_start }}</td>

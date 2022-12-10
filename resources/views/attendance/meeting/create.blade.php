@@ -9,7 +9,7 @@
     <x-form action="{{ route('meeting.store') }}" displayError="true">
         <x-select name="subject_id" label="Mata Kuliah" :select="$subjects" />
         <x-input name="meeting_name" label="Pertemuan ke-n" placeholder="Pertemuan ke-n" />
-        <x-input name="datetime_local" type="datetime-local" label="Waktu Perkuliahan" />
+        <x-input name="date" type="datetime-local" label="Waktu Perkuliahan" />
     </x-form>
 </div>
 @endsection
