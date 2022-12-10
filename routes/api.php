@@ -39,9 +39,9 @@ Route::prefix('attendance')->middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {
         Route::controller(SubjectController::class)->group(function () {
             Route::get('/', 'byLecturerApi');
+            Route::get('/{subject_id}', 'subjectAggregateId');
         });
         Route::controller(MeetingController::class)->group(function () {
-            Route::get('/list-meeting', 'listMeeting');
             Route::get('/{subject_id}/meeting', 'meeting');
             Route::post('/{subject_id}/start-meeting/{meeting_id}', 'startMeeting');
             Route::post('/{subject_id}/end-meeting/{meeting_id}', 'endMeeting');
