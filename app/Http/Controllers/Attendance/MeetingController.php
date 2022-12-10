@@ -9,6 +9,8 @@ use App\Http\Requests\Meeting\EndMeeting;
 use App\Http\Requests\Meeting\StartMeeting;
 use App\Http\Requests\Meeting\StoreMeetingRequest;
 use App\Http\Requests\Meeting\UpdateMeetingRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MeetingController extends Controller
 {
@@ -83,5 +85,21 @@ class MeetingController extends Controller
             'file_end' => Meeting::upload($request, "file_end", $request->user()->id)
         ]);
         return $meeting;
+    }
+
+    public function listMeeting(Request $request)
+    {
+        $results = Subject::join('meetings', 'meetings.subject_id', 'subjects.id')
+            ->select(
+                'subjects.*',
+                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
+                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
+                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
+            )
+            ->where('subjects.sdm_id', $request->user()->id)
+            ->with('study_program')
+            ->groupBy('subjects.id')
+            ->paginate();
+        return response($results);
     }
 }
