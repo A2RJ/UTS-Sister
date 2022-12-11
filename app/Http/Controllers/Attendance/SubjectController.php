@@ -81,7 +81,7 @@ class SubjectController extends Controller
             ->where('subjects.sdm_id', $request->user()->id)
             ->with('study_program')
             ->groupBy('subjects.id')
-            ->paginate();
+            ->get();
         return response($results);
     }
 
@@ -117,7 +117,7 @@ class SubjectController extends Controller
             })
             ->with('study_program')
             ->groupBy('subjects.id')
-            ->paginate();
+            ->get();
         return $results;
     }
 }
