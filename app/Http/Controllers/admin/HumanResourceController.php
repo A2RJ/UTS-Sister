@@ -29,7 +29,7 @@ class HumanResourceController extends Controller
             ->with('sdm_type', HumanResource::$sdm_type)
             ->with('faculty', Faculty::selectOption())
             ->with('study_program', StudyProgram::selectOption())
-            ->with('structures', Structure::selectOption());
+            ->with('structures', Structure::selectOptionStructure());
     }
 
     public function store(StoreHumanResourceRequest $request)
@@ -74,7 +74,7 @@ class HumanResourceController extends Controller
             ->with('sdm_type', HumanResource::$sdm_type)
             ->with('faculty', Faculty::selectOption())
             ->with('study_program', StudyProgram::selectOption())
-            ->with('structures', Structure::selectOption());
+            ->with('structures', Structure::selectOptionStructure());
     }
 
     public function update(UpdateHumanResourceRequest $request, HumanResource $humanResource)
@@ -92,7 +92,7 @@ class HumanResourceController extends Controller
             "structure_id",
         ]);
         $humanResource->update($form);
-        return $this->responseRedirect("$request->sdm_name updated");
+        return redirect(route('human_resource.index'))->with('message', "$request->sdm_name updated");
     }
 
     public function destroy(HumanResource $humanResource)
@@ -103,98 +103,42 @@ class HumanResourceController extends Controller
     }
 
     // return structural
-    public function withStructure()
+    public function subdivisi($child_id)
     {
-        $children = Structure::childrens("admin");
+        $children = Structure::childrens($child_id);
         $ids = collect($children)->map(function ($item) {
             return $item['id'];
         })->toArray();
 
-        return Subject::with('study_program', 'human_resource')
-            ->join('meetings', 'meetings.subject_id', 'subjects.id')
+        $results = Subject::select(
+            'subjects.id',
+            'subject',
+            'sks',
+            'number_of_meetings',
+            'study_program_id',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending'),
+            DB::raw('SUM(TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end)) AS meeting_duration')
+        )
+            ->join('meetings', 'subjects.id', 'meetings.subject_id')
+            ->with(['study_program:id,study_program', 'human_resource:id,sdm_name'])
             ->whereIn('subjects.sdm_id', function ($query) use ($ids) {
                 $query->select('id')
                     ->from('human_resources')
                     ->whereIn('structure_id', $ids);
             })
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'study_program_id',
+                'sdm_id'
             )
-            ->groupBy('subjects.id')
-            ->paginate();
-    }
-
-    // return by faculty
-    public function byFaculty()
-    {
-        $faculty_id = 1;
-
-        $subjects = Subject::with('study_program', 'human_resource')
-            ->join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->join('human_resources', 'human_resources.id', 'subjects.sdm_id')
-            ->where('human_resources.faculty_id', $faculty_id)
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
-            )
-            ->groupBy('subjects.id')
             ->paginate();
 
-        return $subjects;
-    }
-
-    // return by prodi
-    public function byStudyProgram()
-    {
-        $study_program_id = 3;
-
-        $subjects = Subject::with('study_program', 'human_resource')
-            ->join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->where('subjects.study_program_id', $study_program_id)
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
-            )
-            ->groupBy('subjects.id')
-            ->paginate();
-
-        return $subjects;
-    }
-
-    // contoh jika kaprodi ingin ambil semua data dosen dan tendik
-    public function subdivisi()
-    {
-        $children = Structure::childrens("admin");
-        $structure_id = collect($children)->map(function ($item) {
-            return $item['id'];
-        })->toArray();
-
-        $subjects = Subject::with('study_program')
-            ->join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->join('human_resources', 'human_resources.id', 'subjects.sdm_id')
-            ->whereIn('subjects.sdm_id', function ($query) use ($structure_id) {
-                $query->select('id')
-                    ->from('human_resources')
-                    ->whereIn('structure_id', $structure_id)
-                    ->where('sdm_type', 'Dosen');
-            })
-            ->select(
-                'subjects.*',
-                'human_resources.sdm_name',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
-            )
-            ->groupBy('subjects.id')
-            ->get();
-
-        return $subjects;
+        return response($results);
     }
 }
