@@ -71,17 +71,26 @@ class SubjectController extends Controller
 
     public function byLecturerApi(Request $request)
     {
-        $results = Subject::join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
+        $results = Subject::select(
+            'subject',
+            'sks',
+            'number_of_meetings',
+            'study_program_id',
+            'sdm_id',
+            DB::raw('ROUND((number_of_meetings / 16) * sks, 2) AS Nilai_SKS'),
+            DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->groupBy(
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'study_program_id',
+                'sdm_id'
             )
-            ->where('subjects.sdm_id', $request->user()->id)
-            ->with('study_program')
-            ->groupBy('subjects.id')
             ->get();
+
         return response($results);
     }
 
