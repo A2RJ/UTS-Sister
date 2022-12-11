@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('sks');
             $table->integer('number_of_meetings')->default(16);
             $table->foreignId("study_program_id")->nullable()->constrained("study_programs")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("class_id")->nullable()->constrained("classes")->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId("sdm_id")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
         });
     }

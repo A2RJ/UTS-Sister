@@ -64,10 +64,7 @@ Route::prefix('structure')->group(function () {
 });
 Route::prefix('subdivisi')->group(function () {
     Route::controller(HumanResourceController::class)->group(function () {
-        Route::get('/{child_id}', 'withStructure');
-        Route::get('/{child_id}/faculty', 'byFaculty');
-        Route::get('/{child_id}/study_program', 'byStudyProgram');
-        Route::get('/{child_id}/subdivisi', 'subdivisi');
+        Route::get('/{child_id}', 'subdivisi');
     });
     Route::get('/with/aggregate', [AttendanceController::class, 'lecturerTime']);
 });

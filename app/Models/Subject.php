@@ -9,7 +9,7 @@ class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['subject', 'sks', 'number_of_meetings', 'study_program_id', 'sdm_id'];
+    protected $fillable = ['subject', 'sks', 'number_of_meetings', 'study_program_id', 'class_id', 'sdm_id'];
 
     public $timestamps = false;
 

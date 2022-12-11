@@ -24,11 +24,12 @@ class StoreSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            "subject" => ['required'],
-            "sks" => ['required', 'numeric'],
-            "number_of_meetings" => ['required', 'numeric'],
-            "study_program_id" => ['required'],
-            "sdm_id" => ['required'],
+            'subject' => ['required'],
+            'sks' => ['required', 'numeric'],
+            'number_of_meetings' => ['required', 'numeric'],
+            'study_program_id' => ['required'],
+            'class_id' => ['required'],
+            'sdm_id' => ['required'],
         ];
     }
 }

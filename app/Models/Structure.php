@@ -16,6 +16,11 @@ class Structure extends Model
 
     public $timestamps = false;
 
+    public function child()
+    {
+        return $this->belongsTo(Structure::class, 'parent_id', 'child_id');
+    }
+
     public function humanResource()
     {
         return $this->hasOne(HumanResource::class);
@@ -26,13 +31,18 @@ class Structure extends Model
         $query = self::query();
         $role = request('role');
         if ($role) {
-            return $query->where('role', "LIKE", "%$role%")->paginate();
+            return $query->with('child')->where('role', "LIKE", "%$role%")->paginate();
         } else {
-            return $query->paginate();
+            return $query->with('child')->paginate();
         }
     }
 
     public static function selectOption()
+    {
+        return self::select("child_id as value", "role as text")->get();
+    }
+
+    public static function selectOptionStructure()
     {
         return self::select("id as value", "role as text")->get();
     }

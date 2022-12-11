@@ -12,11 +12,12 @@
     </div>
 
     <x-success-message />
-    <x-table :header="['Jabatan Struktural', 'Aksi']">
+    <x-table :header="['Jabatan Struktural', 'Berada dibawah', 'Aksi']">
         @foreach ($structures as $structure)
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $structure->role }}</td>
+            <td>{{ $structure->child ? $structure->child->role : 'Tidak ada' }}</td>
             <td>
                 <a href="{{ route('structure.edit', $structure->id) }}">Edit</a>
                 <x-delete action="{{ route('structure.destroy', $structure->id) }}" confirm="Yakin hapus {{ $structure->role}}" />
