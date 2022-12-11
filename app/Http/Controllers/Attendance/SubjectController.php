@@ -72,17 +72,21 @@ class SubjectController extends Controller
     public function byLecturerApi(Request $request)
     {
         $results = Subject::select(
+            'subjects.id',
             'subject',
             'sks',
             'number_of_meetings',
             'study_program_id',
             'sdm_id',
-            DB::raw('ROUND((number_of_meetings / 16) * sks, 2) AS Nilai_SKS'),
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
             DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->with('study_program') //, 'meetings'
+            ->where('subjects.sdm_id', $request->user()->id)
             ->groupBy(
+                'subjects.id',
                 'subject',
                 'sks',
                 'number_of_meetings',
@@ -91,42 +95,74 @@ class SubjectController extends Controller
             )
             ->get();
 
-        return response($results);
+        return response([
+            'data' => $results
+        ]);
     }
 
     public function subjectAggregateId(Request $request, $subject_id)
     {
-        $results = Subject::join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
-            )
+        $results = Subject::select(
+            'subjects.id',
+            'subject',
+            'sks',
+            'number_of_meetings',
+            'study_program_id',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->with('study_program') //, 'meetings'
             ->where('subjects.sdm_id', $request->user()->id)
             ->where('subjects.id', $subject_id)
-            ->with('study_program')
-            ->groupBy('subjects.id')
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'study_program_id',
+                'sdm_id'
+            )
             ->first();
-        return response($results);
+
+        return response([
+            'data' => $results
+        ]);
     }
 
     public function today(Request $request)
     {
-        $results = Subject::join('meetings', 'meetings.subject_id', 'subjects.id')
-            ->select(
-                'subjects.*',
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) AS number_of_taken'),
-                DB::raw('SUM(CASE WHEN meetings.file_start IS NULL OR meetings.file_end IS NULL THEN 1 ELSE 0 END) AS number_of_not_taken'),
-                DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks')
-            )
+        $results = Subject::select(
+            'subjects.id',
+            'subject',
+            'sks',
+            'number_of_meetings',
+            'study_program_id',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->with('study_program') //, 'meetings'
             ->where('subjects.sdm_id', $request->user()->id)
             ->whereHas('meetings', function ($query) {
                 $query->whereDate('date', Carbon::today());
             })
-            ->with('study_program')
-            ->groupBy('subjects.id')
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'study_program_id',
+                'sdm_id'
+            )
             ->get();
-        return $results;
+
+        return response([
+            'data' => $results
+        ]);
     }
 }

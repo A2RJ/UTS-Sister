@@ -40,8 +40,8 @@ Body
 ```
 
 {
-"email": "johndoe@example.com",
-"password": "password123"
+  "email": "johndoe@example.com",
+  "password": "password123"
 }
 
 ```
@@ -51,7 +51,9 @@ Response
 ```
 
 {
-"access_token": "1000|98rw90er89wncrw9mrwen7yrcwer"
+  "data" : {
+    "access_token": "1000|98rw90er89wncrw9mrwen7yrcwer"
+  }
 }
 
 ```
@@ -71,20 +73,22 @@ Response
 ```
 
 {
-"id": 237,
-"sdm_id": "3656456-df9d-46456-aefdgrg71-376454568",
-"sdm_name": "ARDIANSYAH PUTRA",
-"email": "ardiansyah.putra@uts.ac.id",
-"nidn": "83947838749",
-"nip": "",
-"active_status_name": "Aktif",
-"employee_status": "NON PNS",
-"sdm_type": "Tenaga Kependidikan",
-"faculty_id": null,
-"study_program_id": null,
-"structure_id": 1,
-"created_at": "2022-12-10T20:45:41.000000Z",
-"updated_at": "2022-12-10T20:47:39.000000Z"
+  "data": {
+    "id": 237,
+    "sdm_id": "3656456-df9d-46456-aefdgrg71-376454568",
+    "sdm_name": "ARDIANSYAH PUTRA",
+    "email": "ardiansyah.putra@uts.ac.id",
+    "nidn": "83947838749",
+    "nip": "",
+    "active_status_name": "Aktif",
+    "employee_status": "NON PNS",
+    "sdm_type": "Tenaga Kependidikan",
+    "faculty_id": null,
+    "study_program_id": null,
+    "structure_id": 1,
+    "created_at": "2022-12-10T20:45:41.000000Z",
+    "updated_at": "2022-12-10T20:47:39.000000Z"
+  }
 }
 
 ```
@@ -101,22 +105,24 @@ Response
 
 ```
 [
-  {
-    "id": 1,
-    "subject": "Dasar pemrograman web",
-    "sks": 4,
-    "number_of_meetings": 16,
-    "study_program_id": 1,
-    "sdm_id": 237,
-    "number_of_taken": "1",
-    "number_of_not_taken": "15",
-    "value_sks": "0.25",
-    "study_program": {
+  "data": [
+    {
       "id": 1,
-      "faculty_id": 1,
-      "study_program": "informatika"
+      "subject": "Dasar pemrograman web",
+      "sks": 4,
+      "number_of_meetings": 16,
+      "study_program_id": 1,
+      "sdm_id": 237,
+      "meetings_completed": "1",
+      "meetings_pending": "15",
+      "value_sks": "0.25",
+      "study_program": {
+        "id": 1,
+        "faculty_id": 1,
+        "study_program": "informatika"
+      }
     }
-  }
+  ]
 ]
 ```
 
@@ -132,22 +138,24 @@ Response
 
 ```
 [
-    {
+    "data" : [
+      {
         "id": 1,
         "subject": "Dasar pemrograman web",
         "sks": 4,
         "number_of_meetings": 16,
         "study_program_id": 1,
         "sdm_id": 237,
-        "number_of_taken": "1",
-        "number_of_not_taken": "15",
+        "meetings_completed": "1",
+        "meetings_pending": "15",
         "value_sks": "0.25",
         "study_program": {
-        "id": 1,
-        "faculty_id": 1,
-        "study_program": "informatika"
+          "id": 1,
+          "faculty_id": 1,
+          "study_program": "informatika"
         }
-    }
+      }
+    ]
 ]
 ```
 
@@ -164,19 +172,21 @@ Response
 
 ```
 {
-  "id": 1,
-  "subject": "Dasar pemrograman web",
-  "sks": 4,
-  "number_of_meetings": 16,
-  "study_program_id": 1,
-  "sdm_id": 237,
-  "number_of_taken": "1",
-  "number_of_not_taken": "15",
-  "value_sks": "0.25",
-  "study_program": {
-    "id": 1,
-    "faculty_id": 1,
-    "study_program": "informatika"
+  "data": {
+      "id": 1,
+      "subject": "Dasar pemrograman web",
+      "sks": 4,
+      "number_of_meetings": 16,
+      "study_program_id": 1,
+      "sdm_id": 237,
+      "meetings_completed": "1",
+      "meetings_pending": "15",
+      "value_sks": "0.25",
+      "study_program": {
+        "id": 1,
+        "faculty_id": 1,
+        "study_program": "informatika"
+      }
   }
 }
 ```
@@ -194,37 +204,39 @@ Response
 
 ```
 [
-  {
-    "id": 1,
-    "subject_id": 1,
-    "meeting_name": "Pertemuan ke 1",
-    "date": "2022-12-10T20:50",
-    "meeting_start": "2022-12-10T20:50",
-    "meeting_end": "2022-12-10T20:50",
-    "file_start": "C:\\xampp\\tmp\\php50D.tmp",
-    "file_end": "C:\\xampp\\tmp\\php50E.tmp"
-  },
-  {
-    "id": 2,
-    "subject_id": 1,
-    "meeting_name": "Pertemuan ke 2",
-    "date": null,
-    "meeting_start": null,
-    "meeting_end": null,
-    "file_start": null,
-    "file_end": null
-  },
-  ...
-  {
-    "id": 16,
-    "subject_id": 1,
-    "meeting_name": "Pertemuan ke 16",
-    "date": null,
-    "meeting_start": null,
-    "meeting_end": null,
-    "file_start": null,
-    "file_end": null
-  }
+  "data": [
+      {
+      "id": 1,
+      "subject_id": 1,
+      "meeting_name": "Pertemuan ke 1",
+      "date": "2022-12-10T20:50",
+      "meeting_start": "2022-12-10T20:50",
+      "meeting_end": "2022-12-10T20:50",
+      "file_start": "C:\\xampp\\tmp\\php50D.tmp",
+      "file_end": "C:\\xampp\\tmp\\php50E.tmp"
+    },
+    {
+      "id": 2,
+      "subject_id": 1,
+      "meeting_name": "Pertemuan ke 2",
+      "date": null,
+      "meeting_start": null,
+      "meeting_end": null,
+      "file_start": null,
+      "file_end": null
+    },
+    ...
+    {
+      "id": 16,
+      "subject_id": 1,
+      "meeting_name": "Pertemuan ke 16",
+      "date": null,
+      "meeting_start": null,
+      "meeting_end": null,
+      "file_start": null,
+      "file_end": null
+    }
+  ]
 ]
 ```
 
@@ -249,14 +261,16 @@ Response
 
 ```
 {
-  "id": 1,
-  "subject_id": 1,
-  "meeting_name": "Pertemuan ke 1",
-  "date": "2022-12-10T20:50",
-  "meeting_start": "2022-12-11 06:46:09",
-  "meeting_end": null,
-  "file_start": "63957cb1577431670741169-156.png",
-  "file_end": null
+  "data":  {
+      "id": 1,
+      "subject_id": 1,
+      "meeting_name": "Pertemuan ke 1",
+      "date": "2022-12-10T20:50",
+      "meeting_start": "2022-12-11 06:46:09",
+      "meeting_end": null,
+      "file_start": "63957cb1577431670741169-156.png",
+      "file_end": null
+  }
 }
 ```
 
@@ -281,13 +295,15 @@ Response
 
 ```
 {
-  "id": 1,
-  "subject_id": 1,
-  "meeting_name": "Pertemuan ke 1",
-  "date": "2022-12-10T20:50",
-  "meeting_start": "2022-12-11 06:46:09",
-  "meeting_end": "2022-12-11 06:47:34",
-  "file_start": "63957cb1577431670741169-156.png",
-  "file_end": "63957d065151c1670741254-156.png"
+  "data": {
+      "id": 1,
+      "subject_id": 1,
+      "meeting_name": "Pertemuan ke 1",
+      "date": "2022-12-10T20:50",
+      "meeting_start": "2022-12-11 06:46:09",
+      "meeting_end": "2022-12-11 06:47:34",
+      "file_start": "63957cb1577431670741169-156.png",
+      "file_end": "63957d065151c1670741254-156.png"
+  }
 }
 ```

@@ -64,7 +64,9 @@ class MeetingController extends Controller
 
     public function meeting($subject_id)
     {
-        return response(Meeting::where('subject_id', $subject_id)->get());
+        return response([
+            'data' => Meeting::where('subject_id', $subject_id)->get()
+        ]);
     }
 
     public function startMeeting(StartMeeting $request, $subject_id, $meeting_id)
@@ -74,7 +76,9 @@ class MeetingController extends Controller
             'meeting_start' => date('Y-m-d H:i:s'),
             'file_start' => Meeting::upload($request, "file_start", $request->user()->id)
         ]);
-        return response($meeting);
+        return response([
+            'data' => $meeting
+        ]);
     }
 
     public function endMeeting(EndMeeting $request, $subject_id, $meeting_id)
@@ -84,6 +88,8 @@ class MeetingController extends Controller
             'meeting_end' => date('Y-m-d H:i:s'),
             'file_end' => Meeting::upload($request, "file_end", $request->user()->id)
         ]);
-        return $meeting;
+        return response([
+            'data' => $meeting
+        ]);
     }
 }
