@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+@section('title', 'Dashboard')
 
+@section('content')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -14,12 +16,7 @@
                     </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
-
-                    <br>
-                    <a href="{{ route('sdm.index') }}">Go to BKD</a>
-                    <br>
-                    <a href="{{ route('attendance.index') }}">Go to Attendance</a>
+                    {{ __('You are logged in') }}: {{ Auth::user()->sdm_name }}
                 </div>
             </div>
         </div>

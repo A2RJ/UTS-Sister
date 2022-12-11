@@ -95,4 +95,46 @@ class StructureController extends Controller
     {
         return Structure::parentNChildren($child_id);
     }
+    /**
+     * 
+    public function role(Request $request)
+    {
+        return Structure::role($request->user()->child_id);
+    }
+
+    public function parent(Request $request)
+    {
+        return Structure::parent($request->user()->child_id);
+    }
+
+    public function parents(Request $request)
+    {
+        return Structure::parents($request->user()->child_id);
+    }
+
+    public function parentWFlow(Request $request)
+    {
+        return Structure::parentWFlow($request->user()->child_id);
+    }
+
+    public function children(Request $request)
+    {
+        return Structure::children($request->user()->child_id);
+    }
+
+    public function childrens(Request $request)
+    {
+        return Structure::childrens($request->user()->child_id);
+    }
+
+    public function childrenWFlow(Request $request)
+    {
+        return Structure::childrenWFlow($request->user()->child_id);
+    }
+
+    public function parentNChildren(Request $request)
+    {
+        return Structure::parentNChildren($request->user()->child_id);
+    }
+     */
 }

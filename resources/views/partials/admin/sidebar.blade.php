@@ -61,10 +61,14 @@
                      <span class="link-title">Jadwal Mata Kuliah</span>
                  </a>
              </li>
-             <li class="nav-item">
-                 <form action="/logout" method="POST">
+             <li class="nav-item flex">
+                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                     {{ __('Logout') }}
+                 </a>
+
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                      @csrf
-                     <button class="btn btn-danger">Logout</button>
                  </form>
              </li>
              <!-- <li class="nav-item">

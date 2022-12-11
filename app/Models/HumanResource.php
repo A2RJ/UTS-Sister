@@ -24,6 +24,15 @@ class HumanResource extends Model
         "study_program_id",
         "structure_id",
     ];
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     public static $active_status_name = [
         [
@@ -119,6 +128,16 @@ class HumanResource extends Model
 
     public function structure()
     {
-        return $this->hasOne(Structure::class);
+        return $this->hasOne(Structure::class, 'id', 'structure_id');
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'sdm_id', 'id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'sdm_id', 'id');
     }
 }

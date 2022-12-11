@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Attendance\MeetingController;
 use App\Http\Controllers\Attendance\SubjectController;
 
@@ -35,7 +36,7 @@ Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function
     Route::post('/token', 'token');
 });
 
-Route::prefix('attendance')->middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {
         Route::controller(SubjectController::class)->group(function () {
             Route::get('/', 'byLecturerApi');
@@ -49,22 +50,24 @@ Route::prefix('attendance')->middleware('auth:sanctum')->group(function () {
         });
     });
 });
-
-// Route::prefix('human_resource')->group(function () {
-// });
-// Route::resource('/human_resource', HumanResourceController::class)->except(['create', 'edit']);
-// Route::resource('faculty', FacultyController::class)->except(['create', 'edit']);
-// Route::resource('study_program', StudyProgramController::class)->except(['create', 'edit']);
-// Route::resource('/structure', StructureController::class)->except(['create', 'edit']);
-// Route::prefix('structure')->group(function () {
-//     Route::controller(StructureController::class)->group(function () {
-//         Route::get('/{child_id}/role', 'role');
-//         Route::get('/{child_id}/parent', 'parent');
-//         Route::get('/{child_id}/all_parent', 'parents');
-//         Route::get('/{child_id}/parent_flow', 'parentWFlow');
-//         Route::get('/{child_id}/child', 'children');
-//         Route::get('/{child_id}/all_child', 'childrens');
-//         Route::get('/{child_id}/child_flow', 'childrenWFlow');
-//         Route::get('/{child_id}/parent_with_children', 'parentNChildren');
-//     });
-// });
+Route::prefix('structure')->group(function () {
+    Route::controller(StructureController::class)->group(function () {
+        Route::get('/{child_id}/role', 'role');
+        Route::get('/{child_id}/parent', 'parent');
+        Route::get('/{child_id}/all-parent', 'parents');
+        Route::get('/{child_id}/parent-flow', 'parentWFlow');
+        Route::get('/{child_id}/child', 'children');
+        Route::get('/{child_id}/all-child', 'childrens');
+        Route::get('/{child_id}/child-flow', 'childrenWFlow');
+        Route::get('/{child_id}/parent-with_children', 'parentNChildren');
+    });
+});
+Route::prefix('subdivisi')->group(function () {
+    Route::controller(HumanResourceController::class)->group(function () {
+        Route::get('/{child_id}', 'withStructure');
+        Route::get('/{child_id}/faculty', 'byFaculty');
+        Route::get('/{child_id}/study_program', 'byStudyProgram');
+        Route::get('/{child_id}/subdivisi', 'subdivisi');
+    });
+    Route::get('/with/aggregate', [AttendanceController::class, 'lecturerTime']);
+});

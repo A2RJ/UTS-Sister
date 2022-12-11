@@ -29,7 +29,7 @@ class SanctumAuthController extends Controller
         }
         $user->tokens()->delete();
         return response([
-            "access_token" => $user->createToken($user->name)->plainTextToken
+            "access_token" => $user->createToken($user->sdm_name)->plainTextToken
         ]);
     }
 }

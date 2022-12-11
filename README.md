@@ -32,3 +32,8 @@
 
 -   Cannot create relationship => make sure the order list and time is ASC
 -   Sepertinya append admin fakultas dan prodi bisa dihalaman list masing-masings
+-   Kalau pakai strucrure_id bisa didapat semua structure dibawahnya
+    -- misal kaprodi -> semua dosen atau staff dibawahnya
+    -- jika ingin dibagi maka lakukan grouping sdm_type
+    -- jika dosen maka tampilkan hasil pengajaran
+    -- jika jika tidak dosen maka ambil semua absen kehadiran
