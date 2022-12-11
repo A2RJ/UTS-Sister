@@ -15,7 +15,9 @@ class SanctumAuthController extends Controller
     // create table ability
     public function user(Request $request)
     {
-        return response($request->user());
+        return response([
+            'data' => $request->user()
+        ]);
     }
 
     public function token(RequestToken $request)
@@ -29,7 +31,7 @@ class SanctumAuthController extends Controller
         }
         $user->tokens()->delete();
         return response([
-            "access_token" => $user->createToken($user->sdm_name)->plainTextToken
+            'data' => ["access_token" => $user->createToken($user->sdm_name)->plainTextToken]
         ]);
     }
 }

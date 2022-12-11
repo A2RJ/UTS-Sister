@@ -11,13 +11,13 @@ Headers
 ```
 
 Accept: application/json
-Authorization: bearer access_token
+Authorization: Bearer access_token
 
 ```
 
 ### 1. Autentikasi
 
--   Untuk mengakses API ini, Anda perlu menyertakan token API di setiap request. Token dapat diperoleh dengan mengirimkan request:
+-   Token dapat diperoleh dengan mengirimkan request:
 
 Endpoint
 
@@ -104,7 +104,7 @@ GET /subject
 Response
 
 ```
-[
+{
   "data": [
     {
       "id": 1,
@@ -123,7 +123,7 @@ Response
       }
     }
   ]
-]
+}
 ```
 
 ### 4. Mata Kuliah Hari ini
@@ -137,26 +137,26 @@ GET /subject/today
 Response
 
 ```
-[
-    "data" : [
-      {
+{
+  "data" : [
+    {
+      "id": 1,
+      "subject": "Dasar pemrograman web",
+      "sks": 4,
+      "number_of_meetings": 16,
+      "study_program_id": 1,
+      "sdm_id": 237,
+      "meetings_completed": "1",
+      "meetings_pending": "15",
+      "value_sks": "0.25",
+      "study_program": {
         "id": 1,
-        "subject": "Dasar pemrograman web",
-        "sks": 4,
-        "number_of_meetings": 16,
-        "study_program_id": 1,
-        "sdm_id": 237,
-        "meetings_completed": "1",
-        "meetings_pending": "15",
-        "value_sks": "0.25",
-        "study_program": {
-          "id": 1,
-          "faculty_id": 1,
-          "study_program": "informatika"
-        }
+        "faculty_id": 1,
+        "study_program": "informatika"
       }
-    ]
-]
+    }
+  ]
+}
 ```
 
 ### 5. Mata Kuliah By Id
@@ -203,7 +203,7 @@ Ex: GET /subject/1/meeting
 Response
 
 ```
-[
+{
   "data": [
       {
       "id": 1,
@@ -237,7 +237,7 @@ Response
       "file_end": null
     }
   ]
-]
+}
 ```
 
 ### 7. Absen Mulai Kelas
