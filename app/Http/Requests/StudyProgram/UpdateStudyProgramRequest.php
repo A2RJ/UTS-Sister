@@ -25,7 +25,8 @@ class UpdateStudyProgramRequest extends FormRequest
     {
         return [
             'study_program' => ['required'],
-            'faculty_id' => ['required']
+            'faculty_id' => ['required'],
+            'sdm_id_admin' => ['required']
         ];
     }
 }

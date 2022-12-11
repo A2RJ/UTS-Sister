@@ -24,7 +24,8 @@ class UpdateFacultyRequest extends FormRequest
     public function rules()
     {
         return [
-            'faculty' => ['required']
+            'faculty' => ['required'],
+            'sdm_id_admin' => ['required']
         ];
     }
 }
