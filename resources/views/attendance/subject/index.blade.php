@@ -12,15 +12,19 @@
     </div>
 
     <x-success-message />
-    <x-table :header="['Mata kuliah', 'SKS', 'Jumlah Pertemuan', 'Program Studi', 'Dosen', 'Aksi']">
+    <x-table :header="['Mata kuliah', 'SKS', 'Jumlah Pertemuan', 'Pertemuan Selesai', 'Pertemuan Selanjutnya', 'Nilai SKS', 'Aksi']">
         @foreach ($subjects as $subject)
         <tr>
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $subject->subject }}</td>
+            <td>{{ $subject->subject }} <br>
+                {{ $subject->human_resource->sdm_name }} <br>
+                ({{ $subject->study_program->study_program }})
+            </td>
             <td>{{ $subject->sks }}</td>
             <td>{{ $subject->number_of_meetings }}</td>
-            <td>{{ $subject->study_program->study_program }}</td>
-            <td>{{ $subject->human_resource->sdm_name }}</td>
+            <td>{{ $subject->meetings_completed }}</td>
+            <td>{{ $subject->meetings_pending }}</td>
+            <td>{{ $subject->value_sks }}</td>
             <td>
                 <a href="{{ route('subject.show', $subject->id) }}">Detail Pertemuan</a> <br>
                 <hr>

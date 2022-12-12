@@ -18,7 +18,11 @@
 -   lalu input foro selesai
 -   selesai
 
-##
+## Update
+
+-   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan
+-   absen 1x saja
+-   filter semester
 
 ## Tools
 

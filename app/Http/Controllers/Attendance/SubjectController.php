@@ -18,8 +18,32 @@ class SubjectController extends Controller
 {
     public function index()
     {
+        $subjects = Subject::select(
+            'subjects.id',
+            'subject',
+            'sks',
+            'number_of_meetings',
+            'study_program_id',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->with('study_program:id,study_program', 'human_resource:id,sdm_name') //, 'meetings'
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'study_program_id',
+                'sdm_id'
+            )
+            ->paginate();
+
+
         return view('attendance.subject.index')
-            ->with('subjects', Subject::with('study_program', 'human_resource')->paginate());
+            ->with('subjects', $subjects);
     }
 
     public function create()
@@ -40,14 +64,14 @@ class SubjectController extends Controller
 
     public function show(Subject $subject)
     {
-        // $subject = Subject::join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-        //     ->select('meetings.subject_id', 'meetings.meeting_name', DB::raw('TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end) AS duration'))
-        //     ->where('subjects.id', $subject->id)
-        //     ->get();
+        $meetings = Subject::join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->select('subjects.*', 'meetings.*', DB::raw('TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end) AS meeting_duration'))
+            ->where('subjects.id', $subject->id)
+            ->get();
 
-        // return $subject;
         return view('attendance.subject.show')
-            ->with('subject', $subject);
+            ->with('subject', $subject)
+            ->with('meetings', $meetings);
     }
 
     public function edit(Subject $subject)
