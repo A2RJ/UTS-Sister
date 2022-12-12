@@ -12,6 +12,7 @@ use App\Models\StudyProgram;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class HumanResourceController extends Controller
 {
@@ -47,6 +48,9 @@ class HumanResourceController extends Controller
             "structure_id",
         ]);
         $form['sdm_id'] = Hash::make($request->sdm_name);
+        $sdmEmail = preg_replace("/\s+/", ".", $request['sdm_name']);
+        $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
+        $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
         return $this->responseRedirect("$request->sdm_name created");
     }
@@ -102,7 +106,6 @@ class HumanResourceController extends Controller
         return $this->responseRedirect($response);
     }
 
-    // return structural
     public function subdivisi($child_id)
     {
         $children = Structure::childrens($child_id);

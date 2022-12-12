@@ -3,13 +3,21 @@
 
 @section('content')
 <div class="card p-2">
-    <p>Ini dari setting</p><br>
-    <a href="{{ route('faculty.index') }}">List Fakultas</a> <br>
-    <a href="{{ route('study_program.index') }}">List Program studi</a> <br>
-    <a href="{{ route('structure.index') }}">List Jabatan Struktural</a> <br>
-    <a href="{{ route('sdm.index') }}">List Human resource</a> <br>
-    <a href="{{ route('class.index') }}">List Kelas (yang diampuh dosen)</a> <br>
-    <a href="{{ route('subject.index') }}">List Mata Kuliah</a> <br>
-    <a href="{{ route('meeting.index') }}">List pertemuan mata kuliah</a> <br>
+    <p>Ini Dashboard</p><br>
+    @if (auth()->user()->isRektor() || auth()->user()->isAdmin())
+    <p>Role anda adalah Rektor atau Admin</p>
+    @endif
+
+    @if (auth()->user()->isLecturer())
+    <p>Role anda adalah Dosen</p>
+    @endif
+
+    @if (auth()->user()->isEduStaff())
+    <p>Role anda adalah Staff Educational</p>
+    @endif
+
+    @if (auth()->user()->hasSub())
+    <p>Anda mempunyai Sub divisi</p>
+    @endif
 </div>
 @endsection

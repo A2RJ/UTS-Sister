@@ -49,22 +49,28 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/{subject_id}/end-meeting/{meeting_id}', 'endMeeting');
         });
     });
-});
-Route::prefix('structure')->group(function () {
-    Route::controller(StructureController::class)->group(function () {
-        Route::get('/{child_id}/role', 'role');
-        Route::get('/{child_id}/parent', 'parent');
-        Route::get('/{child_id}/all-parent', 'parents');
-        Route::get('/{child_id}/parent-flow', 'parentWFlow');
-        Route::get('/{child_id}/child', 'children');
-        Route::get('/{child_id}/all-child', 'childrens');
-        Route::get('/{child_id}/child-flow', 'childrenWFlow');
-        Route::get('/{child_id}/parent-with_children', 'parentNChildren');
+    Route::prefix('attendance')->controller(AttendanceController::class)->group(function () {
+        // get list kehadiran, bisa filter perminggu/perbulan lengkap dengan total jam perhari 
+        // check-in-time simpan jam masuk 
+        // check-out-time simpan jam pulang
+        //  
     });
 });
-Route::prefix('subdivisi')->group(function () {
-    Route::controller(HumanResourceController::class)->group(function () {
-        Route::get('/{child_id}', 'subdivisi');
-    });
-    Route::get('/with/aggregate', [AttendanceController::class, 'lecturerTime']);
-});
+// Route::prefix('structure')->group(function () {
+//     Route::controller(StructureController::class)->group(function () {
+//         Route::get('/{child_id}/role', 'role');
+//         Route::get('/{child_id}/parent', 'parent');
+//         Route::get('/{child_id}/all-parent', 'parents');
+//         Route::get('/{child_id}/parent-flow', 'parentWFlow');
+//         Route::get('/{child_id}/child', 'children');
+//         Route::get('/{child_id}/all-child', 'childrens');
+//         Route::get('/{child_id}/child-flow', 'childrenWFlow');
+//         Route::get('/{child_id}/parent-with_children', 'parentNChildren');
+//     });
+// });
+// Route::prefix('subdivisi')->group(function () {
+//     Route::controller(HumanResourceController::class)->group(function () {
+//         Route::get('/{child_id}', 'subdivisi');
+//     });
+//     Route::get('/with/aggregate', [AttendanceController::class, 'lecturerTime']);
+// });

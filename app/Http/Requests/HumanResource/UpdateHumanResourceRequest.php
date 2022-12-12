@@ -25,6 +25,7 @@ class UpdateHumanResourceRequest extends FormRequest
     {
         return [
             "sdm_name" => ['required'],
+            // "email" => ['required', 'unique:human_resources,email'],
             "nidn" => ['nullable', 'numeric'],
             "nip" => ['nullable', 'numeric'],
             "active_status_name" => ['required'],

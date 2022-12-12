@@ -39,7 +39,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>ID SDM</th>
+                                <th>Jabatan</th>
                                 <th>NIDN</th>
                                 <th>Aksi</th>
                             </tr>
@@ -49,7 +49,7 @@
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $item->sdm_name }}</td>
-                                <td>{{ $item->sdm_id }}</td>
+                                <td>{{ $item->structure_id ? $item->structure->role : '' }}</td>
                                 <td>{{ $item->nidn }}</td>
                                 <td>
                                     <a href="{{ route('human_resource.show', ['human_resource' => $item->sdm_id]) }}">

@@ -14,6 +14,10 @@ class HumanResource extends Model
     protected $fillable = [
         "sdm_id",
         "sdm_name",
+        "email",
+        "email_verified_at",
+        "password",
+        "remember_token",
         "nidn",
         "nip",
         "active_status_name",
@@ -58,6 +62,10 @@ class HumanResource extends Model
 
     public static $sdm_type = [
         [
+            'text' => 'Rektor',
+            'value' => 'Rektor'
+        ],
+        [
             'text' => 'Dosen',
             'value' => 'Dosen'
         ],
@@ -100,20 +108,15 @@ class HumanResource extends Model
         $sdm = self::query();
         $nama_sdm = request('nama');
         if ($nama_sdm) {
-            return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->paginate();
+            return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->orderBy('structure_id', 'DESC')->paginate();
         } else {
-            return $sdm->paginate();
+            return $sdm->orderBy('structure_id', 'DESC')->paginate();
         }
     }
 
     public static function selectOption()
     {
         return self::select('id as value', 'sdm_name as text')->get();
-    }
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'nip', 'nip');
     }
 
     public function faculty()

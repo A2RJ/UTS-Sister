@@ -7,8 +7,7 @@ use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Admin\StudyProgramController;
-
-use App\Http\Controllers\Attendance\AttendanceSettingController;
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Attendance\ClassController;
 use App\Http\Controllers\Attendance\MeetingController;
 use App\Http\Controllers\Attendance\SubjectController;
@@ -206,7 +205,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/")->group(function () {
-        Route::resource("/attendance", AttendanceSettingController::class);
+        Route::resource("/attendance", AttendanceController::class);
         Route::resource("/faculty", FacultyController::class)->except(['show']);
         Route::resource("/study_program", StudyProgramController::class);
         Route::resource("/structure", StructureController::class);
@@ -215,5 +214,11 @@ Route::middleware("auth")->group(function () {
         Route::get('/subject/by-lecturer', [SubjectController::class, 'byLecturer'])->name('subject.byLecturer');
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
+        Route::prefix('sub-division')->group(function () {
+            Route::prefix('attendance')->controller(AttendanceController::class)->group(function () {
+                Route::get('/', 'subDivision')->name('attendance.subdivision');
+                Route::get('/list', 'subDivisionList')->name('attendance.list-subdivision');
+            });
+        });
     });
 });

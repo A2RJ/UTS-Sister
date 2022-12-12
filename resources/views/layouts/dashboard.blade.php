@@ -49,13 +49,59 @@
 
 <body>
     <div class="main-wrapper">
-        @if (auth()->user()->structure_id == "1")
-        @include('partials.admin.sidebar')
-        @endif
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-brand">
+                    {{ env('APP_BRAND1') }}<span>{{ env('APP_BRAND2') }}</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav">
+                    <li class="nav-item nav-category">Main</li>
+                    <li class="nav-item">
+                        <a href="{{ route('attendance.index') }}" class="nav-link">
+                            <i class="link-icon" data-feather="box"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
 
-        @if (auth()->user()->sdm_type == "Dosen")
-        @include('partials.dosen.sidebar')
-        @endif
+                    @if (auth()->user()->isRektor() || auth()->user()->isAdmin())
+                    @include('partials.admin.sidebar')
+                    @endif
+
+                    @if (auth()->user()->isLecturer())
+                    @include('partials.lecturer.sidebar')
+                    @endif
+
+                    @if (auth()->user()->isEduStaff())
+                    @include('partials.educational-staff.sidebar')
+                    @endif
+
+                    @if (auth()->user()->hasSub())
+                    @include('partials.sub-division.sidebar')
+                    @endif
+
+                    <li class="nav-item nav-category">Auth</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="link-icon" data-feather="message-square"></i>
+                            <span class="link-title">{{ __('Logout') }}</span>
+                        </a>
+
+
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </ul>
+            </div>
+        </nav>
 
         <div class="page-wrapper">
 

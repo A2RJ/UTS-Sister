@@ -5,18 +5,17 @@ namespace App\Http\Controllers\Attendance;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\HumanResource;
+use App\Models\Structure;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Laravel\Ui\Presets\React;
 
-/**
- * [Description AttendanceController]
- */
 class AttendanceController extends Controller
 {
     public function index()
     {
-        // return 
+        return view('home');
     }
 
     public function create()
@@ -49,6 +48,20 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         //
+    }
+
+    public function subDivision()
+    {
+        return response([
+            'lecturer' => Attendance::lecturer(),
+            'attendance' => Attendance::attendance()
+        ]);
+    }
+
+    public function subDivisionList()
+    {
+        return view('attendance.sub-division.list')
+            ->with('subdivision', Structure::childrens(User::child_id()));
     }
 
     public function checkInPerMonth()

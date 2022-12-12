@@ -25,6 +25,8 @@ class StoreHumanResourceRequest extends FormRequest
     {
         return [
             "sdm_name" => ['required'],
+            // "email" => ['required', 'unique:human_resources,email'],
+            // "password" => ['required'],
             "nidn" => ['nullable', 'numeric'],
             "nip" => ['nullable', 'numeric'],
             "active_status_name" => ['required'],
