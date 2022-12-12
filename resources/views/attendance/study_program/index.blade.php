@@ -17,6 +17,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $study_program->faculty->faculty }}</td>
+            <td>{{ $study_program->humanResource->sdm_name }}</td>
             <td>{{ $study_program->study_program }}</td>
             <td>
                 <a href="{{ route('study_program.edit', $study_program->id) }}">Edit</a>

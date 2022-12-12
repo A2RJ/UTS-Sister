@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Sister;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -34,6 +35,7 @@ class Controller extends BaseController
 
     public function index()
     {
+        Sister::authorize();
         return view('welcome');
     }
 }

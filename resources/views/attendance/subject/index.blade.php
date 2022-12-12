@@ -22,7 +22,8 @@
             <td>{{ $subject->study_program->study_program }}</td>
             <td>{{ $subject->human_resource->sdm_name }}</td>
             <td>
-                <a href="{{ route('subject.show', $subject->id) }}">Detail Pertemuan</a>
+                <a href="{{ route('subject.show', $subject->id) }}">Detail Pertemuan</a> <br>
+                <hr>
                 <a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
                 <x-delete action="{{ route('subject.destroy', $subject->id) }}" />
             </td>

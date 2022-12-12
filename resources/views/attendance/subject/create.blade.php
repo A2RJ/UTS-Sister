@@ -11,6 +11,7 @@
         <x-input name="sks" label="Jumlah SKS" placeholder="Jumlah SKS" />
         <x-input name="number_of_meetings" label="Jumlah Pertemuan" placeholder="Jumlah Pertemuan" />
         <x-select name="study_program_id" label="Program Studi" :select="$study_programs" />
+        <x-select name="class_id" label="Kelas" :select="$classes" />
         <x-select name="sdm_id" label="Dosen" :select="$human_resources" />
     </x-form>
 </div>

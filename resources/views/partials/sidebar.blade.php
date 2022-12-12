@@ -19,9 +19,9 @@
                  </a>
              </li>
              <li class="nav-item nav-category">SDM Menu</li>
-             @if (session('id_sdm'))
+             <!-- @if (session('id_sdm'))
              <x-sidebar-menu></x-sidebar-menu>
-             @endif
+             @endif -->
          </ul>
      </div>
  </nav>

@@ -21,8 +21,8 @@
             <td>{{ $meeting->date ? date("Y-m-d H:i", strtotime($meeting->date)) : '' }}</td>
             <td>{{ $meeting->meeting_start }}</td>
             <td>{{ $meeting->meeting_end }}</td>
-            <td>{{ $meeting->file_start }}</td>
-            <td>{{ $meeting->file_end }}</td>
+            <td><a href="#{{ $meeting->file_start }}">Foto Mulai</a></td>
+            <td><a href="#{{ $meeting->file_end }}">Foto Selesai</a></td>
             <td>
                 <a href="{{ route('meeting.edit', $meeting->id) }}">Edit</a>
                 <x-delete action="{{ route('meeting.destroy', $meeting->id) }}" />

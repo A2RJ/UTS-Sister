@@ -2,116 +2,108 @@
 
 namespace Database\Seeders;
 
-use App\Models\Structure;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StructuresTableSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Auto generated seed file
      *
      * @return void
-     *
-     *
-     * Warek 3 search parent
-     * Roles::where("parent_id", $role->parent_id)->get()
-     *
-     * Warek 3 search child
-     * Roles::where("parent_id", $role->child_id)->get()
-     *
-     * use child_id to relations with user,
-     * buat table untuk simpan role dari user untuk simpan jika ada user dengan 2 role
      */
     public function run()
     {
-        $roles = [
-            [
-                "role" => "admin",
-                "parent_id" => "none",
-                "child_id" => "admin",
-            ],
-            [
-                "role" => "rektor",
-                "parent_id" => "admin",
-                "child_id" => "r",
-            ],
-            [
-                "role" => "wakil rektor 1",
-                "parent_id" => "r",
-                "child_id" => "wr1"
-            ],
-            [
-                "role" => "wakil rektor 2",
-                "parent_id" => "r",
-                "child_id" => "wr2"
-            ],
-            [
-                "role" => "wakil rektor 3",
-                "parent_id" => "r",
-                "child_id" => "wr3"
-            ],
-            [
-                "role" => "wakil rektor 4",
-                "parent_id" => "r",
-                "child_id" => "wr4"
-            ],
-            [
-                "role" => "pasca sarjana",
-                "parent_id" => "r",
-                "child_id" => "pasca"
-            ],
-            [
-                "role" => "direktorat akademik",
-                "parent_id" => "wr1",
-                "child_id" => "dir_akademik"
-            ],
-            [
-                "role" => "direktorat sistem dan teknologi informasi",
-                "parent_id" => "wr3",
-                "child_id" => "dsti"
-            ],
-            [
-                "role" => "direktorat jurnal dan publikasi",
-                "parent_id" => "wr3",
-                "child_id" => "jurnal"
-            ],
-            [
-                "role" => "staff direktorat sistem dan teknologi informasi",
-                "parent_id" => "dsti",
-                "child_id" => "staffdsti"
-            ],
-            [
-                "role" => "staff 4 direktorat sistem dan teknologi informasi",
-                "parent_id" => "staffdsti",
-                "child_id" => "staffdsti22"
-            ],
-            [
-                "role" => "staff 5 direktorat sistem dan teknologi informasi",
-                "parent_id" => "staffdsti22",
-                "child_id" => "staffdsti3"
-            ],
-            [
-                "role" => "staff 2 direktorat sistem dan teknologi informasi",
-                "parent_id" => "dsti",
-                "child_id" => "staffdsti2"
-            ],
-            [
-                "role" => "staff dalam direktorat sistem dan teknologi informasi",
-                "parent_id" => "staffdsti",
-                "child_id" => "staffdalam"
-            ],
-            [
-                "role" => "dekan fakultas rekaya sistem",
-                "parent_id" => "dir_akademik",
-                "child_id" => "frs"
-            ],
-            [
-                "role" => "wakil dekan fakultas rekaya sistem",
-                "parent_id" => "frs",
-                "child_id" => "dfrs"
-            ],
-        ];
 
-        Structure::insert($roles);
+
+        DB::table('structures')->delete();
+
+        DB::table('structures')->insert(array(
+            0 =>
+            array(
+                'id' => 1,
+                'role' => 'admin',
+                'parent_id' => 'none',
+                'child_id' => 'admin',
+            ),
+            1 =>
+            array(
+                'id' => 2,
+                'role' => 'rektor',
+                'parent_id' => 'admin',
+                'child_id' => 'r',
+            ),
+            2 =>
+            array(
+                'id' => 3,
+                'role' => 'wakil rektor 1',
+                'parent_id' => 'r',
+                'child_id' => 'wr1',
+            ),
+            3 =>
+            array(
+                'id' => 4,
+                'role' => 'wakil rektor 2',
+                'parent_id' => 'r',
+                'child_id' => 'wr2',
+            ),
+            4 =>
+            array(
+                'id' => 5,
+                'role' => 'wakil rektor 3',
+                'parent_id' => 'r',
+                'child_id' => 'wr3',
+            ),
+            5 =>
+            array(
+                'id' => 6,
+                'role' => 'wakil rektor 4',
+                'parent_id' => 'r',
+                'child_id' => 'wr4',
+            ),
+            6 =>
+            array(
+                'id' => 7,
+                'role' => 'pasca sarjana',
+                'parent_id' => 'r',
+                'child_id' => 'pasca',
+            ),
+            7 =>
+            array(
+                'id' => 18,
+                'role' => 'Fakultas Rekaya Sistem',
+                'parent_id' => 'r',
+                'child_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+            ),
+            8 =>
+            array(
+                'id' => 19,
+                'role' => 'Fakultas Bioteknologi dan Humaniora',
+                'parent_id' => 'r',
+                'child_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+            ),
+            9 =>
+            array(
+                'id' => 20,
+                'role' => 'Informatika',
+                'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+                'child_id' => '6395e380de236Informatika',
+            ),
+            10 =>
+            array(
+                'id' => 21,
+                'role' => 'Teknik Sipil',
+                'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+                'child_id' => '6395e39294999TeknikSipil',
+            ),
+            11 =>
+            array(
+                'id' => 22,
+                'role' => 'Bioteknologi',
+                'parent_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+                'child_id' => '6395e3bf4c00fBioteknologi',
+            ),
+        ));
     }
 }

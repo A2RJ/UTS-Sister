@@ -47,7 +47,8 @@ class Sister
                 "token" => session("token")
             ], 200);
         } else {
-            return response()->json([$res->json()], 500);
+            // return response()->json([$res->json()], 500);
+            abort(500);
         }
     }
 }

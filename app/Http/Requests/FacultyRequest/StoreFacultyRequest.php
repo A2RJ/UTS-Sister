@@ -25,7 +25,7 @@ class StoreFacultyRequest extends FormRequest
     {
         return [
             'faculty' => ['required'],
-            'sdm_id_admin' => ['required']
+            'sdm_id' => ['required']
         ];
     }
 }

@@ -9,7 +9,7 @@ class StudyProgram extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["faculty_id", "study_program"];
+    protected $fillable = ["faculty_id", "sdm_id", "study_program"];
 
     public $timestamps = false;
 
@@ -25,7 +25,7 @@ class StudyProgram extends Model
 
     public function humanResource()
     {
-        return $this->hasOne(HumanResource::class);
+        return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
     }
 
     public static function selectOption()

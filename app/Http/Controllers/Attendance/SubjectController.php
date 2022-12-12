@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use App\Http\Requests\Subject\StoreSubjectRequest;
 use App\Http\Requests\Subject\UpdateSubjectRequest;
+use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\StudyProgram;
@@ -25,12 +26,13 @@ class SubjectController extends Controller
     {
         return view('attendance.subject.create')
             ->with('study_programs', StudyProgram::selectOption())
+            ->with('classes', Classes::selectOption())
             ->with('human_resources', HumanResource::selectOption());
     }
 
     public function store(StoreSubjectRequest $request)
     {
-        $form = $request->safe()->only(["subject", "sks", "number_of_meetings", "study_program_id", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "study_program_id", "sdm_id"]);
         $subject = Subject::create($form);
         Meeting::bulkCreateMeetings($subject->id, $request->number_of_meetings);
         return redirect(route('subject.index'))->with('message', 'Berhasil tambah mata kuliah');
@@ -38,6 +40,12 @@ class SubjectController extends Controller
 
     public function show(Subject $subject)
     {
+        // $subject = Subject::join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+        //     ->select('meetings.subject_id', 'meetings.meeting_name', DB::raw('TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end) AS duration'))
+        //     ->where('subjects.id', $subject->id)
+        //     ->get();
+
+        // return $subject;
         return view('attendance.subject.show')
             ->with('subject', $subject);
     }
@@ -52,7 +60,7 @@ class SubjectController extends Controller
 
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $form = $request->safe()->only(["subject", "sks", "number_of_meetings", "study_program_id", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "study_program_id", "sdm_id"]);
         $subject->update($form);
         return redirect(route('subject.index'))->with('message', 'Berhasil edit mata kuliah');
     }

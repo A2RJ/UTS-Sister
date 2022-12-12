@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('faculties', function (Blueprint $table) {
-            $table->foreignId("sdm_id_admin")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("sdm_id")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('faculties', function (Blueprint $table) {
-            $table->dropColumn("sdm_id_admin");
+            $table->dropColumn("sdm_id");
         });
     }
 };

@@ -8,6 +8,7 @@
 
     <x-form action="{{ route('faculty.update', $faculty->id) }}" displayError="true">
         @method('PUT')
+        <x-select name="sdm_id" label="Nama Penanggung Jawab" :select="$human_resources" :cureent="$faculty->sdm_id" />
         <x-input name="faculty" label="Nama fakultas" placeholder="Nama fakultas" :value="$faculty->faculty" />
     </x-form>
 </div>

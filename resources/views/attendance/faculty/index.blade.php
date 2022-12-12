@@ -26,9 +26,8 @@
                 <tr>
                     <td>{{ $loop->iteration}}</td>
                     <td>{{ $faculty->faculty }}</td>
-                    <td>List admin</td>
+                    <td>{{ $faculty->humanResource->sdm_name }}</td>
                     <td>
-                        <a href="#">Tambah admin</a>
                         <a href="{{ route('faculty.edit', $faculty->id) }}">Edit</a>
                         <form action="{{ route('faculty.destroy', $faculty->id) }}" method="post" onsubmit="return confirm('Yakin hapus {{ $faculty->faculty }}' )">
                             @csrf

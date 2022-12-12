@@ -12,8 +12,7 @@ class SDMController extends Controller
 {
     public function index()
     {
-        Sister::authorize();
-        return view("sister.SDM.index", [
+        return view("SDM.index", [
             "sdm" => HumanResource::searchSDM()
         ]);
     }
@@ -22,6 +21,6 @@ class SDMController extends Controller
     {
         Sister::authorize();
         session(['sdm_id' => $sdm_id, 'sdm_name' => $sdm_name]);
-        return redirect(route('index'));
+        return back();
     }
 }

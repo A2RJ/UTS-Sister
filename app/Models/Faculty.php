@@ -9,7 +9,7 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["faculty"];
+    protected $fillable = ["faculty", 'sdm_id'];
 
     public $timestamps = false;
 
@@ -20,7 +20,7 @@ class Faculty extends Model
 
     public function humanResource()
     {
-        return $this->hasOne(HumanResource::class);
+        return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
     }
 
     public static function search()
