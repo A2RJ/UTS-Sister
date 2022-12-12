@@ -7,6 +7,7 @@ use App\Models\StudyProgram;
 use App\Http\Requests\StudyProgram\StoreStudyProgramRequest;
 use App\Http\Requests\StudyProgram\UpdateStudyProgramRequest;
 use App\Models\Faculty;
+use App\Models\HumanResource;
 
 class StudyProgramController extends Controller
 {
@@ -19,12 +20,13 @@ class StudyProgramController extends Controller
     public function create()
     {
         return view('attendance.study_program.create')
-            ->with('faculties', Faculty::selectOption());
+            ->with('faculties', Faculty::selectOption())
+            ->with('human_resources', HumanResource::selectOption());
     }
 
     public function store(StoreStudyProgramRequest $request)
     {
-        $form = $request->safe()->only(['study_program', 'faculty_id']);
+        $form = $request->safe()->only(['study_program', 'sdm_id', 'faculty_id']);
         StudyProgram::create($form);
         return redirect(route('study_program.index'))->with('message', 'Berhasil tambah program studi');
     }
@@ -38,12 +40,13 @@ class StudyProgramController extends Controller
     {
         return view('attendance.study_program.edit')
             ->with('study_program', $studyProgram)
-            ->with('faculties', Faculty::selectOption());
+            ->with('faculties', Faculty::selectOption())
+            ->with('human_resources', HumanResource::selectOption());
     }
 
     public function update(UpdateStudyProgramRequest $request, StudyProgram $studyProgram)
     {
-        $form = $request->safe()->only(['study_program', 'faculty_id']);
+        $form = $request->safe()->only(['study_program', 'sdm_id', 'faculty_id']);
         $studyProgram->update($form);
         return redirect(route('study_program.index'))->with('message', 'Berhasil edit program studi');
     }

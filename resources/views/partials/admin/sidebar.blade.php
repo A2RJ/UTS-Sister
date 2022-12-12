@@ -35,10 +35,10 @@
         <span class="link-title">Mata Kuliah</span>
     </a>
 </li>
-<li class="nav-item nav-category">BKD Menu</li>
+<!-- <li class="nav-item nav-category">BKD Menu</li>
 @if (session('sdm_id'))
 <x-sidebar-menu></x-sidebar-menu>
-@endif
+@endif -->
 <!-- <li class="nav-item">
     <a href="{{ route('meeting.index') }}" class="nav-link">
         <i class="link-icon" data-feather="message-square"></i>

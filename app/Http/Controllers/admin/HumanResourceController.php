@@ -18,12 +18,12 @@ class HumanResourceController extends Controller
 {
     public function index()
     {
-        return view('sister.SDM.index')->with('sdm', HumanResource::searchSDM());
+        return view('SDM.index')->with('sdm', HumanResource::searchSDM());
     }
 
     public function create()
     {
-        return view('sister.SDM.create')
+        return view('SDM.create')
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)
             ->with('is_sister_exist', HumanResource::$is_sister_exist)
@@ -57,7 +57,7 @@ class HumanResourceController extends Controller
 
     public function show(HumanResource $humanResource)
     {
-        return view('sister.SDM.show')
+        return view('SDM.show')
             ->with('human_resource', $humanResource)
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)
@@ -70,7 +70,7 @@ class HumanResourceController extends Controller
 
     public function edit(HumanResource $humanResource)
     {
-        return view('sister.SDM.edit')
+        return view('SDM.edit')
             ->with('human_resource', $humanResource)
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)

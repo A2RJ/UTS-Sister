@@ -7,12 +7,15 @@ use App\Models\Attendance;
 use App\Models\HumanResource;
 use App\Models\Structure;
 use App\Models\User;
+use App\Traits\Utils\CustomPaginate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
+    use CustomPaginate;
+
     public function index()
     {
         return view('home');
@@ -61,7 +64,7 @@ class AttendanceController extends Controller
     public function subDivisionList()
     {
         return view('attendance.sub-division.list')
-            ->with('subdivision', Structure::childrens(User::child_id()));
+            ->with('subdivision', $this->paginate(Structure::childrens(User::child_id()), 15));
     }
 
     public function checkInPerMonth()

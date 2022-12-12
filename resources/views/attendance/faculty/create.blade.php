@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Tambah Facultas')
+@section('title', 'Tambah Fakultas')
 
 @section('content')
 <div class="container p-5 card">

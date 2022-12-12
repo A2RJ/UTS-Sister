@@ -12,9 +12,19 @@ class Structure extends Model
     // Visualize json to flowcart https://vanya.jp.net/vtree/
     public static $roles = [];
 
-    protected $fillable = ["role", "parent_id", "child_id"];
+    protected $fillable = ["role", "parent_id", "child_id", 'type'];
 
     public $timestamps = false;
+
+    public static function type()
+    {
+        return collect(['dosen', 'tenaga kependidikan', 'admin', 'dekan', 'wakil dekan'])->map(function ($type) {
+            return [
+                'value' => $type,
+                'text' => $type
+            ];
+        });
+    }
 
     public function child()
     {

@@ -25,7 +25,8 @@ class StoreStructureRequest extends FormRequest
     {
         return [
             'role' => ['required', 'string'],
-            'parent_id' => ['required']
+            'parent_id' => ['required'],
+            'type' => ['nullable', 'in:dosen,tenaga kependidikan,admin,dekan,wakil dekan']
         ];
     }
 }

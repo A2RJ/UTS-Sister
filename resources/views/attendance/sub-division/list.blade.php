@@ -15,5 +15,8 @@
         </tr>
         @endforeach
     </x-table>
+    <div class="mt-2 float-right">
+        {{ $subdivision->links() }}
+    </div>
 </div>
 @endsection

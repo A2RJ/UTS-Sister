@@ -18,9 +18,16 @@
 -   lalu input foro selesai
 -   selesai
 
+-   Flowcart sdm_type
+    -- Jika user adalah admin fakultas, maka tampilkan menu fakultas
+    -- Jika user adalah admin prodi, maka tampilkan menu prodi
+    -- Jika hanya dosen maka tampilkan rekapitulasi absensi kehadiran dan pengajaran
+    -- Jika mempunyai sub divisi maka tampilkan sub divisi
+    --- Masalahnya jika user adalah dosen dia juga dapat melihat admin prodi
+
 ## Update
 
--   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan
+-   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan mirip gform saja
 -   absen 1x saja
 -   filter semester
 

@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Structure;
 use App\Http\Requests\StructureRequest\StoreStructureRequest;
 use App\Http\Requests\StructureRequest\UpdateStructureRequest;
+use App\Traits\Utils\CustomPaginate;
 
 class StructureController extends Controller
 {
+    use CustomPaginate;
+
     public function index()
     {
         return view('attendance.structure.index')
@@ -18,12 +21,13 @@ class StructureController extends Controller
     public function create()
     {
         return view('attendance.structure.create')
+            ->with('types', Structure::type())
             ->with('parent', Structure::selectOption());
     }
 
     public function store(StoreStructureRequest $request)
     {
-        $form = $request->safe()->only(['role', 'parent_id']);
+        $form = $request->safe()->only(['role', 'parent_id', 'type']);
         $form['child_id'] = uniqid() . preg_replace("/\s+/", "", $request->role);
         Structure::create($form);
         return redirect(route('structure.index'))->with('message', 'Berhasil tambah jabatan struktural');
@@ -40,12 +44,13 @@ class StructureController extends Controller
     {
         return view('attendance.structure.edit')
             ->with('structure', $structure)
+            ->with('types', Structure::type())
             ->with('parent', Structure::selectOption());
     }
 
     public function update(UpdateStructureRequest $request, Structure $structure)
     {
-        $form = $request->safe()->only(['role', 'parent_id']);
+        $form = $request->safe()->only(['role', 'parent_id', 'type']);
         $structure->update($form);
         return redirect(route('structure.index'))->with('message', 'Berhasil update jabatan struktural');
     }

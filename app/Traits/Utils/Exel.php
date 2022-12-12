@@ -8,7 +8,7 @@ trait Exel
 {
     static public function import($data, $exportOrDownload, $fileName)
     {
-        (new FastExel($data))->$exportOrDownload($fileName);
+        (new FastExcel($data))->$exportOrDownload($fileName);
         return "Berhasil $exportOrDownload file $fileName";
     }
 }
