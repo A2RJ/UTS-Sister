@@ -14,13 +14,13 @@ class StructureController extends Controller
 
     public function index()
     {
-        return view('attendance.structure.index')
+        return view('presence.structure.index')
             ->with('structures', Structure::search());
     }
 
     public function create()
     {
-        return view('attendance.structure.create')
+        return view('presence.structure.create')
             ->with('types', Structure::type())
             ->with('parent', Structure::selectOption());
     }
@@ -35,14 +35,14 @@ class StructureController extends Controller
 
     public function show(Structure $structure)
     {
-        // return view('attendance.structure.edit')
+        // return view('presence.structure.edit')
         //     ->with('structure', $structure)
         //     ->with('parent', Structure::select('id as value', 'role as text')->get());
     }
 
     public function edit(Structure $structure)
     {
-        return view('attendance.structure.edit')
+        return view('presence.structure.edit')
             ->with('structure', $structure)
             ->with('types', Structure::type())
             ->with('parent', Structure::selectOption());

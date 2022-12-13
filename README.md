@@ -19,20 +19,26 @@
     -- lalu share link feedback ke mahasiswa sbg absensi kehadiran
     -- selesai
     -- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+
 -   Prodi
+    -- check structure, jika user === prodi, maka sub === get dosen by parentsama dan type === dosen
     -- jadwal Perkuliahan -> input mata kuliah -> atur jam pertemuan
     -- menampilkan list dosen -> klik detail
     --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+
 -   Fakultas
     -- menampilkan list dosen -> klik detail
     --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+
 -   Direktorat Akademik
     -- menampilkan list dosen -> klik detail
     --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+
 -   Admin
     -- menampilkan list dosen -> klik detail
     --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
     -- dan lain-lain
+
 -   Notes:
     -- Struktur BKD ini berbeda dengan struktur dinamis yang akan diterapkan selanjutnya
 

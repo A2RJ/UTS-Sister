@@ -8,8 +8,8 @@
     <p>{{ $lecturer->sdm_name }} - {{ $lecturer->structure->type }} - {{ $lecturer->structure->role }}</p>
     @endforeach
     <h3>List Kehadiran</h3>
-    @foreach ($attendances as $attendance)
-    <p>{{ $attendance->sdm_name }} - {{ $attendance->structure->type }} - {{ $attendance->structure->role }}</p>
+    @foreach ($attendances as $presence)
+    <p>{{ $presence->sdm_name }} - {{ $presence->structure->type }} - {{ $presence->structure->role }}</p>
     @endforeach
 </div>
 @endsection

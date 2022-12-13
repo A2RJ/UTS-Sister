@@ -27,11 +27,6 @@ return new class extends Migration
             $table->string('employee_status', 300)->nullable();
             $table->string('sdm_type', 300)->nullable();
             $table->boolean('is_sister_exist')->nullable();
-
-            $table->foreignId("faculty_id")->nullable()->constrained("faculties")->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId("study_program_id")->nullable()->constrained("study_programs")->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId("structure_id")->nullable()->constrained("structures")->cascadeOnUpdate()->nullOnDelete();
-
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent()->useCurrentOnUpdate();
         });

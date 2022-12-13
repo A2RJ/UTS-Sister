@@ -15,10 +15,6 @@ class Classes extends Model
 
     public $timestamps = false;
 
-    public function study_program()
-    {
-        return $this->belongsTo(StudyProgram::class);
-    }
     public static function selectOption()
     {
         return self::select('id as value', 'class as text')->get();

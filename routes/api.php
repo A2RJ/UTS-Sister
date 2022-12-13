@@ -10,9 +10,9 @@ use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
-use App\Http\Controllers\Attendance\AttendanceController;
-use App\Http\Controllers\Attendance\MeetingController;
-use App\Http\Controllers\Attendance\SubjectController;
+use App\Http\Controllers\Presence\PresenceController;
+use App\Http\Controllers\Presence\MeetingController;
+use App\Http\Controllers\Presence\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/{subject_id}/end-meeting/{meeting_id}', 'endMeeting');
         });
     });
-    Route::prefix('attendance')->controller(AttendanceController::class)->group(function () {
+    Route::prefix('presence')->controller(PresenceController::class)->group(function () {
         // get list kehadiran, bisa filter perminggu/perbulan lengkap dengan total jam perhari 
         // check-in-time simpan jam masuk 
         // check-out-time simpan jam pulang
@@ -72,5 +72,5 @@ Route::middleware('auth:sanctum')->group(function () {
 //     Route::controller(HumanResourceController::class)->group(function () {
 //         Route::get('/{child_id}', 'subdivisi');
 //     });
-//     Route::get('/with/aggregate', [AttendanceController::class, 'lecturerTime']);
+//     Route::get('/with/aggregate', [PresenceController::class, 'lecturerTime']);
 // });

@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Http\Controllers\Presence;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attendance;
+use App\Models\Presence;
 use App\Models\HumanResource;
-use App\Models\Structure;
-use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AttendanceController extends Controller
+class PresenceController extends Controller
 {
     use CustomPaginate;
 
@@ -31,38 +29,38 @@ class AttendanceController extends Controller
         //
     }
 
-    public function show(Attendance $attendance)
+    public function show(Presence $presence)
     {
         //
     }
 
-    public function edit(Attendance $attendance)
+    public function edit(Presence $presence)
     {
         //
     }
 
 
-    public function update(Request $request, Attendance $attendance)
+    public function update(Request $request, Presence $presence)
     {
         //
     }
 
-    public function destroy(Attendance $attendance)
+    public function destroy(Presence $presence)
     {
         //
     }
 
     public function subDivision()
     {
-        return view('attendance.sub-division.index')
-            ->with('lecturers', Attendance::lecturer())
-            ->with('attendances', Attendance::attendance());
+        return view('presence.sub-division.index')
+            ->with('lecturers', Presence::lecturer())
+            ->with('attendances', Presence::presence());
     }
 
     public function subDivisionList()
     {
-        return view('attendance.sub-division.list')
-            ->with('subdivision', $this->paginate(Attendance::attendance(), 15));
+        return view('presence.sub-division.list')
+            ->with('subdivision', $this->paginate(Presence::presence(), 15));
     }
 
     public function checkInPerMonth()
@@ -74,12 +72,12 @@ class AttendanceController extends Controller
             )->groupBy('sdm_id');
         }])->get();
 
-        foreach ($attendances as $attendance) {
-            $total_minutes = $attendance->attendances->total_minutes;
+        foreach ($attendances as $presence) {
+            $total_minutes = $presence->attendances->total_minutes;
             $hours = floor($total_minutes / 60);
             $minutes = $total_minutes % 60;
 
-            echo $attendance->sdm_name . " total jam masuk per bulan: " . $hours . " jam " . $minutes . " menit.";
+            echo $presence->sdm_name . " total jam masuk per bulan: " . $hours . " jam " . $minutes . " menit.";
         }
     }
 

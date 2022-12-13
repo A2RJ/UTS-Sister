@@ -19,9 +19,7 @@ return new class extends Migration
             $table->string("meeting_name");
             $table->string("date")->nullable();
             $table->string('meeting_start')->nullable();
-            $table->string('meeting_end')->nullable();
-            $table->text('file_start')->nullable();
-            $table->text('file_end')->nullable();
+            $table->text('file')->nullable();
         });
     }
 

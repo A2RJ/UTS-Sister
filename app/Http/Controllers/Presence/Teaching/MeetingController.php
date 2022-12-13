@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Http\Controllers\Presence\Teaching;
 
 use App\Models\Meeting;
 use App\Models\Subject;
@@ -16,13 +16,13 @@ class MeetingController extends Controller
 {
     public function index()
     {
-        return view('attendance.meeting.index')
+        return view('presence.meeting.index')
             ->with('meetings', Meeting::paginate());
     }
 
     public function create()
     {
-        return view('attendance.meeting.create')
+        return view('presence.meeting.create')
             ->with('subjects', Subject::selectOption());
     }
 
@@ -40,7 +40,7 @@ class MeetingController extends Controller
 
     public function edit(Meeting $meeting)
     {
-        return view('attendance.meeting.edit')
+        return view('presence.meeting.edit')
             ->with('meeting', $meeting)
             ->with('subjects', Subject::selectOption());
     }

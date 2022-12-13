@@ -7,10 +7,10 @@ use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Admin\StudyProgramController;
-use App\Http\Controllers\Attendance\AttendanceController;
-use App\Http\Controllers\Attendance\ClassController;
-use App\Http\Controllers\Attendance\MeetingController;
-use App\Http\Controllers\Attendance\SubjectController;
+use App\Http\Controllers\Presence\PresenceController;
+use App\Http\Controllers\Presence\ClassController;
+use App\Http\Controllers\Presence\MeetingController;
+use App\Http\Controllers\Presence\SubjectController;
 
 use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\BKD\KompetensiController;
@@ -205,9 +205,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/")->group(function () {
-        Route::resource("/attendance", AttendanceController::class);
-        Route::resource("/faculty", FacultyController::class)->except(['show']);
-        Route::resource("/study_program", StudyProgramController::class);
+        Route::resource("/presence", PresenceController::class);
         Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/class", ClassController::class);
@@ -215,10 +213,12 @@ Route::middleware("auth")->group(function () {
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
         Route::prefix('sub-division')->group(function () {
-            Route::prefix('attendance')->controller(AttendanceController::class)->group(function () {
-                Route::get('/', 'subDivision')->name('attendance.subdivision');
-                Route::get('/list', 'subDivisionList')->name('attendance.list-subdivision');
+            Route::prefix('presence')->controller(PresenceController::class)->group(function () {
+                Route::get('/', 'subDivision')->name('presence.subdivision');
+                Route::get('/list', 'subDivisionList')->name('presence.list-subdivision');
             });
+        });
+        Route::prefix('teaching')->group(function () {
         });
     });
 });

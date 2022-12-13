@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Http\Controllers\Presence\Teaching;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
@@ -42,13 +42,13 @@ class SubjectController extends Controller
             ->paginate();
 
 
-        return view('attendance.subject.index')
+        return view('presence.subject.index')
             ->with('subjects', $subjects);
     }
 
     public function create()
     {
-        return view('attendance.subject.create')
+        return view('presence.subject.create')
             ->with('study_programs', StudyProgram::selectOption())
             ->with('classes', Classes::selectOption())
             ->with('human_resources', HumanResource::selectOption());
@@ -69,14 +69,14 @@ class SubjectController extends Controller
             ->where('subjects.id', $subject->id)
             ->get();
 
-        return view('attendance.subject.show')
+        return view('presence.subject.show')
             ->with('subject', $subject)
             ->with('meetings', $meetings);
     }
 
     public function edit(Subject $subject)
     {
-        return view('attendance.subject.edit')
+        return view('presence.subject.edit')
             ->with('subject', $subject)
             ->with('study_programs', StudyProgram::selectOption())
             ->with('human_resources', HumanResource::selectOption());
@@ -97,7 +97,7 @@ class SubjectController extends Controller
 
     public function byLecturer()
     {
-        return view('attendance.subject.index')
+        return view('presence.subject.index')
             ->with('subjects', Subject::with('study_program', 'human_resource')->where('sdm_id', auth()->id())->paginate());
     }
 

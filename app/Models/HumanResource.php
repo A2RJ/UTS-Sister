@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HumanResource extends Model
 {
@@ -23,10 +21,7 @@ class HumanResource extends Model
         "active_status_name",
         "employee_status",
         "sdm_type",
-        "is_sister_exist",
-        "faculty_id",
-        "study_program_id",
-        "structure_id",
+        "is_sister_exist"
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -119,16 +114,6 @@ class HumanResource extends Model
         return self::select('id as value', 'sdm_name as text')->get();
     }
 
-    public function faculty()
-    {
-        return $this->hasOne(Faculty::class);
-    }
-
-    public function studyProgram()
-    {
-        return $this->hasOne(StudyProgram::class);
-    }
-
     public function structure()
     {
         return $this->hasOne(Structure::class, 'id', 'structure_id');
@@ -139,8 +124,8 @@ class HumanResource extends Model
         return $this->hasMany(Subject::class, 'sdm_id', 'id');
     }
 
-    public function attendances()
+    public function presence()
     {
-        return $this->hasMany(Attendance::class, 'sdm_id', 'id');
+        return $this->hasMany(Presence::class, 'sdm_id', 'id');
     }
 }

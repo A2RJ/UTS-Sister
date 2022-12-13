@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Sanctum;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestToken;
-use App\Models\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

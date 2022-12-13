@@ -10,7 +10,7 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["subject_id", "meeting_name", "date", "meeting_start", "meeting_end", "file_start", "file_end"];
+    protected $fillable = ["subject_id", "meeting_name", "date", "meeting_start", "file"];
 
     public $timestamps = false;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Http\Controllers\Presence\Teaching;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Class\StoreClassRequest;
@@ -12,13 +12,13 @@ class ClassController extends Controller
 {
     public function index()
     {
-        return view('attendance.class.index')
+        return view('presence.class.index')
             ->with('classes', Classes::with('study_program')->paginate());
     }
 
     public function create()
     {
-        return view('attendance.class.create')
+        return view('presence.class.create')
             ->with('study_program', StudyProgram::selectOption());
     }
 
@@ -35,7 +35,7 @@ class ClassController extends Controller
 
     public function edit(Classes $class)
     {
-        return view('attendance.class.edit')
+        return view('presence.class.edit')
             ->with('class', $class)
             ->with('study_program', StudyProgram::selectOption());
     }

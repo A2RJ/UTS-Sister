@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
-class Attendance extends Model
+class Presence extends Model
 {
     use HasFactory;
 
@@ -40,7 +39,7 @@ class Attendance extends Model
         return $results;
     }
 
-    public static function attendance()
+    public static function presence()
     {
         $ids = self::listSubDivision();
         $results = HumanResource::whereIn('structure_id', $ids)

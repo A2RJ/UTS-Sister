@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("role");
             $table->string("parent_id");
             $table->string("child_id");
+            $table->enum("type", ['struktural', 'fakultas', 'prodi', 'dosen'])->default('struktural');
         });
     }
 
