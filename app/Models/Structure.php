@@ -97,7 +97,9 @@ class Structure extends Model
     {
         $response = self::role($child_id);
         self::recursiveChildren([$response], false);
-        return array_reverse(self::$roles);
+        return collect(self::$roles)->filter(function ($item) use ($child_id) {
+            return $item['child_id'] !== $child_id;
+        });
     }
 
     private static function recursiveChildren($data, $withChildren = true)

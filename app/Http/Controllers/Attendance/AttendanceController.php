@@ -9,7 +9,6 @@ use App\Models\Structure;
 use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
@@ -55,16 +54,15 @@ class AttendanceController extends Controller
 
     public function subDivision()
     {
-        return response([
-            'lecturer' => Attendance::lecturer(),
-            'attendance' => Attendance::attendance()
-        ]);
+        return view('attendance.sub-division.index')
+            ->with('lecturers', Attendance::lecturer())
+            ->with('attendances', Attendance::attendance());
     }
 
     public function subDivisionList()
     {
         return view('attendance.sub-division.list')
-            ->with('subdivision', $this->paginate(Structure::childrens(User::child_id()), 15));
+            ->with('subdivision', $this->paginate(Attendance::attendance(), 15));
     }
 
     public function checkInPerMonth()

@@ -83,7 +83,7 @@ class User extends Authenticatable
     {
         if (!Auth::user()->structure) return false;
         $result = Structure::childrens(Auth::user()->structure->child_id);
-        return $result ? true : false;
+        return count($result) >= 2 ? true : false;
     }
 
     public static function child_id()

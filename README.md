@@ -9,27 +9,73 @@
 
 ## Flowcart presensi pengajaran
 
--   Civitas UTS login
--   pilih presensi pengajaran
--   pilih mata kuliah
--   pilih kelas
--   pilih pertemuan ke-n
--   lalu input foto mulai
--   lalu input foro selesai
+-   Dosen
+    -- login
+    -- pilih presensi pengajaran
+    -- pilih mata kuliah
+    -- pilih kelas
+    -- pilih pertemuan ke-n
+    -- lalu input foto mulai
+    -- lalu share link feedback ke mahasiswa sbg absensi kehadiran
+    -- selesai
+    -- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+-   Prodi
+    -- jadwal Perkuliahan -> input mata kuliah -> atur jam pertemuan
+    -- menampilkan list dosen -> klik detail
+    --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+-   Fakultas
+    -- menampilkan list dosen -> klik detail
+    --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+-   Direktorat Akademik
+    -- menampilkan list dosen -> klik detail
+    --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+-   Admin
+    -- menampilkan list dosen -> klik detail
+    --- menampilkan jumlah pengajaran selesai dan belum, nilai SKS per ata kuliah
+    -- dan lain-lain
+-   Notes:
+    -- Struktur BKD ini berbeda dengan struktur dinamis yang akan diterapkan selanjutnya
+
+## Flowcart presensi kehadiran
+
+-   civitas UTS Login
+-   pilih presensi kehadiran (di Kampus)
+-   pilih masuk -> POST
+-   pilih pulang -> POST
 -   selesai
 
--   Flowcart sdm_type
-    -- Jika user adalah admin fakultas, maka tampilkan menu fakultas
-    -- Jika user adalah admin prodi, maka tampilkan menu prodi
-    -- Jika hanya dosen maka tampilkan rekapitulasi absensi kehadiran dan pengajaran
-    -- Jika mempunyai sub divisi maka tampilkan sub divisi
-    --- Masalahnya jika user adalah dosen dia juga dapat melihat admin prodi
+## Boundary roles
+
+-   User role
+    -- Notes:
+    -- Untuk pengembangan selanjutnya bisa subtitusi role diantara role yg sudah ada, misal wadek, sekretaris prodi dll. Jadi merubah parentId dari child
+
+-   Roles
+    -- Dosen dan Tendik diambil dari sister
+    -- Setting manual siapa prodi, fakultas dan dir akademik (Opsi 1)
+    -- Setting dinamis siapa prodi, fakultas dan dir akademik (Opsi 2)
+    -- Tentunya akan berelasi antara fakultas, prodi, mata kuliah, kelas dan dosen
+
+```
+{
+    'pengajaran': ['dosen', 'prodi', 'fakultas', 'direktorat akademik'],
+    'kehadiran': ['civitas', 'dsdm', 'pimpinan'] // pimpinan = atasan masing-masing civitas UTS (struktural)
+}
+```
 
 ## Update
 
--   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan mirip gform saja
--   absen 1x saja
--   filter semester
+-   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan mirip gform
+
+```
+{
+    'field': ['subject_id', 'nim', 'nama', 'catatan:(bersifat sangat rahasia)']
+}
+```
+
+-   absen 1x (hapus sebelumnya 2x)
+-   filter by semester
+-   filter between dates
 
 ## Tools
 
@@ -38,13 +84,3 @@
 ## Tutorial
 
 -   [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
-
-### List problem
-
--   Cannot create relationship => make sure the order list and time is ASC
--   Sepertinya append admin fakultas dan prodi bisa dihalaman list masing-masings
--   Kalau pakai strucrure_id bisa didapat semua structure dibawahnya
-    -- misal kaprodi -> semua dosen atau staff dibawahnya
-    -- jika ingin dibagi maka lakukan grouping sdm_type
-    -- jika dosen maka tampilkan hasil pengajaran
-    -- jika jika tidak dosen maka ambil semua absen kehadiran

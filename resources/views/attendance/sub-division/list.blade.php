@@ -5,13 +5,13 @@
 <div class="card p-2">
     <h4 class="mb-4">List Sub Divisi</h4>
 
-    <x-table :header="['Nama', 'Aksi']">
-
+    <x-table :header="['Nama', 'role', 'type']">
         @foreach ($subdivision as $sub)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $sub->role }}</td>
-            <td><a href="#">Detail Absesnsi</a></td>
+            <td>{{ $sub->sdm_name }}</td>
+            <td>{{ $sub->structure->role }}</td>
+            <td>{{ $sub->structure->type }}</td>
         </tr>
         @endforeach
     </x-table>
