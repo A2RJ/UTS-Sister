@@ -3,14 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructureController;
-use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\ClassController;
 use App\Http\Controllers\Presence\MeetingController;
-use App\Http\Controllers\Presence\SubjectController;
+use App\Http\Controllers\Presence\Teaching\SubjectController;
 
 use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\BKD\KompetensiController;
@@ -204,10 +202,12 @@ Route::middleware("auth")->group(function () {
         });
     });
 
-    Route::prefix("/")->group(function () {
-        Route::resource("/presence", PresenceController::class);
+    Route::prefix("/admin")->group(function () {
         Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
+    });
+    Route::prefix("/")->group(function () {
+        Route::resource("/presence", PresenceController::class);
         Route::resource("/class", ClassController::class);
         Route::get('/subject/by-lecturer', [SubjectController::class, 'byLecturer'])->name('subject.byLecturer');
         Route::resource("/subject", SubjectController::class);

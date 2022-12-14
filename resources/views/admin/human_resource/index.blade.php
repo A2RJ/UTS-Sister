@@ -61,9 +61,7 @@
                                     <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-warning">Edit</button>
                                     </a>
-                                    <a href="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" onclick="return confirm('Are you sure')">
-                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
-                                    </a>
+                                    <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" />
                                 </td>
                             </tr>
                             @endforeach

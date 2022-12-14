@@ -2,34 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\HumanResource;
-use App\Http\Requests\HumanResource\StoreHumanResourceRequest;
-use App\Http\Requests\HumanResource\UpdateHumanResourceRequest;
-use App\Models\Faculty;
-use App\Models\Structure;
-use App\Models\StudyProgram;
-use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\HumanResource\StoreHumanResourceRequest;
+use App\Http\Requests\HumanResource\UpdateHumanResourceRequest;
+use App\Models\HumanResource;
+use App\Models\Structure;
+use App\Models\Subject;
 
 class HumanResourceController extends Controller
 {
     public function index()
     {
-        return view('SDM.index')->with('sdm', HumanResource::searchSDM());
+        return view('admin.human_resource.index')->with('sdm', HumanResource::searchSDM());
     }
 
     public function create()
     {
-        return view('SDM.create')
+        return view('admin.human_resource.create')
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)
             ->with('is_sister_exist', HumanResource::$is_sister_exist)
             ->with('sdm_type', HumanResource::$sdm_type)
-            ->with('faculty', Faculty::selectOption())
-            ->with('study_program', StudyProgram::selectOption())
             ->with('structures', Structure::selectOptionStructure());
     }
 
@@ -52,32 +48,28 @@ class HumanResourceController extends Controller
         $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
         $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
-        return $this->responseRedirect("$request->sdm_name created");
+        return redirect(route('human_resource.index'))->with('message', "$request->sdm_name created");
     }
 
     public function show(HumanResource $humanResource)
     {
-        return view('SDM.show')
+        return view('admin.human_resource.show')
             ->with('human_resource', $humanResource)
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)
             ->with('is_sister_exist', HumanResource::$is_sister_exist)
             ->with('sdm_type', HumanResource::$sdm_type)
-            ->with('faculty', Faculty::selectOption())
-            ->with('study_program', StudyProgram::selectOption())
             ->with('structures', Structure::selectOption());
     }
 
     public function edit(HumanResource $humanResource)
     {
-        return view('SDM.edit')
+        return view('admin.human_resource.edit')
             ->with('human_resource', $humanResource)
             ->with('active_status_name', HumanResource::$active_status_name)
             ->with('employee_status', HumanResource::$employee_status)
             ->with('is_sister_exist', HumanResource::$is_sister_exist)
             ->with('sdm_type', HumanResource::$sdm_type)
-            ->with('faculty', Faculty::selectOption())
-            ->with('study_program', StudyProgram::selectOption())
             ->with('structures', Structure::selectOptionStructure());
     }
 
@@ -92,8 +84,7 @@ class HumanResourceController extends Controller
             "sdm_type",
             "is_sister_exist",
             "faculty_id",
-            "study_program_id",
-            "structure_id",
+            "study_program_id"
         ]);
         $humanResource->update($form);
         return redirect(route('human_resource.index'))->with('message', "$request->sdm_name updated");
@@ -129,8 +120,8 @@ class HumanResourceController extends Controller
             ->with(['study_program:id,study_program', 'human_resource:id,sdm_name'])
             ->whereIn('subjects.sdm_id', function ($query) use ($ids) {
                 $query->select('id')
-                    ->from('human_resources')
-                    ->whereIn('structure_id', $ids);
+                    ->from('human_resources');
+                // ->whereIn('structure_id', $ids);
             })
             ->groupBy(
                 'subjects.id',

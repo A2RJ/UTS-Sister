@@ -16,9 +16,9 @@ class Structure extends Model
 
     public $timestamps = false;
 
-    public static function type()
+    public static function types()
     {
-        return collect(['dosen', 'tenaga kependidikan', 'admin', 'dekan', 'wakil dekan'])->map(function ($type) {
+        return collect(['struktural', 'fakultas', 'prodi', 'dosen'])->map(function ($type) {
             return [
                 'value' => $type,
                 'text' => $type

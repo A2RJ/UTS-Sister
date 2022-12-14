@@ -3,7 +3,7 @@
      <select class="form-select @error($name) is-invalid @enderror" id="{{ $name }}" name="{{ $name }}" aria-label="Pilih top level">
          <option value="">Pilih</option>
          @foreach ($select as $item)
-         <option value="{{ $item['value'] }}" @if ($item["value"]===$current) selected @endif>{{ $item['text'] }}</option>
+         <option value="{{ $item['value'] }}" @if ($item["value"]===$current) selected @endif class="text-capitalize">{{ $item['text'] }}</option>
          @endforeach
      </select>
      @error($name)

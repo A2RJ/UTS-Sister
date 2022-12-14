@@ -103,20 +103,15 @@ class HumanResource extends Model
         $sdm = self::query();
         $nama_sdm = request('nama');
         if ($nama_sdm) {
-            return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->orderBy('structure_id', 'DESC')->paginate();
+            return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->paginate();
         } else {
-            return $sdm->orderBy('structure_id', 'DESC')->paginate();
+            return $sdm->paginate();
         }
     }
 
     public static function selectOption()
     {
         return self::select('id as value', 'sdm_name as text')->get();
-    }
-
-    public function structure()
-    {
-        return $this->hasOne(Structure::class, 'id', 'structure_id');
     }
 
     public function subjects()

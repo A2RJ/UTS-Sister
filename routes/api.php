@@ -4,15 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Admin\UtilityController;
-use App\Http\Controllers\Admin\FacultyController;
-use App\Http\Controllers\Admin\HumanResourceController;
-use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\MeetingController;
-use App\Http\Controllers\Presence\SubjectController;
+use App\Http\Controllers\Presence\Teaching\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
