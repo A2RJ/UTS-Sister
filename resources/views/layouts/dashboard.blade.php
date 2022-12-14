@@ -69,8 +69,11 @@
                             <span class="link-title">Dashboard</span>
                         </a>
                     </li>
+                    @if (auth()->user()->isRektor())
+                    <p>Rektor</p>
+                    @endif
 
-                    @if (auth()->user()->isRektor() || auth()->user()->isAdmin())
+                    @if (auth()->user()->isAdmin())
                     @include('partials.admin.sidebar')
                     @endif
 
@@ -78,8 +81,12 @@
                     @include('partials.lecturer.sidebar')
                     @endif
 
-                    @if (auth()->user()->isEduStaff())
-                    @include('partials.educational-staff.sidebar')
+                    @if (auth()->user()->isFaculty())
+                    @include('partials.faculty.sidebar')
+                    @endif
+
+                    @if (auth()->user()->isStudyProgram())
+                    @include('partials.study-program.sidebar')
                     @endif
 
                     @if (auth()->user()->hasSub())

@@ -42,6 +42,18 @@
 -   Notes:
     -- Struktur BKD ini berbeda dengan struktur dinamis yang akan diterapkan selanjutnya
 
+## Progress
+
+-   Sudah bisa dinamis set struktur
+-   Sudah bisa login sebagai admin, rektor, fakultas, prodi,
+-   Belum tampilkan children by parent
+-   Belum get dosen by parent (menu fakultas dan prodi)
+-   Notes:
+    -- Khusus dir akademik -> lihat semua pengajaran dosen, assign fakultas (dekan) dan prodi (ka.prodi)  
+    -- Khusus dsdm -> lihat semua kehadiran dosen dan human resources tp tidak bisa assign
+    -- Khusus admin dapat semua
+    -- (Optional) Khusus rektor -> hanya lihat sdm, structure, kehadiran dan pengajaran
+
 ## Flowcart presensi kehadiran
 
 -   civitas UTS Login

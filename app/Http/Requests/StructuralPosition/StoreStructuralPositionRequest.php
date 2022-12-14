@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StructureRequest;
+namespace App\Http\Requests\StructuralPosition;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStructureRequest extends FormRequest
+class StoreStructuralPositionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class StoreStructureRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => ['required', 'string'],
-            'parent_id' => ['required'],
-            'type' => ['required', 'in:struktural,fakultas,prodi,dosen']
+            'sdm_id' => ['required'],
+            'structure_id' => ['required']
         ];
     }
 }

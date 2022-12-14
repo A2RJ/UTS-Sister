@@ -12,13 +12,13 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('faculty.index') }}" class="nav-link">
+    <a href="#" class="nav-link">
         <i class="link-icon" data-feather="message-square"></i>
         <span class="link-title">Fakultas</span>
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('study_program.index') }}" class="nav-link">
+    <a href="#" class="nav-link">
         <i class="link-icon" data-feather="message-square"></i>
         <span class="link-title">Program Studi</span>
     </a>

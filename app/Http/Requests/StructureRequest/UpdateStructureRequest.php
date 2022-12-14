@@ -26,7 +26,7 @@ class UpdateStructureRequest extends FormRequest
         return [
             'role' => ['required', 'string'],
             'parent_id' => ['required'],
-            'type' => ['nullable', 'in:dosen,tenaga kependidikan,admin,dekan,wakil dekan']
+            'type' => ['required', 'in:in:struktural,fakultas,prodi,dosen']
         ];
     }
 }

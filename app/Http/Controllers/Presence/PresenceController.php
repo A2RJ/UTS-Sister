@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Presence;
 use App\Http\Controllers\Controller;
 use App\Models\Presence;
 use App\Models\HumanResource;
+use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

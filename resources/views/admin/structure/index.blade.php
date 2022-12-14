@@ -9,18 +9,24 @@
         <a href="{{ route('structure.create') }}">
             <button class="btn btn-sm btn-primary">Tambah jabatan struktural</button>
         </a>
+        <a href="{{ route('assign.create') }}">
+            <button class="btn btn-sm btn-outline-primary">Assign jabatan struktural</button>
+        </a>
     </div>
 
     <x-success-message />
-    <x-table :header="['Jabatan Struktural', 'Berada dibawah', 'Type', 'Aksi']">
+    <x-table :header="['Nama Civitas', 'Jabatan Struktural', 'Berada dibawah', 'Aksi']">
         @foreach ($structures as $structure)
-        <tr>
+        <tr class="text-capitalize">
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $structure->role }}</td>
+            <td>{{ $structure->humanResource ? $structure->humanResource->sdm_name : '' }}</td>
+            <td>{{ $structure->role }} <br> ({{ $structure->type }})</td>
             <td>{{ $structure->child ? $structure->child->role : 'Tidak ada' }}</td>
-            <td>{{ $structure->type }}</td>
             <td>
                 <a href="{{ route('structure.edit', $structure->id) }}">Edit</a>
+                @if ($structure->humanResource)
+                <a href="{{ route('assign.edit', $structure->structural->id) }}">Edit Civitas</a>
+                @endif
                 <x-delete action="{{ route('structure.destroy', $structure->id) }}" confirm="Yakin hapus {{ $structure->role}}" />
             </td>
         </tr>

@@ -15,7 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    public $table = "human_resources";
+    public $table = 'human_resources';
 
     /**
      * The attributes that are mass assignable.
@@ -47,47 +47,91 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile()
-    {
-        return $this->hasOne(HumanResource::class, 'nip', 'nip');
-    }
-
     public function structure()
     {
-        return $this->hasOne(Structure::class, 'id', 'structure_id');
+        return $this->hasManyThrough(
+            Structure::class,
+            StructuralPosition::class,
+            'sdm_id', // Foreign key on struktural table...
+            'id', // Foreign key on structure table...
+            'id', // Local key on users table...
+            'structure_id' // Local key on struktural table...
+        );
+    }
+
+    public static function checkRoleType($params, $roleOrType = 'role')
+    {
+        $roles = Auth::user()->structure;
+        if (!$roles) return false;
+        $hasRole = collect($roles)->filter(function ($roleItem) use ($params, $roleOrType) {
+            return Str::lower($roleItem[$roleOrType]) === Str::lower($params);
+        })->count();
+        return $hasRole > 0 ? true : false;
     }
 
     public function isRektor()
     {
-        if (!Auth::user()->structure) return false;
-        return Str::lower(Auth::user()->structure->role) === "rektor" ? true : false;
+        return $this->checkRoleType('rektor');
     }
 
     public function isAdmin()
     {
-        if (!Auth::user()->structure) return false;
-        return Str::lower(Auth::user()->structure->role) === "admin" ? true : false;
+        return $this->checkRoleType('admin');
     }
 
     public function isLecturer()
     {
-        return Str::lower(Auth::user()->sdm_type)  === "dosen" ? true : false;
+        return $this->checkRoleType('dosen', 'type');
     }
 
-    public function isEduStaff()
+    public function isFaculty()
     {
-        return Str::lower(Auth::user()->sdm_type) === "tenaga kependidikan" ? true : false;
+        return $this->checkRoleType('fakultas', 'type');
     }
 
-    public function hasSub()
+    public function isStudyProgram()
     {
-        if (!Auth::user()->structure) return false;
-        $result = Structure::childrens(Auth::user()->structure->child_id);
-        return count($result) >= 2 ? true : false;
+        return $this->checkRoleType('prodi', 'type');
     }
 
-    public static function child_id()
+    public function isStructural()
     {
-        return Auth::user()->structure ? Auth::user()->structure->child_id : 0;
+        return $this->checkRoleType('struktural', 'type');
+    }
+
+    public static function hasSub()
+    {
+        $roles = Auth::user()->structure;
+        if (!count($roles) > 0) return false;
+        $result = collect([]);
+        collect($roles)->map(function ($structure) use ($result) {
+            $child = collect(Structure::childrens($structure->child_id))->unique();
+            $child->map(function ($item) use ($result) {
+                $result->push($item);
+            });
+        });
+        return $result;
+    }
+
+    public static function subHasRoleType($roleOrType, $field = 'type')
+    {
+        $sub = collect(self::hasSub())->filter(function ($sub) use ($roleOrType, $field) {
+            return $sub[$field] === $roleOrType;
+        });
+        return $sub;
+    }
+
+    public static function subOtherRoleType($roleOrType, $field = 'type')
+    {
+        $sub = collect(self::hasSub())->filter(function ($sub) use ($roleOrType, $field) {
+            return $sub[$field] !== $roleOrType;
+        });
+        return $sub;
+    }
+
+    public static function childrens()
+    {
+        // user login
+        // get childrens dengan kirim 
     }
 }

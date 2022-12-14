@@ -11,5 +11,6 @@
         <x-select name="type" label="Pilih tipe" :select="$types" :current="$structure->type" />
         <x-input name="role" label="Jabatan" placeholder="Nama jabatan" :value="$structure->role" />
     </x-form>
+
 </div>
 @endsection

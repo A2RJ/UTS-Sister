@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Admin\HumanResourceController;
+use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\ClassController;
@@ -203,6 +204,9 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/admin")->group(function () {
+        Route::prefix('structure')->group(function () {
+            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
+        });
         Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
     });

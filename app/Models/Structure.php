@@ -33,7 +33,19 @@ class Structure extends Model
 
     public function humanResource()
     {
-        return $this->hasOne(HumanResource::class);
+        return $this->hasOneThrough(
+            HumanResource::class,
+            StructuralPosition::class,
+            'structure_id',
+            'id',
+            'id',
+            'sdm_id'
+        );
+    }
+
+    public function structural()
+    {
+        return $this->belongsTo(StructuralPosition::class, 'id', 'structure_id');
     }
 
     public static function search()
@@ -41,9 +53,9 @@ class Structure extends Model
         $query = self::query();
         $role = request('role');
         if ($role) {
-            return $query->with('child')->where('role', "LIKE", "%$role%")->paginate();
+            return $query->with('humanResource')->where('role', "LIKE", "%$role%")->paginate();
         } else {
-            return $query->with('child')->paginate();
+            return $query->with('humanResource')->paginate();
         }
     }
 
