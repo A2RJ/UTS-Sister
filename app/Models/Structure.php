@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use SplQueue;
 
 class Structure extends Model
 {
@@ -128,9 +129,28 @@ class Structure extends Model
 
     public static function childrens($child_id)
     {
+        // $response = self::role($child_id);
+        // self::recursiveChildren([$response], false);
+        // return collect(self::$roles)->filter(function ($item) use ($child_id) {
+        //     return $item['child_id'] !== $child_id;
+        // });
         $response = self::role($child_id);
-        self::recursiveChildren([$response], false);
-        return collect(self::$roles)->filter(function ($item) use ($child_id) {
+        $queue = new SplQueue();
+        $queue->enqueue($response);
+        $roles = [];
+        while (!$queue->isEmpty()) {
+            $current = $queue->dequeue();
+            $childs = self::children($current->child_id);
+            if (count($childs)) {
+                $current->children = $childs;
+                foreach ($childs as $child) {
+                    $queue->enqueue($child);
+                }
+            }
+            $roles[] = $current;
+        }
+
+        return collect($roles)->filter(function ($item) use ($child_id) {
             return $item['child_id'] !== $child_id;
         });
     }

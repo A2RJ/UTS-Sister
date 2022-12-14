@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\MeetingController;
 use App\Http\Controllers\Presence\Teaching\SubjectController;
+use App\Models\Structure;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,9 @@ use App\Http\Controllers\Presence\Teaching\SubjectController;
 */
 
 Route::get('/', [HomeController::class, 'api']);
-
+Route::get("/test", function () {
+    return Structure::childrens("r");
+});
 Route::controller(UtilityController::class)->group(function () {
     Route::get('/routes',  'routes');
 });
