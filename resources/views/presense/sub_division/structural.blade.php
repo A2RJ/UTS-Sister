@@ -6,17 +6,17 @@
     <h4 class="mb-4">List Sub Divisi</h4>
 
     <x-table :header="['Nama', 'role', 'type']">
-        @foreach ($subdivision as $sub)
+        @foreach ($structural as $sub)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $sub->sdm_name }}</td>
-            <td>{{ $sub->structure->role }}</td>
-            <td>{{ $sub->structure->type }}</td>
+            <td>{{ $sub->role }}</td>
+            <td>{{ $sub->type }}</td>
         </tr>
         @endforeach
     </x-table>
     <div class="mt-2 float-right">
-        {{ $subdivision->links() }}
+        {{ $structural->links() }}
     </div>
 </div>
 @endsection

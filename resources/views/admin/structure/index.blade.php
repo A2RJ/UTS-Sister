@@ -19,13 +19,18 @@
         @foreach ($structures as $structure)
         <tr class="text-capitalize">
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $structure->humanResource ? $structure->humanResource->sdm_name : '' }}</td>
+            <td>
+                <ul>
+                    @foreach ($structure->humanResource as $civitas)
+                    <li>{{ $civitas->sdm_name }}</li>
+                    @endforeach
+                </ul>
+            </td>
             <td>{{ $structure->role }} <br> ({{ $structure->type }})</td>
             <td>{{ $structure->child ? $structure->child->role : 'Tidak ada' }}</td>
             <td>
                 <a href="{{ route('structure.edit', $structure->id) }}">Edit</a>
                 @if ($structure->humanResource)
-                <a href="{{ route('assign.edit', $structure->structural->id) }}">Edit Civitas</a>
                 @endif
                 <x-delete action="{{ route('structure.destroy', $structure->id) }}" confirm="Yakin hapus {{ $structure->role}}" />
             </td>

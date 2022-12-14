@@ -5,10 +5,6 @@
 <div class="card p-2">
     <p>Ini Dashboard</p>
 
-    <p>
-        {{ auth()->user()->childrens }}
-    </p>
-
     @if (auth()->user()->isRektor())
     <p>Role anda adalah Rektor</p>
     @endif

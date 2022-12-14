@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Structure extends Model
 {
@@ -33,7 +34,7 @@ class Structure extends Model
 
     public function humanResource()
     {
-        return $this->hasOneThrough(
+        return $this->hasManyThrough(
             HumanResource::class,
             StructuralPosition::class,
             'structure_id',
@@ -43,9 +44,29 @@ class Structure extends Model
         );
     }
 
-    public function structural()
+    public static function lecturer()
     {
-        return $this->belongsTo(StructuralPosition::class, 'id', 'structure_id');
+        $roles = Auth::user()->structure;
+        if ($roles && count($roles) === 0) return false;
+        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
+            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
+            ->select('structures.id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
+            ->where('structures.type', 'dosen')
+            ->whereIn('structures.id', Structure::childrens($roles[0]->child_id)->pluck('id')->toArray())
+            ->paginate();
+        return $data;
+    }
+
+    public static function structural()
+    {
+        $roles = Auth::user()->structure;
+        if ($roles && count($roles) === 0) return false;
+        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
+            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
+            ->select('structures.id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
+            ->whereIn('structures.id', Structure::childrens($roles[0]->child_id)->pluck('id')->toArray())
+            ->paginate();
+        return $data;
     }
 
     public static function search()

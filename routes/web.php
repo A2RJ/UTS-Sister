@@ -218,8 +218,8 @@ Route::middleware("auth")->group(function () {
         Route::resource("/meeting", MeetingController::class);
         Route::prefix('sub-division')->group(function () {
             Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-                Route::get('/', 'subDivision')->name('presence.subdivision');
-                Route::get('/list', 'subDivisionList')->name('presence.list-subdivision');
+                Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
+                Route::get('/structural', 'structural')->name('presence.structural');
             });
         });
         Route::prefix('teaching')->group(function () {

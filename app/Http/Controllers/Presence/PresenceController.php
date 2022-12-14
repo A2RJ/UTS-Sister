@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Presence;
 use App\Http\Controllers\Controller;
 use App\Models\Presence;
 use App\Models\HumanResource;
+use App\Models\Structure;
 use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Http\Request;
@@ -51,17 +52,16 @@ class PresenceController extends Controller
         //
     }
 
-    public function subDivision()
+    public function lecturer()
     {
-        return view('presence.sub-division.index')
-            ->with('lecturers', Presence::lecturer())
-            ->with('attendances', Presence::presence());
+        return view('presense.sub_division.lecturer')
+            ->with('lecturers', Structure::lecturer());
     }
 
-    public function subDivisionList()
+    public function structural()
     {
-        return view('presence.sub-division.list')
-            ->with('subdivision', $this->paginate(Presence::presence(), 15));
+        return view('presense.sub_division.structural')
+            ->with('structural', Structure::structural());
     }
 
     public function checkInPerMonth()

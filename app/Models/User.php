@@ -128,10 +128,4 @@ class User extends Authenticatable
         });
         return $sub;
     }
-
-    public static function childrens()
-    {
-        // user login
-        // get childrens dengan kirim 
-    }
 }
