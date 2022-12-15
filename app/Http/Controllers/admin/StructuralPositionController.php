@@ -25,14 +25,21 @@ class StructuralPositionController extends Controller
         return redirect(route('structure.index'))->with('message', 'Berhasil assign jabatan struktural');
     }
 
-    public function edit(StructuralPosition $structuralPosition)
+    public function edit(StructuralPosition $assign)
     {
-        //
+        return view('admin.structure.assign.edit')
+            ->with('assign', $assign)
+            ->with('human_resources', HumanResource::selectOption())
+            ->with('structurals', collect(Structure::selectOptionStructure())->filter(function ($item) use ($assign) {
+                return $item['value'] === $assign->structure_id;
+            }));
     }
 
-    public function update(UpdateStructuralPositionRequest $request, StructuralPosition $structuralPosition)
+    public function update(UpdateStructuralPositionRequest $request, StructuralPosition $assign)
     {
-        //
+        $form = $request->safe()->only(['sdm_id', 'structure_id']);
+        $assign->update($form);
+        return redirect(route('structure.index'))->with('message', 'Berhasil edit assign jabatan struktural');
     }
 
     public function destroy(StructuralPosition $structuralPosition)

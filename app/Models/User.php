@@ -113,6 +113,13 @@ class User extends Authenticatable
         return $result;
     }
 
+    public static function getChildrenSdmId()
+    {
+        $sdmId = collect(StructuralPosition::whereIn('structure_id', self::hasSub()->pluck('id'))->get());
+        if ($sdmId->count() === 0) return [];
+        return $sdmId->pluck('sdm_id');
+    }
+
     public static function subHasRoleType($roleOrType, $field = 'type')
     {
         $sub = collect(self::hasSub())->filter(function ($sub) use ($roleOrType, $field) {

@@ -211,17 +211,17 @@ Route::middleware("auth")->group(function () {
         Route::resource("/human_resource", HumanResourceController::class);
     });
     Route::prefix("/")->group(function () {
-        Route::resource("/presence", PresenceController::class);
         Route::resource("/class", ClassController::class);
         Route::get('/subject/by-lecturer', [SubjectController::class, 'byLecturer'])->name('subject.byLecturer');
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
-        Route::prefix('sub-division')->group(function () {
-            Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-                Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
-                Route::get('/structural', 'structural')->name('presence.structural');
-            });
+        Route::prefix('presence')->controller(PresenceController::class)->group(function () {
+            Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
+            Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
+            Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
+            Route::get('/structural', 'structural')->name('presence.structural');
         });
+        Route::resource("/presence", PresenceController::class);
         Route::prefix('teaching')->group(function () {
         });
     });

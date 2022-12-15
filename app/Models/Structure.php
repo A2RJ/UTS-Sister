@@ -45,31 +45,6 @@ class Structure extends Model
         );
     }
 
-    public static function lecturer()
-    {
-        $roles = Auth::user()->structure;
-        if ($roles && count($roles) === 0) return false;
-        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
-            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
-            ->select('structures.id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
-            ->where('structures.type', 'dosen')
-            ->whereIn('structures.id', Structure::childrens($roles[0]->child_id)->pluck('id')->toArray())
-            ->paginate();
-        return $data;
-    }
-
-    public static function structural()
-    {
-        $roles = Auth::user()->structure;
-        if ($roles && count($roles) === 0) return false;
-        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
-            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
-            ->select('structures.id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
-            ->whereIn('structures.id', Structure::childrens($roles[0]->child_id)->pluck('id')->toArray())
-            ->paginate();
-        return $data;
-    }
-
     public static function search()
     {
         $query = self::query();
@@ -129,28 +104,9 @@ class Structure extends Model
 
     public static function childrens($child_id)
     {
-        // $response = self::role($child_id);
-        // self::recursiveChildren([$response], false);
-        // return collect(self::$roles)->filter(function ($item) use ($child_id) {
-        //     return $item['child_id'] !== $child_id;
-        // });
         $response = self::role($child_id);
-        $queue = new SplQueue();
-        $queue->enqueue($response);
-        $roles = [];
-        while (!$queue->isEmpty()) {
-            $current = $queue->dequeue();
-            $childs = self::children($current->child_id);
-            if (count($childs)) {
-                $current->children = $childs;
-                foreach ($childs as $child) {
-                    $queue->enqueue($child);
-                }
-            }
-            $roles[] = $current;
-        }
-
-        return collect($roles)->filter(function ($item) use ($child_id) {
+        self::recursiveChildren([$response], false);
+        return collect(self::$roles)->filter(function ($item) use ($child_id) {
             return $item['child_id'] !== $child_id;
         });
     }

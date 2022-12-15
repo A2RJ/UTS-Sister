@@ -32,4 +32,17 @@ class Subject extends Model
     {
         return self::select('id as value', 'subject as text')->get();
     }
+
+    public static function lecturer()
+    {
+        $roles = User::hasSub();
+        if ($roles && count($roles) === 0) return false;
+        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
+            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
+            ->select('structures.id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
+            ->where('structures.type', 'dosen')
+            ->whereIn('structures.id', collect($roles)->pluck('id')->toArray())
+            ->paginate();
+        return $data;
+    }
 }
