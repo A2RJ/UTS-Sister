@@ -100,7 +100,7 @@ class HumanResource extends Model
 
     public static function searchSDM()
     {
-        $sdm = self::query();
+        $sdm = HumanResource::query();
         $nama_sdm = request('nama');
         if ($nama_sdm) {
             return $sdm->where('sdm_name', "LIKE", "%$nama_sdm%")->paginate();
@@ -111,7 +111,7 @@ class HumanResource extends Model
 
     public static function selectOption()
     {
-        return self::select('id as value', 'sdm_name as text')->where('sdm_type', 'Dosen')->get();
+        return HumanResource::select('id as value', 'sdm_name as text')->where('sdm_type', 'Dosen')->get();
     }
 
     public function subjects()
@@ -122,5 +122,10 @@ class HumanResource extends Model
     public function presence()
     {
         return $this->hasMany(Presence::class, 'sdm_id', 'id');
+    }
+
+    public static function lecturerList()
+    {
+        return HumanResource::whereIn('id', User::getChildrenSdmId()->unique())->get();
     }
 }

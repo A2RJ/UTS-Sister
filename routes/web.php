@@ -7,8 +7,8 @@ use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Presence\PresenceController;
-use App\Http\Controllers\Presence\ClassController;
-use App\Http\Controllers\Presence\MeetingController;
+use App\Http\Controllers\Presence\Teaching\ClassController;
+use App\Http\Controllers\Presence\Teaching\MeetingController;
 use App\Http\Controllers\Presence\Teaching\SubjectController;
 
 use App\Http\Controllers\BKD\SDMController;
@@ -211,10 +211,12 @@ Route::middleware("auth")->group(function () {
         Route::resource("/human_resource", HumanResourceController::class);
     });
     Route::prefix("/")->group(function () {
-        Route::resource("/class", ClassController::class);
+        Route::resource("/class", ClassController::class)->except('show');
         Route::prefix('subject')->controller(SubjectController::class)->group(function () {
             Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
-            Route::get('/{sdm_id?}/by-lecturer', 'byLecturer')->name('subject.byLecturer');
+            Route::get('/by-prodi', 'byProdi')->name('subject.by-prodi');
+            Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
+            Route::get('/{sdm_id?}/by-lecturer', 'byLecturer')->name('subject.by-lecturer');
         });
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
@@ -225,7 +227,9 @@ Route::middleware("auth")->group(function () {
             Route::get('/structural', 'structural')->name('presence.structural');
         });
         Route::resource("/presence", PresenceController::class);
-        Route::prefix('teaching')->group(function () {
+        Route::prefix('prodi')->group(function () {
+        });
+        Route::prefix('fakultas')->group(function () {
         });
     });
 });

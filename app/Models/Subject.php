@@ -22,7 +22,7 @@ class Subject extends Model
 
     public function study_program()
     {
-        return $this->belongsTo(StudyProgram::class);
+        return $this->belongsTo(Structure::class, 'structure_id', 'id');
     }
 
     public function human_resource()
@@ -42,7 +42,7 @@ class Subject extends Model
             'subject',
             'sks',
             'number_of_meetings',
-            'study_program_id',
+            'structure_id',
             'sdm_id',
             DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
@@ -57,7 +57,7 @@ class Subject extends Model
                 'subject',
                 'sks',
                 'number_of_meetings',
-                'study_program_id',
+                'structure_id',
                 'sdm_id'
             )
             ->first();
@@ -70,7 +70,7 @@ class Subject extends Model
             'subject',
             'sks',
             'number_of_meetings',
-            'study_program_id',
+            'structure_id',
             'sdm_id',
             DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
@@ -84,7 +84,7 @@ class Subject extends Model
                 'subject',
                 'sks',
                 'number_of_meetings',
-                'study_program_id',
+                'structure_id',
                 'sdm_id'
             )
             ->get();
@@ -97,7 +97,7 @@ class Subject extends Model
             'subject',
             'sks',
             'number_of_meetings',
-            'study_program_id',
+            'structure_id',
             'sdm_id',
             DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
@@ -114,7 +114,7 @@ class Subject extends Model
                 'subject',
                 'sks',
                 'number_of_meetings',
-                'study_program_id',
+                'structure_id',
                 'sdm_id'
             )
             ->get();
@@ -133,7 +133,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.file) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with('study_program:id,study_program', 'human_resource:id,sdm_name')
+            ->with('study_program:id,role', 'human_resource:id,sdm_name')
             ->groupBy(
                 'subjects.id',
                 'subject',
@@ -160,7 +160,7 @@ class Subject extends Model
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->where('sdm_id', $sdm_id)
-            ->with('study_program:id,study_program', 'human_resource:id,sdm_name')
+            ->with('study_program:id,role', 'human_resource:id,sdm_name')
             ->groupBy(
                 'subjects.id',
                 'subject',

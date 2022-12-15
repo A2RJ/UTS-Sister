@@ -24,7 +24,6 @@ class UpdateClassRequest extends FormRequest
     public function rules()
     {
         return [
-            "study_program_id" => ['required'],
             "class" => ['required'],
         ];
     }

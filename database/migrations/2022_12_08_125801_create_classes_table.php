@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("child_id")->nullable()->constrained("structures")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("structure_id")->nullable()->constrained("structures")->cascadeOnUpdate()->nullOnDelete();
             $table->string('class', 300);
         });
     }

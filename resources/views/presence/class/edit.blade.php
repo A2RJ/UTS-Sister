@@ -8,7 +8,7 @@
 
     <x-form action="{{ route('class.update', $class->id) }}" displayError="true">
         @method('PUT')
-        <x-select name="study_program_id" label="Program studi" :select="$study_program" :current="$class->id" />
+        <x-input name="structure_id" label="Program studi" :value="$study_program[0]->role" :readOnly="true" />
         <x-input name="class" label="Kelas" placeholder="Kelas" :value="$class->class" />
     </x-form>
 </div>

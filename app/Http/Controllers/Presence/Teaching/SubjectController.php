@@ -10,6 +10,7 @@ use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\Structure;
+use App\Models\User;
 use App\Traits\Subject\SubjectTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -26,14 +27,14 @@ class SubjectController extends Controller
     public function create()
     {
         return view('presence.subject.create')
-            ->with('study_programs', Structure::studyOption())
+            ->with('study_program', User::prodi())
             ->with('classes', Classes::selectOption())
             ->with('human_resources', HumanResource::selectOption());
     }
 
     public function store(StoreSubjectRequest $request)
     {
-        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "study_program_id", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
         $subject = Subject::create($form);
         Meeting::bulkCreateMeetings($subject->id, $request->number_of_meetings);
         return redirect(route('subject.index'))->with('message', 'Berhasil tambah mata kuliah');
@@ -55,13 +56,13 @@ class SubjectController extends Controller
     {
         return view('presence.subject.edit')
             ->with('subject', $subject)
-            ->with('study_programs', Structure::studyOption())
+            ->with('study_program', User::prodi())
             ->with('human_resources', HumanResource::selectOption());
     }
 
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "study_program_id", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
         $subject->update($form);
         return redirect(route('subject.index'))->with('message', 'Berhasil edit mata kuliah');
     }
@@ -82,5 +83,16 @@ class SubjectController extends Controller
     {
         return view('presence.subject.index')
             ->with('subjects', Subject::with('study_program', 'human_resource')->where('sdm_id', $sdm_id)->paginate());
+    }
+
+    public function byProdi()
+    {
+        return view('presence.subject.prodi.index')->with('subjects', Subject::allSubject());
+    }
+
+    public function lecturerList()
+    {
+        return view('presence.civitas.index')
+            ->with('human_resources', HumanResource::lecturerList());
     }
 }

@@ -20,7 +20,7 @@ class PresenceController extends Controller
 
     public function index()
     {
-        return view('presence.index');
+        return view('home');
     }
 
     public function myPresence()

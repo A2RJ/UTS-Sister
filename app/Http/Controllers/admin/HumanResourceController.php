@@ -40,7 +40,7 @@ class HumanResourceController extends Controller
             "sdm_type",
             "is_sister_exist",
             "faculty_id",
-            "study_program_id",
+            "structure_id",
             "structure_id",
         ]);
         $form['sdm_id'] = Hash::make($request->sdm_name);
@@ -84,7 +84,7 @@ class HumanResourceController extends Controller
             "sdm_type",
             "is_sister_exist",
             "faculty_id",
-            "study_program_id"
+            "structure_id"
         ]);
         $humanResource->update($form);
         return redirect(route('human_resource.index'))->with('message', "$request->sdm_name updated");
@@ -109,7 +109,7 @@ class HumanResourceController extends Controller
             'subject',
             'sks',
             'number_of_meetings',
-            'study_program_id',
+            'structure_id',
             'sdm_id',
             DB::raw('ROUND((SUM(CASE WHEN meetings.file_start IS NOT NULL AND meetings.file_end IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.file_start) AS meetings_completed'),
@@ -117,7 +117,7 @@ class HumanResourceController extends Controller
             DB::raw('SUM(TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end)) AS meeting_duration')
         )
             ->join('meetings', 'subjects.id', 'meetings.subject_id')
-            ->with(['study_program:id,study_program', 'human_resource:id,sdm_name'])
+            ->with(['study_program:id,role', 'human_resource:id,sdm_name'])
             ->whereIn('subjects.sdm_id', function ($query) use ($ids) {
                 $query->select('id')
                     ->from('human_resources');
@@ -128,7 +128,7 @@ class HumanResourceController extends Controller
                 'subject',
                 'sks',
                 'number_of_meetings',
-                'study_program_id',
+                'structure_id',
                 'sdm_id'
             )
             ->paginate();

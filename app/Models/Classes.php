@@ -11,12 +11,17 @@ class Classes extends Model
 
     public $table = "classes";
 
-    protected $fillable = ["study_program_id", "class"];
+    protected $fillable = ["structure_id", "class"];
 
     public $timestamps = false;
 
     public static function selectOption()
     {
         return self::select('id as value', 'class as text')->get();
+    }
+
+    public function study_program()
+    {
+        return $this->belongsTo(Structure::class, 'structure_id', 'id');
     }
 }

@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(StructuresTableSeeder::class);
         $this->call(HumanResourcesTableSeeder::class);
+        $this->call(StructuralPositionsTableSeeder::class);
     }
 }

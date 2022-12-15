@@ -7,7 +7,7 @@
     <h4 class="mb-4">Form tambah civitas</h4>
 
     <x-form action="{{ route('class.store') }}" displayError="true">
-        <x-select name="study_program_id" label="Program studi" :select="$study_program" />
+        <x-input name="structure_id" label="Program studi" :value="$study_program[0]->role" :readOnly="true" />
         <x-input name="class" label="Kelas" placeholder="Kelas" />
     </x-form>
 </div>

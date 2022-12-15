@@ -99,6 +99,13 @@ class User extends Authenticatable
         return $this->checkRoleType('struktural', 'type');
     }
 
+    public static function prodi()
+    {
+        return collect(Auth::user()->structure)->filter(function ($item) {
+            return $item['type'] === "prodi";
+        });
+    }
+
     public static function hasSub()
     {
         $roles = Auth::user()->structure;

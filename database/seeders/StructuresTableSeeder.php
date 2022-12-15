@@ -22,101 +22,99 @@ class StructuresTableSeeder extends Seeder
         DB::table('structures')->insert(array(
             0 =>
             array(
-                'id' => 1,
-                'role' => 'admin',
-                'parent_id' => 'none',
                 'child_id' => 'admin',
+                'id' => 1,
+                'parent_id' => 'none',
+                'role' => 'admin',
+                'type' => 'struktural',
             ),
             1 =>
             array(
-                'id' => 2,
-                'role' => 'rektor',
-                'parent_id' => 'admin',
                 'child_id' => 'r',
+                'id' => 2,
+                'parent_id' => 'admin',
+                'role' => 'rektor',
+                'type' => 'struktural',
             ),
             2 =>
             array(
-                'id' => 3,
-                'role' => 'wakil rektor 1',
-                'parent_id' => 'r',
                 'child_id' => 'wr1',
+                'id' => 3,
+                'parent_id' => 'r',
+                'role' => 'wakil rektor 1',
+                'type' => 'struktural',
             ),
             3 =>
             array(
-                'id' => 4,
-                'role' => 'wakil rektor 2',
-                'parent_id' => 'r',
                 'child_id' => 'wr2',
+                'id' => 4,
+                'parent_id' => 'r',
+                'role' => 'wakil rektor 2',
+                'type' => 'struktural',
             ),
             4 =>
             array(
-                'id' => 5,
-                'role' => 'wakil rektor 3',
-                'parent_id' => 'r',
                 'child_id' => 'wr3',
+                'id' => 5,
+                'parent_id' => 'r',
+                'role' => 'wakil rektor 3',
+                'type' => 'struktural',
             ),
             5 =>
             array(
-                'id' => 6,
-                'role' => 'wakil rektor 4',
-                'parent_id' => 'r',
                 'child_id' => 'wr4',
+                'id' => 6,
+                'parent_id' => 'r',
+                'role' => 'wakil rektor 4',
+                'type' => 'struktural',
             ),
             6 =>
             array(
-                'id' => 7,
-                'role' => 'pasca sarjana',
-                'parent_id' => 'r',
                 'child_id' => 'pasca',
+                'id' => 7,
+                'parent_id' => 'r',
+                'role' => 'pasca sarjana',
+                'type' => 'struktural',
             ),
             7 =>
             array(
-                'id' => 18,
-                'role' => 'Fakultas Rekaya Sistem',
-                'parent_id' => 'r',
                 'child_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+                'id' => 18,
+                'parent_id' => 'r',
+                'role' => 'Fakultas Rekaya Sistem',
+                'type' => 'fakultas',
             ),
             8 =>
             array(
-                'id' => 19,
-                'role' => 'Fakultas Bioteknologi dan Humaniora',
-                'parent_id' => 'r',
                 'child_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+                'id' => 19,
+                'parent_id' => 'r',
+                'role' => 'Fakultas Bioteknologi dan Humaniora',
+                'type' => 'fakultas',
             ),
             9 =>
             array(
-                'id' => 20,
-                'role' => 'Wakil Dekan Fakultas Rekayasa Sistem',
+                'child_id' => '6395e39294999TeknikSipil',
+                'id' => 21,
                 'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
-                'child_id' => '6395e380de236Informatika',
+                'role' => 'Teknik Sipil',
+                'type' => 'prodi',
             ),
             10 =>
             array(
-                'id' => 21,
-                'role' => 'Teknik Sipil',
-                'parent_id' => '6395e380de236Informatika',
-                'child_id' => '6395e39294999TeknikSipil',
+                'child_id' => '639752168ed01Bioteknologi',
+                'id' => 24,
+                'parent_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+                'role' => 'Bioteknologi',
+                'type' => 'prodi',
             ),
             11 =>
             array(
-                'id' => 22,
-                'role' => 'Wakil Dekan Fakultas Bioteknologi dan Humaniora',
-                'parent_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
-                'child_id' => '6395e3bf4c00fBioteknologi',
-            ),
-            12 =>
-            array(
-                'id' => 23,
-                'role' => 'Tenaga Kependidikan',
-                'parent_id' => '6395e380de236Informatika',
-                'child_id' => '63974d8e2033cTenagaKependidikan',
-            ),
-            13 =>
-            array(
-                'id' => 24,
-                'role' => 'Bioteknologi',
-                'parent_id' => '6395e3bf4c00fBioteknologi',
-                'child_id' => '639752168ed01Bioteknologi',
+                'child_id' => '6399746a760f9Dosen',
+                'id' => 25,
+                'parent_id' => '6395e39294999TeknikSipil',
+                'role' => 'Dosen',
+                'type' => 'dosen',
             ),
         ));
     }

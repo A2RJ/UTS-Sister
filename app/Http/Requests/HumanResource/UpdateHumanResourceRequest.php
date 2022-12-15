@@ -33,7 +33,7 @@ class UpdateHumanResourceRequest extends FormRequest
             "sdm_type" => ['required'],
             "is_sister_exist" => ['boolean'],
             "faculty_id" => ['nullable', 'numeric'],
-            "study_program_id" => ['nullable', 'numeric'],
+            "structure_id" => ['nullable', 'numeric'],
             "structure_id" => ['nullable', 'numeric'],
         ];
     }

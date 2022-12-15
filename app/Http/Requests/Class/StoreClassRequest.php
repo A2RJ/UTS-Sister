@@ -24,7 +24,7 @@ class StoreClassRequest extends FormRequest
     public function rules()
     {
         return [
-            "study_program_id" => ['required'],
+            "structure_id" => ['required'],
             "class" => ['required'],
         ];
     }
