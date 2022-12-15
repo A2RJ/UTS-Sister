@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Traits\Subject;
+
 use App\Models\Subject;
 use Illuminate\Http\Request;
 

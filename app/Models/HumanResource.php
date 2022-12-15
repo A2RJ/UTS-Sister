@@ -111,7 +111,7 @@ class HumanResource extends Model
 
     public static function selectOption()
     {
-        return self::select('id as value', 'sdm_name as text')->get();
+        return self::select('id as value', 'sdm_name as text')->where('sdm_type', 'Dosen')->get();
     }
 
     public function subjects()

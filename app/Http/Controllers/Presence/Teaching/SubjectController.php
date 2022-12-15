@@ -10,8 +10,8 @@ use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\Structure;
+use App\Traits\Subject\SubjectTrait;
 use Illuminate\Support\Facades\DB;
-use SubjectTrait;
 
 class SubjectController extends Controller
 {
