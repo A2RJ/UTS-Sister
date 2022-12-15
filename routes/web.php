@@ -212,7 +212,10 @@ Route::middleware("auth")->group(function () {
     });
     Route::prefix("/")->group(function () {
         Route::resource("/class", ClassController::class);
-        Route::get('/subject/by-lecturer', [SubjectController::class, 'byLecturer'])->name('subject.byLecturer');
+        Route::prefix('subject')->controller(SubjectController::class)->group(function () {
+            Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
+            Route::get('/{sdm_id?}/by-lecturer', 'byLecturer')->name('subject.byLecturer');
+        });
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
         Route::prefix('presence')->controller(PresenceController::class)->group(function () {

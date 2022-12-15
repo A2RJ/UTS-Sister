@@ -66,6 +66,26 @@ class Structure extends Model
         return self::select("id as value", "role as text")->get();
     }
 
+    public static function studyOption()
+    {
+        return collect(self::where('type', 'prodi')->get())->map(function ($item) {
+            return [
+                'value' => $item['id'],
+                'text' => $item['role']
+            ];
+        });
+    }
+
+    public static function fakultasOption()
+    {
+        return collect(self::where('type', 'fakultas')->get())->map(function ($item) {
+            return [
+                'value' => $item['id'],
+                'text' => $item['role']
+            ];
+        });
+    }
+
     public static function role($child_id)
     {
         return self::where("child_id", $child_id)->first();

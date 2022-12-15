@@ -26,8 +26,7 @@
             <td>{{ $subject->meetings_pending }}</td>
             <td>{{ $subject->value_sks }}</td>
             <td>
-                <a href="{{ route('subject.show', $subject->id) }}">Detail Pertemuan</a> <br>
-                <hr>
+                <a href="{{ route('subject.byLecturer', $subject->id) }}">Detail Pertemuan</a> <br>
                 <a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
                 <x-delete action="{{ route('subject.destroy', $subject->id) }}" />
             </td>

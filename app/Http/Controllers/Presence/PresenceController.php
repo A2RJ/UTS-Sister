@@ -47,7 +47,7 @@ class PresenceController extends Controller
 
     public function detail($sdm_id)
     {
-        return view('presence.sub_division.detail')
+        return view('presence.dashboard.detail')
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
             ->with('structural', Presence::detail($sdm_id));
     }
@@ -70,13 +70,13 @@ class PresenceController extends Controller
 
     public function lecturer()
     {
-        return view('presence.sub_division.lecturer')
+        return view('presence.dashboard.lecturer')
             ->with('lecturers', Subject::lecturer());
     }
 
     public function structural()
     {
-        return view('presence.sub_division.structural')
+        return view('presence.dashboard.structural')
             ->with('structural', Presence::structural());
     }
 }

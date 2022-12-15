@@ -4,13 +4,15 @@
 @section('content')
 <div class="card p-2">
     <h3>List Pengajaran</h3>
-    <x-table :header="['Nama', 'role', 'type']">
+    <x-table :header="['Nama', 'Role', 'Action']">
         @foreach ($lecturers as $lecturer)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $lecturer->sdm_name }}</td>
             <td>{{ $lecturer->role }}</td>
-            <td>{{ $lecturer->type }}</td>
+            <td>
+                <a href="{{ route('subject.show', $lecturer->sdm_id) }}">Detail</a>
+            </td>
         </tr>
         @endforeach
     </x-table>
