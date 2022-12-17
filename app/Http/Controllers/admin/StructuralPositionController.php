@@ -14,7 +14,7 @@ class StructuralPositionController extends Controller
     public function create()
     {
         return view('admin.structure.assign.create')
-            ->with('human_resources', HumanResource::selectOption())
+            ->with('human_resources', HumanResource::selectAllOption())
             ->with('structurals', Structure::selectOptionStructure());
     }
 
@@ -29,7 +29,7 @@ class StructuralPositionController extends Controller
     {
         return view('admin.structure.assign.edit')
             ->with('assign', $assign)
-            ->with('human_resources', HumanResource::selectOption())
+            ->with('human_resources', HumanResource::selectAllOption())
             ->with('structurals', collect(Structure::selectOptionStructure())->filter(function ($item) use ($assign) {
                 return $item['value'] === $assign->structure_id;
             }));

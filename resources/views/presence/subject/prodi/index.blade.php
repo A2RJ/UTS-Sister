@@ -18,7 +18,7 @@
             <td>{{ $loop->iteration}}</td>
             <td>{{ $subject->subject }} <br>
                 {{ $subject->human_resource->sdm_name }} <br>
-                ({{ $subject->study_program->study_program }})
+                ({{ $subject->class->class }}-{{$subject->class->structure->role}})
             </td>
             <td>{{ $subject->sks }}</td>
             <td>{{ $subject->number_of_meetings }}</td>
@@ -26,7 +26,7 @@
             <td>{{ $subject->meetings_pending }}</td>
             <td>{{ $subject->value_sks }}</td>
             <td>
-                <a href="{{ route('subject.by-lecturer', $subject->id) }}">Detail Pertemuan</a> <br>
+                <a href="{{ route('subject.show', $subject->id) }}">Detail Pertemuan</a> <br>
                 <a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
                 <x-delete action="{{ route('subject.destroy', $subject->id) }}" />
             </td>

@@ -20,7 +20,7 @@ class Classes extends Model
         return self::select('id as value', 'class as text')->get();
     }
 
-    public function study_program()
+    public function structure()
     {
         return $this->belongsTo(Structure::class, 'structure_id', 'id');
     }

@@ -20,9 +20,10 @@ class Subject extends Model
         return $this->hasMany(Meeting::class);
     }
 
-    public function study_program()
+    public function class()
     {
-        return $this->belongsTo(Structure::class, 'structure_id', 'id');
+        return $this->belongsTo(Classes::class, 'class_id', 'id');
+        // ->where('class', '=', 'Math')
     }
 
     public function human_resource()
@@ -49,7 +50,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with('study_program')
+            // ->with('study_program')
             ->where('subjects.sdm_id', $sdm_id)
             ->where('subjects.id', $subject_id)
             ->groupBy(
@@ -77,7 +78,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with('study_program')
+            // ->with('study_program')
             ->where('subjects.sdm_id', $sdm_id)
             ->groupBy(
                 'subjects.id',
@@ -104,7 +105,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.file_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with('study_program')
+            // ->with('study_program')
             ->where('subjects.sdm_id', $sdm_id)
             ->whereHas('meetings', function ($query) {
                 $query->whereDate('date', Carbon::today());
@@ -125,15 +126,19 @@ class Subject extends Model
         $result = self::select(
             'subjects.id',
             'subject',
+            'class_id',
             'sks',
             'number_of_meetings',
             'sdm_id',
-            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
-            DB::raw('COUNT(meetings.file) AS meetings_completed'),
-            DB::raw('COUNT(*) - COUNT(meetings.file) AS meetings_pending')
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.date IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with('study_program:id,role', 'human_resource:id,sdm_name')
+            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+                $query->select('id', 'class', 'structure_id')
+                    ->with('structure:id,role');
+            }])
             ->groupBy(
                 'subjects.id',
                 'subject',
@@ -160,7 +165,8 @@ class Subject extends Model
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->where('sdm_id', $sdm_id)
-            ->with('study_program:id,role', 'human_resource:id,sdm_name')
+            // ->with('study_program:id,role', 'human_resource:id,sdm_name')
+            ->with('human_resource:id,sdm_name')
             ->groupBy(
                 'subjects.id',
                 'subject',

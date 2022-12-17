@@ -47,11 +47,9 @@ class MeetingController extends Controller
 
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
-        $form = $request->safe()->only(["subject_id", "meeting_name", "date", "meeting_start", "meeting_end", "file_start", "file_end"]);
-        $file_start = Meeting::upload($request, "file_start", auth()->user()->id);
-        $form['file_start'] = $file_start ? $file_start : $meeting->file_start;
-        $file_end = Meeting::upload($request, "file_end", auth()->user()->id);
-        $form['file_end'] = $file_end ? $file_end : $meeting->file_end;
+        $form = $request->safe()->only(["subject_id", "meeting_name", "date", "meeting_start", "file"]);
+        $file = Meeting::upload($request, "file", auth()->user()->id);
+        $form['file'] = $file ? $file : $meeting->file;
         $meeting->update($form);
         return redirect(route('meeting.index'))->with('message', 'Berhasil edit jadwal perkuliahan');
     }
@@ -74,7 +72,7 @@ class MeetingController extends Controller
         $meeting = Meeting::where('id', $meeting_id)->where('subject_id', $subject_id)->first();
         $meeting->update([
             'meeting_start' => date('Y-m-d H:i:s'),
-            'file_start' => Meeting::upload($request, "file_start", $request->user()->id)
+            'file' => Meeting::upload($request, "file", $request->user()->id)
         ]);
         return response([
             'data' => $meeting

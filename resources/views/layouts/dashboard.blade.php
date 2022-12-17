@@ -70,7 +70,7 @@
                         </a>
                     </li>
 
-                    @if (auth()->check())
+                    @if (!auth()->user()->isLecturer() && auth()->user()->isStructural())
                     @include('partials.user.sidebar')
                     @endif
 

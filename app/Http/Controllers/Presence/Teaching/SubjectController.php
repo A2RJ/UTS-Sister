@@ -42,14 +42,9 @@ class SubjectController extends Controller
 
     public function show(Subject $subject)
     {
-        $meetings = Subject::join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->select('subjects.*', 'meetings.*', DB::raw('TIMESTAMPDIFF(MINUTE, meetings.meeting_start, meetings.meeting_end) AS meeting_duration'))
-            ->where('subjects.id', $subject->id)
-            ->get();
-
         return view('presence.subject.show')
             ->with('subject', $subject)
-            ->with('meetings', $meetings);
+            ->with('meetings', $subject->meetings);
     }
 
     public function edit(Subject $subject)
@@ -87,7 +82,8 @@ class SubjectController extends Controller
 
     public function byProdi()
     {
-        return view('presence.subject.prodi.index')->with('subjects', Subject::allSubject());
+        return view('presence.subject.prodi.index')
+            ->with('subjects', Subject::allSubject());
     }
 
     public function lecturerList()

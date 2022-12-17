@@ -16,7 +16,8 @@ class HumanResourceController extends Controller
 {
     public function index()
     {
-        return view('admin.human_resource.index')->with('sdm', HumanResource::searchSDM());
+        return view('admin.human_resource.index')
+            ->with('sdm', HumanResource::searchSDM());
     }
 
     public function create()

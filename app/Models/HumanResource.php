@@ -114,6 +114,11 @@ class HumanResource extends Model
         return HumanResource::select('id as value', 'sdm_name as text')->where('sdm_type', 'Dosen')->get();
     }
 
+    public static function selectAllOption()
+    {
+        return HumanResource::select('id as value', 'sdm_name as text')->get();
+    }
+
     public function subjects()
     {
         return $this->hasMany(Subject::class, 'sdm_id', 'id');

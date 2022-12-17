@@ -54,6 +54,15 @@
     -- Khusus admin dapat semua
     -- (Optional) Khusus rektor -> hanya lihat sdm, structure, kehadiran dan pengajaran
 
+## Sedang dikerjakan
+
+-   mulai dari staff
+-   lalu dosen
+-   lalu prodi
+-   lalu fakultas
+-   lalu warek 1
+-   lalu dddm
+
 ## Flowcart presensi kehadiran
 
 -   civitas UTS Login

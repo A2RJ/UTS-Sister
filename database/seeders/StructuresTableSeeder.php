@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class StructuresTableSeeder extends Seeder
 {
@@ -15,107 +14,117 @@ class StructuresTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('structures')->delete();
-
-        DB::table('structures')->insert(array(
-            0 =>
-            array(
-                'child_id' => 'admin',
+        \DB::table('structures')->delete();
+        
+        \DB::table('structures')->insert(array (
+            0 => 
+            array (
                 'id' => 1,
-                'parent_id' => 'none',
                 'role' => 'admin',
+                'parent_id' => 'none',
+                'child_id' => 'admin',
                 'type' => 'struktural',
             ),
-            1 =>
-            array(
-                'child_id' => 'r',
+            1 => 
+            array (
                 'id' => 2,
-                'parent_id' => 'admin',
                 'role' => 'rektor',
+                'parent_id' => 'admin',
+                'child_id' => 'r',
                 'type' => 'struktural',
             ),
-            2 =>
-            array(
-                'child_id' => 'wr1',
+            2 => 
+            array (
                 'id' => 3,
-                'parent_id' => 'r',
                 'role' => 'wakil rektor 1',
+                'parent_id' => 'r',
+                'child_id' => 'wr1',
                 'type' => 'struktural',
             ),
-            3 =>
-            array(
-                'child_id' => 'wr2',
+            3 => 
+            array (
                 'id' => 4,
-                'parent_id' => 'r',
                 'role' => 'wakil rektor 2',
+                'parent_id' => 'r',
+                'child_id' => 'wr2',
                 'type' => 'struktural',
             ),
-            4 =>
-            array(
-                'child_id' => 'wr3',
+            4 => 
+            array (
                 'id' => 5,
-                'parent_id' => 'r',
                 'role' => 'wakil rektor 3',
+                'parent_id' => 'r',
+                'child_id' => 'wr3',
                 'type' => 'struktural',
             ),
-            5 =>
-            array(
-                'child_id' => 'wr4',
+            5 => 
+            array (
                 'id' => 6,
-                'parent_id' => 'r',
                 'role' => 'wakil rektor 4',
+                'parent_id' => 'r',
+                'child_id' => 'wr4',
                 'type' => 'struktural',
             ),
-            6 =>
-            array(
-                'child_id' => 'pasca',
+            6 => 
+            array (
                 'id' => 7,
-                'parent_id' => 'r',
                 'role' => 'pasca sarjana',
+                'parent_id' => 'r',
+                'child_id' => 'pasca',
                 'type' => 'struktural',
             ),
-            7 =>
-            array(
-                'child_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+            7 => 
+            array (
                 'id' => 18,
-                'parent_id' => 'r',
                 'role' => 'Fakultas Rekaya Sistem',
-                'type' => 'fakultas',
-            ),
-            8 =>
-            array(
-                'child_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
-                'id' => 19,
                 'parent_id' => 'r',
-                'role' => 'Fakultas Bioteknologi dan Humaniora',
+                'child_id' => '6395e2ca9ac8fFakultasRekayaSistem',
                 'type' => 'fakultas',
             ),
-            9 =>
-            array(
-                'child_id' => '6395e39294999TeknikSipil',
+            8 => 
+            array (
+                'id' => 19,
+                'role' => 'Fakultas Bioteknologi dan Humaniora',
+                'parent_id' => 'r',
+                'child_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+                'type' => 'fakultas',
+            ),
+            9 => 
+            array (
                 'id' => 21,
-                'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
                 'role' => 'Teknik Sipil',
+                'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+                'child_id' => '6395e39294999TeknikSipil',
                 'type' => 'prodi',
             ),
-            10 =>
-            array(
-                'child_id' => '639752168ed01Bioteknologi',
+            10 => 
+            array (
                 'id' => 24,
-                'parent_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
                 'role' => 'Bioteknologi',
+                'parent_id' => '6395e3683afd0FakultasBioteknologidanHumaniora',
+                'child_id' => '639752168ed01Bioteknologi',
                 'type' => 'prodi',
             ),
-            11 =>
-            array(
-                'child_id' => '6399746a760f9Dosen',
+            11 => 
+            array (
                 'id' => 25,
-                'parent_id' => '6395e39294999TeknikSipil',
                 'role' => 'Dosen',
+                'parent_id' => '6395e39294999TeknikSipil',
+                'child_id' => '6399746a760f9Dosen',
                 'type' => 'dosen',
             ),
+            12 => 
+            array (
+                'id' => 26,
+                'role' => 'Staff Warek 4',
+                'parent_id' => 'wr4',
+                'child_id' => '639da682afc0bStaffWarek4',
+                'type' => 'struktural',
+            ),
         ));
+        
+        
     }
 }

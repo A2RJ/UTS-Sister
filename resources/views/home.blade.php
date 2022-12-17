@@ -18,10 +18,10 @@
 
                     {{ __('You are logged in') }}: {{ Auth::user()->sdm_name }}
 
-                    {{ Auth::user() }}
-
                     <div>
-                        <p>Ini Dashboard</p>
+                        @if (auth()->user()->isMissingRole())
+                        <p>Hubungi admin karena role anda tidak di assign</p>
+                        @endif
 
                         @if (auth()->user()->isRektor())
                         <p>Role anda adalah Rektor</p>

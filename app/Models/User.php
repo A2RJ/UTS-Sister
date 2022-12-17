@@ -106,10 +106,15 @@ class User extends Authenticatable
         });
     }
 
+    public static function isMissingRole()
+    {
+        return collect(Auth::user()->structure)->count() === 0 ? true : false;
+    }
+
     public static function hasSub()
     {
         $roles = Auth::user()->structure;
-        if (!count($roles) > 0) return false;
+        if (!$roles || !count($roles) > 0) return [];
         $result = collect([]);
         collect($roles)->map(function ($structure) use ($result) {
             $child = collect(Structure::childrens($structure->child_id))->unique();
