@@ -17,7 +17,12 @@ class Classes extends Model
 
     public static function selectOption()
     {
-        return self::select('id as value', 'class as text')->get();
+        return Classes::select('id as value', 'class as text')->get();
+    }
+
+    public static function prodiSelectOption($id)
+    {
+        return Classes::where('structure_id', $id)->select('id as value', 'class as text')->get();
     }
 
     public function structure()

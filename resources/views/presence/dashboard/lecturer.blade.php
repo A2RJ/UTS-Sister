@@ -3,15 +3,19 @@
 
 @section('content')
 <div class="card p-2">
-    <h3>List Pengajaran</h3>
-    <x-table :header="['Nama', 'Role', 'Action']">
+    <h3>List Pengajaran
+        @if (auth()->user()->isDirAkademik())
+        Seluruh Civitas
+        @endif
+    </h3>
+    <x-table :header="['Nama', 'Total SKS', 'Action']">
         @foreach ($lecturers as $lecturer)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $lecturer->sdm_name }}</td>
-            <td>{{ $lecturer->role }}</td>
+            <td>{{ $lecturer->total_sks }} SKS</td>
             <td>
-                <a href="{{ route('subject.show', $lecturer->sdm_id) }}">Detail</a>
+                <a href="{{ route('subject.by-lecturer', $lecturer->id) }}">Detail</a>
             </td>
         </tr>
         @endforeach

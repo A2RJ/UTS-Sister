@@ -75,7 +75,6 @@
                     @endif
 
                     @if (auth()->user()->isRektor())
-                    <p>Rektor</p>
                     @endif
 
                     @if (auth()->user()->isAdmin())
@@ -92,6 +91,10 @@
 
                     @if (auth()->user()->isStudyProgram())
                     @include('partials.study-program.sidebar')
+                    @endif
+
+                    @if (auth()->user()->isDirAkademik())
+                    @include('partials.akademik.sidebar')
                     @endif
 
                     @if (auth()->user()->hasSub())

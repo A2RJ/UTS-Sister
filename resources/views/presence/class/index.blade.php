@@ -17,7 +17,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $class->class }}</td>
-            <td>{{ $class->study_program->role }}</td>
+            <td>{{ $class->structure->role }}</td>
             <td>
                 <a href="{{ route('class.edit', $class->id) }}">Edit</a>
                 <x-delete action="{{ route('class.destroy', $class->id) }}" confirm="Yakin hapus {{ $class->class }}" />

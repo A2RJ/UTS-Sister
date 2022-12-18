@@ -26,10 +26,11 @@ class SubjectController extends Controller
 
     public function create()
     {
+        $prodi = User::prodi();
         return view('presence.subject.create')
-            ->with('study_program', User::prodi())
-            ->with('classes', Classes::selectOption())
-            ->with('human_resources', HumanResource::selectOption());
+            ->with('study_program', $prodi)
+            ->with('classes', Classes::prodiSelectOption($prodi[0]->id))
+            ->with('human_resources', HumanResource::selectAllOption());
     }
 
     public function store(StoreSubjectRequest $request)
@@ -71,19 +72,19 @@ class SubjectController extends Controller
     public function mySubject()
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::with('study_program', 'human_resource')->where('sdm_id', auth()->id())->paginate());
+            ->with('subjects', Subject::subjectBySdm(auth()->id()));
     }
 
     public function byLecturer($sdm_id)
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::with('study_program', 'human_resource')->where('sdm_id', $sdm_id)->paginate());
+            ->with('subjects', Subject::subjectBySdm($sdm_id));
     }
 
-    public function byProdi()
+    public function subDivision()
     {
-        return view('presence.subject.prodi.index')
-            ->with('subjects', Subject::allSubject());
+        return view('presence.subject.index')
+            ->with('subjects', Subject::bySubDivision());
     }
 
     public function lecturerList()

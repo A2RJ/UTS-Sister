@@ -130,7 +130,7 @@ class Subject extends Model
             'sks',
             'number_of_meetings',
             'sdm_id',
-            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.date IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
             DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
             DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
@@ -179,15 +179,85 @@ class Subject extends Model
         return $result;
     }
 
+    public static function bySubDivision()
+    {
+        $result = self::select(
+            'subjects.id',
+            'subject',
+            'class_id',
+            'sks',
+            'number_of_meetings',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.file) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.file) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->whereIn('sdm_id', User::getChildrenSdmId()->unique())
+            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+                $query->select('id', 'class', 'structure_id')
+                    ->with('structure:id,role');
+            }])
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'sdm_id'
+            )
+            ->paginate();
+
+        return $result;
+    }
+
+    public static function subjectBySdm($sdmId)
+    {
+        $result = self::select(
+            'subjects.id',
+            'subject',
+            'class_id',
+            'sks',
+            'number_of_meetings',
+            'sdm_id',
+            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+            DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
+            DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
+        )
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+                $query->select('id', 'class', 'structure_id')
+                    ->with('structure:id,role');
+            }])
+            ->where('sdm_id', $sdmId)
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'sks',
+                'number_of_meetings',
+                'sdm_id'
+            )
+            ->paginate();
+
+        return $result;
+    }
+
+    public static function subLecturer()
+    {
+        $data = HumanResource::join('subjects', 'human_resources.id', 'subjects.sdm_id')
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->whereIn('human_resources.id', User::getChildrenSdmId()->unique())
+            ->select('human_resources.id', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
+            ->groupBy('human_resources.id', 'human_resources.sdm_name')
+            ->paginate();
+        return $data;
+    }
+
     public static function lecturer()
     {
-        $roles = User::hasSub();
-        if ($roles && count($roles) === 0) return false;
-        $data = Structure::join('structural_positions', 'structures.id', 'structural_positions.structure_id')
-            ->join('human_resources', 'structural_positions.sdm_id', 'human_resources.id')
-            ->select('structures.id', 'human_resources.id as sdm_id', 'structures.role', 'structures.type', 'human_resources.sdm_name')
-            ->where('structures.type', 'dosen')
-            ->whereIn('structures.id', collect($roles)->pluck('id')->toArray())
+        $data = HumanResource::join('subjects', 'human_resources.id', 'subjects.sdm_id')
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->select('human_resources.id', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
+            ->groupBy('human_resources.id', 'human_resources.sdm_name')
             ->paginate();
         return $data;
     }

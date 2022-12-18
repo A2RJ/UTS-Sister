@@ -68,15 +68,21 @@ class PresenceController extends Controller
         //
     }
 
-    public function lecturer()
+    public function subLecturer()
     {
         return view('presence.dashboard.lecturer')
-            ->with('lecturers', Subject::lecturer());
+            ->with('lecturers', Subject::subLecturer());
     }
 
     public function structural()
     {
         return view('presence.dashboard.structural')
             ->with('structural', Presence::structural());
+    }
+
+    public function lecturer()
+    {
+        return view('presence.dashboard.lecturer')
+            ->with('lecturers', Subject::lecturer());
     }
 }

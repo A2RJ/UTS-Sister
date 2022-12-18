@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
+use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
@@ -214,7 +215,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("/class", ClassController::class)->except('show');
         Route::prefix('subject')->controller(SubjectController::class)->group(function () {
             Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
-            Route::get('/by-prodi', 'byProdi')->name('subject.by-prodi');
+            Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
             Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
             Route::get('/{sdm_id?}/by-lecturer', 'byLecturer')->name('subject.by-lecturer');
         });
@@ -223,11 +224,13 @@ Route::middleware("auth")->group(function () {
         Route::prefix('presence')->controller(PresenceController::class)->group(function () {
             Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
             Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
-            Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
+            Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');
             Route::get('/structural', 'structural')->name('presence.structural');
+            Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
         });
         Route::resource("/presence", PresenceController::class);
         Route::prefix('prodi')->group(function () {
+            Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
         });
         Route::prefix('fakultas')->group(function () {
         });

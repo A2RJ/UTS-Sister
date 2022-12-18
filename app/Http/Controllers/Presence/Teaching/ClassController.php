@@ -15,7 +15,7 @@ class ClassController extends Controller
     public function index()
     {
         return view('presence.class.index')
-            ->with('classes', Classes::with('study_program')->paginate());
+            ->with('classes', Classes::with('structure')->paginate());
     }
 
     public function create()

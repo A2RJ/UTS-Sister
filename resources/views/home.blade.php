@@ -19,6 +19,10 @@
                     {{ __('You are logged in') }}: {{ Auth::user()->sdm_name }}
 
                     <div>
+                        @if (auth()->user()->isDirAkademik())
+                        <p>Role and adalah Dir Akademik</p>
+                        @endif
+
                         @if (auth()->user()->isMissingRole())
                         <p>Hubungi admin karena role anda tidak di assign</p>
                         @endif

@@ -99,11 +99,23 @@ class User extends Authenticatable
         return $this->checkRoleType('struktural', 'type');
     }
 
+    public function isDirAkademik()
+    {
+        return $this->checkRoleType('639eb2d054fd7DirektoratAkademik', 'child_id');
+    }
+
     public static function prodi()
     {
         return collect(Auth::user()->structure)->filter(function ($item) {
             return $item['type'] === "prodi";
         });
+    }
+
+    public static function prodiList()
+    {
+        return collect(User::hasSub())->filter(function ($item) {
+            return $item['type'] === "prodi";
+        })->values();
     }
 
     public static function isMissingRole()
