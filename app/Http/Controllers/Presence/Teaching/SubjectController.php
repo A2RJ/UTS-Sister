@@ -38,7 +38,7 @@ class SubjectController extends Controller
         $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
         $subject = Subject::create($form);
         Meeting::bulkCreateMeetings($subject->id, $request->number_of_meetings);
-        return redirect(route('subject.index'))->with('message', 'Berhasil tambah mata kuliah');
+        return redirect()->route('subject.index')->with('message', 'Berhasil tambah mata kuliah');
     }
 
     public function show(Subject $subject)
@@ -60,13 +60,13 @@ class SubjectController extends Controller
     {
         $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
         $subject->update($form);
-        return redirect(route('subject.index'))->with('message', 'Berhasil edit mata kuliah');
+        return redirect()->route('subject.index')->with('message', 'Berhasil edit mata kuliah');
     }
 
     public function destroy(Subject $subject)
     {
         $subject->delete();
-        return redirect(route('subject.index'))->with('message', 'Berhasil delete mata kuliah');
+        return redirect()->route('subject.index')->with('message', 'Berhasil delete mata kuliah');
     }
 
     public function mySubject()

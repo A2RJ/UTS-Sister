@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">List mata kuliah</h4>
+    <h4 class="mb-4">List Absensi Kehadiran</h4>
     @if (auth()->user()->isAdmin())
     <div class="mb-3">
         <a href="{{ route('presence.create') }}">

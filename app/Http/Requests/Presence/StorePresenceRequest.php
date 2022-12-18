@@ -24,8 +24,10 @@ class StorePresenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'sdm_id' => ['required'],
-            'check_in_time' => ['required']
+            'sdm_id' => 'required',
+            'check_in_time' => 'required',
+            'latitude_in' => 'required|numeric|between:-90,90',
+            'longitude_in' => 'required|numeric|between:-180,180',
         ];
     }
 }

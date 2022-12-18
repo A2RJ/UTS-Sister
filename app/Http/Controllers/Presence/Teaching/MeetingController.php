@@ -30,7 +30,7 @@ class MeetingController extends Controller
     {
         $form = $request->safe()->only(["subject_id", "meeting_name", "date"]);
         Meeting::create($form);
-        return redirect(route('meeting.index'))->with('message', 'Berhasil tambah jadwal perkuliahan');
+        return redirect()->route('meeting.index')->with('message', 'Berhasil tambah jadwal perkuliahan');
     }
 
     public function show(Meeting $meeting)
@@ -51,13 +51,13 @@ class MeetingController extends Controller
         $file = Meeting::upload($request, "file", auth()->user()->id);
         $form['file'] = $file ? $file : $meeting->file;
         $meeting->update($form);
-        return redirect(route('meeting.index'))->with('message', 'Berhasil edit jadwal perkuliahan');
+        return redirect()->route('meeting.index')->with('message', 'Berhasil edit jadwal perkuliahan');
     }
 
     public function destroy(Meeting $meeting)
     {
         $meeting->delete();
-        return redirect(route('meeting.index'))->with('message', 'Berhasil delete jadwal perkuliahan');
+        return redirect()->route('meeting.index')->with('message', 'Berhasil delete jadwal perkuliahan');
     }
 
     public function meeting($subject_id)

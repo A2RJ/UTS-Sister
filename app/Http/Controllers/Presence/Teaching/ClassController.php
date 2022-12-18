@@ -29,7 +29,7 @@ class ClassController extends Controller
         $form = $request->safe()->only(['class']);
         $form['structure_id'] = User::prodi()[0]->id;
         Classes::create($form);
-        return redirect(route('class.index'))->with('message', 'Berhasil tambah kelas');
+        return redirect()->route('class.index')->with('message', 'Berhasil tambah kelas');
     }
 
     public function edit(Classes $class)
@@ -43,12 +43,12 @@ class ClassController extends Controller
     {
         $form = $request->safe()->only(['class']);
         $class->update($form);
-        return redirect(route('class.index'))->with('message', 'Berhasil ubah kelas');
+        return redirect()->route('class.index')->with('message', 'Berhasil ubah kelas');
     }
 
     public function destroy(Classes $class)
     {
         $class->delete();
-        return redirect(route('class.index'))->with('message', 'Berhasil hapus kelas');
+        return redirect()->route('class.index')->with('message', 'Berhasil hapus kelas');
     }
 }

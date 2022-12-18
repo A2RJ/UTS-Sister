@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("subject_id")->nullable()->constrained("subjects")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("subject_id")->constrained("subjects")->cascadeOnUpdate()->nullOnDelete();
             $table->string("meeting_name");
             $table->string("date")->nullable();
             $table->string('meeting_start')->nullable();

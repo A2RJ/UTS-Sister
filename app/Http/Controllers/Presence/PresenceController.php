@@ -32,12 +32,11 @@ class PresenceController extends Controller
             ->with('human_resources', HumanResource::selectAllOption());
     }
 
-
     public function store(StorePresenceRequest $request)
     {
-        $form = $request->safe()->only(['sdm_id', 'check_in_time']);
+        $form = $request->safe()->only(['sdm_id', 'check_in_time', 'latitude_in', 'longitude_in']);
         Presence::create($form);
-        return redirect(route('presence.index'))->with('message', "Berhasil menambah presensi kehadiran");
+        return redirect()->route('presence.index')->with('message', "Berhasil menambah presensi kehadiran");
     }
 
     public function detail($sdm_id)
@@ -54,30 +53,23 @@ class PresenceController extends Controller
             ->with('human_resources', HumanResource::selectAllOption());
     }
 
-
     public function update(UpdatePresenceRequest $request, Presence $presence)
     {
-        $form = $request->safe()->only(['check_out_time']);
+        $form = $request->safe()->only(['check_out_time', 'latitude_in', 'longitude_in']);
         $presence->update($form);
-        return redirect(route('presence.index'))->with('message', "Berhasil edit presensi kehadiran");
+        return redirect()->route('presence.index')->with('message', "Berhasil edit presensi kehadiran");
     }
 
     public function destroy(Presence $presence)
     {
         $presence->delete();
-        return redirect(route('presence.index'))->with('message', "Berhasil hapus presensi kehadiran");
+        return redirect()->route('presence.index')->with('message', "Berhasil hapus presensi kehadiran");
     }
 
     public function subLecturer()
     {
         return view('presence.dashboard.lecturer')
             ->with('lecturers', Subject::subLecturer());
-    }
-
-    public function structural()
-    {
-        return view('presence.dashboard.structural')
-            ->with('structural', Presence::structural());
     }
 
     public function lecturer()

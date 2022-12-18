@@ -98,6 +98,10 @@
 }
 ```
 
+## Databases
+
+-   php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
+
 ## Update
 
 -   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan mirip gform

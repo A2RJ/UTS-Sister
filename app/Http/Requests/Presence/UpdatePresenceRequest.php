@@ -24,7 +24,9 @@ class UpdatePresenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'check_out_time' => ['required']
+            'check_out_time' => 'required',
+            'latitude_out' => 'required|numeric|between:-90,90',
+            'longitude_out' => 'required|numeric|between:-180,180',
         ];
     }
 }

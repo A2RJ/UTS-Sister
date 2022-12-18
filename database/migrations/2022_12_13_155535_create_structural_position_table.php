@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('structural_positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("sdm_id")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId("structure_id")->nullable()->constrained("structures")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("sdm_id")->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("structure_id")->constrained("structures")->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

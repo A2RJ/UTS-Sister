@@ -28,6 +28,7 @@ class Presence extends Model
     {
         return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId()->unique())
+            ->where('human_resources.id', '!=', Auth::id())
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',

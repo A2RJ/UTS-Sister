@@ -225,7 +225,7 @@ Route::middleware("auth")->group(function () {
             Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
             Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
             Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');
-            Route::get('/structural', 'structural')->name('presence.structural');
+            Route::get('/structural', 'index')->name('presence.structural');
             Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
         });
         Route::resource("/presence", PresenceController::class)->except('show');
