@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Meeting;
+namespace App\Http\Requests\Presence;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
-class StartMeeting extends FormRequest
+class StorePresenceRequestAPI extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,8 @@ class StartMeeting extends FormRequest
     public function rules()
     {
         return [
-            "file" => [
-                'required',
-                File::types(['jpg', 'jpeg', 'png'])
-                    ->max(24 * 1024),
-            ],
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
         ];
     }
 }

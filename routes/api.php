@@ -1,16 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\UtilityController;
-use App\Http\Controllers\Admin\Sanctum\SanctumAuthController;
-use App\Http\Controllers\Presence\PresenceController;
-use App\Http\Controllers\Presence\MeetingController;
-use App\Http\Controllers\Presence\Teaching\SubjectController;
-use App\Models\Structure;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\API\MeetingAPIController;
+use App\Http\Controllers\API\PresenceAPIController;
+use App\Http\Controllers\API\SanctumAuthController;
+use App\Http\Controllers\API\SubjectAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +19,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [HomeController::class, 'api']);
-Route::get("/test", function () {
-    return Structure::childrens("r");
-});
-Route::controller(UtilityController::class)->group(function () {
-    Route::get('/routes',  'routes');
-});
 
 Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
     Route::get('/user', 'user')->middleware('auth:sanctum');
@@ -38,39 +27,20 @@ Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {
-        Route::controller(SubjectController::class)->group(function () {
-            Route::get('/', 'byLecturerApi');
+        Route::controller(SubjectAPIController::class)->group(function () {
+            Route::get('/', 'bySdm');
             Route::get('/today', 'today');
-            Route::get('/{subject_id}', 'subjectAggregateId');
+            Route::get('/{subject_id}', 'show');
         });
-        Route::controller(MeetingController::class)->group(function () {
+        Route::controller(MeetingAPIController::class)->group(function () {
             Route::get('/{subject_id}/meeting', 'meeting');
-            Route::post('/{subject_id}/start-meeting/{meeting_id}', 'startMeeting');
-            Route::post('/{subject_id}/end-meeting/{meeting_id}', 'endMeeting');
+            Route::post('/{subject_id}/meeting/{meeting_id}/start', 'startMeeting');
         });
     });
-    Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-        // get list kehadiran, bisa filter perminggu/perbulan lengkap dengan total jam perhari 
-        // check-in-time simpan jam masuk 
-        // check-out-time simpan jam pulang
-        //  
+    Route::prefix('presence')->controller(PresenceAPIController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{presence}', 'show');
+        Route::put('/{presence}', 'update');
     });
 });
-// Route::prefix('structure')->group(function () {
-//     Route::controller(StructureController::class)->group(function () {
-//         Route::get('/{child_id}/role', 'role');
-//         Route::get('/{child_id}/parent', 'parent');
-//         Route::get('/{child_id}/all-parent', 'parents');
-//         Route::get('/{child_id}/parent-flow', 'parentWFlow');
-//         Route::get('/{child_id}/child', 'children');
-//         Route::get('/{child_id}/all-child', 'childrens');
-//         Route::get('/{child_id}/child-flow', 'childrenWFlow');
-//         Route::get('/{child_id}/parent-with_children', 'parentNChildren');
-//     });
-// });
-// Route::prefix('subdivisi')->group(function () {
-//     Route::controller(HumanResourceController::class)->group(function () {
-//         Route::get('/{child_id}', 'subdivisi');
-//     });
-//     Route::get('/with/aggregate', [PresenceController::class, 'lecturerTime']);
-// });

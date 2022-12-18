@@ -25,7 +25,7 @@ class EndMeeting extends FormRequest
     public function rules()
     {
         return [
-            "file_end" => [
+            "file" => [
                 'required',
                 File::types(['jpg', 'jpeg', 'png'])
                     ->max(24 * 1024),

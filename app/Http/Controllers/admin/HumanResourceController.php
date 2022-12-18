@@ -49,7 +49,7 @@ class HumanResourceController extends Controller
         $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
         $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
-        return redirect(route('human_resource.index'))->with('message', "$request->sdm_name created");
+        return redirect()->route('human_resource.index')->with('message', "$request->sdm_name created");
     }
 
     public function show(HumanResource $humanResource)
@@ -88,7 +88,7 @@ class HumanResourceController extends Controller
             "structure_id"
         ]);
         $humanResource->update($form);
-        return redirect(route('human_resource.index'))->with('message', "$request->sdm_name updated");
+        return redirect()->route('human_resource.index')->with('message', "$request->sdm_name updated");
     }
 
     public function destroy(HumanResource $humanResource)

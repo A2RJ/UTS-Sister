@@ -59,35 +59,4 @@ class MeetingController extends Controller
         $meeting->delete();
         return redirect()->route('meeting.index')->with('message', 'Berhasil delete jadwal perkuliahan');
     }
-
-    public function meeting($subject_id)
-    {
-        return response([
-            'data' => Meeting::where('subject_id', $subject_id)->get()
-        ]);
-    }
-
-    public function startMeeting(StartMeeting $request, $subject_id, $meeting_id)
-    {
-        $meeting = Meeting::where('id', $meeting_id)->where('subject_id', $subject_id)->first();
-        $meeting->update([
-            'meeting_start' => date('Y-m-d H:i:s'),
-            'file' => Meeting::upload($request, "file", $request->user()->id)
-        ]);
-        return response([
-            'data' => $meeting
-        ]);
-    }
-
-    public function endMeeting(EndMeeting $request, $subject_id, $meeting_id)
-    {
-        $meeting = Meeting::where('id', $meeting_id)->where('subject_id', $subject_id)->first();
-        $meeting->update([
-            'meeting_end' => date('Y-m-d H:i:s'),
-            'file_end' => Meeting::upload($request, "file_end", $request->user()->id)
-        ]);
-        return response([
-            'data' => $meeting
-        ]);
-    }
 }

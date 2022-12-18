@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->foreignId("sdm_id")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
-            $table->decimal('latitude_in', 10, 8)->default(0);
-            $table->decimal('longitude_in', 11, 8)->default(0);
+            $table->string('latitude_in', 10, 8)->default(0);
+            $table->string('longitude_in', 11, 8)->default(0);
             $table->string('check_in_time');
             $table->string('check_out_time')->nullable();
-            $table->decimal('latitude_out', 10, 8)->nullable();
-            $table->decimal('longitude_out', 11, 8)->nullable();
+            $table->string('latitude_out', 10, 8)->nullable();
+            $table->string('longitude_out', 11, 8)->nullable();
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent()->useCurrentOnUpdate();
         });

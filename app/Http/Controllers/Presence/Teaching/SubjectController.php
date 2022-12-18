@@ -72,19 +72,19 @@ class SubjectController extends Controller
     public function mySubject()
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::subjectBySdm(auth()->id()));
+            ->with('subjects', Subject::bySdmId([auth()->id()]));
     }
 
     public function byLecturer($sdm_id)
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::subjectBySdm($sdm_id));
+            ->with('subjects', Subject::bySdmId([$sdm_id]));
     }
 
     public function subDivision()
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::bySubDivision());
+            ->with('subjects', Subject::bySdmId(User::getChildrenSdmId()->unique()));
     }
 
     public function lecturerList()

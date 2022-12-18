@@ -30,7 +30,7 @@ class StructureController extends Controller
         $form = $request->safe()->only(['role', 'parent_id', 'type']);
         $form['child_id'] = uniqid() . preg_replace("/\s+/", "", $request->role);
         Structure::create($form);
-        return redirect(route('structure.index'))->with('message', 'Berhasil tambah jabatan struktural');
+        return redirect()->route('structure.index')->with('message', 'Berhasil tambah jabatan struktural');
     }
 
     public function show(Structure $structure)
@@ -52,12 +52,12 @@ class StructureController extends Controller
     {
         $form = $request->safe()->only(['role', 'parent_id', 'type']);
         $structure->update($form);
-        return redirect(route('structure.index'))->with('message', 'Berhasil update jabatan struktural');
+        return redirect()->route('structure.index')->with('message', 'Berhasil update jabatan struktural');
     }
 
     public function destroy(Structure $structure)
     {
         $structure->delete();
-        return redirect(route('structure.index'))->with('message', 'Berhasil delete jabatan struktural');
+        return redirect()->route('structure.index')->with('message', 'Berhasil delete jabatan struktural');
     }
 }

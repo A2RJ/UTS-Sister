@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Sanctum;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestToken;
@@ -11,7 +11,6 @@ use App\Models\User;
 
 class SanctumAuthController extends Controller
 {
-    // create table ability
     public function user(Request $request)
     {
         return response([

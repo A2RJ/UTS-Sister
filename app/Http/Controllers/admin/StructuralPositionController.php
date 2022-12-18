@@ -22,7 +22,7 @@ class StructuralPositionController extends Controller
     {
         $form = $request->safe()->only(['sdm_id', 'structure_id']);
         StructuralPosition::create($form);
-        return redirect(route('structure.index'))->with('message', 'Berhasil assign jabatan struktural');
+        return redirect()->route('structure.index')->with('message', 'Berhasil assign jabatan struktural');
     }
 
     public function edit(StructuralPosition $assign)
@@ -39,11 +39,12 @@ class StructuralPositionController extends Controller
     {
         $form = $request->safe()->only(['sdm_id', 'structure_id']);
         $assign->update($form);
-        return redirect(route('structure.index'))->with('message', 'Berhasil edit assign jabatan struktural');
+        return redirect()->route('structure.index')->with('message', 'Berhasil edit assign jabatan struktural');
     }
 
     public function destroy(StructuralPosition $structuralPosition)
     {
-        //
+        $structuralPosition->delete();
+        return redirect()->route('structure.index')->with('message', 'Berhasil delete assign jabatan struktural');
     }
 }
