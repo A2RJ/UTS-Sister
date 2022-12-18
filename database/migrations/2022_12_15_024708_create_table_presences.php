@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->foreignId("sdm_id")->nullable()->constrained("human_resources")->cascadeOnUpdate()->nullOnDelete();
-            $table->string('check_in_time');
-            $table->string('check_out_time');
+            $table->string('check_in_time')->nullable();
+            $table->string('check_out_time')->nullable();
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->useCurrent()->useCurrentOnUpdate();
         });
     }
 

@@ -228,7 +228,7 @@ Route::middleware("auth")->group(function () {
             Route::get('/structural', 'structural')->name('presence.structural');
             Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
         });
-        Route::resource("/presence", PresenceController::class);
+        Route::resource("/presence", PresenceController::class)->except('show');
         Route::prefix('prodi')->group(function () {
             Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
         });

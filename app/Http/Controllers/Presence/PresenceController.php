@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Presence;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Presence\StorePresenceRequest;
+use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
-use App\Models\Structure;
 use App\Models\Subject;
-use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class PresenceController extends Controller
 {
@@ -20,7 +16,8 @@ class PresenceController extends Controller
 
     public function index()
     {
-        return view('home');
+        return view('presence.index')
+            ->with('presences', Presence::presences());
     }
 
     public function myPresence()
@@ -31,18 +28,16 @@ class PresenceController extends Controller
 
     public function create()
     {
-        //
+        return view('presence.dashboard.create')
+            ->with('human_resources', HumanResource::selectAllOption());
     }
 
 
-    public function store(Request $request)
+    public function store(StorePresenceRequest $request)
     {
-        //
-    }
-
-    public function show(Presence $presence)
-    {
-        //
+        $form = $request->safe()->only(['sdm_id', 'check_in_time']);
+        Presence::create($form);
+        return redirect(route('presence.index'))->with('message', "Berhasil menambah presensi kehadiran");
     }
 
     public function detail($sdm_id)
@@ -54,18 +49,23 @@ class PresenceController extends Controller
 
     public function edit(Presence $presence)
     {
-        //
+        return view('presence.dashboard.edit')
+            ->with('presence', $presence)
+            ->with('human_resources', HumanResource::selectAllOption());
     }
 
 
-    public function update(Request $request, Presence $presence)
+    public function update(UpdatePresenceRequest $request, Presence $presence)
     {
-        //
+        $form = $request->safe()->only(['check_out_time']);
+        $presence->update($form);
+        return redirect(route('presence.index'))->with('message', "Berhasil edit presensi kehadiran");
     }
 
     public function destroy(Presence $presence)
     {
-        //
+        $presence->delete();
+        return redirect(route('presence.index'))->with('message', "Berhasil hapus presensi kehadiran");
     }
 
     public function subLecturer()

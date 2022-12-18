@@ -44,24 +44,32 @@
 
 ## Progress
 
--   Sudah bisa dinamis set struktur
--   Sudah bisa login sebagai admin, rektor, fakultas, prodi,
--   Belum tampilkan children by parent
--   Belum get dosen by parent (menu fakultas dan prodi)
--   Notes:
+-   Pengajaran
+    -- Sudah bisa dinamis set struktur
+    -- Sudah bisa login sebagai admin, rektor, fakultas, prodi,
+    -- Sudah tampilkan children by parent
+    -- Sudah get dosen by parent (menu fakultas dan prodi)
+    -- sudah dari staff
+    -- sudah dosen
+    -- sudah prodi
+    -- sudah fakultas
+    -- sudah warek 1
+    -- sudah dir akademik
+    -- Notes:
     -- Khusus dir akademik -> lihat semua pengajaran dosen, assign fakultas (dekan) dan prodi (ka.prodi)  
-    -- Khusus dsdm -> lihat semua kehadiran dosen dan human resources tp tidak bisa assign
+     -- Khusus dsdm -> lihat semua kehadiran dosen dan human resources tp tidak bisa assign
     -- Khusus admin dapat semua
     -- (Optional) Khusus rektor -> hanya lihat sdm, structure, kehadiran dan pengajaran
 
 ## Sedang dikerjakan
 
--   mulai dari staff
--   lalu dosen
--   lalu prodi
--   lalu fakultas
--   lalu warek 1
--   lalu dddm
+-   Kehadiran
+    -- Mulai create, edit if admin
+    -- get my presense
+    --- with jam masuk, jam pulang dan estimasi waktu dikampus by presense
+    --- with total jam
+    -- get child presense
+    -- get all presense by dsdm
 
 ## Flowcart presensi kehadiran
 

@@ -123,6 +123,30 @@ class StructuresTableSeeder extends Seeder
                 'child_id' => '639da682afc0bStaffWarek4',
                 'type' => 'struktural',
             ),
+            13 => 
+            array (
+                'id' => 27,
+                'role' => 'Informatika',
+                'parent_id' => '6395e2ca9ac8fFakultasRekayaSistem',
+                'child_id' => '639eaf4cbac42Informatika',
+                'type' => 'prodi',
+            ),
+            14 => 
+            array (
+                'id' => 28,
+                'role' => 'Direktorat Sumber Daya Manusia',
+                'parent_id' => 'wr1',
+                'child_id' => '639eb26622219DirektoratSumberDayaManusia',
+                'type' => 'struktural',
+            ),
+            15 => 
+            array (
+                'id' => 29,
+                'role' => 'Direktorat Akademik',
+                'parent_id' => 'wr1',
+                'child_id' => '639eb2d054fd7DirektoratAkademik',
+                'type' => 'struktural',
+            ),
         ));
         
         

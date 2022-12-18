@@ -67,6 +67,12 @@ class StructuralPositionsTableSeeder extends Seeder
                 'sdm_id' => 4,
                 'structure_id' => 26,
             ),
+            8 => 
+            array (
+                'id' => 11,
+                'sdm_id' => 1,
+                'structure_id' => 29,
+            ),
         ));
         
         

@@ -12,7 +12,7 @@ class Presence extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sdm_id', 'check_in_time', 'check_out_time'];
+    protected $fillable = ['sdm_id', 'check_in_time', 'check_out_time', 'created_at', 'updated_at'];
 
     public function human_resource()
     {
@@ -24,20 +24,21 @@ class Presence extends Model
         return self::detail(Auth::id());
     }
 
-    public static function structural()
+    public static function presences()
     {
-        $sdmId = User::getChildrenSdmId();
-        return HumanResource::whereIn('id', $sdmId)
-            ->select('id', 'sdm_name')
-            ->with(['presence' => function ($query) {
-                $query->select(
-                    'sdm_id',
-                    DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
-                    DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
-                )
-                    ->groupBy('sdm_id');
-            }])
-            ->paginate();
+        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->whereIn('human_resources.id', User::getChildrenSdmId()->unique())
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id',
+                DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
+                DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
+            )
+            ->groupBy(
+                'human_resources.sdm_name',
+                'human_resources.id'
+            )
+            ->get();
     }
 
     public static function detail($sdm_id)
