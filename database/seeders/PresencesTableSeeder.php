@@ -14,13 +14,13 @@ class PresencesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('presences')->delete();
-        
-        \DB::table('presences')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('presences')->insert(array(
+            0 =>
+            array(
                 'id' => 1,
                 'sdm_id' => 237,
                 'check_in_time' => '2022-12-18T16:26',
@@ -28,8 +28,8 @@ class PresencesTableSeeder extends Seeder
                 'created_at' => '2022-12-18 08:44:53',
                 'updated_at' => '2022-12-18 09:01:40',
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'id' => 2,
                 'sdm_id' => 237,
                 'check_in_time' => '2022-12-19T17:00',
@@ -38,7 +38,5 @@ class PresencesTableSeeder extends Seeder
                 'updated_at' => '2022-12-18 09:02:55',
             ),
         ));
-        
-        
     }
 }
