@@ -7,7 +7,7 @@
     <h4 class="mb-4">List jadwal pertemuan: {{ $subject->subject }} ({{ $subject->sks}} SKS)</h4>
     <x-success-message />
     @php
-    $action = collect(['Pertemuan' , 'Tanggal', 'Jam Dimulai', 'Foto']);
+    $action = collect(['Pertemuan' , 'Tanggal', 'Jam Dimulai', 'Foto', 'Link']);
     if(auth()->user()->isStudyProgram()){
     $action->push('Aksi');
     }
@@ -22,6 +22,11 @@
             <td>
                 @if ($meeting->file)
                 <a href="#{{ $meeting->file }}">Foto</a>
+                @endif
+            </td>
+            <td>
+                @if ($meeting->url)
+                {{$meeting->url->link}}
                 @endif
             </td>
             @if (auth()->user()->isStudyProgram())

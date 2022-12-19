@@ -23,8 +23,9 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Utils\UtilityController;
 use Illuminate\Support\Facades\Artisan;
-
+use App\Traits\Utils\Sharer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,34 +37,12 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-// define('STDIN', fopen("php://stdin", "r"));
-// Route::get("/migrate", function () {
-//     Artisan::call('migrate:fresh', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });
-// Route::get("/rollback", function () {
-//     Artisan::call('migrate:rollback', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });
-// Route::get("/seed", function () {
-//     Artisan::call('db:seed', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });
-
 Auth::routes();
 Route::get('/', [Controller::class, 'index'])->name('index');
+
+Route::get('/verify', function () {
+    return Sharer::verifyLink(request('data'));
+});
 
 Route::middleware("auth")->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

@@ -5,12 +5,8 @@ namespace App\Http\Controllers\Presence\Teaching;
 use App\Models\Meeting;
 use App\Models\Subject;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Meeting\EndMeeting;
-use App\Http\Requests\Meeting\StartMeeting;
 use App\Http\Requests\Meeting\StoreMeetingRequest;
 use App\Http\Requests\Meeting\UpdateMeetingRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MeetingController extends Controller
 {

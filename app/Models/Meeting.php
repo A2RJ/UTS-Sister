@@ -14,6 +14,11 @@ class Meeting extends Model
 
     public $timestamps = false;
 
+    public function url()
+    {
+        return $this->hasOne(Link::class);
+    }
+
     public function subject()
     {
         return $this->belongsTo(Subject::class);

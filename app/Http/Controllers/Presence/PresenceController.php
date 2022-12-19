@@ -68,7 +68,7 @@ class PresenceController extends Controller
     {
         return view('presence.dashboard.index')
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
-            ->with('presences', Presence::detail($sdm_id));
+            ->with('presences', Presence::getPresences([$sdm_id]));
     }
 
     public function edit(Presence $presence)

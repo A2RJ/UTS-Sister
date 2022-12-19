@@ -16,16 +16,19 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     public $table = 'human_resources';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        "sdm_id",
+        "sdm_name",
+        "email",
+        "email_verified_at",
+        "password",
+        "remember_token",
+        "nidn",
+        "nip",
+        "active_status_name",
+        "employee_status",
+        "sdm_type",
+        "is_sister_exist"
     ];
 
     /**

@@ -14,7 +14,13 @@ class SanctumAuthController extends Controller
     public function user(Request $request)
     {
         return response([
-            'data' => $request->user()
+            'data' => [
+                'sdm_name' => $request->user()->sdm_name,
+                'email' => $request->user()->email,
+                'nidn' => $request->user()->nidn,
+                'nip' => $request->user()->nip,
+                'is_lecturer' => $request->user()->isLecturer(),
+            ]
         ]);
     }
 

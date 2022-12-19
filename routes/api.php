@@ -45,3 +45,30 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{presence}', 'show');
     });
 });
+
+
+// define('STDIN', fopen("php://stdin", "r"));
+// Route::get("/migrate", function () {
+//     Artisan::call('migrate:fresh', [
+//         '--force' => true
+//     ]);
+//     return response()->json([
+//         'result' => "Berhasil"
+//     ]);
+// });
+// Route::get("/rollback", function () {
+//     Artisan::call('migrate:rollback', [
+//         '--force' => true
+//     ]);
+//     return response()->json([
+//         'result' => "Berhasil"
+//     ]);
+// });
+// Route::get("/seed", function () {
+//     Artisan::call('db:seed', [
+//         '--force' => true
+//     ]);
+//     return response()->json([
+//         'result' => "Berhasil"
+//     ]);
+// });

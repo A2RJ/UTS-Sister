@@ -77,40 +77,6 @@ class Subject extends Model
             ->first();
     }
 
-    public static function today($sdm_id)
-    {
-        return self::select(
-            'subjects.id',
-            'subject',
-            'class_id',
-            'sks',
-            'number_of_meetings',
-            'sdm_id',
-            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
-            DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
-            DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
-        )
-            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
-                $query->select('id', 'class', 'structure_id')
-                    ->with('structure:id,role');
-            }])
-            ->where('subjects.sdm_id', $sdm_id)
-            ->whereHas('meetings', function ($query) {
-                $query->whereDate('date', Carbon::today())
-                    ->whereNull('meeting_start');
-            })
-            ->groupBy(
-                'subjects.id',
-                'subject',
-                'class_id',
-                'sks',
-                'number_of_meetings',
-                'sdm_id'
-            )
-            ->get();
-    }
-
     public static function allSubject()
     {
         $search = request('search');
@@ -203,36 +169,6 @@ class Subject extends Model
             ->paginate();
     }
 
-    public static function bySdmIdAPI($sdm_id)
-    {
-        return Subject::select(
-            'subjects.id',
-            'subject',
-            'class_id',
-            'sks',
-            'number_of_meetings',
-            'sdm_id',
-            DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
-            DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
-            DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
-        )
-            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
-                $query->select('id', 'class', 'structure_id')
-                    ->with('structure:id,role');
-            }])
-            ->whereIn('sdm_id', $sdm_id)
-            ->groupBy(
-                'subjects.id',
-                'subject',
-                'class_id',
-                'sks',
-                'number_of_meetings',
-                'sdm_id'
-            )
-            ->get();
-    }
-
     public static function subLecturer()
     {
         $search = request('search');
@@ -259,5 +195,85 @@ class Subject extends Model
             ->groupBy('human_resources.id', 'human_resources.sdm_name')
             ->paginate();
         return $data;
+    }
+
+    /**
+     * API
+     */
+
+    public static function bySdmIdAPI($sdm_id)
+    {
+        return Subject::join('meetings', 'subjects.id', 'meetings.subject_id')
+            ->join('human_resources', 'subjects.sdm_id', 'human_resources.id')
+            ->join('semesters', 'subjects.semester_id', 'semesters.id')
+            ->join('classes', 'subjects.class_id', 'classes.id')
+            ->join('structures', 'classes.structure_id', 'structures.id')
+            ->whereIn('subjects.sdm_id', $sdm_id)
+            ->select(
+                'subjects.id',
+                'subject as subject_name',
+                'class as class_name',
+                'role as study_program',
+                'semester',
+                'sks',
+                'number_of_meetings',
+                'subjects.sdm_id',
+                'human_resources.sdm_name',
+                DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+                DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
+                DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
+            )
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'class',
+                'role',
+                'semester',
+                'sks',
+                'number_of_meetings',
+                'subjects.sdm_id',
+                'human_resources.sdm_name'
+            )
+            ->get();
+    }
+
+    public static function today($sdm_id)
+    {
+        return Subject::join('meetings', 'subjects.id', 'meetings.subject_id')
+            ->join('human_resources', 'subjects.sdm_id', 'human_resources.id')
+            ->join('semesters', 'subjects.semester_id', 'semesters.id')
+            ->join('classes', 'subjects.class_id', 'classes.id')
+            ->join('structures', 'classes.structure_id', 'structures.id')
+            ->where('subjects.sdm_id', $sdm_id)
+            ->whereHas('meetings', function ($query) {
+                $query->whereDate('date', Carbon::today())
+                    ->whereNull('meeting_start');
+            })
+            ->select(
+                'subjects.id',
+                'subject as subject_name',
+                'class as class_name',
+                'role as study_program',
+                'semester',
+                'sks',
+                'number_of_meetings',
+                'subjects.sdm_id',
+                'human_resources.sdm_name',
+                DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS value_sks'),
+                DB::raw('COUNT(meetings.meeting_start) AS meetings_completed'),
+                DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
+            )
+            ->groupBy(
+                'subjects.id',
+                'subject',
+                'class',
+                'role',
+                'semester',
+                'sks',
+                'number_of_meetings',
+                'subjects.sdm_id',
+                'human_resources.sdm_name'
+            )
+            ->get();
     }
 }
