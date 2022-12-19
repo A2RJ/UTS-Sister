@@ -104,6 +104,11 @@ class User extends Authenticatable
         return $this->checkRoleType('639eb2d054fd7DirektoratAkademik', 'child_id');
     }
 
+    public function isDSDM()
+    {
+        return $this->checkRoleType('639eb26622219DirektoratSumberDayaManusia', 'child_id');
+    }
+
     public static function prodi()
     {
         return collect(Auth::user()->structure)->filter(function ($item) {

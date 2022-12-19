@@ -15,14 +15,15 @@
         </a>
     </div>
     @endif
-    <x-table :header="['Mata kuliah', 'SKS', 'Jumlah Pertemuan', 'Pertemuan Selesai', 'Pertemuan Selanjutnya', 'Nilai SKS', 'Aksi']">
+    <x-table :header="['Mata kuliah', 'Semester', 'SKS', 'Jumlah Pertemuan', 'Pertemuan Selesai', 'Pertemuan Selanjutnya', 'Nilai SKS', 'Aksi']">
         @foreach ($subjects as $subject)
         <tr>
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $subject->subject }} <br>
-                {{ $subject->human_resource->sdm_name }} <br>
-                ({{ $subject->class->class }}-{{$subject->class->structure->role}})
+            <td>{{ $subject->subject_name }} <br>
+                {{ $subject->sdm_name }} <br>
+                ({{ $subject->class_name }} - {{$subject->study_program}})
             </td>
+            <td>{{ $subject->semester }}</td>
             <td>{{ $subject->sks }}</td>
             <td>{{ $subject->number_of_meetings }}</td>
             <td>{{ $subject->meetings_completed }}</td>

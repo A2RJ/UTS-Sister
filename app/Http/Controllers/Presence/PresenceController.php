@@ -16,8 +16,7 @@ class PresenceController extends Controller
 
     public function index()
     {
-        return view('presence.index')
-            ->with('presences', Presence::presences());
+        return view('home');
     }
 
     public function myPresence()

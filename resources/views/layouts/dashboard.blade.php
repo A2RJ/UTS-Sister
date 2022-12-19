@@ -97,6 +97,10 @@
                     @include('partials.akademik.sidebar')
                     @endif
 
+                    @if (auth()->user()->isDSDM())
+                    @include('partials.dsdm.sidebar')
+                    @endif
+
                     @if (auth()->user()->hasSub())
                     @include('partials.sub-division.sidebar')
                     @endif

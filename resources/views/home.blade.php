@@ -17,7 +17,6 @@
                     @endif
 
                     {{ __('You are logged in') }}: {{ Auth::user()->sdm_name }}
-
                     <div>
                         @if (auth()->user()->isDirAkademik())
                         <p>Role and adalah Dir Akademik</p>
@@ -49,6 +48,10 @@
 
                         @if (auth()->user()->isStructural())
                         <p>Role anda adalah Struktural</p>
+                        @endif
+
+                        @if (auth()->user()->isDSDM())
+                        <p>Role anda adalah DSDM</p>
                         @endif
 
                         @if (count(auth()->user()->hasSub()))
