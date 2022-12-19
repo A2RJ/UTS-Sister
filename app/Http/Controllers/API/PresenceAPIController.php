@@ -7,6 +7,7 @@ use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
 use App\Models\Presence;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class PresenceAPIController extends Controller
 {
@@ -14,6 +15,16 @@ class PresenceAPIController extends Controller
     {
         return response()->json([
             'data' => Presence::myPresenceAPI(request()->user()->id)
+        ]);
+    }
+
+    public function today()
+    {
+        return response()->json([
+            'data' => Presence::where('sdm_id', request()->user()->id)
+                ->whereDate('check_in_time', Carbon::today())
+                ->latest()
+                ->first()
         ]);
     }
 
