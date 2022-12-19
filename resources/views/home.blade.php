@@ -16,8 +16,8 @@
                     </div>
                     @endif
 
-                    {{ __('You are logged in') }}: {{ Auth::user()->sdm_name }}
-                    <div>
+                    <h5 class="mb-3">Nama: {{ Auth::user()->sdm_name }}</h5>
+                    <div class="mb-2">
                         @if (auth()->user()->isDirAkademik())
                         <p>Role and adalah Dir Akademik</p>
                         @endif
@@ -54,13 +54,15 @@
                         <p>Role anda adalah DSDM</p>
                         @endif
 
-                        @if (count(auth()->user()->hasSub()))
-                        <p>Anda mempunyai Sub divisi</p>
-                        @foreach (auth()->user()->hasSub() as $item)
-                        <p>{{ $item->role }} - {{ $item->type }}</p>
-                        @endforeach
-                        @endif
                     </div>
+                    @if (count(auth()->user()->hasSub()))
+                    <p>Anda mempunyai Sub divisi</p>
+                    <ul>
+                        @foreach (auth()->user()->hasSub() as $item)
+                        <li>{{ $item->role }} - {{ $item->type }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
                 </div>
             </div>
         </div>

@@ -80,7 +80,7 @@ class PresenceController extends Controller
 
     public function update(UpdatePresenceRequest $request, Presence $presence)
     {
-        $form = $request->safe()->only(['check_out_time', 'latitude_in', 'longitude_in']);
+        $form = $request->safe()->only(['check_out_time', 'latitude_out', 'longitude_out']);
         $presence->update($form);
         return redirect()->route('presence.index')->with('message', "Berhasil edit presensi kehadiran");
     }

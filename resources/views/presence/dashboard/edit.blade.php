@@ -11,6 +11,8 @@
         <x-select name="sdm_id" label="Dosen" :select="$human_resources" :current="$presence->sdm_id" />
         <x-input name="check_in_time" type="datetime-local" label="Jam Masuk" placeholder="Jam Masuk" :value="$presence->check_in_time" />
         <x-input name="check_out_time" type="datetime-local" label="Jam Pulang" placeholder="Jam Pulang" :value="$presence->check_out_time" />
+        <x-input name="latitude_out" type="text" label="Latitude" placeholder="Latitude" />
+        <x-input name="longitude_out" type="text" label="Longitude" placeholder="Longitude" />
     </x-form>
 </div>
 @endsection

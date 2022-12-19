@@ -35,7 +35,7 @@ class Controller extends BaseController
 
     public function index()
     {
-        Sister::authorize();
-        return view('welcome');
+        // Sister::authorize();
+        return view('auth.login');
     }
 }

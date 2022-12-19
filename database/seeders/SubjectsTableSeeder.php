@@ -14,14 +14,13 @@ class SubjectsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('subjects')->delete();
-        
-        \DB::table('subjects')->insert(array (
-            0 => 
-            array (
-                'child_id' => NULL,
+
+        \DB::table('subjects')->insert(array(
+            0 =>
+            array(
                 'class_id' => 2,
                 'id' => 1,
                 'number_of_meetings' => 16,
@@ -30,9 +29,8 @@ class SubjectsTableSeeder extends Seeder
                 'sks' => 4,
                 'subject' => 'Dasar pemrograman web',
             ),
-            1 => 
-            array (
-                'child_id' => NULL,
+            1 =>
+            array(
                 'class_id' => 2,
                 'id' => 2,
                 'number_of_meetings' => 16,
@@ -41,9 +39,8 @@ class SubjectsTableSeeder extends Seeder
                 'sks' => 4,
                 'subject' => 'Matematika diskrit',
             ),
-            2 => 
-            array (
-                'child_id' => NULL,
+            2 =>
+            array(
                 'class_id' => 2,
                 'id' => 3,
                 'number_of_meetings' => 16,
@@ -53,7 +50,5 @@ class SubjectsTableSeeder extends Seeder
                 'subject' => 'Matematika sidkrit',
             ),
         ));
-        
-        
     }
 }
