@@ -39,8 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('presence')->controller(PresenceAPIController::class)->group(function () {
         Route::get('/', 'index');
-        Route::post('/', 'store');
+        Route::post('/check-in', 'store');
+        Route::post('/check-out', 'update');
         Route::get('/{presence}', 'show');
-        Route::put('/{presence}', 'update');
     });
 });

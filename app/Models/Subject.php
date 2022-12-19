@@ -58,6 +58,7 @@ class Subject extends Model
             ->groupBy(
                 'subjects.id',
                 'subject',
+                'class_id',
                 'sks',
                 'number_of_meetings',
                 'sdm_id'
@@ -91,6 +92,7 @@ class Subject extends Model
             ->groupBy(
                 'subjects.id',
                 'subject',
+                'class_id',
                 'sks',
                 'number_of_meetings',
                 'sdm_id'
@@ -179,6 +181,7 @@ class Subject extends Model
             ->groupBy(
                 'subjects.id',
                 'subject',
+                'class_id',
                 'sks',
                 'number_of_meetings',
                 'sdm_id'

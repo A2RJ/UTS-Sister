@@ -7,7 +7,6 @@ use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
 use App\Models\Presence;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class PresenceAPIController extends Controller
 {
@@ -20,17 +19,20 @@ class PresenceAPIController extends Controller
 
     public function store(StorePresenceRequestAPI $request)
     {
-        // $presence = Presence::whereDate('check_in_time', Carbon::today())->first();
+        // $presence = Presence::where('sdm_id', $request->user()->id)
+        //     ->whereDate('check_in_time', Carbon::today())
+        //     ->first();
         // if ($presence) {
         //     return response()->json([
         //         'message' => 'Hari ini sudah mengisi presensi'
         //     ], 422);
         // }
-        $form = $request->safe()->only(['latitude', 'longitude']);
-        $form['sdm_id'] = $request->user()->id;
-        $form['check_in_time'] = date('Y-m-d H:i:s');
-        $form['latitude_in'] = $request->latitude;
-        $form['longitude_in'] = $request->longitude;
+        $form = [
+            'sdm_id' => $request->user()->id,
+            'check_in_time' => date('Y-m-d H:i:s'),
+            'latitude_in' => $request->input('latitude'),
+            'longitude_in' => $request->input('longitude')
+        ];
         if (!$form['sdm_id']) {
             return response()->json([
                 'message' => 'Pastikan token benar'
@@ -41,9 +43,9 @@ class PresenceAPIController extends Controller
                 'message' => 'Pastikan datetime server benar'
             ], 422);
         }
-        Presence::create($form);
+        $presence = Presence::create($form);
         return response()->json([
-            'message' => 'Berhasil menambah presensi kehadiran'
+            'data' => $presence
         ]);
     }
 
@@ -54,25 +56,33 @@ class PresenceAPIController extends Controller
         ]);
     }
 
-    public function update(UpdatePresenceRequestAPI $request, Presence $presence)
+    public function update(UpdatePresenceRequestAPI $request)
     {
-        if ($presence->check_out_time) {
+        $presence = Presence::where('sdm_id', request()->user()->id)
+            ->whereDate('check_in_time', Carbon::today())
+            ->latest()
+            ->first();
+        if (empty($presence)) {
             return response()->json([
-                'message' => 'Sudah ter-absensi pulang'
+                'message' => 'Anda belum absen masuk'
             ], 422);
         }
-        $form = $request->safe()->only(['latitude', 'longitude']);
-        $form['check_out_time'] = date('Y-m-d H:i:s');
-        $form['latitude_out'] = $request->latitude;
-        $form['longitude_out'] = $request->longitude;
-        if (!$form['check_out_time']) {
+        // if ($presence->check_out_time) {
+        //     return response()->json([
+        //         'message' => 'Sudah ter-absensi pulang'
+        //     ], 422);
+        // }
+        $presence->check_out_time = date('Y-m-d H:i:s');
+        $presence->latitude_out = $request->input('latitude');
+        $presence->longitude_out = $request->input('longitude');
+        if (!$presence->check_out_time) {
             return response()->json([
                 'message' => 'Pastikan datetime server benar'
             ], 422);
         }
-        $presence->update($form);
+        $presence->save();
         return response()->json([
-            'message' => 'Berhasil presensi pulang'
+            'data' => $presence
         ]);
     }
 }

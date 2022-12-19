@@ -123,3 +123,6 @@
 ## Tutorial
 
 -   [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
+    http://forum.centos-webpanel.com/index.php?topic=10177.0
+
+STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
