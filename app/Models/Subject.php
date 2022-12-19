@@ -11,7 +11,7 @@ class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['subject', 'sks', 'number_of_meetings', 'class_id', 'sdm_id'];
+    protected $fillable = ['subject', 'sks', 'number_of_meetings', 'class_id', 'semester_id', 'sdm_id'];
 
     public $timestamps = false;
 
@@ -28,6 +28,11 @@ class Subject extends Model
     public function human_resource()
     {
         return $this->hasOne(HumanResource::class, 'id', 'sdm_id');
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
     }
 
     public static function selectOption()
@@ -51,7 +56,7 @@ class Subject extends Model
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->where('subjects.sdm_id', $sdm_id)
             ->where('subjects.id', $subject_id)
-            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
                 $query->select('id', 'class', 'structure_id')
                     ->with('structure:id,role');
             }])
@@ -80,7 +85,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
                 $query->select('id', 'class', 'structure_id')
                     ->with('structure:id,role');
             }])
@@ -114,13 +119,14 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
                 $query->select('id', 'class', 'structure_id')
                     ->with('structure:id,role');
             }])
             ->groupBy(
                 'subjects.id',
                 'subject',
+                'class_id',
                 'sks',
                 'number_of_meetings',
                 'sdm_id'
@@ -144,7 +150,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
                 $query->select('id', 'class', 'structure_id')
                     ->with('structure:id,role');
             }])
@@ -152,6 +158,7 @@ class Subject extends Model
             ->groupBy(
                 'subjects.id',
                 'subject',
+                'class_id',
                 'sks',
                 'number_of_meetings',
                 'sdm_id'
@@ -173,7 +180,7 @@ class Subject extends Model
             DB::raw('COUNT(*) - COUNT(meetings.meeting_start) AS meetings_pending')
         )
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
-            ->with(['human_resource:id,sdm_name', 'class' => function ($query) {
+            ->with(['semester', 'human_resource:id,sdm_name', 'class' => function ($query) {
                 $query->select('id', 'class', 'structure_id')
                     ->with('structure:id,role');
             }])
@@ -191,11 +198,12 @@ class Subject extends Model
 
     public static function subLecturer()
     {
-        $data = HumanResource::join('subjects', 'human_resources.id', 'subjects.sdm_id')
+        $data = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId()->unique())
-            ->select('human_resources.id', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
-            ->groupBy('human_resources.id', 'human_resources.sdm_name')
+            ->select('human_resources.id', 'semester_id', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
+            ->with(['semester'])
+            ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id')
             ->paginate();
         return $data;
     }

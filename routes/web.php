@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
+use App\Http\Controllers\AKademik\SemesterController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
@@ -236,6 +237,7 @@ Route::middleware("auth")->group(function () {
         });
         Route::resource("/structure", StructureController::class);
         Route::resource("/human_resource", HumanResourceController::class);
+        Route::resource("/semester", SemesterController::class)->except('show');
     });
     Route::prefix("/")->group(function () {
         Route::resource("/class", ClassController::class)->except('show');

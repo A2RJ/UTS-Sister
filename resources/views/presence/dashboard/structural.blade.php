@@ -11,12 +11,7 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $sub->sdm_name }}</td>
             <td>
-                @if ($sub->presence)
-                @foreach ($sub->presence as $item)
-                {{ $item->hours }} Jam {{ $item->minutes }} Menit
-
-                @endforeach
-                @endif
+                {{ $sub }}
             </td>
             <td>
                 <a href="{{ route('presence.detail', $sub->id) }}">Detail</a>

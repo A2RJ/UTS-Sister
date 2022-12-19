@@ -29,6 +29,7 @@ class UpdateSubjectRequest extends FormRequest
             'number_of_meetings' => ['required', 'numeric'],
             'structure_id' => ['required'],
             'class_id' => ['required'],
+            'semester_id' => ['required'],
             'sdm_id' => ['required'],
         ];
     }

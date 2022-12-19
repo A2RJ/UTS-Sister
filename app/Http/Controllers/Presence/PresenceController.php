@@ -41,9 +41,9 @@ class PresenceController extends Controller
 
     public function detail($sdm_id)
     {
-        return view('presence.dashboard.detail')
+        return view('presence.dashboard.index')
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
-            ->with('structural', Presence::detail($sdm_id));
+            ->with('presences', Presence::detail($sdm_id));
     }
 
     public function edit(Presence $presence)

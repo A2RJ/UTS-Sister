@@ -9,6 +9,7 @@ use App\Http\Requests\Subject\UpdateSubjectRequest;
 use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
+use App\Models\Semester;
 use App\Models\Structure;
 use App\Models\User;
 use App\Traits\Subject\SubjectTrait;
@@ -29,13 +30,14 @@ class SubjectController extends Controller
         $prodi = User::prodi();
         return view('presence.subject.create')
             ->with('study_program', $prodi)
+            ->with('semesters', Semester::selectOption())
             ->with('classes', Classes::prodiSelectOption($prodi[0]->id))
             ->with('human_resources', HumanResource::selectAllOption());
     }
 
     public function store(StoreSubjectRequest $request)
     {
-        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "semester_id", "number_of_meetings", "sdm_id"]);
         $subject = Subject::create($form);
         Meeting::bulkCreateMeetings($subject->id, $request->number_of_meetings);
         return redirect()->route('subject.index')->with('message', 'Berhasil tambah mata kuliah');
@@ -50,15 +52,18 @@ class SubjectController extends Controller
 
     public function edit(Subject $subject)
     {
+        $prodi = User::prodi();
         return view('presence.subject.edit')
             ->with('subject', $subject)
+            ->with('semesters', Semester::selectOption())
             ->with('study_program', User::prodi())
+            ->with('classes', Classes::prodiSelectOption($prodi[0]->id))
             ->with('human_resources', HumanResource::selectOption());
     }
 
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $form = $request->safe()->only(["subject", "sks", "class_id", "number_of_meetings", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "class_id", "semester_id", "number_of_meetings", "sdm_id"]);
         $subject->update($form);
         return redirect()->route('subject.index')->with('message', 'Berhasil edit mata kuliah');
     }

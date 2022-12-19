@@ -6,12 +6,16 @@
     <h4 class="mb-4">List absensi: {{ $sdm->sdm_name }}</h4>
 
     <x-table :header="['Tanggal Masuk', 'Tanggal Pulang', 'Total Jam']">
-        @foreach ($structural as $sub)
+        @foreach ($structural as $presence)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $sub->check_in_hour }} - {{ $sub->check_in_date }}</td>
-            <td>{{ $sub->check_out_hour }} - {{ $sub->check_out_date }}</td>
-            <td>{{ $sub->hours }} Jam {{ $sub->minutes }} Menit</td>
+            <td>{{ $presence->check_in_date }} {{ $presence->check_in_hour }}</td>
+            <td>{{ $presence->check_out_date }} {{ $presence->check_out_hour }}</td>
+            <td>
+                @if ($presence->hours || $presence->minutes)
+                {{ $presence->hours }} Jam {{ $presence->minutes }} Menit
+                @endif
+            </td>
         </tr>
         @endforeach
     </x-table>

@@ -18,7 +18,7 @@
             <td>{{ $loop->iteration}}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>
-                @if ($presence->hours)
+                @if ($presence->hours || $presence->minutes)
                 {{ $presence->hours }} Jam {{ $presence->minutes }} Menit
                 @endif
             </td>

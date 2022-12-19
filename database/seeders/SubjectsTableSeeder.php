@@ -21,33 +21,36 @@ class SubjectsTableSeeder extends Seeder
         \DB::table('subjects')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'subject' => 'Dasar pemrograman web',
-                'sks' => 4,
-                'number_of_meetings' => 16,
                 'child_id' => NULL,
                 'class_id' => 2,
+                'id' => 1,
+                'number_of_meetings' => 16,
                 'sdm_id' => 98,
+                'semester_id' => 1,
+                'sks' => 4,
+                'subject' => 'Dasar pemrograman web',
             ),
             1 => 
             array (
-                'id' => 2,
-                'subject' => 'Matematika diskrit',
-                'sks' => 4,
-                'number_of_meetings' => 16,
                 'child_id' => NULL,
-                'class_id' => 3,
-                'sdm_id' => 12,
+                'class_id' => 2,
+                'id' => 2,
+                'number_of_meetings' => 16,
+                'sdm_id' => 98,
+                'semester_id' => 1,
+                'sks' => 4,
+                'subject' => 'Matematika diskrit',
             ),
             2 => 
             array (
-                'id' => 3,
-                'subject' => 'Matematika sidkrit',
-                'sks' => 4,
-                'number_of_meetings' => 16,
                 'child_id' => NULL,
                 'class_id' => 2,
-                'sdm_id' => 12,
+                'id' => 3,
+                'number_of_meetings' => 16,
+                'sdm_id' => 98,
+                'semester_id' => 1,
+                'sks' => 4,
+                'subject' => 'Matematika sidkrit',
             ),
         ));
         
