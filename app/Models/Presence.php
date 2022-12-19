@@ -19,11 +19,6 @@ class Presence extends Model
         return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
     }
 
-    public static function myPresence()
-    {
-        return self::detail(Auth::id());
-    }
-
     public static function myPresenceAPI($sdm_id)
     {
         return self::where('sdm_id', $sdm_id)
@@ -47,7 +42,8 @@ class Presence extends Model
 
     public static function presences()
     {
-        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+        $search = request('search');
+        $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId())
             ->where('human_resources.id', '!=', Auth::id())
             ->select(
@@ -59,16 +55,27 @@ class Presence extends Model
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
-            )
-            ->get();
+            );
+        if ($search) {
+            $query->when($search, function ($query) use ($search) {
+                return $query->where('sdm_name', 'like', "%$search%");
+            });
+        }
+        return $query->paginate();
     }
 
-    public static function detail($sdm_id)
+    public static function getPresences($sdm_id)
     {
-        return self::where('sdm_id', $sdm_id)
+        $search = request('search');
+        $start = request('start');
+        $end = request('end');
+
+        $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->whereIn('presences.sdm_id', $sdm_id)
             ->select(
-                'id',
-                'sdm_id',
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
                 'latitude_in',
                 'longitude_in',
                 'latitude_out',
@@ -80,7 +87,18 @@ class Presence extends Model
                 DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
                 DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
             )
-            ->groupBy('id', 'sdm_id', 'latitude_in', 'longitude_in', 'latitude_out', 'longitude_out', 'check_in_date', 'check_out_date', 'check_in_hour', 'check_out_hour')
-            ->paginate();
+            ->groupBy('presences.id', 'presences.sdm_id', 'sdm_name', 'latitude_in', 'longitude_in', 'latitude_out', 'longitude_out', 'check_in_date', 'check_out_date', 'check_in_hour', 'check_out_hour');
+        if ($search) {
+            $query->when($search, function ($query) use ($search) {
+                return $query->where('sdm_name', 'like', "%$search%");
+            });
+        }
+
+        if ($start && $end) {
+            $query->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            });
+        }
+        return $query->paginate();
     }
 }

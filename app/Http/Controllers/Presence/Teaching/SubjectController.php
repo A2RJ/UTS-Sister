@@ -10,15 +10,10 @@ use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\Semester;
-use App\Models\Structure;
 use App\Models\User;
-use App\Traits\Subject\SubjectTrait;
-use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
-    use SubjectTrait;
-
     public function index()
     {
         return view('presence.subject.index')

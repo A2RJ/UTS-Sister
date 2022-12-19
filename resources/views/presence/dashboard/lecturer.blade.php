@@ -3,11 +3,12 @@
 
 @section('content')
 <div class="card p-2">
-    <h3>List Pengajaran
+    <h3 class="mb-4">List Pengajaran
         @if (auth()->user()->isDirAkademik())
         Seluruh Civitas
         @endif
     </h3>
+    <x-search-subject />
     <x-table :header="['Nama', 'Total SKS', 'Action']">
         @foreach ($lecturers as $lecturer)
         <tr>

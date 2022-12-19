@@ -15,6 +15,8 @@
         </a>
     </div>
     @endif
+
+    <x-search-subject />
     <x-table :header="['Mata kuliah', 'Semester', 'SKS', 'Jumlah Pertemuan', 'Pertemuan Selesai', 'Pertemuan Selanjutnya', 'Nilai SKS', 'Aksi']">
         @foreach ($subjects as $subject)
         <tr>
@@ -38,6 +40,11 @@
             </td>
         </tr>
         @endforeach
+        @if (count($subjects) === 0)
+        <tr>
+            <td colspan="9" class="text-center">No Data</td>
+        </tr>
+        @endif
     </x-table>
 </div>
 @endsection

@@ -8,7 +8,9 @@ use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
 use App\Models\Subject;
+use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
+use Illuminate\Support\Facades\Auth;
 
 class PresenceController extends Controller
 {
@@ -22,7 +24,31 @@ class PresenceController extends Controller
     public function myPresence()
     {
         return view('presence.dashboard.index')
-            ->with('presences', Presence::myPresence());
+            ->with('presences', Presence::getPresences([Auth::id()]));
+    }
+
+    public function structural()
+    {
+        return view('presence.dashboard.structural')
+            ->with('presences', Presence::presences());
+    }
+
+    public function structuralAll()
+    {
+        return view('presence.dashboard.index')
+            ->with('presences', Presence::getPresences(User::getChildrenSdmId()));
+    }
+
+    public function subLecturer()
+    {
+        return view('presence.dashboard.lecturer')
+            ->with('lecturers', Subject::subLecturer());
+    }
+
+    public function lecturer()
+    {
+        return view('presence.dashboard.lecturer')
+            ->with('lecturers', Subject::lecturer());
     }
 
     public function create()
@@ -63,17 +89,5 @@ class PresenceController extends Controller
     {
         $presence->delete();
         return redirect()->route('presence.index')->with('message', "Berhasil hapus presensi kehadiran");
-    }
-
-    public function subLecturer()
-    {
-        return view('presence.dashboard.lecturer')
-            ->with('lecturers', Subject::subLecturer());
-    }
-
-    public function lecturer()
-    {
-        return view('presence.dashboard.lecturer')
-            ->with('lecturers', Subject::lecturer());
     }
 }
