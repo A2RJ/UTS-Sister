@@ -224,7 +224,7 @@ Route::middleware("auth")->group(function () {
             Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
             Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
             Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
-            Route::get('/{sdm_id?}/by-lecturer', 'byLecturer')->name('subject.by-lecturer');
+            Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('subject.by-lecturer');
         });
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);

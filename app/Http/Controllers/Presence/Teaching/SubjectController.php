@@ -32,7 +32,7 @@ class SubjectController extends Controller
 
     public function store(StoreSubjectRequest $request)
     {
-        $form = $request->safe()->only(["subject", "sks", "semester_id", "number_of_meetings", "sdm_id"]);
+        $form = $request->safe()->only(["subject", "sks", "semester_id", "class_id", "number_of_meetings", "sdm_id"]);
         $subject = Subject::create($form);
         Meeting::bulkCreateMeetings($subject->id, $request->number_of_meetings);
         return redirect()->route('subject.index')->with('message', 'Berhasil tambah mata kuliah');
@@ -75,16 +75,16 @@ class SubjectController extends Controller
             ->with('subjects', Subject::bySdmId([auth()->id()]));
     }
 
-    public function byLecturer($sdm_id)
+    public function byLecturer($sdm_id, $semester_id)
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::bySdmId([$sdm_id]));
+            ->with('subjects', Subject::bySdmId([$sdm_id], $semester_id));
     }
 
     public function subDivision()
     {
         return view('presence.subject.index')
-            ->with('subjects', Subject::bySdmId(User::getChildrenSdmId()->unique()));
+            ->with('subjects', Subject::bySdmId(User::getChildrenSdmId()));
     }
 
     public function lecturerList()

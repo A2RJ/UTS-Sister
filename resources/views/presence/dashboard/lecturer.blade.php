@@ -9,14 +9,15 @@
         @endif
     </h3>
     <x-search-subject />
-    <x-table :header="['Nama', 'Total SKS', 'Action']">
+    <x-table :header="['Nama', 'Semester', 'Total SKS', 'Action']">
         @foreach ($lecturers as $lecturer)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $lecturer->sdm_name }}</td>
+            <td>{{ $lecturer->semester }}</td>
             <td>{{ $lecturer->total_sks }} SKS</td>
             <td>
-                <a href="{{ route('subject.by-lecturer', $lecturer->id) }}">Detail</a>
+                <a href="{{ route('subject.by-lecturer', ['sdm_id' => $lecturer->id, 'semester_id' => $lecturer->semester_id]) }}">Detail</a>
             </td>
         </tr>
         @endforeach
