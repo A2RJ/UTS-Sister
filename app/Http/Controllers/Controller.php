@@ -44,20 +44,20 @@ class Controller extends BaseController
 
     public function verify(Request $request)
     {
-        $url = urldecode($request->getUri());
+        $url = env('APP_REDIRECT') . "/verify?sharer=" . request('sharer') . "&is=" . request('is');
         $link = Link::where('link', $url)->first();
         abort_if(empty($link), 404, 'Ops invalid url');
         $meeting = Meeting::where('id', $link->meeting_id)->first();
         return view('mahasiswa.presence')
             ->with('id', uniqid())
-            ->with('url', $request->getUri())
+            ->with('url', $url)
             ->with('meeting', $meeting->meeting_name);
     }
 
     public function presenceMahasiswa(PresenceMahasiswa $request)
     {
         $form = $request->safe()->only(['nama', 'nim', 'komentar']);
-        $url = urldecode($request->url);
+        $url = $request->url;
         $link = Link::where('link', $url)->first();
         abort_if(empty($link), 404, 'Ops invalid url');
         $form['meeting_id'] = $link->meeting_id;

@@ -1,11 +1,8 @@
+# APP
+
 -   iseed before migrate:rollback
 -   php artisan optimize:clear
 -   php artisan config:clear
-
-# APP
-
--   faculty and study program is just home base detail in profile
--   structure is the main key for indexing supervisor and subordinate
 
 ## Flowcart presensi pengajaran
 
@@ -42,34 +39,7 @@
 -   Notes:
     -- Struktur BKD ini berbeda dengan struktur dinamis yang akan diterapkan selanjutnya
 
-## Progress
-
--   Pengajaran
-    -- Sudah bisa dinamis set struktur
-    -- Sudah bisa login sebagai admin, rektor, fakultas, prodi,
-    -- Sudah tampilkan children by parent
-    -- Sudah get dosen by parent (menu fakultas dan prodi)
-    -- sudah dari staff
-    -- sudah dosen
-    -- sudah prodi
-    -- sudah fakultas
-    -- sudah warek 1
-    -- sudah dir akademik
-    -- Notes:
-    -- Khusus dir akademik -> lihat semua pengajaran dosen, assign fakultas (dekan) dan prodi (ka.prodi)  
-     -- Khusus dsdm -> lihat semua kehadiran dosen dan human resources tp tidak bisa assign
-    -- Khusus admin dapat semua
-    -- (Optional) Khusus rektor -> hanya lihat sdm, structure, kehadiran dan pengajaran
-
 ## Sedang dikerjakan
-
--   Kehadiran
-    -- Mulai create, edit if admin
-    -- get my presense
-    --- with jam masuk, jam pulang dan estimasi waktu dikampus by presense
-    --- with total jam
-    -- get child presense
-    -- get all presense by dsdm
 
 ## Flowcart presensi kehadiran
 
@@ -80,16 +50,6 @@
 -   selesai
 
 ## Boundary roles
-
--   User role
-    -- Notes:
-    -- Untuk pengembangan selanjutnya bisa subtitusi role diantara role yg sudah ada, misal wadek, sekretaris prodi dll. Jadi merubah parentId dari child
-
--   Roles
-    -- Dosen dan Tendik diambil dari sister
-    -- Setting manual siapa prodi, fakultas dan dir akademik (Opsi 1)
-    -- Setting dinamis siapa prodi, fakultas dan dir akademik (Opsi 2)
-    -- Tentunya akan berelasi antara fakultas, prodi, mata kuliah, kelas dan dosen
 
 ```
 {
@@ -102,19 +62,10 @@
 
 -   php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
 
-## Update
+## Urgent
 
--   Setelah kelas selesai, generate link untuk mahasiswa untuk isi kehadiran dan data aduan mirip gform
-
-```
-{
-    'field': ['subject_id', 'nim', 'nama', 'catatan:(bersifat sangat rahasia)']
-}
-```
-
--   absen 1x (hapus sebelumnya 2x)
--   filter by semester
--   filter between dates
+-   Fungsi absen pulang sepertinya bermasalah ketika ada yang pulang dihari esok nya (security)
+    --
 
 ## Tools
 

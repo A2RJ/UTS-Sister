@@ -35,7 +35,7 @@ class MeetingAPIController extends Controller
             ]);
         }
         $meeting->update([
-            'meeting_start' => date('Y-m-d H:i:s'),
+            'meeting_start' => date('Y-m-d\TH:i'),
             'file' => Meeting::upload($request, "file", $request->user()->id)
         ]);
         Link::create([

@@ -7,7 +7,7 @@
     <h4 class="mb-4">List jadwal pertemuan: {{ $subject->subject }} ({{ $subject->sks}} SKS)</h4>
     <x-success-message />
     @php
-    $action = collect(['Pertemuan' , 'Tanggal', 'Jam Dimulai', 'Foto', 'Link']);
+    $action = collect(['Pertemuan' , 'Tanggal', 'Jam Dimulai', 'Foto', 'Link (Click to copy)']);
     if(auth()->user()->isStudyProgram()){
     $action->push('Aksi');
     }
@@ -26,7 +26,9 @@
             </td>
             <td>
                 @if ($meeting->url)
-                {{$meeting->url->link}}
+                <p id="textToCopy" onclick="copyText()">
+                    {{$meeting->url->link}}
+                </p>
                 @endif
             </td>
             @if (auth()->user()->isStudyProgram())
@@ -39,4 +41,21 @@
         @endforeach
     </x-table>
 </div>
+
+<script>
+    function copyText() {
+        var copyTextElement = document.getElementById("textToCopy");
+        var text = copyTextElement.textContent;
+
+        var input = document.createElement("input");
+        input.value = text;
+        document.body.appendChild(input);
+
+        input.select();
+        document.execCommand("copy");
+        alert("Text has been copied to clipboard");
+
+        document.body.removeChild(input);
+    }
+</script>
 @endsection
