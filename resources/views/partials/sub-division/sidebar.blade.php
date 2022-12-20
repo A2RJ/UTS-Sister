@@ -18,10 +18,10 @@
     <div class="collapse" id="emails">
         <ul class="nav sub-menu">
             <li class="nav-item">
-                <a href="{{ route('presence.structural') }}" class="nav-link">Per dosen</a>
+                <a href="{{ route('presence.per-civitas') }}" class="nav-link">Per dosen</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('presence.structural-all') }}" class="nav-link">Semua absensi</a>
+                <a href="{{ route('presence.civitas-all') }}" class="nav-link">Semua absensi</a>
             </li>
         </ul>
     </div>

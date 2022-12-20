@@ -232,9 +232,11 @@ Route::middleware("auth")->group(function () {
             Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
             Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
             Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');
-            Route::get('/structural', 'structural')->name('presence.structural');
-            Route::get('/structural-all', 'structuralAll')->name('presence.structural-all');
-            Route::get('/lecturer', 'lecturer')->name('presence.lecturer');
+            Route::get('/all-lecturer', 'allLecturer')->name('presence.all-lecturer');
+            Route::get('/per-civitas', 'subPresenceByCivitas')->name('presence.per-civitas');
+            Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
+            Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
+            Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
         });
         Route::resource("/presence", PresenceController::class)->except('show');
         Route::prefix('prodi')->group(function () {

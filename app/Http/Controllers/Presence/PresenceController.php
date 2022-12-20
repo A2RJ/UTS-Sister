@@ -27,16 +27,16 @@ class PresenceController extends Controller
             ->with('presences', Presence::getPresences([Auth::id()]));
     }
 
-    public function structural()
+    public function subPresenceByCivitas()
     {
         return view('presence.dashboard.structural')
-            ->with('presences', Presence::presences());
+            ->with('presences', Presence::subPresenceByCivitas());
     }
 
-    public function structuralAll()
+    public function subPresenceAll()
     {
         return view('presence.dashboard.index')
-            ->with('presences', Presence::getPresences(User::getChildrenSdmId()));
+            ->with('presences', Presence::subPresenceAll());
     }
 
     public function subLecturer()
@@ -45,10 +45,22 @@ class PresenceController extends Controller
             ->with('lecturers', Subject::subLecturer());
     }
 
-    public function lecturer()
+    public function allLecturer()
     {
         return view('presence.dashboard.lecturer')
-            ->with('lecturers', Subject::lecturer());
+            ->with('lecturers', Subject::allLecturer());
+    }
+
+    public function dsdmByCivitas()
+    {
+        return view('presence.dashboard.structural')
+            ->with('presences', Presence::dsdmByCivitas());
+    }
+
+    public function dsdmAllCivitas()
+    {
+        return view('presence.dashboard.index')
+            ->with('presences', Presence::dsdmAllCivitas());
     }
 
     public function create()

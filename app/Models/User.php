@@ -167,4 +167,11 @@ class User extends Authenticatable
         });
         return $sub;
     }
+
+    public static function justChildSDMId()
+    {
+        return collect(User::getChildrenSdmId())->filter(function ($id) {
+            return $id !== Auth::id();
+        });
+    }
 }
