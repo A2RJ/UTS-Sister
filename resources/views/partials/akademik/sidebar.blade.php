@@ -5,3 +5,9 @@
          <span class="link-title">Laporan Pengajaran</span>
      </a>
  </li>
+ <li class="nav-item">
+     <a href="{{ route('comments') }}" class="nav-link">
+         <i class="link-icon" data-feather="mail"></i>
+         <span class="link-title">Komentar</span>
+     </a>
+ </li>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
-use App\Http\Controllers\AKademik\SemesterController;
+use App\Http\Controllers\Akademik\SemesterController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
@@ -40,9 +40,8 @@ use App\Traits\Utils\Sharer;
 Auth::routes();
 Route::get('/', [Controller::class, 'index'])->name('index');
 
-Route::get('/verify', function () {
-    return Sharer::verifyLink(request('data'));
-});
+Route::get('/verify', [Controller::class, 'verify']);
+Route::post('/presence-mahasiswa/{meeting_id}', [Controller::class, 'presenceMahasiswa'])->name('presence.mahasiswa');
 
 Route::middleware("auth")->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -211,6 +210,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/admin")->group(function () {
+        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
         Route::prefix('structure')->group(function () {
             Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
         });

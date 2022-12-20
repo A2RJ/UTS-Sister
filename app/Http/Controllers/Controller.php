@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Sister;
+use App\Http\Requests\PresenceMahasiswa;
+use App\Models\Comment;
+use App\Models\Link;
+use App\Models\Meeting;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -37,5 +40,50 @@ class Controller extends BaseController
     {
         // Sister::authorize();
         return view('auth.login');
+    }
+
+    public function verify(Request $request)
+    {
+        $url = urldecode($request->getUri());
+        $link = Link::where('link', $url)->first();
+        abort_if(empty($link), 404, 'Ops invalid url');
+        $meeting = Meeting::where('id', $link->meeting_id)->first();
+        return view('mahasiswa.presence')
+            ->with('id', uniqid())
+            ->with('url', $request->getUri())
+            ->with('meeting', $meeting->meeting_name);
+    }
+
+    public function presenceMahasiswa(PresenceMahasiswa $request)
+    {
+        $form = $request->safe()->only(['nama', 'nim', 'komentar']);
+        $url = urldecode($request->url);
+        $link = Link::where('link', $url)->first();
+        abort_if(empty($link), 404, 'Ops invalid url');
+        $form['meeting_id'] = $link->meeting_id;
+        Comment::create($form);
+        return redirect()->back()->with('message', 'Berhasil');
+    }
+
+    public function allComments()
+    {
+        $search = request('search');
+        $comments = Comment::join('meetings', 'comments.meeting_id', 'meetings.id')
+            ->join('subjects', 'meetings.subject_id', 'subjects.id')
+            ->join('human_resources', 'subjects.sdm_id', 'human_resources.id')
+            ->select('subject', 'comments.*', 'sdm_name')
+            ->when($search, function ($query) use ($search) {
+                $query->where('subject', 'like', '%' . $search . '%')
+                    ->orWhere('sdm_name', 'like', '%' . $search . '%')
+                    ->orWhere('meeting_id', 'like', '%' . $search . '%')
+                    ->orWhere('nama', 'like', '%' . $search . '%')
+                    ->orWhere('nim', 'like', '%' . $search . '%')
+                    ->orWhere('komentar', 'like', '%' . $search . '%');
+            })
+            ->paginate();
+
+
+        return view('admin.comment.index')
+            ->with('comments', $comments);
     }
 }

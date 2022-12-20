@@ -40,7 +40,7 @@ class MeetingAPIController extends Controller
         ]);
         Link::create([
             'meeting_id' => $meeting_id,
-            'link' => env('APP_REDIRECT') . "/verify?sharer=$meeting_id?is=" . uniqid()
+            'link' => env('APP_REDIRECT') . "/verify?sharer=$meeting_id&is=" . uniqid()
         ]);
         return response([
             'data' => 'Meeting dimulai'
