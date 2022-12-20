@@ -1,7 +1,7 @@
 <form class="mb-4" action="{{ url()->current() }}" method="GET">
     <div class="input-group">
         <input type="text" name="search" class="form-control" value="{{ request('search')}}" placeholder="Search..." autocomplete="off">
-        @if (Request::is('presence/structural-all') || Request::is('presence/my-presence'))
+        @if (Request::is('presence/civitas-all') || Request::is('presence/my-presence') || Request::is('presence/detail/*'))
         <input type="date" name="start" class="form-control" value="{{ request('start')}}">
         <input type="date" name="end" class="form-control" value="{{ request('end')}}">
         @endif

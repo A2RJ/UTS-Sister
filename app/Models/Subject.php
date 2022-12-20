@@ -221,12 +221,12 @@ class Subject extends Model
         $search = request('search');
         $data = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->join('semesters', 'subjects.semester_id', 'semesters.id')
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })
-            ->select('human_resources.id', 'semester_id', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
-            ->with(['semester'])
-            ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id')
+            ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
+            ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
             ->paginate();
         return $data;
     }
