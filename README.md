@@ -64,8 +64,7 @@
 
 ## Urgent
 
--   Fungsi absen pulang sepertinya bermasalah ketika ada yang pulang dihari esok nya (security)
-    --
+-   ## Fungsi absen pulang sepertinya bermasalah ketika ada yang pulang dihari esok nya (security)
 
 ## Tools
 
@@ -77,3 +76,40 @@
     http://forum.centos-webpanel.com/index.php?topic=10177.0
 
 STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+Berikut adalah beberapa contoh laporan yang bisa Anda buat hanya berdasarkan data pengajaran dosen dan kehadiran di kampus:
+
+Laporan absen pengajaran dosen: Laporan ini menyertakan data tentang jumlah jam yang telah diajar oleh setiap dosen, termasuk tanggal, waktu, dan mata kuliah yang diajarkan. Anda juga bisa menambahkan informasi seperti jumlah jam yang diakui oleh universitas atau institusi tempat Anda bekerja.
+
+Laporan absen kehadiran dosen: Laporan ini menyertakan data tentang kehadiran dosen pada setiap sesi atau kegiatan pengajaran, termasuk tanggal, waktu, dan lokasi kegiatan. Anda juga bisa menambahkan keterangan tambahan seperti alasan tidak hadir atau jumlah jam yang dihadiri.
+
+Laporan absen kehadiran siswa: Laporan ini menyertakan data tentang kehadiran siswa pada setiap sesi atau kegiatan pengajaran, termasuk tanggal, waktu, dan lokasi kegiatan. Anda juga bisa menambahkan keterangan tambahan seperti alasan tidak hadir atau jumlah jam yang dihadiri.
+
+Laporan pemakaian ruangan: Laporan ini menyertakan data tentang pemakaian ruangan untuk kegiatan pengajaran, termasuk tanggal, waktu, dan jenis kegiatan yang dilakukan.
+
+Laporan evaluasi dosen: Laporan ini menyertakan hasil evaluasi dosen oleh siswa atau kolega, termasuk data tentang kualitas pengajaran, kemampuan menyampaikan materi, dan kemampuan mengelola kelas.
+
+Laporan kinerja dosen: Laporan ini menyertakan data tentang kinerja dosen, termasuk jumlah jam yang diajar, jumlah siswa yang terdaftar dalam kelas yang diajar, dan hasil evaluasi dosen oleh siswa atau kolega.
+
+Laporan kinerja siswa: Laporan ini menyertakan data tentang kinerja siswa, termasuk nilai ujian, tugas, dan proyek, serta kehadiran pada sesi pengajaran.
+
+Laporan keuangan pengajaran: Laporan ini menyertakan data tentang pengeluaran dan pendapatan yang terkait dengan kegiatan pengajaran, termasuk biaya ruangan, honorarium dosen, dan biaya lainnya.
+
+## TIPS
+
+-   Validasi valid URL from server (bukan ketikan)
+
+```
+return URL::temporarySignedRoute(
+    'download.sub-lecturer',
+    now()->addMinutes(5),
+    ['query', request()->getQueryString()]
+);
+use Illuminate\Support\Facades\URL;
+
+if (URL::hasValidSignature($request)) {
+  // URL asli dan belum kadaluarsa
+} else {
+  // URL tidak asli atau telah kadaluarsa
+}
+```

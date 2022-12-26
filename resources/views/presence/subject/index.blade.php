@@ -16,7 +16,7 @@
     </div>
     @endif
 
-    <x-search-subject />
+    <x-search-subject exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Mata kuliah', 'Semester', 'SKS', 'Jumlah Pertemuan', 'Pertemuan Selesai', 'Pertemuan Selanjutnya', 'Nilai SKS', 'Aksi']">
         @foreach ($subjects as $subject)
         <tr>

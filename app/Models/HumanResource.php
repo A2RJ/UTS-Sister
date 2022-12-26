@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Utils\File\Exel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Rap2hpoutre\FastExcel\FastExcel;
 
 class HumanResource extends Model
 {
-    use HasFactory;
+    use HasFactory, Exel;
 
     protected $fillable = [
         'sdm_id',
@@ -133,22 +133,5 @@ class HumanResource extends Model
     public static function lecturerList()
     {
         return HumanResource::whereIn('id', User::getChildrenSdmId()->unique())->get();
-    }
-
-    public static function downloadExel()
-    {
-        return (new FastExcel(HumanResource::all()))->download('SDM.xlsx', function ($sdm) {
-            return [
-                'SDM ID' => $sdm['sdm_id'],
-                'Nama SDM' => $sdm['sdm_name'],
-                'Email' => $sdm['email'],
-                'NIDN' => $sdm['nidn'],
-                'NIP' => $sdm['nip'],
-                'Status Aktif' => $sdm['active_status_name'],
-                'Status Kepegawaian' => $sdm['employee_status'],
-                'Tipe SDM' => $sdm['sdm_type'],
-                'Terdaftar Sister' => $sdm['is_sister_exist']
-            ];
-        });
     }
 }

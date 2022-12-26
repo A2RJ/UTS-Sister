@@ -5,7 +5,7 @@
 <div class="card p-2">
     <h4 class="mb-4">List Sub Divisi</h4>
 
-    <x-search-presence />
+    <x-search-presence exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Nama', 'Total Jam', 'Detail']">
         @foreach ($presences as $presence)
         <tr>

@@ -36,7 +36,5 @@ trait Referensi
     {
         $res = Http::referensi()->get("/sdm?nama=widi");
         return $res;
-        // var_dump($res->json());
-        // (new FastExcel($res->json()))->export("List_sdm.xlsx");
     }
 }

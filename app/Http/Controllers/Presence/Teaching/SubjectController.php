@@ -78,6 +78,7 @@ class SubjectController extends Controller
     public function byLecturer($sdm_id, $semester_id)
     {
         return view('presence.subject.index')
+            ->with('exportUrl', route('download.by-lecturer', ['sdm_id' => $sdm_id, 'semester_id' => $semester_id]))
             ->with('subjects', Subject::bySdmId([$sdm_id], $semester_id));
     }
 

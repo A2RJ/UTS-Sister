@@ -6,14 +6,16 @@ use Illuminate\View\Component;
 
 class SearchPresence extends Component
 {
+    public $exportUrl, $withDate;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($exportUrl = false, $withDate = false)
     {
-        //
+        $this->exportUrl = $exportUrl;
+        $this->withDate = $withDate;
     }
 
     /**

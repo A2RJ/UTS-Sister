@@ -23,6 +23,7 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Utils\UtilityController;
 use Illuminate\Support\Facades\Artisan;
 use App\Traits\Utils\Sharer;
@@ -208,7 +209,9 @@ Route::middleware("auth")->group(function () {
             });
         });
     });
+});
 
+Route::middleware('auth')->group(function () {
     Route::prefix("/admin")->group(function () {
         Route::get('comments', [Controller::class, 'allComments'])->name('comments');
         Route::prefix('structure')->group(function () {
@@ -237,6 +240,14 @@ Route::middleware("auth")->group(function () {
             Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
             Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
             Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
+            Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
+                Route::get('/my-presence', 'myPresence')->name('download.my-presence');
+                Route::get('/per-civitas', 'perCivitas')->name('download.per-civitas');
+                Route::get('/civitas-all', 'subPresenceAll')->name('download.civitas-all');
+                Route::get('/detail/{sdm_id}', 'detail')->name('download.detail');
+                Route::get('/sub-lecturer', 'subLecturer')->name('download.sub-lecturer');
+                Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('download.by-lecturer');
+            });
         });
         Route::resource("/presence", PresenceController::class)->except('show');
         Route::prefix('prodi')->group(function () {

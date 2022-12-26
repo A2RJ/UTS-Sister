@@ -8,7 +8,7 @@
         Seluruh Civitas
         @endif
     </h3>
-    <x-search-subject />
+    <x-search-subject exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Nama', 'Semester', 'Total SKS', 'Action']">
         @foreach ($lecturers as $lecturer)
         <tr>

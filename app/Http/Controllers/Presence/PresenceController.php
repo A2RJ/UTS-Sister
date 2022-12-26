@@ -8,7 +8,6 @@ use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
 use App\Models\Subject;
-use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,24 +23,29 @@ class PresenceController extends Controller
     public function myPresence()
     {
         return view('presence.dashboard.index')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.my-presence', request()->getQueryString()))
             ->with('presences', Presence::getPresences([Auth::id()]));
     }
 
     public function subPresenceByCivitas()
     {
         return view('presence.dashboard.structural')
+            ->with('exportUrl', route('download.per-civitas', request()->getQueryString()))
             ->with('presences', Presence::subPresenceByCivitas());
     }
 
     public function subPresenceAll()
     {
         return view('presence.dashboard.index')
+            ->with('exportUrl', route('download.civitas-all', request()->getQueryString()))
             ->with('presences', Presence::subPresenceAll());
     }
 
     public function subLecturer()
     {
         return view('presence.dashboard.lecturer')
+            ->with('exportUrl', route('download.sub-lecturer', request()->getQueryString()))
             ->with('lecturers', Subject::subLecturer());
     }
 
@@ -80,6 +84,7 @@ class PresenceController extends Controller
     {
         return view('presence.dashboard.index')
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
+            ->with('exportUrl', route('download.detail', ['sdm_id' => $sdm_id]))
             ->with('presences', Presence::getPresences([$sdm_id]));
     }
 
