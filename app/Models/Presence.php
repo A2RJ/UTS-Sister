@@ -89,24 +89,23 @@ class Presence extends Model
     public static function dsdmByCivitas()
     {
         $search = request('search');
-        $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
-            ->where('human_resources.id', '!=', Auth::id())
+        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            // ->where('human_resources.id', '!=', Auth::id())
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
                 DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
                 DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
             )
+            ->when($search, function ($query) use ($search) {
+                $query->where('sdm_name', 'like', "%$search%");
+            })
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
-            );
-        if ($search) {
-            $query->when($search, function ($query) use ($search) {
-                return $query->where('sdm_name', 'like', "%$search%");
-            });
-        }
-        return $query->paginate();
+            )
+            ->orderByDesc('hours')
+            ->paginate();
     }
 
     public static function dsdmAllCivitas()

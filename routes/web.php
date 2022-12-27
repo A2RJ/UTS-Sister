@@ -247,6 +247,9 @@ Route::middleware('auth')->group(function () {
                 Route::get('/detail/{sdm_id}', 'detail')->name('download.detail');
                 Route::get('/sub-lecturer', 'subLecturer')->name('download.sub-lecturer');
                 Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('download.by-lecturer');
+                Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('download.dsdm-civitas');
+                Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('download.dsdm-civitas-all');
+                Route::get('/all-lecturer', 'allLecturer')->name('download.all-lecturer');
             });
         });
         Route::resource("/presence", PresenceController::class)->except('show');

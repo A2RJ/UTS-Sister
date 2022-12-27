@@ -129,6 +129,92 @@ class FilePresenceController extends Controller
         });
     }
 
+    public function dsdmByCivitas()
+    {
+        $search = request('search');
+        $result = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id',
+                DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
+                DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
+            )
+            ->when($search, function ($query) use ($search) {
+                $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->groupBy(
+                'human_resources.sdm_name',
+                'human_resources.id'
+            )
+            ->orderByDesc('hours')
+            ->get();
+
+        return (new FastExcel($result))->download('laporan-kehadiran-per-dosen-' . Carbon::now() . '.xlsx', function ($sdm) {
+            $hours = $sdm['hours'] ?? 0;
+            $minutes = $sdm['minutes'] ?? 0;
+            return [
+                'Nama SDM' => $sdm['sdm_name'],
+                'Jam' => $hours . ' Jam ' . $minutes . ' Menit'
+            ];
+        });
+    }
+
+    public function dsdmAllCivitas()
+    {
+        $search = request('search');
+        $start = request('start');
+        $end = request('end');
+        $result = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->select(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'latitude_in',
+                'longitude_in',
+                'latitude_out',
+                'longitude_out',
+                DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
+                DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
+                DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
+                DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour"),
+                DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
+                DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
+            )
+            ->when($search, function ($query) use ($search) {
+                $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->when($start && $end, function ($query) use ($start, $end) {
+                $query->whereBetween('check_in_time', [$start, $end]);
+            })
+            ->groupBy(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'latitude_in',
+                'longitude_in',
+                'latitude_out',
+                'longitude_out',
+                'check_in_date',
+                'check_out_date',
+                'check_in_hour',
+                'check_out_hour'
+            )
+            ->get();
+
+        return (new FastExcel($result))->download('laporan-kehadiran-' . Carbon::now() . '.xlsx', function ($sdm) {
+            $hours = $sdm['hours'] ?? 0;
+            $minutes = $sdm['minutes'] ?? 0;
+            return [
+                'Nama SDM' => $sdm['sdm_name'],
+                'Tanggal' => $sdm['check_in_date'],
+                'Jam Masuk' => $sdm['check_in_hour'],
+                'Jam Pulang' => $sdm['check_out_hour'],
+                'Durasi' => $hours . ' Jam ' . $minutes . ' Menit'
+            ];
+        });
+    }
+
+
     public function subLecturer()
     {
         $search = request('search');
@@ -166,7 +252,7 @@ class FilePresenceController extends Controller
             ->join('classes', 'subjects.class_id', 'classes.id')
             ->join('structures', 'classes.structure_id', 'structures.id')
             ->where('subjects.sdm_id', $sdm_id)
-            ->where(function ($query) use ($search, $semester_id) {
+            ->where(function ($query) use ($search) {
                 $query->where('subject', 'like', "%$search%")
                     ->orWhere('class', 'like', "%$search%")
                     ->orWhere('semester', 'like', "%$search%")
@@ -213,6 +299,29 @@ class FilePresenceController extends Controller
                 'Jumlah pertemuan Selesai' => $sdm['meetings_completed'],
                 'Jumlah pertemuan Belum Selesai' => $sdm['meetings_pending'],
                 'Nilai SKS' => $sdm['value_sks'],
+            ];
+        });
+    }
+
+    public function allLecturer()
+    {
+        $search = request('search');
+        $result = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
+            ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
+            ->join('semesters', 'subjects.semester_id', 'semesters.id')
+            ->when($search, function ($query) use ($search) {
+                $query->where('sdm_name', 'like', "%$search%")
+                    ->orWhere('semester', 'like', "%$search%");
+            })
+            ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
+            ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
+            ->get();
+
+        return (new FastExcel($result))->download('laporan-pengajaran-dosen-' . Carbon::now() . '.xlsx', function ($sdm) {
+            return [
+                'Nama SDM' => $sdm['sdm_name'],
+                'Semester' => $sdm['semester'],
+                'Total SKS' => $sdm['total_sks'],
             ];
         });
     }

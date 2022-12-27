@@ -52,18 +52,22 @@ class PresenceController extends Controller
     public function allLecturer()
     {
         return view('presence.dashboard.lecturer')
+            ->with('exportUrl', route('download.all-lecturer', request()->getQueryString()))
             ->with('lecturers', Subject::allLecturer());
     }
 
     public function dsdmByCivitas()
     {
         return view('presence.dashboard.structural')
+            ->with('exportUrl', route('download.dsdm-civitas', request()->getQueryString()))
             ->with('presences', Presence::dsdmByCivitas());
     }
 
     public function dsdmAllCivitas()
     {
         return view('presence.dashboard.index')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
             ->with('presences', Presence::dsdmAllCivitas());
     }
 

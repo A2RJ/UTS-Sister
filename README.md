@@ -41,6 +41,8 @@
 
 ## Sedang dikerjakan
 
+-   Laporan mata kuliah
+
 ## Flowcart presensi kehadiran
 
 -   civitas UTS Login
