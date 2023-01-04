@@ -24,6 +24,7 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Utils\UtilityController;
 use Illuminate\Support\Facades\Artisan;
@@ -46,6 +47,7 @@ Route::prefix('auth')->controller(SocialiteController::class)->group(function ()
 });
 
 Route::get('/', [Controller::class, 'index'])->name('index');
+Route::get('/send', [MailController::class, 'presences']);
 
 Route::get('/verify', [Controller::class, 'verify']);
 Route::post('/presence-mahasiswa/{meeting_id}', [Controller::class, 'presenceMahasiswa'])->name('presence.mahasiswa');
