@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
@@ -39,6 +40,11 @@ use App\Traits\Utils\Sharer;
 */
 
 Auth::routes();
+Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
+    Route::get('/google', 'redirectToProvider');
+    Route::get('/google/callback', 'handleProvideCallback');
+});
+
 Route::get('/', [Controller::class, 'index'])->name('index');
 
 Route::get('/verify', [Controller::class, 'verify']);
