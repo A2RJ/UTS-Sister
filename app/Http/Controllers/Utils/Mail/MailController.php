@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Utils\Mail;
 
+use App\Http\Controllers\Controller;
 use App\Mail\PresencesMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
