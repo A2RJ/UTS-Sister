@@ -6,6 +6,9 @@ use App\Http\Controllers\API\MeetingAPIController;
 use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\API\SanctumAuthController;
 use App\Http\Controllers\API\SubjectAPIController;
+use App\Http\Controllers\Student\StudentController;
+use App\Models\Student;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,8 @@ use App\Http\Controllers\API\SubjectAPIController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/students', [StudentController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'api']);
 
