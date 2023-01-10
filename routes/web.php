@@ -26,9 +26,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Presence\FilePresenceController;
-use App\Http\Controllers\Utils\UtilityController;
-use Illuminate\Support\Facades\Artisan;
-use App\Traits\Utils\Sharer;
+use App\Http\Controllers\Student\StudentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +38,11 @@ use App\Traits\Utils\Sharer;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('student')->controller(StudentController::class)->group(function () {
+    Route::get('import', 'index')->name('student.import');
+    Route::post('import-post', 'import')->name('student.import.post');
+});
 
 Auth::routes();
 Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
