@@ -35,7 +35,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 8,
             ),
             1 => 
             array (
@@ -53,7 +54,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 12,
             ),
             2 => 
             array (
@@ -71,7 +73,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 7,
             ),
             3 => 
             array (
@@ -90,6 +93,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             4 => 
             array (
@@ -107,7 +111,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-11 11:01:39',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 16,
             ),
             5 => 
             array (
@@ -125,7 +130,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 23,
             ),
             6 => 
             array (
@@ -143,7 +149,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 18,
             ),
             7 => 
             array (
@@ -161,7 +168,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 6,
             ),
             8 => 
             array (
@@ -179,7 +187,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             9 => 
             array (
@@ -197,7 +206,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 3,
             ),
             10 => 
             array (
@@ -215,7 +225,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 3,
             ),
             11 => 
             array (
@@ -234,6 +245,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             12 => 
             array (
@@ -251,7 +263,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             13 => 
             array (
@@ -269,7 +282,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             14 => 
             array (
@@ -287,7 +301,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             15 => 
             array (
@@ -306,6 +321,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             16 => 
             array (
@@ -323,7 +339,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 5,
             ),
             17 => 
             array (
@@ -341,7 +358,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 6,
             ),
             18 => 
             array (
@@ -359,7 +377,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 10,
             ),
             19 => 
             array (
@@ -377,7 +396,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             20 => 
             array (
@@ -396,6 +416,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             21 => 
             array (
@@ -413,7 +434,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 24,
             ),
             22 => 
             array (
@@ -432,6 +454,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             23 => 
             array (
@@ -449,7 +472,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             24 => 
             array (
@@ -467,7 +491,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             25 => 
             array (
@@ -486,6 +511,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             26 => 
             array (
@@ -503,7 +529,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 17,
             ),
             27 => 
             array (
@@ -522,6 +549,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             28 => 
             array (
@@ -540,6 +568,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             29 => 
             array (
@@ -557,7 +586,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 1,
             ),
             30 => 
             array (
@@ -575,7 +605,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             31 => 
             array (
@@ -593,7 +624,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 5,
             ),
             32 => 
             array (
@@ -611,7 +643,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 14,
             ),
             33 => 
             array (
@@ -629,7 +662,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 22,
             ),
             34 => 
             array (
@@ -647,7 +681,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 9,
             ),
             35 => 
             array (
@@ -665,7 +700,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             36 => 
             array (
@@ -683,7 +719,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 8,
             ),
             37 => 
             array (
@@ -702,6 +739,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             38 => 
             array (
@@ -719,7 +757,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 20,
             ),
             39 => 
             array (
@@ -737,7 +776,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             40 => 
             array (
@@ -755,7 +795,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 22,
             ),
             41 => 
             array (
@@ -774,6 +815,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             42 => 
             array (
@@ -791,7 +833,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 2,
             ),
             43 => 
             array (
@@ -809,7 +852,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 12,
             ),
             44 => 
             array (
@@ -828,6 +872,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             45 => 
             array (
@@ -845,7 +890,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 21,
             ),
             46 => 
             array (
@@ -863,7 +909,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 9,
             ),
             47 => 
             array (
@@ -881,7 +928,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 3,
             ),
             48 => 
             array (
@@ -900,6 +948,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             49 => 
             array (
@@ -917,7 +966,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 15,
             ),
             50 => 
             array (
@@ -935,7 +985,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 19,
             ),
             51 => 
             array (
@@ -953,7 +1004,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 24,
             ),
             52 => 
             array (
@@ -971,7 +1023,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 17,
             ),
             53 => 
             array (
@@ -989,7 +1042,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 11,
             ),
             54 => 
             array (
@@ -1008,6 +1062,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             55 => 
             array (
@@ -1025,7 +1080,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 27,
             ),
             56 => 
             array (
@@ -1043,7 +1099,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 15,
             ),
             57 => 
             array (
@@ -1061,7 +1118,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 9,
             ),
             58 => 
             array (
@@ -1080,6 +1138,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             59 => 
             array (
@@ -1097,7 +1156,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 6,
             ),
             60 => 
             array (
@@ -1115,7 +1175,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 17,
             ),
             61 => 
             array (
@@ -1134,6 +1195,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             62 => 
             array (
@@ -1152,6 +1214,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             63 => 
             array (
@@ -1169,7 +1232,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 1,
             ),
             64 => 
             array (
@@ -1187,7 +1251,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 24,
             ),
             65 => 
             array (
@@ -1206,6 +1271,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             66 => 
             array (
@@ -1223,7 +1289,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 24,
             ),
             67 => 
             array (
@@ -1241,7 +1308,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             68 => 
             array (
@@ -1259,7 +1327,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 6,
             ),
             69 => 
             array (
@@ -1277,7 +1346,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 25,
             ),
             70 => 
             array (
@@ -1296,6 +1366,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             71 => 
             array (
@@ -1314,6 +1385,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             72 => 
             array (
@@ -1331,7 +1403,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 1,
             ),
             73 => 
             array (
@@ -1349,7 +1422,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:54',
+                'program_studi_id' => 16,
             ),
             74 => 
             array (
@@ -1368,6 +1442,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             75 => 
             array (
@@ -1385,7 +1460,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 5,
             ),
             76 => 
             array (
@@ -1403,7 +1479,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 7,
             ),
             77 => 
             array (
@@ -1422,6 +1499,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             78 => 
             array (
@@ -1439,7 +1517,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             79 => 
             array (
@@ -1458,6 +1537,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             80 => 
             array (
@@ -1475,7 +1555,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             81 => 
             array (
@@ -1493,7 +1574,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 14,
             ),
             82 => 
             array (
@@ -1511,7 +1593,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             83 => 
             array (
@@ -1529,7 +1612,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 22,
             ),
             84 => 
             array (
@@ -1548,6 +1632,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             85 => 
             array (
@@ -1565,7 +1650,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 7,
             ),
             86 => 
             array (
@@ -1583,7 +1669,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             87 => 
             array (
@@ -1601,7 +1688,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             88 => 
             array (
@@ -1620,6 +1708,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             89 => 
             array (
@@ -1637,7 +1726,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             90 => 
             array (
@@ -1655,7 +1745,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 2,
             ),
             91 => 
             array (
@@ -1673,7 +1764,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 1,
             ),
             92 => 
             array (
@@ -1692,6 +1784,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             93 => 
             array (
@@ -1709,7 +1802,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 1,
             ),
             94 => 
             array (
@@ -1727,7 +1821,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             95 => 
             array (
@@ -1746,6 +1841,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             96 => 
             array (
@@ -1763,7 +1859,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             97 => 
             array (
@@ -1781,7 +1878,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-11 14:12:25',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             98 => 
             array (
@@ -1799,7 +1897,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             99 => 
             array (
@@ -1817,7 +1916,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 6,
             ),
             100 => 
             array (
@@ -1836,6 +1936,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             101 => 
             array (
@@ -1853,7 +1954,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             102 => 
             array (
@@ -1871,7 +1973,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 26,
             ),
             103 => 
             array (
@@ -1890,6 +1993,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             104 => 
             array (
@@ -1908,6 +2012,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             105 => 
             array (
@@ -1926,6 +2031,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             106 => 
             array (
@@ -1943,7 +2049,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 6,
             ),
             107 => 
             array (
@@ -1961,7 +2068,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             108 => 
             array (
@@ -1979,7 +2087,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             109 => 
             array (
@@ -1997,7 +2106,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             110 => 
             array (
@@ -2016,6 +2126,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             111 => 
             array (
@@ -2033,7 +2144,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 2,
             ),
             112 => 
             array (
@@ -2051,7 +2163,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 13,
             ),
             113 => 
             array (
@@ -2070,6 +2183,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             114 => 
             array (
@@ -2087,7 +2201,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 13,
             ),
             115 => 
             array (
@@ -2105,7 +2220,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 20,
             ),
             116 => 
             array (
@@ -2123,7 +2239,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 14,
             ),
             117 => 
             array (
@@ -2141,7 +2258,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             118 => 
             array (
@@ -2159,7 +2277,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             119 => 
             array (
@@ -2177,7 +2296,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 19,
             ),
             120 => 
             array (
@@ -2195,7 +2315,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             121 => 
             array (
@@ -2214,6 +2335,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             122 => 
             array (
@@ -2231,7 +2353,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 4,
             ),
             123 => 
             array (
@@ -2249,7 +2372,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             124 => 
             array (
@@ -2267,7 +2391,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 15,
             ),
             125 => 
             array (
@@ -2285,7 +2410,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 20,
             ),
             126 => 
             array (
@@ -2303,7 +2429,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 27,
             ),
             127 => 
             array (
@@ -2321,7 +2448,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-11 14:15:36',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 12,
             ),
             128 => 
             array (
@@ -2339,7 +2467,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             129 => 
             array (
@@ -2357,7 +2486,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             130 => 
             array (
@@ -2375,7 +2505,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 4,
             ),
             131 => 
             array (
@@ -2394,6 +2525,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             132 => 
             array (
@@ -2411,7 +2543,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             133 => 
             array (
@@ -2430,6 +2563,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             134 => 
             array (
@@ -2447,7 +2581,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 15,
             ),
             135 => 
             array (
@@ -2465,7 +2600,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 23,
             ),
             136 => 
             array (
@@ -2483,7 +2619,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 14,
             ),
             137 => 
             array (
@@ -2502,6 +2639,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             138 => 
             array (
@@ -2519,7 +2657,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             139 => 
             array (
@@ -2537,7 +2676,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 1,
             ),
             140 => 
             array (
@@ -2555,7 +2695,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 12,
             ),
             141 => 
             array (
@@ -2574,6 +2715,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             142 => 
             array (
@@ -2591,7 +2733,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             143 => 
             array (
@@ -2609,7 +2752,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 6,
             ),
             144 => 
             array (
@@ -2627,7 +2771,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 20,
             ),
             145 => 
             array (
@@ -2645,7 +2790,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             146 => 
             array (
@@ -2663,7 +2809,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 18,
             ),
             147 => 
             array (
@@ -2681,7 +2828,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             148 => 
             array (
@@ -2699,7 +2847,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             149 => 
             array (
@@ -2717,7 +2866,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 26,
             ),
             150 => 
             array (
@@ -2736,6 +2886,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             151 => 
             array (
@@ -2753,7 +2904,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 20,
             ),
             152 => 
             array (
@@ -2771,7 +2923,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             153 => 
             array (
@@ -2789,7 +2942,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 19,
             ),
             154 => 
             array (
@@ -2807,7 +2961,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 6,
             ),
             155 => 
             array (
@@ -2825,7 +2980,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             156 => 
             array (
@@ -2843,7 +2999,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 5,
             ),
             157 => 
             array (
@@ -2861,7 +3018,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 13,
             ),
             158 => 
             array (
@@ -2879,7 +3037,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             159 => 
             array (
@@ -2898,6 +3057,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             160 => 
             array (
@@ -2916,6 +3076,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             161 => 
             array (
@@ -2933,7 +3094,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             162 => 
             array (
@@ -2951,7 +3113,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             163 => 
             array (
@@ -2969,7 +3132,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 21,
             ),
             164 => 
             array (
@@ -2987,7 +3151,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             165 => 
             array (
@@ -3005,7 +3170,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             166 => 
             array (
@@ -3023,7 +3189,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             167 => 
             array (
@@ -3041,7 +3208,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 26,
             ),
             168 => 
             array (
@@ -3060,6 +3228,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             169 => 
             array (
@@ -3077,7 +3246,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             170 => 
             array (
@@ -3095,7 +3265,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 9,
             ),
             171 => 
             array (
@@ -3113,7 +3284,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             172 => 
             array (
@@ -3131,7 +3303,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             173 => 
             array (
@@ -3150,6 +3323,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             174 => 
             array (
@@ -3167,7 +3341,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 9,
             ),
             175 => 
             array (
@@ -3185,7 +3360,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             176 => 
             array (
@@ -3203,7 +3379,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             177 => 
             array (
@@ -3221,7 +3398,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             178 => 
             array (
@@ -3240,6 +3418,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             179 => 
             array (
@@ -3257,7 +3436,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 21,
             ),
             180 => 
             array (
@@ -3275,7 +3455,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 5,
             ),
             181 => 
             array (
@@ -3293,7 +3474,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             182 => 
             array (
@@ -3311,7 +3493,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             183 => 
             array (
@@ -3329,7 +3512,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             184 => 
             array (
@@ -3347,7 +3531,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 18,
             ),
             185 => 
             array (
@@ -3365,7 +3550,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             186 => 
             array (
@@ -3383,7 +3569,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             187 => 
             array (
@@ -3401,7 +3588,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 26,
             ),
             188 => 
             array (
@@ -3419,7 +3607,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             189 => 
             array (
@@ -3437,7 +3626,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 27,
             ),
             190 => 
             array (
@@ -3455,7 +3645,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             191 => 
             array (
@@ -3473,7 +3664,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             192 => 
             array (
@@ -3491,7 +3683,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             193 => 
             array (
@@ -3509,7 +3702,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 7,
             ),
             194 => 
             array (
@@ -3528,6 +3722,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             195 => 
             array (
@@ -3545,7 +3740,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 19,
             ),
             196 => 
             array (
@@ -3563,7 +3759,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 2,
             ),
             197 => 
             array (
@@ -3581,7 +3778,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 26,
             ),
             198 => 
             array (
@@ -3600,6 +3798,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             199 => 
             array (
@@ -3618,6 +3817,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             200 => 
             array (
@@ -3635,7 +3835,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 9,
             ),
             201 => 
             array (
@@ -3653,7 +3854,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 15,
             ),
             202 => 
             array (
@@ -3671,7 +3873,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 20,
             ),
             203 => 
             array (
@@ -3690,6 +3893,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             204 => 
             array (
@@ -3708,6 +3912,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             205 => 
             array (
@@ -3725,7 +3930,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 15,
             ),
             206 => 
             array (
@@ -3743,7 +3949,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             207 => 
             array (
@@ -3761,7 +3968,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 5,
             ),
             208 => 
             array (
@@ -3779,7 +3987,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 27,
             ),
             209 => 
             array (
@@ -3797,7 +4006,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 23,
             ),
             210 => 
             array (
@@ -3815,7 +4025,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 10,
             ),
             211 => 
             array (
@@ -3833,7 +4044,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 21,
             ),
             212 => 
             array (
@@ -3851,7 +4063,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 24,
             ),
             213 => 
             array (
@@ -3869,7 +4082,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 16,
             ),
             214 => 
             array (
@@ -3888,6 +4102,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             215 => 
             array (
@@ -3905,7 +4120,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             216 => 
             array (
@@ -3923,7 +4139,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 21,
             ),
             217 => 
             array (
@@ -3942,6 +4159,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             218 => 
             array (
@@ -3959,7 +4177,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             219 => 
             array (
@@ -3977,7 +4196,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 14,
             ),
             220 => 
             array (
@@ -3995,7 +4215,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 13,
             ),
             221 => 
             array (
@@ -4014,6 +4235,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             222 => 
             array (
@@ -4031,7 +4253,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 14,
             ),
             223 => 
             array (
@@ -4050,6 +4273,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             224 => 
             array (
@@ -4067,7 +4291,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 3,
             ),
             225 => 
             array (
@@ -4085,7 +4310,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 8,
             ),
             226 => 
             array (
@@ -4103,7 +4329,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 18,
             ),
             227 => 
             array (
@@ -4121,7 +4348,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 25,
             ),
             228 => 
             array (
@@ -4139,7 +4367,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 9,
             ),
             229 => 
             array (
@@ -4157,7 +4386,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 1,
             ),
             230 => 
             array (
@@ -4175,7 +4405,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 17,
             ),
             231 => 
             array (
@@ -4193,7 +4424,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 11,
             ),
             232 => 
             array (
@@ -4212,6 +4444,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             233 => 
             array (
@@ -4229,7 +4462,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'sdm_type' => 'Dosen',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
-                'updated_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2023-01-15 19:37:55',
+                'program_studi_id' => 23,
             ),
             234 => 
             array (
@@ -4248,6 +4482,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-10 20:45:41',
+                'program_studi_id' => NULL,
             ),
             235 => 
             array (
@@ -4266,6 +4501,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-11 14:10:53',
+                'program_studi_id' => NULL,
             ),
             236 => 
             array (
@@ -4284,6 +4520,7 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 0,
                 'created_at' => '2022-12-12 01:02:33',
                 'updated_at' => '2022-12-12 01:02:33',
+                'program_studi_id' => NULL,
             ),
         ));
         

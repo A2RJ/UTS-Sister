@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('tempat_tanggal_lahir')->nullable();
             $table->string('nim')->nullable();
+            $table->string('password')->nullable();
             $table->string('nik')->nullable();
             $table->string('program_studi_id')->nullable();
             $table->string('sesi_kuliah')->nullable();

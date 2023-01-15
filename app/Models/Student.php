@@ -15,6 +15,7 @@ class Student extends Model
         'gender',
         'tempat_tanggal_lahir',
         'nim',
+        'password',
         'nik',
         'program_studi_id',
         'sesi_kuliah',

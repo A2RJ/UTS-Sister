@@ -56,11 +56,13 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('student')->controller(StudentAPIController::class)->group(function () {
         Route::get('/', 'index')->name('api.student');
-        Route::post('import', 'import')->name('api.student.import');
+        // Route::post('import', 'import')->name('api.student.import');
+        // Route::post('set-password', 'setPassword')->name('api.student.set-password');
+        // Route::post('validate-password', 'validasiPassword')->name('api.student.validate-password');
     });
     Route::prefix('faculty')->controller(FacultyAPIController::class)->group(function () {
         Route::get('/', 'index');
-        Route::post('/', 'store');
+        // Route::post('/', 'store');
     });
     Route::prefix('study-program')->controller(StudyProgramAPIController::class)->group(function () {
         Route::get('/', 'index');

@@ -71,6 +71,7 @@ class StudentAPIController extends Controller
                         "gender" => $student['L/P'],
                         "tempat_tanggal_lahir" => $student['Tempat/Tanggal Lahir'],
                         "nim" => preg_replace('/[^\d]+/', '', $student['NIM']),
+                        "password" => Hash::make(preg_replace('/[^\d]+/', '', $student['NIM'])),
                         "nik" => preg_replace('/[^\d]+/', '', $student['NIK']),
                         "program_studi_id" => $prodi_id,
                         "program_studi" => $prodi,
@@ -239,5 +240,39 @@ class StudentAPIController extends Controller
         return response()->json([
             'data' => $students
         ], 200);
+    }
+
+    public function setPassword()
+    {
+        $angkatan = request('angkatan');
+        if (!$angkatan) return response()->json(['message' => "set angkatan"], 422);
+        // return DB::transaction(function () use ($angkatan) {
+        $students = Student::where('angkatan', 'LIKE', "%$angkatan%")->whereNull('password')->get();
+        foreach ($students as $student) {
+            $student->password = Hash::make($student->nim);
+            $student->save();
+        }
+        return response()->json(['message' => "berhasil " . $angkatan]);
+        // });
+    }
+
+    public function validasiPassword()
+    {
+        $valid = array();
+        $invalid = array();
+        $angkatan = request('angkatan');
+        $students = Student::where('angkatan', 'LIKE', "%$angkatan%")->whereNotNull('password')->limit(100)->get();
+        foreach ($students as $student) {
+            if (Hash::check($student->nim, $student->password)) {
+                array_push($valid, $student->nim);
+            } else {
+                array_push($invalid, $student->nim);
+            }
+        }
+
+        return response()->json([
+            'valid' => $valid,
+            'invalid' => $invalid
+        ]);
     }
 }
