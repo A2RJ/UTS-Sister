@@ -1,14 +1,16 @@
 <?php
 
+use App\Http\Controllers\API\FacultyAPIController;
+use App\Http\Controllers\API\LecturerAPIController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\MeetingAPIController;
 use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\API\SanctumAuthController;
+use App\Http\Controllers\API\StudentAPIController;
+use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Student\StudentController;
-use App\Models\Student;
-use Rap2hpoutre\FastExcel\FastExcel;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,9 @@ use Rap2hpoutre\FastExcel\FastExcel;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
+| if error routes not supported: Accept => application/json
 |
 */
-
-Route::get('/students', [StudentController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'api']);
 
@@ -49,31 +50,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/check-out', 'update');
         Route::get('/{presence}', 'show');
     });
+    Route::prefix('lecture')->controller(LecturerAPIController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/set-study-program', 'setStudyProgram');
+    });
+    Route::prefix('student')->controller(StudentAPIController::class)->group(function () {
+        Route::get('/', 'index')->name('api.student');
+        Route::post('import', 'import')->name('api.student.import');
+    });
+    Route::prefix('faculty')->controller(FacultyAPIController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });
+    Route::prefix('study-program')->controller(StudyProgramAPIController::class)->group(function () {
+        Route::get('/', 'index');
+    });
 });
-
-
-// define('STDIN', fopen("php://stdin", "r"));
-// Route::get("/migrate", function () {
-//     Artisan::call('migrate:fresh', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });
-// Route::get("/rollback", function () {
-//     Artisan::call('migrate:rollback', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });
-// Route::get("/seed", function () {
-//     Artisan::call('db:seed', [
-//         '--force' => true
-//     ]);
-//     return response()->json([
-//         'result' => "Berhasil"
-//     ]);
-// });

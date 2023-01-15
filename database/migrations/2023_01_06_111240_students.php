@@ -16,12 +16,13 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('student_id')->index();
             $table->string('nama_lengkap')->nullable();
             $table->string('gender')->nullable();
             $table->string('tempat_tanggal_lahir')->nullable();
             $table->string('nim')->nullable();
             $table->string('nik')->nullable();
-            $table->string('program_studi')->nullable();
+            $table->string('program_studi_id')->nullable();
             $table->string('sesi_kuliah')->nullable();
             $table->string('periode_masuk')->nullable();
             $table->string('angkatan')->nullable();
@@ -73,7 +74,7 @@ return new class extends Migration
             $table->string('status_ibu')->nullable();
             $table->string('tanggal_meninggal_ibu')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrentOnUpdate();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

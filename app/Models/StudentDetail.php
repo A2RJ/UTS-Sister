@@ -67,6 +67,8 @@ class StudentDetail extends Model
         'beban_studi_sks_s2',
     ];
 
+    public $timestamps = false;
+
     public function student()
     {
         return $this->hasOne(Student::class, 'student_id', 'id');

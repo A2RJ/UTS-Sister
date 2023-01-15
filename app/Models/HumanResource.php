@@ -22,6 +22,7 @@ class HumanResource extends Model
         'active_status_name',
         'employee_status',
         'sdm_type',
+        'program_studi_id',
         'is_sister_exist'
     ];
     /**

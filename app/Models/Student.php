@@ -10,12 +10,13 @@ class Student extends Model
     use HasFactory;
 
     public $fillable = [
+        'student_id',
         'nama_lengkap',
         'gender',
         'tempat_tanggal_lahir',
         'nim',
         'nik',
-        'program_studi',
+        'program_studi_id',
         'sesi_kuliah',
         'periode_masuk',
         'angkatan',
@@ -68,8 +69,10 @@ class Student extends Model
         'tanggal_meninggal_ibu',
     ];
 
+    public $timestamps = false;
+
     public function detail()
     {
-        return $this->hasOne(StudentDetail::class, 'student_id', 'id');
+        return $this->hasOne(StudentDetail::class, 'student_id', 'student_id');
     }
 }
