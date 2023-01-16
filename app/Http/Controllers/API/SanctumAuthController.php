@@ -33,7 +33,7 @@ class SanctumAuthController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
         return response([
             'data' => ["access_token" => $user->createToken($user->sdm_name)->plainTextToken]
         ]);

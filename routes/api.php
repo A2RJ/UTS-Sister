@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('lecture')->controller(LecturerAPIController::class)->group(function () {
         Route::get('/', 'index');
-        Route::post('/set-study-program', 'setStudyProgram');
+        // Route::post('/set-study-program', 'setStudyProgram');
     });
     Route::prefix('student')->controller(StudentAPIController::class)->group(function () {
         Route::get('/', 'index')->name('api.student');

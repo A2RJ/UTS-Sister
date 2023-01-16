@@ -223,19 +223,55 @@ class StudentAPIController extends Controller
         $fakultas = request('fakultas');
         $angkatan = request('angkatan');
 
-        $students = Student::leftJoin('student_details', 'students.student_id', 'student_details.student_id')
-            ->leftJoin('study_programs', 'students.program_studi_id', 'study_programs.id')
-            ->leftJoin('faculties', 'study_programs.faculty_id', 'faculties.id')
-            ->when($prodi, function ($query) use ($prodi) {
-                $query->where('study_program', 'LIKE', "%$prodi%");
-            })
-            ->when($fakultas, function ($query) use ($fakultas) {
-                $query->where('faculty', 'LIKE', "%$fakultas%");
-            })
-            ->when($angkatan, function ($query) use ($angkatan) {
-                $query->where('angkatan', 'LIKE', "%$angkatan%");
-            })
-            ->get();
+        $query = Student::query();
+        $query->leftJoin('study_programs', 'students.program_studi_id', 'study_programs.id')
+            ->leftJoin('faculties', 'study_programs.faculty_id', 'faculties.id');
+        if ($prodi) {
+            $query->where('study_programs.study_program', 'LIKE', "%$prodi%");
+        }
+        if ($fakultas) {
+            $query->where('faculties.faculty', 'LIKE', "%$fakultas%");
+        }
+        if ($angkatan) {
+            $query->where('students.angkatan', 'LIKE', "%$angkatan%");
+        }
+        // $query->leftJoin('student_details', function ($join) {
+        //    $join->on('students.student_id', '=', 'student_details.student_id');
+        //});
+        $query->select(
+            'students.student_id',
+            'students.nama_lengkap',
+            'students.gender',
+            'students.tempat_tanggal_lahir',
+            'students.nim',
+            'students.password',
+            'students.nik',
+            'students.program_studi_id',
+            'students.sesi_kuliah',
+            'students.periode_masuk',
+            'students.angkatan',
+            'students.status_masuk',
+            'students.jalur_masuk',
+            'students.status_akademik',
+            'students.status_mahasiswa',
+            'students.agama',
+            'students.status_nikah',
+            'students.kewarganegaraan',
+            'students.status_domisili',
+            'students.alamat',
+            'students.kelurahan',
+            'students.kecamatan',
+            'students.kota_tinggal',
+            'students.kode_pos',
+            'students.negara',
+            'students.no_telp',
+            'students.no_hp',
+            'students.email',
+            'study_programs.study_program',
+            'faculties.faculty'
+        ); //, 'student_details.*'
+        $query->orderBy('students.angkatan', 'ASC');
+        $students = $query->get();
 
         return response()->json([
             'data' => $students
