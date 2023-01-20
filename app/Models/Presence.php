@@ -99,6 +99,7 @@ class Presence extends Model
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
             )
+            ->getDiffAttribute()
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);
             })
@@ -108,62 +109,6 @@ class Presence extends Model
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
-            )
-            ->addSelect(
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                ELSE 0
-                END)) as hour_difference"),
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                ELSE 0
-                    END)) as minute_difference"),
-                DB::raw(
-                    "GREATEST(0, (CASE
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) DIV 60),0)
-                ELSE 0
-                END)) as overtime_hours"
-                ),
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
-                ELSE 0
-                END)) as overtime_minutes"),
             );
 
         return $query->paginate();
