@@ -14,11 +14,7 @@
             <td>{{ $presence->check_in_date }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
-            <td>
-                @if ($presence->hours || $presence->minutes)
-                {{ $presence->hours }} Jam {{ $presence->minutes }} Menit
-                @endif
-            </td>
+            <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
         </tr>
         @endforeach
     </x-table>

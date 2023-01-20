@@ -10,7 +10,7 @@
         @method('PUT')
         <x-input name="sdm_name" label="Nama SDM" placeholder="Nama" :value="$human_resource->sdm_name" />
         <x-input name="nidn" label="NIDN" placeholder="NIDN" :value="$human_resource->nidn" />
-        <x-input name="nip" label="NIP" placeholder="NIP" :value="$human_resource->nip" />
+        <x-input name="nip" label="NIP" placeholder="NIP" :value="$human_resource->nip" :required="false" />
         <x-select name="active_status_name" label="Status" :select="$active_status_name" :current="$human_resource->active_status_name" />
         <x-select name="employee_status" label="Status pegawai" :select="$employee_status" :current="$human_resource->employee_status" />
         <x-select name="sdm_type" label="Tipe pegawai" :select="$sdm_type" :current="$human_resource->sdm_type" />

@@ -9,7 +9,7 @@
     <x-form action="{{ route('human_resource.store') }}" displayError="true">
         <x-input name="sdm_name" label="Nama SDM" placeholder="Nama" />
         <x-input name="nidn" label="NIDN" placeholder="NIDN" />
-        <x-input name="nip" label="NIP" placeholder="NIP" />
+        <x-input name="nip" label="NIP" placeholder="NIP" :required="false" />
         <x-select name="active_status_name" label="Status" :select="$active_status_name" />
         <x-select name="employee_status" label="Status pegawai" :select="$employee_status" />
         <x-select name="sdm_type" label="Tipe pegawai" :select="$sdm_type" />

@@ -44,12 +44,21 @@ class HumanResourceController extends Controller
             "structure_id",
             "structure_id",
         ]);
-        $form['sdm_id'] = Hash::make($request->sdm_name);
+        $form['sdm_id'] = $this->genId(date('DMYhis'));
         $sdmEmail = preg_replace("/\s+/", ".", $request['sdm_name']);
         $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
         $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
         return redirect()->route('human_resource.index')->with('message', "$request->sdm_name created");
+    }
+
+    public function genId($string)
+    {
+        $string = preg_replace('/\D/', '', $string);
+        $random = rand(100000000, 999999999);
+        $random = str_pad($random, 9, "0", STR_PAD_LEFT);
+        $uniqid = hash('md5', $string . $random);
+        return $string . $uniqid;
     }
 
     public function show(HumanResource $humanResource)

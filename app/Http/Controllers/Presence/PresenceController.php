@@ -31,6 +31,7 @@ class PresenceController extends Controller
     public function subPresenceByCivitas()
     {
         return view('presence.dashboard.structural')
+            ->with('withDate', true)
             ->with('exportUrl', route('download.per-civitas', request()->getQueryString()))
             ->with('presences', Presence::subPresenceByCivitas());
     }
@@ -38,6 +39,7 @@ class PresenceController extends Controller
     public function subPresenceAll()
     {
         return view('presence.dashboard.index')
+            ->with('withDate', true)
             ->with('exportUrl', route('download.civitas-all', request()->getQueryString()))
             ->with('presences', Presence::subPresenceAll());
     }
