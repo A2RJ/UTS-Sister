@@ -77,17 +77,17 @@ class Presence extends Model
         $end = request('end');
         $start = request('start');
         $search = request('search');
-        $thisWeek = request('thisweek');
-        if ($thisWeek) {
-            $start = Carbon::now()->startOfWeek();
-            $end = Carbon::now()->endOfWeek();
-        }
-        $thisMonth = request('thismonth');
-        if ($thisMonth) {
-            $start = Carbon::now()->startOfMonth();
-            $end = Carbon::now()->endOfMonth();
-        }
-        $period = self::calculatePeriod($start, $end);
+        // $thisWeek = request('thisweek');
+        // if ($thisWeek) {
+        //     $start = Carbon::now()->startOfWeek();
+        //     $end = Carbon::now()->endOfWeek();
+        // }
+        // $thisMonth = request('thismonth');
+        // if ($thisMonth) {
+        //     $start = Carbon::now()->startOfMonth();
+        //     $end = Carbon::now()->endOfMonth();
+        // }
+        // $period = self::calculatePeriod($start, $end);
 
         $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId())
@@ -108,64 +108,8 @@ class Presence extends Model
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
-            );
-        if ($thisWeek || $thisMonth) {
-            $query->addSelect(
-                DB::raw("CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Dosen', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Dosen DT', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Tenaga Kependidikan', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((" . self::expectedWorkingHours('Security', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((" . self::expectedWorkingHours('Customer Service', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                ELSE 0
-                END as hour_difference"),
-                DB::raw("CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Dosen', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Dosen DT', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((" . self::expectedWorkingHours('Tenaga Kependidikan', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((" . self::expectedWorkingHours('Security', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((" . self::expectedWorkingHours('Customer Service', $period) . ") - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                ELSE 0
-                END as minute_difference"),
-                DB::raw("CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Dosen', $period) . ")), 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Dosen DT', $period) . ")), 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Tenaga Kependidikan', $period) . ")), 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Security', $period) . ")), 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Customer Service', $period) . ")), 0)
-                ELSE 0
-                END as overtime_minutes"),
-                DB::raw("CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Dosen', $period) . ")) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Dosen DT', $period) . ")) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Tenaga Kependidikan', $period) . ")) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Security', $period) . ")) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (" . self::expectedWorkingHours('Customer Service', $period) . ")) DIV 60, 0)
-                ELSE 0
-                END as overtime_hours"),
-            );
-        } else {
-            $query->addSelect(
+            )
+            ->addSelect(
                 DB::raw("GREATEST(0, (CASE 
                 WHEN human_resources.sdm_type = 'Dosen' 
                     THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
@@ -209,19 +153,18 @@ class Presence extends Model
                 ),
                 DB::raw("GREATEST(0, (CASE 
                 WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)),0)
+                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)),0)
+                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)),0)
+                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)),0)
+                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)),0)
+                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
                 ELSE 0
                 END)) as overtime_minutes"),
             );
-        }
 
         return $query->paginate();
     }
