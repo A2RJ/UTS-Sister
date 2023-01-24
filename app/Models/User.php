@@ -112,6 +112,11 @@ class User extends Authenticatable
         return $this->checkRoleType('639eb26622219DirektoratSumberDayaManusia', 'child_id');
     }
 
+    public function isSecurity()
+    {
+        return $this->checkRoleType('security', 'type');
+    }
+
     public static function prodi()
     {
         return collect(Auth::user()->structure)->filter(function ($item) {

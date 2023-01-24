@@ -59,10 +59,17 @@ class PresenceAPIController extends Controller
 
     public function update(UpdatePresenceRequestAPI $request)
     {
-        $presence = Presence::where('sdm_id', request()->user()->id)
-            ->whereDate('check_in_time', Carbon::today())
-            ->latest()
-            ->first();
+        if (request()->user()->isSecurity()) {
+            $presence = Presence::where('sdm_id', request()->user()->id)
+                ->whereDate('check_in_time', Carbon::yesterday())
+                ->latest()
+                ->first();
+        } else {
+            $presence = Presence::where('sdm_id', request()->user()->id)
+                ->whereDate('check_in_time', Carbon::today())
+                ->latest()
+                ->first();
+        }
 
         if (empty($presence)) {
             return response()->json([
