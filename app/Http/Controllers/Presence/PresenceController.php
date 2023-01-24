@@ -30,7 +30,6 @@ class PresenceController extends Controller
 
     public function subPresenceByCivitas()
     {
-        return Presence::subPresenceByCivitas();
         return view('presence.dashboard.structural')
             ->with('withDate', true)
             ->with('exportUrl', route('download.per-civitas', request()->getQueryString()))

@@ -182,6 +182,7 @@ class Presence extends Model
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
             )
+            ->getDiffAttribute()
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })

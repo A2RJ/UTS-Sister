@@ -82,6 +82,7 @@ class FilePresenceController extends Controller
                 DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
                 DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
             )
+            ->getDiffAttribute()
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
@@ -93,7 +94,9 @@ class FilePresenceController extends Controller
             $minutes = $sdm['minutes'] ?? 0;
             return [
                 'Nama SDM' => $sdm['sdm_name'],
-                'Jam' => $hours . ' Jam ' . $minutes . ' Menit'
+                'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
+                'Kurang' => $sdm['hour_difference'] . " Jam " . $sdm['minute_difference'],
+                'Lembur' => $sdm['overtime_hours'] . " Jam " . $sdm['overtime_minutes']
             ];
         });
     }
@@ -142,11 +145,11 @@ class FilePresenceController extends Controller
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })
+            ->getDiffAttribute()
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id'
             )
-            ->orderByDesc('hours')
             ->get();
 
         return (new FastExcel($result))->download('laporan-kehadiran-per-dosen-' . Carbon::now() . '.xlsx', function ($sdm) {
@@ -154,7 +157,9 @@ class FilePresenceController extends Controller
             $minutes = $sdm['minutes'] ?? 0;
             return [
                 'Nama SDM' => $sdm['sdm_name'],
-                'Jam' => $hours . ' Jam ' . $minutes . ' Menit'
+                'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
+                'Kurang' => $sdm['hour_difference'] . " Jam " . $sdm['minute_difference'],
+                'Lembur' => $sdm['overtime_hours'] . " Jam " . $sdm['overtime_minutes']
             ];
         });
     }
