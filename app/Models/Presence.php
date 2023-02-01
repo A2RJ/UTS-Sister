@@ -13,11 +13,55 @@ class Presence extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sdm_id', 'check_in_time', 'check_out_time', 'latitude_in', 'longitude_in', 'latitude_out', 'longitude_out', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'sdm_id',
+        'check_in_time',
+        'latitude_in',
+        'longitude_in',
+        'check_out_time',
+        'latitude_out',
+        'longitude_out'
+    ];
+    public $latitude = 80;
+    public $longitude = 80;
+    public $workingTime = [
+        'Dosen' => 18,
+        'Dosen DT' => 30,
+        'Tenaga Kependidikan' => 35,
+        'Security' => 55,
+        'Customer Service' => 55,
+    ];
+    public $workHour = [
+        'Dosen' => [
+            'in' => false,
+            'out' => false,
+        ],
+        'Dosen DT' => [
+            'in' => false,
+            'out' => false,
+        ],
+        'Tenaga Kependidikan' => [
+            'in' => "09:00",
+            'out' => "16:00",
+        ],
+        'Security' => [
+            'in' => "17:00",
+            'out' => "06:00",
+        ],
+        'Customer Service' => [
+            'in' => "07:00",
+            'out' => "17:00",
+        ],
+    ];
 
     public function human_resource()
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
+    }
+
+    public function attachment()
+    {
+        return $this->hasOne(PresenceAttachment::class, 'presence_id');
     }
 
     public function processWeek(Request $request)
@@ -41,26 +85,7 @@ class Presence extends Model
 
     public static function expectedWorkingHours($sdm_type, $period)
     {
-        $working_hours_per_week = 0;
-        switch ($sdm_type) {
-            case 'Dosen':
-                $working_hours_per_week = 18;
-                break;
-            case 'Dosen DT':
-                $working_hours_per_week = 30;
-                break;
-            case 'Tenaga Kependidikan':
-                $working_hours_per_week = 35;
-                break;
-            case 'Security':
-                $working_hours_per_week = 55;
-                break;
-            case 'Customer Service':
-                $working_hours_per_week = 55;
-                break;
-            default:
-                $working_hours_per_week = 0;
-        }
+        $working_hours_per_week = $sdm_type ? self::$workingTime[$sdm_type] : 0;
         return $working_hours_per_week * $period * 60;
     }
 
