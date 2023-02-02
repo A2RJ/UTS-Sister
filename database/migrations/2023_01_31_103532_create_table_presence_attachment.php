@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("presence_id")->nullable()->constrained("presences")->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('detail');
-            $table->text('attachment');
+            $table->text('attachment')->nullable();
             $table->timestamps();
         });
     }

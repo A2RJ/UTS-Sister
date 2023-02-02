@@ -27,16 +27,7 @@ class StorePresenceRequestAPI extends FormRequest
     {
         return [
             'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-            'detail' => 'required_if:isLateCheck,true',
-            'attachment' => 'nullable:file',
+            'longitude' => 'required|numeric|between:-180,180'
         ];
-    }
-
-    private function isLateCheck()
-    {
-        if (!request()->user()->sdm_type) return response()->json(['message' => 'Set SDM type'], 500);
-        $data = Presence::$workHour[request()->user()->sdm_type];
-        return Carbon::now() < $data['in'] ? true : false;
     }
 }

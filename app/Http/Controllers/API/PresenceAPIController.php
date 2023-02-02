@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PresenceAPIController extends Controller
 {
@@ -32,26 +33,14 @@ class PresenceAPIController extends Controller
         ]);
     }
 
-    public function isLateCheck($request)
-    {
-        if (!$request->user()->sdm_type) return response()->json(['message' => 'Set SDM type'], 500);
-        $data = Presence::$workHour[$request->user()->sdm_type];
-        return Carbon::now() < $data['in'] ? true : false;
-    }
-
-    public function isLate(Request $request)
-    {
-        return $this->isLateCheck($request);
-    }
-
     public function store(StorePresenceRequestAPI $request)
     {
-        DB::transaction();
         try {
+            DB::beginTransaction();
             $presence = Presence::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
-                ->first();
-            if (!isset($presence)) throw new Exception('Hari ini sudah mengisi presensi');
+                ->exists();
+            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
 
             $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
@@ -60,14 +49,20 @@ class PresenceAPIController extends Controller
                 'longitude_in' => $request->input('longitude')
             ]);
 
-            if ($this->isLateCheck($request)) {
-                $file = $request->file('attachment');
-                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/presense/attachments', $filename);
-                $presence->attachment()->create([
-                    'detail' => $request->detail,
-                    'attachment' => $filename
+            if (Presence::isLate()) {
+                $validatedData = $request->validate([
+                    'detail' => 'required',
+                    'attachment' => 'nullable|file',
                 ]);
+
+                if ($request->hasFile('attachment')) {
+                    $file = $request->file('attachment');
+                    $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+                    $file->storeAs('public/presense/attachments', $filename);
+                    $validatedData['attachment'] = $filename;
+                }
+
+                $presence->attachment()->create($validatedData);
             }
 
             DB::commit();
@@ -118,9 +113,9 @@ class PresenceAPIController extends Controller
 
     public function halfDayPresence(PermissionPresenceRequest $request)
     {
-        DB::transaction();
         try {
-            $checkInHour = Presence::$workHour[$request->sdm_type];
+            DB::beginTransaction();
+            $checkInHour = Presence::workHour();
             if (!isset($checkInHour))  throw new Exception('Jam masuk tidak ditemukan');
 
             $presence = PresencePermission::where('sdm_id', $request->sdm_id)
@@ -154,9 +149,9 @@ class PresenceAPIController extends Controller
 
     public function fullDayPresence(PermissionPresenceRequest $request)
     {
-        DB::transaction();
         try {
-            $checkInHour = Presence::$workHour[$request->sdm_type];
+            DB::beginTransaction();
+            $checkInHour = Presence::workHour();
             if (!isset($checkInHour))  throw new Exception('Jam masuk tidak ditemukan');
 
             $presence = PresencePermission::where('sdm_id', $request->sdm_id)

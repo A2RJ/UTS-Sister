@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -22,37 +23,48 @@ class Presence extends Model
         'latitude_out',
         'longitude_out'
     ];
-    public $latitude = 80;
-    public $longitude = 80;
-    public $workingTime = [
+    static $latitude = 80;
+    static $longitude = 80;
+    static $workingTime = [
         'Dosen' => 18,
         'Dosen DT' => 30,
         'Tenaga Kependidikan' => 35,
         'Security' => 55,
         'Customer Service' => 55,
     ];
-    public $workHour = [
-        'Dosen' => [
-            'in' => false,
-            'out' => false,
-        ],
-        'Dosen DT' => [
-            'in' => false,
-            'out' => false,
-        ],
-        'Tenaga Kependidikan' => [
-            'in' => "09:00",
-            'out' => "16:00",
-        ],
-        'Security' => [
-            'in' => "17:00",
-            'out' => "06:00",
-        ],
-        'Customer Service' => [
-            'in' => "07:00",
-            'out' => "17:00",
-        ],
-    ];
+
+    public static function workHour()
+    {
+        $workHour = [
+            'Dosen' => [
+                'in' => false,
+                'out' => false,
+            ],
+            'Dosen DT' => [
+                'in' => false,
+                'out' => false,
+            ],
+            'Tenaga Kependidikan' => [
+                'in' => "09:00",
+                'out' => "16:00",
+            ],
+            'Security' => [
+                'in' => "17:00",
+                'out' => "06:00",
+            ],
+            'Customer Service' => [
+                'in' => "07:00",
+                'out' => "17:00",
+            ],
+        ];
+        if (!array_key_exists(request()->user()->sdm_type, $workHour))  throw new Exception('Invalid sdm_type');
+        return $workHour[request()->user()->sdm_type];
+    }
+
+    public static function isLate()
+    {
+        return Carbon::now()->format('H:i') > Presence::workHour()['in'];
+    }
 
     public function human_resource()
     {
