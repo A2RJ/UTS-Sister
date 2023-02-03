@@ -7,7 +7,6 @@ use App\Http\Requests\Presence\PermissionPresenceRequest;
 use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
 use App\Models\Presence;
-use App\Models\PresencePermission;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,7 +40,7 @@ class PresenceAPIController extends Controller
 
             $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
-                'check_in_time' => date('Y-m-d H:i:s'),
+                'check_in_time' => Carbon::today(),
                 'latitude_in' => $request->input('latitude'),
                 'longitude_in' => $request->input('longitude')
             ]);
@@ -86,7 +85,7 @@ class PresenceAPIController extends Controller
             if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang');
 
             $presence->update([
-                'check_out_time' => date('Y-m-d H:i:s'),
+                'check_out_time' => Carbon::today(),
                 'latitude_out' => $request->input('latitude'),
                 'longitude_out' => $request->input('longitude')
             ]);
@@ -101,23 +100,20 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $presencePermission = PresencePermission::where('sdm_id', $request->user()->id)
-                ->whereDate('check_in_time', Carbon::today())
-                ->first();
             $presence = Presence::where('id', $request->user()->sdm_id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->first();
             if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
-            if ($presencePermission) throw new Exception('Hari ini sudah mengisi ijin presensi');
 
             $checkInHour = Presence::workHour()['in'];
             $today = Carbon::today();
             $targetTime = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
-            $presence = PresencePermission::create([
+            $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
                 'check_in_time' => $targetTime,
                 'latitude_in' => Presence::$latitude,
-                'longitude_in' => Presence::$longitude
+                'longitude_in' => Presence::$longitude,
+                'permission' => 0
             ]);
 
             $validatedData = $request->only(['detail', 'attachment']);
@@ -139,31 +135,34 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $checkInHour = Presence::workHour();
-            if (!isset($checkInHour))  throw new Exception('Jam masuk tidak ditemukan');
-
-            $presence = PresencePermission::where('sdm_id', $request->sdm_id)
+            $presence = Presence::where('id', $request->user()->sdm_id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->first();
-            if (!isset($presence)) throw new Exception('Hari ini sudah mengisi presensi');
+            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
 
-            $presence = PresencePermission::create([
-                'sdm_id' => $request->sdm_id,
-                'check_in_time' => $checkInHour['in'],
+            $today = Carbon::today();
+            $checkInHour = Presence::workHour()['in'];
+            $checkInHour = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
+            $checkOutHour = Presence::workHour()['out'];
+            $checkOutHour = Carbon::parse($today->toDateString() . ' ' . $checkOutHour)->format('Y-m-d H:i:s');
+
+            $presence = Presence::create([
+                'sdm_id' => $request->user()->id,
+                'check_in_time' => $checkInHour,
                 'latitude_in' => Presence::$latitude,
                 'longitude_in' => Presence::$longitude,
-                'check_out_time' => $checkInHour['out'],
+                'check_out_time' => $checkOutHour,
                 'latitude_out' => Presence::$latitude,
                 'longitude_out' => Presence::$longitude,
+                'permission' => 0
             ]);
 
+            $validatedData = $request->only(['detail', 'attachment']);
             $file = $request->file('attachment');
-            $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/presense/attachments', $filename);
-            $presence->attachment()->create([
-                'detail' => $request->detail,
-                'attachment' => $filename
-            ]);
+            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+            if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
+            $validatedData['attachment'] = $filename;
+            $presence->attachment()->create($validatedData);
 
             DB::commit();
             return $this->responseData($presence, 201);
@@ -178,16 +177,11 @@ class PresenceAPIController extends Controller
         DB::beginTransaction();
         try {
             $request->validate(['id' => 'required']);
-            $data = PresencePermission::where('id', $request->id)->first();
-
-            $tabel2 = new Presence();
-            $tabel2->fill($data->toArray());
-            $tabel2->save();
-
-            $data->delete();
+            $data = Presence::where('id', $request->id)->first();
+            $data->update(['permission' => 1]);
 
             DB::commit();
-            return $this->responseMessage('Berhasil terima izin');
+            return redirect()->back()->with('message', 'Berhasil memberikan ijin');
         } catch (Exception $e) {
             DB::rollBack();
             return $this->responseError($e->getMessage(), 400);

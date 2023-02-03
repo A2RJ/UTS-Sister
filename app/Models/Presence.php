@@ -22,7 +22,8 @@ class Presence extends Model
         'longitude_in',
         'check_out_time',
         'latitude_out',
-        'longitude_out'
+        'longitude_out',
+        'permission'
     ];
     static $latitude = 80;
     static $longitude = 80;
