@@ -86,4 +86,26 @@ class Controller extends BaseController
         return view('admin.comment.index')
             ->with('comments', $comments);
     }
+
+    public function responseData($data, $statusCode = 200)
+    {
+        return response()->json(['data' => $data], $statusCode);
+    }
+
+    public function responseMessage($message, $statusCode = 200)
+    {
+        return response()->json(['message' => $message], $statusCode);
+    }
+    public function responseError($error, $statusCode = 200)
+    {
+        return response()->json(['error' => $error], $statusCode);
+    }
+
+    public function responseMesData($message, $data, $statusCode = 200)
+    {
+        return response()->json([
+            'message' => $message,
+            'data' => $data
+        ], $statusCode);
+    }
 }

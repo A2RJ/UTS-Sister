@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Presence extends Model
 {
@@ -57,8 +58,8 @@ class Presence extends Model
                 'out' => "17:00",
             ],
         ];
-        if (!array_key_exists(request()->user()->sdm_type, $workHour))  throw new Exception('Invalid sdm_type');
-        return $workHour[request()->user()->sdm_type];
+        if (!array_key_exists(Str::title(request()->user()->sdm_type), $workHour))  throw new Exception('Invalid sdm_type' . request()->user()->sdm_type);
+        return $workHour[Str::title(request()->user()->sdm_type)];
     }
 
     public static function isLate()

@@ -14,13 +14,13 @@ class HumanResourcesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('human_resources')->delete();
-        
-        \DB::table('human_resources')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('human_resources')->insert(array(
+            0 =>
+            array(
                 'id' => 1,
                 'sdm_id' => 'b27d3846-f8c2-470b-9b64-bd2dab5e8db4',
                 'sdm_name' => 'ABBYZAR AGGASI',
@@ -38,8 +38,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 8,
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'id' => 2,
                 'sdm_id' => '4733ea8c-86d1-4b31-bb3c-81ccc7790a3a',
                 'sdm_name' => 'ABDUL HADI ILMAN',
@@ -57,8 +57,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 12,
             ),
-            2 => 
-            array (
+            2 =>
+            array(
                 'id' => 3,
                 'sdm_id' => 'c27990b7-4950-4457-bcac-2b49a986dfd7',
                 'sdm_name' => 'ABDUL SALAM',
@@ -76,8 +76,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 7,
             ),
-            3 => 
-            array (
+            3 =>
+            array(
                 'id' => 4,
                 'sdm_id' => '8c5412ac-5e1b-4312-95ad-3a5a9bb262c3',
                 'sdm_name' => 'ACUH DHARMAWAN JUNAIDI',
@@ -95,8 +95,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            4 => 
-            array (
+            4 =>
+            array(
                 'id' => 5,
                 'sdm_id' => '04d5b96a-0bcd-4012-81dd-e827a11cf186',
                 'sdm_name' => 'ADELIA ELVIANTARI',
@@ -114,8 +114,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 16,
             ),
-            5 => 
-            array (
+            5 =>
+            array(
                 'id' => 6,
                 'sdm_id' => '5ca3ff10-a1bc-45ac-819c-d1eb01074181',
                 'sdm_name' => 'ADI MAWARDIN',
@@ -133,8 +133,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 23,
             ),
-            6 => 
-            array (
+            6 =>
+            array(
                 'id' => 7,
                 'sdm_id' => 'c0f5a6e8-2e8a-4581-a374-06d381ae5776',
                 'sdm_name' => 'ADI SURIYADIN',
@@ -152,8 +152,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 18,
             ),
-            7 => 
-            array (
+            7 =>
+            array(
                 'id' => 8,
                 'sdm_id' => 'ac6297ce-e01d-4e11-8df2-a18004f8ef70',
                 'sdm_name' => 'AGUS SALAM',
@@ -171,8 +171,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 6,
             ),
-            8 => 
-            array (
+            8 =>
+            array(
                 'id' => 9,
                 'sdm_id' => '8633b271-649b-4b5f-b3cd-951b60186f47',
                 'sdm_name' => 'AGUS SANTOSO',
@@ -190,8 +190,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            9 => 
-            array (
+            9 =>
+            array(
                 'id' => 10,
                 'sdm_id' => '6ccabf53-bc1c-4cf0-bc6b-4feb24dc6bc4',
                 'sdm_name' => 'AHMAD JAYA',
@@ -209,8 +209,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 3,
             ),
-            10 => 
-            array (
+            10 =>
+            array(
                 'id' => 11,
                 'sdm_id' => '7a43cb00-4ace-4c74-85ba-c9c901d1c586',
                 'sdm_name' => 'AHMAD JIBRAIL',
@@ -228,8 +228,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 3,
             ),
-            11 => 
-            array (
+            11 =>
+            array(
                 'id' => 12,
                 'sdm_id' => 'cc1812dd-06df-4ba0-9620-3c7014cc2454',
                 'sdm_name' => 'AHMAD JULIANSYAH',
@@ -247,8 +247,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            12 => 
-            array (
+            12 =>
+            array(
                 'id' => 13,
                 'sdm_id' => '1057aa5c-8039-4590-b066-2952840848a9',
                 'sdm_name' => 'AHMAD REZA JATNIKA',
@@ -266,8 +266,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            13 => 
-            array (
+            13 =>
+            array(
                 'id' => 14,
                 'sdm_id' => 'bf500375-0383-4f56-a274-b4c822e246dd',
                 'sdm_name' => 'AISYAH PUTRI RAWE MAHARDIKA',
@@ -285,8 +285,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            14 => 
-            array (
+            14 =>
+            array(
                 'id' => 15,
                 'sdm_id' => '9f8d18e9-905d-48cf-9bbf-0925e02c98d9',
                 'sdm_name' => 'AKA KURNIA SF',
@@ -304,8 +304,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            15 => 
-            array (
+            15 =>
+            array(
                 'id' => 16,
                 'sdm_id' => '79702834-ea3d-413e-adcf-446f6ed7b2c8',
                 'sdm_name' => 'ALAMSYAH',
@@ -323,8 +323,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            16 => 
-            array (
+            16 =>
+            array(
                 'id' => 17,
                 'sdm_id' => 'a5ae8f34-be5e-4341-bd2f-e4732893de15',
                 'sdm_name' => 'ALDRIN',
@@ -342,8 +342,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 5,
             ),
-            17 => 
-            array (
+            17 =>
+            array(
                 'id' => 18,
                 'sdm_id' => 'be5b7c76-4a10-4573-8e64-fd4629c35e14',
                 'sdm_name' => 'ALI BUDHI KUSUMA',
@@ -361,8 +361,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 6,
             ),
-            18 => 
-            array (
+            18 =>
+            array(
                 'id' => 19,
                 'sdm_id' => 'a1a82b4e-054a-4736-a55a-131049066221',
                 'sdm_name' => 'AMRI HIDAYAT',
@@ -380,8 +380,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 10,
             ),
-            19 => 
-            array (
+            19 =>
+            array(
                 'id' => 20,
                 'sdm_id' => 'fb86dd00-6659-48cf-97de-c64e956910ba',
                 'sdm_name' => 'ANDI RUSNI',
@@ -399,8 +399,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            20 => 
-            array (
+            20 =>
+            array(
                 'id' => 21,
                 'sdm_id' => 'f16206ed-c209-4671-9668-3ba554a4a45c',
                 'sdm_name' => 'ANDRI SAHRUL ANAM',
@@ -418,8 +418,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            21 => 
-            array (
+            21 =>
+            array(
                 'id' => 22,
                 'sdm_id' => '4ec9acec-09c7-47ea-abb4-a74b06ff5381',
                 'sdm_name' => 'ANDY TIRTA',
@@ -437,8 +437,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 24,
             ),
-            22 => 
-            array (
+            22 =>
+            array(
                 'id' => 23,
                 'sdm_id' => 'b34d060e-3384-40f9-8735-82fa13c92968',
                 'sdm_name' => 'ANITA GUSMIARTI',
@@ -456,8 +456,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            23 => 
-            array (
+            23 =>
+            array(
                 'id' => 24,
                 'sdm_id' => '9b134710-7e9a-4743-9d4b-3dacff75a539',
                 'sdm_name' => 'ANWAR SA',
@@ -475,8 +475,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            24 => 
-            array (
+            24 =>
+            array(
                 'id' => 25,
                 'sdm_id' => '6b46e4e5-e450-4565-891a-05982d1fa46b',
                 'sdm_name' => 'APRIADI',
@@ -494,8 +494,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            25 => 
-            array (
+            25 =>
+            array(
                 'id' => 26,
                 'sdm_id' => '32fa6528-2425-46d3-82cf-4e3eed7c544f',
                 'sdm_name' => 'ARIE KASMITA',
@@ -513,8 +513,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            26 => 
-            array (
+            26 =>
+            array(
                 'id' => 27,
                 'sdm_id' => '605be507-775a-494a-9f5d-531ba0ccdb2c',
                 'sdm_name' => 'ARIS SUGIARTO',
@@ -532,8 +532,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 17,
             ),
-            27 => 
-            array (
+            27 =>
+            array(
                 'id' => 28,
                 'sdm_id' => '3b30635c-bc35-4bee-a831-c96801f050f7',
                 'sdm_name' => 'ARNI FITRIANA',
@@ -551,8 +551,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            28 => 
-            array (
+            28 =>
+            array(
                 'id' => 29,
                 'sdm_id' => 'f4207c5d-87a6-417d-b4f2-3e8b6f27f174',
                 'sdm_name' => 'ARNI LATIFAH',
@@ -570,8 +570,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            29 => 
-            array (
+            29 =>
+            array(
                 'id' => 30,
                 'sdm_id' => '5c45bcfc-4263-4cf8-a7f8-171b69e36550',
                 'sdm_name' => 'ARYA ZULFIKAR AKBAR',
@@ -589,8 +589,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 1,
             ),
-            30 => 
-            array (
+            30 =>
+            array(
                 'id' => 31,
                 'sdm_id' => '2c877b8d-78ba-4258-9588-fca00857f677',
                 'sdm_name' => 'ASWAR TAHIR',
@@ -608,8 +608,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            31 => 
-            array (
+            31 =>
+            array(
                 'id' => 32,
                 'sdm_id' => 'f11ef02f-4b23-4c52-bc45-a63ce55724d5',
                 'sdm_name' => 'ASYWENDI RUKINI',
@@ -627,8 +627,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 5,
             ),
-            32 => 
-            array (
+            32 =>
+            array(
                 'id' => 33,
                 'sdm_id' => 'a6390f12-393a-4596-9587-b3bce2efedb1',
                 'sdm_name' => 'AYU LEVIA TRYANA',
@@ -646,8 +646,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 14,
             ),
-            33 => 
-            array (
+            33 =>
+            array(
                 'id' => 34,
                 'sdm_id' => 'e47a9417-6abf-4cf7-a917-484f3464d7fc',
                 'sdm_name' => 'AYUNING ATMASARI',
@@ -665,8 +665,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 22,
             ),
-            34 => 
-            array (
+            34 =>
+            array(
                 'id' => 35,
                 'sdm_id' => 'd5074114-6346-4390-8aa7-3725e115f11a',
                 'sdm_name' => 'CHAIRUL ANAM AFGANI',
@@ -684,8 +684,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 9,
             ),
-            35 => 
-            array (
+            35 =>
+            array(
                 'id' => 36,
                 'sdm_id' => '6f2499d3-1a4b-4c35-a5af-6e86aa55e0b2',
                 'sdm_name' => 'DEDY DHARMAWANSYAH',
@@ -703,8 +703,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            36 => 
-            array (
+            36 =>
+            array(
                 'id' => 37,
                 'sdm_id' => '4db2ca9e-d785-4022-a63b-cce054fd0fc2',
                 'sdm_name' => 'DEDY HERIWIBOWO',
@@ -722,8 +722,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 8,
             ),
-            37 => 
-            array (
+            37 =>
+            array(
                 'id' => 38,
                 'sdm_id' => '17eeca6e-78e8-49d5-93e3-903849bc9202',
                 'sdm_name' => 'DEDY SUKREYADI',
@@ -741,8 +741,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            38 => 
-            array (
+            38 =>
+            array(
                 'id' => 39,
                 'sdm_id' => 'ef98fc8f-ea73-4631-a929-5e29aa4a9c59',
                 'sdm_name' => 'DENNY HAMBALI',
@@ -760,8 +760,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 20,
             ),
-            39 => 
-            array (
+            39 =>
+            array(
                 'id' => 40,
                 'sdm_id' => '96a1199c-6ad2-457e-b4eb-eb1f0c04046a',
                 'sdm_name' => 'DESI MAULIDYAWATI',
@@ -779,8 +779,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            40 => 
-            array (
+            40 =>
+            array(
                 'id' => 41,
                 'sdm_id' => '79e040ba-9391-4fb2-883f-3b6271c1b285',
                 'sdm_name' => 'DEVI TANGGASARI',
@@ -798,8 +798,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 22,
             ),
-            41 => 
-            array (
+            41 =>
+            array(
                 'id' => 42,
                 'sdm_id' => '64ba6fa1-bcaf-41e3-afb3-b92a87a2f4d5',
                 'sdm_name' => 'DEWI WAHYUNI',
@@ -817,8 +817,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            42 => 
-            array (
+            42 =>
+            array(
                 'id' => 43,
                 'sdm_id' => 'c650deb5-b53b-4c03-9db9-014809edc4ed',
                 'sdm_name' => 'DIAH ANGGERAINI HASRI',
@@ -836,8 +836,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 2,
             ),
-            43 => 
-            array (
+            43 =>
+            array(
                 'id' => 44,
                 'sdm_id' => 'c6299f23-1021-4b5b-97d2-7ae7ce09d7d2',
                 'sdm_name' => 'DIAH INTAN SYAHFITRI',
@@ -855,8 +855,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 12,
             ),
-            44 => 
-            array (
+            44 =>
+            array(
                 'id' => 45,
                 'sdm_id' => 'ab141232-cede-4de5-bb77-4cbf0160b7ac',
                 'sdm_name' => 'DIMASTUTI PUTRI KARYANINGTIYAS',
@@ -874,8 +874,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            45 => 
-            array (
+            45 =>
+            array(
                 'id' => 46,
                 'sdm_id' => 'c59ef432-9dd1-438b-b0d4-69aba3ced524',
                 'sdm_name' => 'DINAR SUKSMAYU SAPUTRI',
@@ -893,8 +893,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 21,
             ),
-            46 => 
-            array (
+            46 =>
+            array(
                 'id' => 47,
                 'sdm_id' => '2dbbf278-4ceb-4efd-a394-63090590b061',
                 'sdm_name' => 'DINDA FARDILA',
@@ -912,8 +912,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 9,
             ),
-            47 => 
-            array (
+            47 =>
+            array(
                 'id' => 48,
                 'sdm_id' => '6eb94396-9caa-44fa-bbd2-1305a92a09c5',
                 'sdm_name' => 'DWI ARIYANTI',
@@ -931,8 +931,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 3,
             ),
-            48 => 
-            array (
+            48 =>
+            array(
                 'id' => 49,
                 'sdm_id' => '520c036e-9118-4f8c-a386-bd091161b4f7',
                 'sdm_name' => 'DWI FORTUNA',
@@ -950,8 +950,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            49 => 
-            array (
+            49 =>
+            array(
                 'id' => 50,
                 'sdm_id' => '10940207-f808-4dca-b8be-efbc95b50302',
                 'sdm_name' => 'EDI IRAWAN',
@@ -969,8 +969,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 15,
             ),
-            50 => 
-            array (
+            50 =>
+            array(
                 'id' => 51,
                 'sdm_id' => 'fcba1606-3d2f-4477-b378-6d2f1b8e768e',
                 'sdm_name' => 'EDY ZATRIADY',
@@ -988,8 +988,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 19,
             ),
-            51 => 
-            array (
+            51 =>
+            array(
                 'id' => 52,
                 'sdm_id' => 'ed79712a-2eab-4838-8e22-1d9c6ffff82f',
                 'sdm_name' => 'EFAN YUDHA WINATA',
@@ -1007,8 +1007,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 24,
             ),
-            52 => 
-            array (
+            52 =>
+            array(
                 'id' => 53,
                 'sdm_id' => 'd53e745f-aa86-49b3-88c1-54c3856199b5',
                 'sdm_name' => 'EKA ARDIANSYAH',
@@ -1026,8 +1026,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 17,
             ),
-            53 => 
-            array (
+            53 =>
+            array(
                 'id' => 54,
                 'sdm_id' => 'a40fff34-3145-457f-8fba-67757e10edad',
                 'sdm_name' => 'EKA HARYANTI',
@@ -1045,8 +1045,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 11,
             ),
-            54 => 
-            array (
+            54 =>
+            array(
                 'id' => 55,
                 'sdm_id' => '9f5363f0-00fe-4657-8448-10054b9bca7c',
                 'sdm_name' => 'EKA YUNI SUMARNINGSIH',
@@ -1064,8 +1064,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            55 => 
-            array (
+            55 =>
+            array(
                 'id' => 56,
                 'sdm_id' => 'ce84c79f-b7d3-4bbc-87bb-e36d02f4d771',
                 'sdm_name' => 'EKI RUSKARTINA',
@@ -1083,8 +1083,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 27,
             ),
-            56 => 
-            array (
+            56 =>
+            array(
                 'id' => 57,
                 'sdm_id' => '92c43834-ddc3-4356-a077-f7fe69e94bb6',
                 'sdm_name' => 'EKO WIJAYA',
@@ -1102,8 +1102,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 15,
             ),
-            57 => 
-            array (
+            57 =>
+            array(
                 'id' => 58,
                 'sdm_id' => 'e9056bc8-9742-421c-bcb6-9999ea9e89a5',
                 'sdm_name' => 'EMSAL YANUAR',
@@ -1121,8 +1121,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 9,
             ),
-            58 => 
-            array (
+            58 =>
+            array(
                 'id' => 59,
                 'sdm_id' => '7cc1e588-2a62-4158-ac54-dd556f6a2988',
                 'sdm_name' => 'ERA RAHMAWATI PUTRI',
@@ -1140,8 +1140,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            59 => 
-            array (
+            59 =>
+            array(
                 'id' => 60,
                 'sdm_id' => '94402006-b08e-4693-a555-e812a2b6c8b9',
                 'sdm_name' => 'ERI SASMITA SUSANTO',
@@ -1159,8 +1159,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 6,
             ),
-            60 => 
-            array (
+            60 =>
+            array(
                 'id' => 61,
                 'sdm_id' => 'd4d8ed1c-e73e-42c8-bd54-307120161d41',
                 'sdm_name' => 'ERI SOFIATRY',
@@ -1178,8 +1178,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 17,
             ),
-            61 => 
-            array (
+            61 =>
+            array(
                 'id' => 62,
                 'sdm_id' => '397eaa21-7507-4e35-818c-3dd26c6d05ab',
                 'sdm_name' => 'ERLIYANI KURNIA',
@@ -1197,8 +1197,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            62 => 
-            array (
+            62 =>
+            array(
                 'id' => 63,
                 'sdm_id' => '0c1f2006-141a-425e-8b71-a9d9f241be87',
                 'sdm_name' => 'ERNAWATI',
@@ -1216,8 +1216,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            63 => 
-            array (
+            63 =>
+            array(
                 'id' => 64,
                 'sdm_id' => 'b4417bca-6f71-4e19-b815-7bdec7272ed2',
                 'sdm_name' => 'ERWIN MARDINATA',
@@ -1235,8 +1235,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 1,
             ),
-            64 => 
-            array (
+            64 =>
+            array(
                 'id' => 65,
                 'sdm_id' => 'a49939b8-8b71-411e-bbba-524bcb4b07ec',
                 'sdm_name' => 'ETI KURNIATI',
@@ -1254,8 +1254,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 24,
             ),
-            65 => 
-            array (
+            65 =>
+            array(
                 'id' => 66,
                 'sdm_id' => 'ef5a1dc3-9b61-459f-a4e2-f9aacce02a7f',
                 'sdm_name' => 'EVA JULIANI',
@@ -1273,8 +1273,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            66 => 
-            array (
+            66 =>
+            array(
                 'id' => 67,
                 'sdm_id' => 'a35e115b-3226-4dee-9c53-cb4b89509939',
                 'sdm_name' => 'FADHLI DZIL IKRAM',
@@ -1292,8 +1292,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 24,
             ),
-            67 => 
-            array (
+            67 =>
+            array(
                 'id' => 68,
                 'sdm_id' => 'c1d55be9-c379-4893-b61b-6316a0604fcf',
                 'sdm_name' => 'FADLI FATURRAHMAN',
@@ -1311,8 +1311,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            68 => 
-            array (
+            68 =>
+            array(
                 'id' => 69,
                 'sdm_id' => '1f5c5afd-3ac8-4a5e-8b76-808c3cdfe8dc',
                 'sdm_name' => 'FAHLIA',
@@ -1330,8 +1330,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 6,
             ),
-            69 => 
-            array (
+            69 =>
+            array(
                 'id' => 70,
                 'sdm_id' => 'e088f7e4-5541-4a34-a2c0-302d0e04d810',
                 'sdm_name' => 'FAHRI HAMDANI',
@@ -1349,8 +1349,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 25,
             ),
-            70 => 
-            array (
+            70 =>
+            array(
                 'id' => 71,
                 'sdm_id' => '6aab70ca-d878-4e48-af87-d566633262c5',
                 'sdm_name' => 'FAHRI JAYADI',
@@ -1368,8 +1368,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            71 => 
-            array (
+            71 =>
+            array(
                 'id' => 72,
                 'sdm_id' => '8aaffe0b-e8ef-409b-bdec-ec9cc65d58ac',
                 'sdm_name' => 'FAHRUL AMRI',
@@ -1387,8 +1387,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            72 => 
-            array (
+            72 =>
+            array(
                 'id' => 73,
                 'sdm_id' => '932d98a2-3bc1-43ff-8d4c-bda2206c0550',
                 'sdm_name' => 'FAHRUNNISA',
@@ -1406,8 +1406,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 1,
             ),
-            73 => 
-            array (
+            73 =>
+            array(
                 'id' => 74,
                 'sdm_id' => '025622d6-b024-431e-91a1-7d71654931e6',
                 'sdm_name' => 'FARIDA IDIFITRIANI',
@@ -1425,8 +1425,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:54',
                 'program_studi_id' => 16,
             ),
-            74 => 
-            array (
+            74 =>
+            array(
                 'id' => 75,
                 'sdm_id' => '5c844a5b-0db1-4692-b41f-923bd7544da8',
                 'sdm_name' => 'FATURRAHMAN',
@@ -1444,8 +1444,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            75 => 
-            array (
+            75 =>
+            array(
                 'id' => 76,
                 'sdm_id' => '3561027a-4bc9-410b-9913-dfea6d9f555e',
                 'sdm_name' => 'FAUZI WIDYAWATI',
@@ -1463,8 +1463,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 5,
             ),
-            76 => 
-            array (
+            76 =>
+            array(
                 'id' => 77,
                 'sdm_id' => 'b2e9d162-b72d-4604-8050-319524f1f781',
                 'sdm_name' => 'FENDY MARADITA',
@@ -1482,8 +1482,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 7,
             ),
-            77 => 
-            array (
+            77 =>
+            array(
                 'id' => 78,
                 'sdm_id' => 'bbb3cbbc-947f-4d1b-bc85-07db6fc6e66d',
                 'sdm_name' => 'FIRDA WAHYU NINGTIYAS',
@@ -1501,8 +1501,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            78 => 
-            array (
+            78 =>
+            array(
                 'id' => 79,
                 'sdm_id' => '88685ec1-b616-424f-9259-465874e3e1bd',
                 'sdm_name' => 'FITRA HASRI ROSANDI',
@@ -1520,8 +1520,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            79 => 
-            array (
+            79 =>
+            array(
                 'id' => 80,
                 'sdm_id' => '0187e64f-a68f-44dc-9f8f-b320718d29d1',
                 'sdm_name' => 'FITRAH DANY',
@@ -1539,8 +1539,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            80 => 
-            array (
+            80 =>
+            array(
                 'id' => 81,
                 'sdm_id' => 'd9b1cffd-c834-421f-9513-d2183ec504a9',
                 'sdm_name' => 'FITRAYUDDIN',
@@ -1558,8 +1558,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            81 => 
-            array (
+            81 =>
+            array(
                 'id' => 82,
                 'sdm_id' => 'be588091-0587-42db-a547-4f20c4991f11',
                 'sdm_name' => 'FITRIA PERMATACITA',
@@ -1577,8 +1577,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 14,
             ),
-            82 => 
-            array (
+            82 =>
+            array(
                 'id' => 83,
                 'sdm_id' => '4656709d-c825-418d-b1f2-b8c67efe37e1',
                 'sdm_name' => 'GALIH EL FIKRI',
@@ -1596,8 +1596,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            83 => 
-            array (
+            83 =>
+            array(
                 'id' => 84,
                 'sdm_id' => '0e6281d7-5b32-4d52-8619-e86023066780',
                 'sdm_name' => 'HANIFA SRI NURYANI',
@@ -1615,8 +1615,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 22,
             ),
-            84 => 
-            array (
+            84 =>
+            array(
                 'id' => 85,
                 'sdm_id' => '34242e05-40cf-41fb-9ab9-2ec5c61ea292',
                 'sdm_name' => 'HANINDHIA',
@@ -1634,8 +1634,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            85 => 
-            array (
+            85 =>
+            array(
                 'id' => 86,
                 'sdm_id' => '383830bf-5956-447d-88af-e17e52bc2e99',
                 'sdm_name' => 'HARDIAN REZA DHARMAYANDA',
@@ -1653,8 +1653,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 7,
             ),
-            86 => 
-            array (
+            86 =>
+            array(
                 'id' => 87,
                 'sdm_id' => 'c24e0390-d243-4f67-852f-c50361711b92',
                 'sdm_name' => 'HARJITO',
@@ -1672,8 +1672,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            87 => 
-            array (
+            87 =>
+            array(
                 'id' => 88,
                 'sdm_id' => 'bc57e9a8-9e7d-4673-8d40-f676dbca9918',
                 'sdm_name' => 'HARTINI',
@@ -1691,8 +1691,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            88 => 
-            array (
+            88 =>
+            array(
                 'id' => 89,
                 'sdm_id' => 'be2332a1-3d31-4236-9ca7-cc23b2acbeff',
                 'sdm_name' => 'HENDRAYADI',
@@ -1710,8 +1710,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            89 => 
-            array (
+            89 =>
+            array(
                 'id' => 90,
                 'sdm_id' => '12b9afb8-8eb2-43db-9f96-8bca5a5872b4',
                 'sdm_name' => 'HERFANDI',
@@ -1729,8 +1729,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            90 => 
-            array (
+            90 =>
+            array(
                 'id' => 91,
                 'sdm_id' => '0cd7481a-f1f4-4499-9749-e3b749181e94',
                 'sdm_name' => 'HERI MURTAWAN',
@@ -1748,8 +1748,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 2,
             ),
-            91 => 
-            array (
+            91 =>
+            array(
                 'id' => 92,
                 'sdm_id' => '6cfee1c7-a31e-4c9d-be26-59c23b303a55',
                 'sdm_name' => 'HERMANSYAH',
@@ -1767,8 +1767,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 1,
             ),
-            92 => 
-            array (
+            92 =>
+            array(
                 'id' => 93,
                 'sdm_id' => 'ab780add-aa23-4b6b-85bf-dab801067d41',
                 'sdm_name' => 'HERY KRISNA HERMAWAN',
@@ -1786,8 +1786,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            93 => 
-            array (
+            93 =>
+            array(
                 'id' => 94,
                 'sdm_id' => '21ae61f4-9f4d-4b9d-ad69-dec843b6f47b',
                 'sdm_name' => 'HUSNI',
@@ -1805,8 +1805,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 1,
             ),
-            94 => 
-            array (
+            94 =>
+            array(
                 'id' => 95,
                 'sdm_id' => '329e92ea-d9fe-4a61-ac2d-4ee201dda41c',
                 'sdm_name' => 'IHLANA NAIRFANA',
@@ -1824,8 +1824,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            95 => 
-            array (
+            95 =>
+            array(
                 'id' => 96,
                 'sdm_id' => '4987a1bc-9c65-424e-b457-2e02b5478a5d',
                 'sdm_name' => 'IHWAN KHULDI',
@@ -1843,8 +1843,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            96 => 
-            array (
+            96 =>
+            array(
                 'id' => 97,
                 'sdm_id' => 'd1662e1c-e640-48a1-985e-77275dea39da',
                 'sdm_name' => 'IKSAN ADIASA',
@@ -1862,8 +1862,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            97 => 
-            array (
+            97 =>
+            array(
                 'id' => 98,
                 'sdm_id' => '5ded2223-3d3d-4cd4-bbab-8e041f1aec6c',
                 'sdm_name' => 'I MADE WIDIARTA',
@@ -1881,8 +1881,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            98 => 
-            array (
+            98 =>
+            array(
                 'id' => 99,
                 'sdm_id' => 'd25d3396-bf4f-47e3-a309-c7f116f2d6eb',
                 'sdm_name' => 'IMAMMUL INSAN',
@@ -1900,8 +1900,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            99 => 
-            array (
+            99 =>
+            array(
                 'id' => 100,
                 'sdm_id' => '29da6779-274c-47a1-8bc3-4dfaa879c460',
                 'sdm_name' => 'IMAM MUNANDAR',
@@ -1919,8 +1919,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 6,
             ),
-            100 => 
-            array (
+            100 =>
+            array(
                 'id' => 101,
                 'sdm_id' => '74aaf8bc-d760-4d12-a4ca-87a0f0b14be2',
                 'sdm_name' => 'INDAH NURULITA',
@@ -1938,8 +1938,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            101 => 
-            array (
+            101 =>
+            array(
                 'id' => 102,
                 'sdm_id' => '955f18bf-1ded-48cc-b4b6-96018508abd1',
                 'sdm_name' => 'INDRA DARMAWAN',
@@ -1957,8 +1957,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            102 => 
-            array (
+            102 =>
+            array(
                 'id' => 103,
                 'sdm_id' => '106a1e14-5b51-4633-a4ea-3baab7b57a99',
                 'sdm_name' => 'I PUTU WIDIANTARA',
@@ -1976,8 +1976,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 26,
             ),
-            103 => 
-            array (
+            103 =>
+            array(
                 'id' => 104,
                 'sdm_id' => '32682923-f443-48f8-8440-57b1e9ad98da',
                 'sdm_name' => 'IRA RAUDATUL JANNAH',
@@ -1995,8 +1995,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            104 => 
-            array (
+            104 =>
+            array(
                 'id' => 105,
                 'sdm_id' => '2b35b350-cd2d-4c25-a93d-63e1bc70763c',
                 'sdm_name' => 'IRAWATI',
@@ -2014,8 +2014,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            105 => 
-            array (
+            105 =>
+            array(
                 'id' => 106,
                 'sdm_id' => 'c490f5c7-75ee-4bba-bd5c-ee465fd0537b',
                 'sdm_name' => 'IRWANDI',
@@ -2033,8 +2033,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            106 => 
-            array (
+            106 =>
+            array(
                 'id' => 107,
                 'sdm_id' => '9567cdc4-3325-4142-a096-56709946e5da',
                 'sdm_name' => 'IRWANSYAH',
@@ -2052,8 +2052,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 6,
             ),
-            107 => 
-            array (
+            107 =>
+            array(
                 'id' => 108,
                 'sdm_id' => 'da4f1d09-fe34-4595-a192-bfbf1aad44c9',
                 'sdm_name' => 'ISMI MASHABAI',
@@ -2071,8 +2071,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            108 => 
-            array (
+            108 =>
+            array(
                 'id' => 109,
                 'sdm_id' => 'ed6a444e-10a2-4dc9-a004-15e6a5b2bc38',
                 'sdm_name' => 'IVON ARISANTI',
@@ -2090,8 +2090,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            109 => 
-            array (
+            109 =>
+            array(
                 'id' => 110,
                 'sdm_id' => '3199c7e7-c22b-4213-8541-d938ba64f74e',
                 'sdm_name' => 'IZZUL ISLAM',
@@ -2109,8 +2109,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            110 => 
-            array (
+            110 =>
+            array(
                 'id' => 111,
                 'sdm_id' => 'd16d4d84-ed96-4fa7-b6bd-561e95c7622a',
                 'sdm_name' => 'JANNATUN ALIYAH',
@@ -2128,8 +2128,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            111 => 
-            array (
+            111 =>
+            array(
                 'id' => 112,
                 'sdm_id' => '182afdb4-0063-491c-a9dd-8761765d4bd5',
                 'sdm_name' => 'JAYANTI MANDASARI',
@@ -2147,8 +2147,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 2,
             ),
-            112 => 
-            array (
+            112 =>
+            array(
                 'id' => 113,
                 'sdm_id' => '1c5fcb27-53a5-4648-bd95-08e7a481a56f',
                 'sdm_name' => 'JUNAIDIN',
@@ -2166,8 +2166,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 13,
             ),
-            113 => 
-            array (
+            113 =>
+            array(
                 'id' => 114,
                 'sdm_id' => 'bdc479e4-ac1c-47f5-a92d-82845bba20a7',
                 'sdm_name' => 'KHOLIS ABDU SUBAGIA',
@@ -2185,8 +2185,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            114 => 
-            array (
+            114 =>
+            array(
                 'id' => 115,
                 'sdm_id' => '3e16e49a-2c9c-4ee2-bc50-a24c822634dd',
                 'sdm_name' => 'KHOTIBUL UMAM',
@@ -2204,8 +2204,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 13,
             ),
-            115 => 
-            array (
+            115 =>
+            array(
                 'id' => 116,
                 'sdm_id' => 'fba59ddf-dcbf-42eb-81d1-e5bdcbeb2789',
                 'sdm_name' => 'KIKI YULIANTO',
@@ -2223,8 +2223,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 20,
             ),
-            116 => 
-            array (
+            116 =>
+            array(
                 'id' => 117,
                 'sdm_id' => '7fa779e6-f786-4af2-ace5-2904eb8f150d',
                 'sdm_name' => 'KOKO HERMANTO',
@@ -2242,8 +2242,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 14,
             ),
-            117 => 
-            array (
+            117 =>
+            array(
                 'id' => 118,
                 'sdm_id' => '8d4ed0f4-09d3-4a26-94b7-d769a877034c',
                 'sdm_name' => 'KUSDIANAWATI',
@@ -2261,8 +2261,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            118 => 
-            array (
+            118 =>
+            array(
                 'id' => 119,
                 'sdm_id' => 'e07d3ecb-3fa4-477e-a7e0-de1bd1121b0d',
                 'sdm_name' => 'LALU AHMAD TAUBIH',
@@ -2280,8 +2280,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            119 => 
-            array (
+            119 =>
+            array(
                 'id' => 120,
                 'sdm_id' => '4fd9ba1d-91b7-4ded-9eab-a68f169de6ee',
                 'sdm_name' => 'LALU HERI RIZALDI',
@@ -2299,8 +2299,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 19,
             ),
-            120 => 
-            array (
+            120 =>
+            array(
                 'id' => 121,
                 'sdm_id' => '9551f89f-dee7-430b-b841-31704725bce3',
                 'sdm_name' => 'LALU SUHAIMI',
@@ -2318,8 +2318,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            121 => 
-            array (
+            121 =>
+            array(
                 'id' => 122,
                 'sdm_id' => '845222d3-0906-43fe-8060-e67b45c18fdf',
                 'sdm_name' => 'LEGGINA REZZY VANGGY',
@@ -2337,8 +2337,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            122 => 
-            array (
+            122 =>
+            array(
                 'id' => 123,
                 'sdm_id' => 'b4075b3d-6702-46a8-b18e-625591df510a',
                 'sdm_name' => 'LILI SUHARLI',
@@ -2356,8 +2356,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 4,
             ),
-            123 => 
-            array (
+            123 =>
+            array(
                 'id' => 124,
                 'sdm_id' => 'be45cfee-86c5-4d05-a325-95c906b24102',
                 'sdm_name' => 'LUKMANUL HAKIM',
@@ -2375,8 +2375,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            124 => 
-            array (
+            124 =>
+            array(
                 'id' => 126,
                 'sdm_id' => 'abd763f1-24a4-4417-94ed-9c26ac35896b',
                 'sdm_name' => 'MASYITAH AULIA',
@@ -2394,8 +2394,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 15,
             ),
-            125 => 
-            array (
+            125 =>
+            array(
                 'id' => 127,
                 'sdm_id' => '6ad44b2d-b9e7-4952-9609-09f81866a26f',
                 'sdm_name' => 'MAYA FITRIANI',
@@ -2413,8 +2413,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 20,
             ),
-            126 => 
-            array (
+            126 =>
+            array(
                 'id' => 128,
                 'sdm_id' => '31de77ee-485f-4e12-8dad-38eafc2497d5',
                 'sdm_name' => 'MEGA TRISHUTA PATHIASSANA',
@@ -2432,8 +2432,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 27,
             ),
-            127 => 
-            array (
+            127 =>
+            array(
                 'id' => 129,
                 'sdm_id' => '3d366a35-ae08-4328-998a-53677fde7a8b',
                 'sdm_name' => 'MIETRA ANGGARA',
@@ -2451,8 +2451,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 12,
             ),
-            128 => 
-            array (
+            128 =>
+            array(
                 'id' => 130,
                 'sdm_id' => 'aaf4ef31-bfd8-41bd-9f7e-a96a013a19c4',
                 'sdm_name' => 'MIFTAHUL ARZAK',
@@ -2470,8 +2470,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            129 => 
-            array (
+            129 =>
+            array(
                 'id' => 131,
                 'sdm_id' => 'bcb6a6e1-4405-4eb6-a5c2-e8a1729d1cfb',
                 'sdm_name' => 'MIFTA PRATIWI RACHMAN',
@@ -2489,8 +2489,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            130 => 
-            array (
+            130 =>
+            array(
                 'id' => 132,
                 'sdm_id' => '51761bc0-c446-40ee-aeb9-5285c1d0e4c9',
                 'sdm_name' => 'MIKHRATUNNISA',
@@ -2508,8 +2508,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 4,
             ),
-            131 => 
-            array (
+            131 =>
+            array(
                 'id' => 133,
                 'sdm_id' => '97df4b39-0ca5-46a4-89f3-bc1b85ea30ec',
                 'sdm_name' => 'MILA HIDAYATULLAH',
@@ -2527,8 +2527,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            132 => 
-            array (
+            132 =>
+            array(
                 'id' => 134,
                 'sdm_id' => '247c1cd9-2772-4840-8896-75d4b149171e',
                 'sdm_name' => 'M. JULKARNAIN',
@@ -2546,8 +2546,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            133 => 
-            array (
+            133 =>
+            array(
                 'id' => 135,
                 'sdm_id' => '850f100b-a91d-49fe-bcd0-fec677373ce6',
                 'sdm_name' => 'M. RIZKY ADITIYA PRATAMA',
@@ -2565,8 +2565,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            134 => 
-            array (
+            134 =>
+            array(
                 'id' => 136,
                 'sdm_id' => '60a43ad9-5ed0-435a-a7cb-1fdb46100ab2',
                 'sdm_name' => 'M. SYUKRON ANSHORI',
@@ -2584,8 +2584,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 15,
             ),
-            135 => 
-            array (
+            135 =>
+            array(
                 'id' => 137,
                 'sdm_id' => 'b8363865-7d31-42d5-8e33-55061819f12f',
                 'sdm_name' => 'MUAMMAR KHADAFIE',
@@ -2603,8 +2603,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 23,
             ),
-            136 => 
-            array (
+            136 =>
+            array(
                 'id' => 138,
                 'sdm_id' => 'd33e090f-eedf-429e-8119-a7d17684642e',
                 'sdm_name' => 'MUHAMAD HIDAYAT',
@@ -2622,8 +2622,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 14,
             ),
-            137 => 
-            array (
+            137 =>
+            array(
                 'id' => 139,
                 'sdm_id' => 'dde0aa6d-ebb8-475e-9585-f6be26bace3f',
                 'sdm_name' => 'MUHAMMAD FAUZI',
@@ -2641,8 +2641,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            138 => 
-            array (
+            138 =>
+            array(
                 'id' => 140,
                 'sdm_id' => 'a6113a4d-e2bd-4818-866d-d3aeb1e013a8',
                 'sdm_name' => 'MUHAMMAD HAIKAL ABDURACHMAN',
@@ -2660,8 +2660,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            139 => 
-            array (
+            139 =>
+            array(
                 'id' => 141,
                 'sdm_id' => '01250a4b-7c7d-4514-9f2d-72f21e8c587b',
                 'sdm_name' => 'MUHAMMAD HIDAYATULLAH',
@@ -2679,8 +2679,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 1,
             ),
-            140 => 
-            array (
+            140 =>
+            array(
                 'id' => 142,
                 'sdm_id' => '5707effb-6234-4e5a-8d68-8b9bf13eb7e2',
                 'sdm_name' => 'MUHAMMAD HILMY ALFARUQI',
@@ -2698,8 +2698,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 12,
             ),
-            141 => 
-            array (
+            141 =>
+            array(
                 'id' => 143,
                 'sdm_id' => 'eca34cd2-49db-43a2-bca1-5f334a944742',
                 'sdm_name' => 'MUHAMMAD IKBAL',
@@ -2717,8 +2717,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            142 => 
-            array (
+            142 =>
+            array(
                 'id' => 144,
                 'sdm_id' => '5644ee89-b2a0-4e80-9af4-1e71f4216725',
                 'sdm_name' => 'MUHAMMAD IQBAL',
@@ -2736,8 +2736,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            143 => 
-            array (
+            143 =>
+            array(
                 'id' => 145,
                 'sdm_id' => 'c64d00db-9344-47df-8e5b-0cfd4dae295d',
                 'sdm_name' => 'MUHAMMAD JARNAWANSYAH',
@@ -2755,8 +2755,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 6,
             ),
-            144 => 
-            array (
+            144 =>
+            array(
                 'id' => 146,
                 'sdm_id' => '7e0f97a6-ab1e-45a7-812a-9327234ba77a',
                 'sdm_name' => 'MUHAMMAD NUR FIETROH',
@@ -2774,8 +2774,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 20,
             ),
-            145 => 
-            array (
+            145 =>
+            array(
                 'id' => 147,
                 'sdm_id' => 'dbf909ae-4969-41f5-b7e4-dc733078f228',
                 'sdm_name' => 'MUHAMMAD NURJIHADI',
@@ -2793,8 +2793,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            146 => 
-            array (
+            146 =>
+            array(
                 'id' => 148,
                 'sdm_id' => 'e3676a0f-7383-4897-80f2-03c1851ca59c',
                 'sdm_name' => 'MUHAMMAD RAFI\'I SANJANI',
@@ -2812,8 +2812,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 18,
             ),
-            147 => 
-            array (
+            147 =>
+            array(
                 'id' => 149,
                 'sdm_id' => '90693710-aab4-4cd0-b4c4-be101eaa7c8d',
                 'sdm_name' => 'MUHAMMAD SALEH',
@@ -2831,8 +2831,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            148 => 
-            array (
+            148 =>
+            array(
                 'id' => 150,
                 'sdm_id' => 'd028b607-2390-4ca0-8851-73e5ecabcbbe',
                 'sdm_name' => 'MUH. FAHRUDDIN',
@@ -2850,8 +2850,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            149 => 
-            array (
+            149 =>
+            array(
                 'id' => 151,
                 'sdm_id' => '6b9de31d-b8c1-4103-b287-dcbc84efc981',
                 'sdm_name' => 'MUJIBUR RAHMAT',
@@ -2869,8 +2869,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 26,
             ),
-            150 => 
-            array (
+            150 =>
+            array(
                 'id' => 152,
                 'sdm_id' => '2fcc1e5c-01d2-4b97-8c51-ab54fdd0736a',
                 'sdm_name' => 'MUSTARAM',
@@ -2888,8 +2888,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            151 => 
-            array (
+            151 =>
+            array(
                 'id' => 153,
                 'sdm_id' => 'd25309fa-3689-47a1-bd6f-28424161b666',
                 'sdm_name' => 'NAWASSYARIF',
@@ -2907,8 +2907,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 20,
             ),
-            152 => 
-            array (
+            152 =>
+            array(
                 'id' => 154,
                 'sdm_id' => 'fef6b30e-0666-411a-b153-377662e5b265',
                 'sdm_name' => 'NORA DERY SOFYA',
@@ -2926,8 +2926,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            153 => 
-            array (
+            153 =>
+            array(
                 'id' => 155,
                 'sdm_id' => 'fdd68fa3-83ab-4caa-b925-6fcac182b703',
                 'sdm_name' => 'NOVA ADHITYA ANANDA',
@@ -2945,8 +2945,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 19,
             ),
-            154 => 
-            array (
+            154 =>
+            array(
                 'id' => 156,
                 'sdm_id' => '1aef2c68-f40a-4232-821d-609d2ce8b87c',
                 'sdm_name' => 'NOVA ARYANTO',
@@ -2964,8 +2964,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 6,
             ),
-            155 => 
-            array (
+            155 =>
+            array(
                 'id' => 157,
                 'sdm_id' => 'd5ab5110-c3d1-4789-9e7d-05a91f3820dd',
                 'sdm_name' => 'NOVIDA HELLEINE PUTRI',
@@ -2983,8 +2983,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            156 => 
-            array (
+            156 =>
+            array(
                 'id' => 158,
                 'sdm_id' => 'b0239348-eb85-4594-8129-bc541a22145b',
                 'sdm_name' => 'NURAMALIYAH',
@@ -3002,8 +3002,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 5,
             ),
-            157 => 
-            array (
+            157 =>
+            array(
                 'id' => 159,
                 'sdm_id' => 'f09cf638-7df6-45ad-9f12-85d207b39fc0',
                 'sdm_name' => 'NURFADLIYAH',
@@ -3021,8 +3021,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 13,
             ),
-            158 => 
-            array (
+            158 =>
+            array(
                 'id' => 160,
                 'sdm_id' => '866e08e2-12b0-47f0-bbd5-c4007427ab46',
                 'sdm_name' => 'NURHADI IHWANI',
@@ -3040,8 +3040,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            159 => 
-            array (
+            159 =>
+            array(
                 'id' => 161,
                 'sdm_id' => '99baf8d6-7e49-43e4-b14d-17ab6e545353',
                 'sdm_name' => 'NURLAILY',
@@ -3059,8 +3059,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            160 => 
-            array (
+            160 =>
+            array(
                 'id' => 162,
                 'sdm_id' => '666314d3-dd65-4969-922b-ff26993c8909',
                 'sdm_name' => 'NURNANINGSIH',
@@ -3078,8 +3078,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            161 => 
-            array (
+            161 =>
+            array(
                 'id' => 163,
                 'sdm_id' => 'b544f237-a438-4e8f-b8a6-871e4ed5bbe5',
                 'sdm_name' => 'NURUL AMRI KOMARUDIN',
@@ -3097,8 +3097,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            162 => 
-            array (
+            162 =>
+            array(
                 'id' => 164,
                 'sdm_id' => 'a2119124-343e-472e-951c-9aaf6590fe25',
                 'sdm_name' => 'NURUL HUDANINGSIH',
@@ -3116,8 +3116,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            163 => 
-            array (
+            163 =>
+            array(
                 'id' => 165,
                 'sdm_id' => '461e05d0-f657-4184-b174-a898798db452',
                 'sdm_name' => 'NURUL IZZATI',
@@ -3135,8 +3135,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 21,
             ),
-            164 => 
-            array (
+            164 =>
+            array(
                 'id' => 166,
                 'sdm_id' => '50dd9a94-7da4-465d-aa99-9907936af050',
                 'sdm_name' => 'OFI HIDAYAT',
@@ -3154,8 +3154,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            165 => 
-            array (
+            165 =>
+            array(
                 'id' => 167,
                 'sdm_id' => '074c75af-7617-4662-9337-4a2864652c82',
                 'sdm_name' => 'PARIS ALI TOPAN',
@@ -3173,8 +3173,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            166 => 
-            array (
+            166 =>
+            array(
                 'id' => 168,
                 'sdm_id' => 'b1de06fd-c31f-4642-a2ee-a6e97783e3a4',
                 'sdm_name' => 'PRAMUDYA BAGAS UTAMA',
@@ -3192,8 +3192,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            167 => 
-            array (
+            167 =>
+            array(
                 'id' => 169,
                 'sdm_id' => '9af68a44-f060-4a6a-bbd1-1133f0953dfd',
                 'sdm_name' => 'PRATIWI SAKTI',
@@ -3211,8 +3211,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 26,
             ),
-            168 => 
-            array (
+            168 =>
+            array(
                 'id' => 170,
                 'sdm_id' => '79c621e7-4310-4221-a168-4245ebf0c593',
                 'sdm_name' => 'RABIATUL',
@@ -3230,8 +3230,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            169 => 
-            array (
+            169 =>
+            array(
                 'id' => 171,
                 'sdm_id' => 'b345f527-c622-4ab5-bfe4-4aa89edb8cdd',
                 'sdm_name' => 'RADYUM IKONO',
@@ -3249,8 +3249,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            170 => 
-            array (
+            170 =>
+            array(
                 'id' => 172,
                 'sdm_id' => '6b3fd44c-7188-4d67-a564-fa7efa9c08a0',
                 'sdm_name' => 'RAMA SUGANDHI',
@@ -3268,8 +3268,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 9,
             ),
-            171 => 
-            array (
+            171 =>
+            array(
                 'id' => 173,
                 'sdm_id' => '75a1c52a-d624-4968-8954-e643d51f44d6',
                 'sdm_name' => 'RANDHY ADHI KAMULA',
@@ -3287,8 +3287,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            172 => 
-            array (
+            172 =>
+            array(
                 'id' => 174,
                 'sdm_id' => '6af55a19-5059-4766-9ffe-d62b03e6530b',
                 'sdm_name' => 'RATNA NURMALITA SARI',
@@ -3306,8 +3306,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            173 => 
-            array (
+            173 =>
+            array(
                 'id' => 175,
                 'sdm_id' => 'a3550ca3-ef79-431d-a63b-ba246ba5baba',
                 'sdm_name' => 'REZA HANDIKA',
@@ -3325,8 +3325,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            174 => 
-            array (
+            174 =>
+            array(
                 'id' => 176,
                 'sdm_id' => 'c01f7c9f-bd0c-46f0-aac3-e3f1f221c4d2',
                 'sdm_name' => 'REZA MUHAMMAD RIZQI',
@@ -3344,8 +3344,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 9,
             ),
-            175 => 
-            array (
+            175 =>
+            array(
                 'id' => 177,
                 'sdm_id' => 'bb8f7085-5cb0-4db3-b982-2d02529e4d3d',
                 'sdm_name' => 'RIRI RIMBUN ANGGIH CHAIDIR',
@@ -3363,8 +3363,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            176 => 
-            array (
+            176 =>
+            array(
                 'id' => 178,
                 'sdm_id' => '2bd5683d-939c-4e41-8542-96ce3638e837',
                 'sdm_name' => 'RITA DESIASNI',
@@ -3382,8 +3382,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            177 => 
-            array (
+            177 =>
+            array(
                 'id' => 179,
                 'sdm_id' => '73c5d91b-d4d0-4958-821b-2edd4788081c',
                 'sdm_name' => 'RODIANTO',
@@ -3401,8 +3401,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            178 => 
-            array (
+            178 =>
+            array(
                 'id' => 180,
                 'sdm_id' => 'ccd3fd73-3508-40ce-afe8-c810be6209c1',
                 'sdm_name' => 'ROHANA',
@@ -3420,8 +3420,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            179 => 
-            array (
+            179 =>
+            array(
                 'id' => 181,
                 'sdm_id' => '8b95c740-47a8-4f8d-8bc2-ed8ee1206cb2',
                 'sdm_name' => 'RONI HARTONO',
@@ -3439,8 +3439,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 21,
             ),
-            180 => 
-            array (
+            180 =>
+            array(
                 'id' => 182,
                 'sdm_id' => '2165f129-cb12-4e7c-bb67-1191e358b390',
                 'sdm_name' => 'ROZZY APRIRACHMAN',
@@ -3458,8 +3458,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 5,
             ),
-            181 => 
-            array (
+            181 =>
+            array(
                 'id' => 183,
                 'sdm_id' => '4139bff1-7c49-47ce-933a-810f45f3c8e0',
                 'sdm_name' => 'RUDI MASNIADI',
@@ -3477,8 +3477,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            182 => 
-            array (
+            182 =>
+            array(
                 'id' => 184,
                 'sdm_id' => '34fe5c57-2500-4595-a359-0779cd8cee66',
                 'sdm_name' => 'RYAN SUARANTALLA',
@@ -3496,8 +3496,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            183 => 
-            array (
+            183 =>
+            array(
                 'id' => 185,
                 'sdm_id' => 'e58cf48b-5a2d-42d6-9318-c64b3ac3bf36',
                 'sdm_name' => 'SABRI BALAFIF',
@@ -3515,8 +3515,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            184 => 
-            array (
+            184 =>
+            array(
                 'id' => 186,
                 'sdm_id' => '9644c62d-c0da-409f-81c9-6b8a4add6e3d',
                 'sdm_name' => 'SAHRI YANTI',
@@ -3534,8 +3534,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 18,
             ),
-            185 => 
-            array (
+            185 =>
+            array(
                 'id' => 187,
                 'sdm_id' => 'b32bc3aa-6355-49ac-bc78-5ce650278159',
                 'sdm_name' => 'SAMUYUS NEALMA',
@@ -3553,8 +3553,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            186 => 
-            array (
+            186 =>
+            array(
                 'id' => 188,
                 'sdm_id' => '890b64b4-2b36-4482-9326-bbf0cff61313',
                 'sdm_name' => 'SAUSAN NAFISAH',
@@ -3572,8 +3572,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            187 => 
-            array (
+            187 =>
+            array(
                 'id' => 189,
                 'sdm_id' => '80f90cf9-a0a3-4532-8d4e-9d320608c66b',
                 'sdm_name' => 'SERLI OKTAPIANI',
@@ -3591,8 +3591,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 26,
             ),
-            188 => 
-            array (
+            188 =>
+            array(
                 'id' => 190,
                 'sdm_id' => 'f282a942-4bda-4178-9944-8b43214f6134',
                 'sdm_name' => 'SHAFWAN AMRULLAH',
@@ -3610,8 +3610,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            189 => 
-            array (
+            189 =>
+            array(
                 'id' => 191,
                 'sdm_id' => 'ab315405-b040-493d-b6e8-ed60126d16b9',
                 'sdm_name' => 'SHERWIN ARY BUSMAN',
@@ -3629,8 +3629,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 27,
             ),
-            190 => 
-            array (
+            190 =>
+            array(
                 'id' => 192,
                 'sdm_id' => '0333a394-8520-467e-8f49-f2b1e1f0c89e',
                 'sdm_name' => 'SHINTA ESABELLA',
@@ -3648,8 +3648,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            191 => 
-            array (
+            191 =>
+            array(
                 'id' => 193,
                 'sdm_id' => 'ccd1ab64-dc2d-43b5-bfee-9607d442c8b5',
                 'sdm_name' => 'SILVIA FIRDA UTAMI',
@@ -3667,8 +3667,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            192 => 
-            array (
+            192 =>
+            array(
                 'id' => 194,
                 'sdm_id' => 'fde0392c-cc12-467d-b693-280bb493a984',
                 'sdm_name' => 'SOPYAN ALI ROHMAN',
@@ -3686,8 +3686,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            193 => 
-            array (
+            193 =>
+            array(
                 'id' => 195,
                 'sdm_id' => '9a83c479-b507-491a-8064-69c24fa03c98',
                 'sdm_name' => 'SRI ANDRIANI',
@@ -3705,8 +3705,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 7,
             ),
-            194 => 
-            array (
+            194 =>
+            array(
                 'id' => 196,
                 'sdm_id' => '480636a5-c924-40ab-a957-d35baeb253c0',
                 'sdm_name' => 'SRI BUKYA',
@@ -3724,8 +3724,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            195 => 
-            array (
+            195 =>
+            array(
                 'id' => 197,
                 'sdm_id' => '4ad77dc5-5d59-47aa-96fd-7644875de92b',
                 'sdm_name' => 'SRIYATUN',
@@ -3743,8 +3743,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 19,
             ),
-            196 => 
-            array (
+            196 =>
+            array(
                 'id' => 198,
                 'sdm_id' => '46db3b29-71f8-48a6-bda4-6e7314b2a3a1',
                 'sdm_name' => 'SUDRAJAT MARTADINATA',
@@ -3762,8 +3762,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 2,
             ),
-            197 => 
-            array (
+            197 =>
+            array(
                 'id' => 199,
                 'sdm_id' => '28248b98-e072-4a24-a862-860f273084bd',
                 'sdm_name' => 'SUPARMAN',
@@ -3781,8 +3781,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 26,
             ),
-            198 => 
-            array (
+            198 =>
+            array(
                 'id' => 200,
                 'sdm_id' => '352e07c1-61f5-4dc3-a972-6df799ed13c2',
                 'sdm_name' => 'SURYA YULYANTO',
@@ -3800,8 +3800,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            199 => 
-            array (
+            199 =>
+            array(
                 'id' => 201,
                 'sdm_id' => '0eff8a58-bf25-426f-9a6d-faf3482ade6b',
                 'sdm_name' => 'SUTARJON',
@@ -3819,8 +3819,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            200 => 
-            array (
+            200 =>
+            array(
                 'id' => 202,
                 'sdm_id' => '0c4c0ead-d729-4a16-8539-5e154aea0948',
                 'sdm_name' => 'SYAMSUL BAHTIAR',
@@ -3838,8 +3838,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 9,
             ),
-            201 => 
-            array (
+            201 =>
+            array(
                 'id' => 203,
                 'sdm_id' => 'af9909ed-1435-4872-98c9-a87f69454bb8',
                 'sdm_name' => 'SYAMSUL HIDAYAT',
@@ -3857,8 +3857,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 15,
             ),
-            202 => 
-            array (
+            202 =>
+            array(
                 'id' => 204,
                 'sdm_id' => 'f1254d63-1d53-4449-b7e8-c9675ac580ce',
                 'sdm_name' => 'TARYONO',
@@ -3876,8 +3876,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 20,
             ),
-            203 => 
-            array (
+            203 =>
+            array(
                 'id' => 205,
                 'sdm_id' => 'ef25ad69-ec81-48cb-8e8f-2e1c809e78d4',
                 'sdm_name' => 'TAUFIKKURRAHMAN',
@@ -3895,8 +3895,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            204 => 
-            array (
+            204 =>
+            array(
                 'id' => 206,
                 'sdm_id' => '88add6cc-11b7-42fe-9234-b4a55e3c7152',
                 'sdm_name' => 'TEGUH IMAN HADINULLAH',
@@ -3914,8 +3914,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            205 => 
-            array (
+            205 =>
+            array(
                 'id' => 207,
                 'sdm_id' => 'bbb53bfc-6dda-4f36-8207-174586cc7207',
                 'sdm_name' => 'TITI ANDRIANI',
@@ -3933,8 +3933,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 15,
             ),
-            206 => 
-            array (
+            206 =>
+            array(
                 'id' => 208,
                 'sdm_id' => '2b06287a-5ea3-464a-bab8-43f757d75a61',
                 'sdm_name' => 'TOMY DWI CAHYONO',
@@ -3952,8 +3952,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            207 => 
-            array (
+            207 =>
+            array(
                 'id' => 209,
                 'sdm_id' => '35e4977e-e128-49c0-a7c6-819c5735c161',
                 'sdm_name' => 'TOPAN RAHMATUL IMAN',
@@ -3971,8 +3971,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 5,
             ),
-            208 => 
-            array (
+            208 =>
+            array(
                 'id' => 210,
                 'sdm_id' => '00b65c38-38b1-4bb3-82bc-5689bf50e80f',
                 'sdm_name' => 'TRI SUSILAWATI',
@@ -3990,8 +3990,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 27,
             ),
-            209 => 
-            array (
+            209 =>
+            array(
                 'id' => 211,
                 'sdm_id' => 'eecb5615-0e86-4b0c-a3cc-3cca87303f6d',
                 'sdm_name' => 'UMAR',
@@ -4009,8 +4009,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 23,
             ),
-            210 => 
-            array (
+            210 =>
+            array(
                 'id' => 212,
                 'sdm_id' => '49606eb2-a934-452f-b0fd-d5b700a5554b',
                 'sdm_name' => 'VENI RORI SETIAWATI',
@@ -4028,8 +4028,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 10,
             ),
-            211 => 
-            array (
+            211 =>
+            array(
                 'id' => 213,
                 'sdm_id' => '8c6e38db-b253-4bbd-a724-0aedb2ea30ab',
                 'sdm_name' => 'VINA FITRIANA',
@@ -4047,8 +4047,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 21,
             ),
-            212 => 
-            array (
+            212 =>
+            array(
                 'id' => 214,
                 'sdm_id' => '844ee40c-6177-4b6c-9cf7-56da87bbce3a',
                 'sdm_name' => 'VIVIN NILA RAKHMATULLAH',
@@ -4066,8 +4066,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 24,
             ),
-            213 => 
-            array (
+            213 =>
+            array(
                 'id' => 215,
                 'sdm_id' => '946dd70f-c758-4b57-8d8f-2078df8d827c',
                 'sdm_name' => 'WAWAT RODIAHWATI',
@@ -4085,8 +4085,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 16,
             ),
-            214 => 
-            array (
+            214 =>
+            array(
                 'id' => 216,
                 'sdm_id' => '588ca920-6c12-47a0-8e4b-225422053d0e',
                 'sdm_name' => 'WIDYAWATI LESTARI',
@@ -4104,8 +4104,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            215 => 
-            array (
+            215 =>
+            array(
                 'id' => 217,
                 'sdm_id' => 'de3ceeae-1176-4533-bc75-22b4b4ef6f4f',
                 'sdm_name' => 'WILIA ISMIYARTI',
@@ -4123,8 +4123,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            216 => 
-            array (
+            216 =>
+            array(
                 'id' => 218,
                 'sdm_id' => '8b11fffc-90f1-4c17-8299-a73c543dab20',
                 'sdm_name' => 'WIN ARIGA MANSUR MALONGA',
@@ -4142,8 +4142,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 21,
             ),
-            217 => 
-            array (
+            217 =>
+            array(
                 'id' => 219,
                 'sdm_id' => '097e1fb5-097d-438a-aba0-dc44ad1a2c78',
                 'sdm_name' => 'WINDA ANGGRAINI',
@@ -4161,8 +4161,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            218 => 
-            array (
+            218 =>
+            array(
                 'id' => 220,
                 'sdm_id' => '6079fcf1-1b5e-49dc-96fe-d5ed5edafb7c',
                 'sdm_name' => 'WINDA MEIRIASTUTI',
@@ -4180,8 +4180,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            219 => 
-            array (
+            219 =>
+            array(
                 'id' => 221,
                 'sdm_id' => '2740d95b-1fa9-4cc7-8515-eb33eb550299',
                 'sdm_name' => 'WIRENTAKE',
@@ -4199,8 +4199,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 14,
             ),
-            220 => 
-            array (
+            220 =>
+            array(
                 'id' => 222,
                 'sdm_id' => 'bd83ef91-666a-4080-ad37-271c3663fbfa',
                 'sdm_name' => 'WIRYA SARWANA',
@@ -4218,8 +4218,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 13,
             ),
-            221 => 
-            array (
+            221 =>
+            array(
                 'id' => 223,
                 'sdm_id' => '6373891b-bb7a-477f-a66d-00f3dbd9b713',
                 'sdm_name' => 'WIWIN YULIANA',
@@ -4237,8 +4237,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            222 => 
-            array (
+            222 =>
+            array(
                 'id' => 224,
                 'sdm_id' => 'd1c49df0-1ad5-48a5-9be6-550cc1b50a86',
                 'sdm_name' => 'YANA KARISMA',
@@ -4256,8 +4256,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 14,
             ),
-            223 => 
-            array (
+            223 =>
+            array(
                 'id' => 225,
                 'sdm_id' => '9b452d59-8524-4949-ad89-f8fc814285e2',
                 'sdm_name' => 'YAYAT OKTARIADI',
@@ -4275,8 +4275,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            224 => 
-            array (
+            224 =>
+            array(
                 'id' => 226,
                 'sdm_id' => 'dbdc0c55-f1f6-4a9f-9018-bfde2487235f',
                 'sdm_name' => 'YOLLI EKA PUTRI',
@@ -4294,8 +4294,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 3,
             ),
-            225 => 
-            array (
+            225 =>
+            array(
                 'id' => 227,
                 'sdm_id' => 'b3e1ff50-9e1a-4321-9d99-e98ea2539d1b',
                 'sdm_name' => 'YOSSY DWI ERLIANA',
@@ -4313,8 +4313,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 8,
             ),
-            226 => 
-            array (
+            226 =>
+            array(
                 'id' => 228,
                 'sdm_id' => 'dd1be504-7028-402e-8ced-3b43b34ded18',
                 'sdm_name' => 'YUDI MULYANTO',
@@ -4332,8 +4332,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 18,
             ),
-            227 => 
-            array (
+            227 =>
+            array(
                 'id' => 229,
                 'sdm_id' => '788e8723-fa27-4528-8b40-a6fbeb54288f',
                 'sdm_name' => 'YULIADI',
@@ -4351,8 +4351,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 25,
             ),
-            228 => 
-            array (
+            228 =>
+            array(
                 'id' => 230,
                 'sdm_id' => '2fab9426-a235-4830-b735-d7d10b38e99e',
                 'sdm_name' => 'YUNANRI.W',
@@ -4370,8 +4370,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 9,
             ),
-            229 => 
-            array (
+            229 =>
+            array(
                 'id' => 231,
                 'sdm_id' => '1e8ea031-b6c3-424a-864c-43f5c22e2eba',
                 'sdm_name' => 'YUNI YOLANDA',
@@ -4389,8 +4389,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 1,
             ),
-            230 => 
-            array (
+            230 =>
+            array(
                 'id' => 232,
                 'sdm_id' => '4c663e0f-699c-45d5-9172-326fdaff2cd0',
                 'sdm_name' => 'ZAINUDDIN',
@@ -4408,8 +4408,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 17,
             ),
-            231 => 
-            array (
+            231 =>
+            array(
                 'id' => 233,
                 'sdm_id' => '2c96fa8d-14ab-4b83-a83a-d291a0b22d91',
                 'sdm_name' => 'ZAINUDDIN HUSAINY',
@@ -4427,8 +4427,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 11,
             ),
-            232 => 
-            array (
+            232 =>
+            array(
                 'id' => 234,
                 'sdm_id' => '70614608-3a7a-4b6a-9922-4967aef71f3c',
                 'sdm_name' => 'ZULFIQAR RAHADIAN TAMIN',
@@ -4446,8 +4446,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            233 => 
-            array (
+            233 =>
+            array(
                 'id' => 235,
                 'sdm_id' => '9a9482ea-9b09-4604-9148-f66a746103ef',
                 'sdm_name' => 'ZULKIEFLIMANSYAH',
@@ -4465,8 +4465,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2023-01-15 19:37:55',
                 'program_studi_id' => 23,
             ),
-            234 => 
-            array (
+            234 =>
+            array(
                 'id' => 236,
                 'sdm_id' => 'a7d73f3e-df9d-4ec5-ae71-c437e58d533b',
                 'sdm_name' => 'ZULVIANA KAYANTI',
@@ -4484,8 +4484,8 @@ class HumanResourcesTableSeeder extends Seeder
                 'updated_at' => '2022-12-10 20:45:41',
                 'program_studi_id' => NULL,
             ),
-            235 => 
-            array (
+            235 =>
+            array(
                 'id' => 237,
                 'sdm_id' => '3656456-df9d-46456-aefdgrg71-376454568',
                 'sdm_name' => 'ARDIANSYAH PUTRA',
@@ -4497,14 +4497,14 @@ class HumanResourcesTableSeeder extends Seeder
                 'nip' => '0',
                 'active_status_name' => 'Aktif',
                 'employee_status' => 'NON PNS',
-                'sdm_type' => 'Tenaga kependidikan',
+                'sdm_type' => 'Tenaga Kependidikan',
                 'is_sister_exist' => 1,
                 'created_at' => '2022-12-10 20:45:41',
                 'updated_at' => '2022-12-11 14:10:53',
                 'program_studi_id' => NULL,
             ),
-            236 => 
-            array (
+            236 =>
+            array(
                 'id' => 238,
                 'sdm_id' => '$2y$10$v64Bbskit.zr5nVkDHrA7.TacgZP50H8VLNBZpED5VfCY3vYkbkra',
                 'sdm_name' => 'Chairul Hudaya',
@@ -4523,7 +4523,5 @@ class HumanResourcesTableSeeder extends Seeder
                 'program_studi_id' => NULL,
             ),
         ));
-        
-        
     }
 }

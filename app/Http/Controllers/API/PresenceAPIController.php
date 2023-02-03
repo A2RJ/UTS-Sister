@@ -12,25 +12,22 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class PresenceAPIController extends Controller
 {
     public function index()
     {
-        return response()->json([
-            'data' => Presence::myPresenceAPI(request()->user()->id)
-        ]);
+        return $this->responseData(Presence::myPresenceAPI(request()->user()->id));
     }
 
     public function today()
     {
-        return response()->json([
-            'data' => Presence::where('sdm_id', request()->user()->id)
+        return $this->responseData(
+            Presence::where('sdm_id', request()->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->latest()
                 ->first()
-        ]);
+        );
     }
 
     public function store(StorePresenceRequestAPI $request)
@@ -52,62 +49,51 @@ class PresenceAPIController extends Controller
             if (Presence::isLate()) {
                 $validatedData = $request->validate([
                     'detail' => 'required',
-                    'attachment' => 'nullable|file',
+                    'attachment' => 'nullable|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
                 ]);
 
                 if ($request->hasFile('attachment')) {
                     $file = $request->file('attachment');
                     $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-                    $file->storeAs('public/presense/attachments', $filename);
+                    if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
                     $validatedData['attachment'] = $filename;
                 }
-
                 $presence->attachment()->create($validatedData);
             }
 
             DB::commit();
-            return response()->json(['data' => $presence], 201);
+            return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()], 422);
+            return $this->responseError($e->getMessage(), 422);
         }
     }
 
     public function show(Presence $presence)
     {
-        return response()->json([
-            'data' => $presence
-        ]);
+        return $this->responseData($presence);
     }
 
     public function update(UpdatePresenceRequestAPI $request)
     {
         try {
-            if (request()->user()->isSecurity()) {
-                $presence = Presence::where('sdm_id', request()->user()->id)
-                    ->whereDate('check_in_time', Carbon::yesterday())
-                    ->latest()
-                    ->first();
-            } else {
-                $presence = Presence::where('sdm_id', request()->user()->id)
-                    ->whereDate('check_in_time', Carbon::today())
-                    ->latest()
-                    ->first();
-            }
+            $presence = Presence::where('sdm_id', request()->user()->id)
+                ->whereDate('check_in_time', request()->user()->isSecurity() ? Carbon::yesterday() : Carbon::today())
+                ->latest()
+                ->first();
 
-            if (empty($presence)) throw new Exception('Anda belum absen masuk', 422);
-            if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 400);
+            if (!$presence) throw new Exception('Anda belum absen masuk');
+            if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang');
 
-            $presence->check_out_time = date('Y-m-d H:i:s');
-            $presence->latitude_out = $request->input('latitude');
-            $presence->longitude_out = $request->input('longitude');
-            $presence->save();
-
-            return response()->json([
-                'data' => $presence
+            $presence->update([
+                'check_out_time' => date('Y-m-d H:i:s'),
+                'latitude_out' => $request->input('latitude'),
+                'longitude_out' => $request->input('longitude')
             ]);
+
+            return $this->responseData(true, 204);
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());
+            return $this->responseError($e->getMessage(), 400);
         }
     }
 
@@ -115,35 +101,37 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $checkInHour = Presence::workHour();
-            if (!isset($checkInHour))  throw new Exception('Jam masuk tidak ditemukan');
-
-            $presence = PresencePermission::where('sdm_id', $request->sdm_id)
+            $presencePermission = PresencePermission::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->first();
-            if (!isset($presence)) throw new Exception('Hari ini sudah mengisi presensi');
+            $presence = Presence::where('id', $request->user()->sdm_id)
+                ->whereDate('check_in_time', Carbon::today())
+                ->first();
+            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
+            if ($presencePermission) throw new Exception('Hari ini sudah mengisi ijin presensi');
 
-
+            $checkInHour = Presence::workHour()['in'];
+            $today = Carbon::today();
+            $targetTime = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
             $presence = PresencePermission::create([
-                'sdm_id' => $request->sdm_id,
-                'check_in_time' => $checkInHour['in'],
+                'sdm_id' => $request->user()->id,
+                'check_in_time' => $targetTime,
                 'latitude_in' => Presence::$latitude,
                 'longitude_in' => Presence::$longitude
             ]);
 
+            $validatedData = $request->only(['detail', 'attachment']);
             $file = $request->file('attachment');
-            $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/presense/attachments', $filename);
-            $presence->attachment()->create([
-                'detail' => $request->detail,
-                'attachment' => $filename
-            ]);
+            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+            if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
+            $validatedData['attachment'] = $filename;
+            $presence->attachment()->create($validatedData);
 
             DB::commit();
-            return response()->json(['data' => $presence], 201);
+            return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()], 400);
+            return $this->responseError($e->getMessage(), 400);
         }
     }
 
@@ -178,10 +166,10 @@ class PresenceAPIController extends Controller
             ]);
 
             DB::commit();
-            return response()->json(['data' => $presence], 201);
+            return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()], 400);
+            return $this->responseError($e->getMessage(), 400);
         }
     }
 
@@ -199,10 +187,10 @@ class PresenceAPIController extends Controller
             $data->delete();
 
             DB::commit();
-            return response()->json(['message' => 'Berhasil terima izin']);
+            return $this->responseMessage('Berhasil terima izin');
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()], 500);
+            return $this->responseError($e->getMessage(), 400);
         }
     }
 }

@@ -3,7 +3,7 @@
     "scripts": {
         "migrate": "php artisan migrate:fresh",
         "seed": "php artisan db:seed",
-        "db": "concurrently \"npm run migrate\" \"npm run seed\"",
+        "db": "php artisan migrate:fresh --seed",
         "vite": "vite",
         "build": "vite build",
         "laravel": "php artisan serve",

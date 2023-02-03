@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId("presence_id")->nullable()->constrained("presences")->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('detail');
             $table->text('attachment')->nullable();
-            $table->timestamps();
         });
     }
 

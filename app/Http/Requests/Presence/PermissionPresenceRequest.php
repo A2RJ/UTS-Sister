@@ -24,9 +24,8 @@ class PermissionPresenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'sdm_id' => 'required',
-            'sdm_type' => 'required',
-            'attachment' => 'file'
+            'detail' => 'required',
+            'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
         ];
     }
 }

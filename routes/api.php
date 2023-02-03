@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/today', 'today');
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
+        Route::post('/half-day', 'halfDayPresence');
+        Route::post('/full-day', 'fullDayPresence');
         Route::get('/{presence}', 'show');
     });
     Route::prefix('lecture')->controller(LecturerAPIController::class)->group(function () {
