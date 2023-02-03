@@ -33,10 +33,10 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $presence = Presence::where('sdm_id', $request->user()->id)
+            $today = Presence::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->exists();
-            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
+            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
 
             $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
@@ -100,10 +100,10 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $presence = Presence::where('id', $request->user()->sdm_id)
+            $today = Presence::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
-                ->first();
-            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
+                ->exists();
+            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
 
             $checkInHour = Presence::workHour()['in'];
             $today = Carbon::today();
@@ -135,10 +135,10 @@ class PresenceAPIController extends Controller
     {
         try {
             DB::beginTransaction();
-            $presence = Presence::where('id', $request->user()->sdm_id)
+            $today = Presence::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
-                ->first();
-            if ($presence) throw new Exception('Hari ini sudah mengisi presensi');
+                ->exists();
+            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
 
             $today = Carbon::today();
             $checkInHour = Presence::workHour()['in'];
@@ -174,14 +174,22 @@ class PresenceAPIController extends Controller
 
     public function confirmPermissionPresence(Request $request)
     {
-        DB::beginTransaction();
         try {
-            $request->validate(['id' => 'required']);
-            $data = Presence::where('id', $request->id)->first();
-            $data->update(['permission' => 1]);
+            DB::beginTransaction();
+            $request->validate([
+                'id' => 'required',
+                'sdm_id' => 'required'
+            ]);
+            $presence = Presence::where('id', $request->id)->where('sdm_id', $request->sdm_id)->firstOrFail();
+            if ($presence instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                return response()->json([
+                    'message' => 'Data not found.',
+                ], 404);
+            }
+            $presence->update(['permission' => 1]);
 
             DB::commit();
-            return redirect()->back()->with('message', 'Berhasil memberikan ijin');
+            return $this->responseMessage('Berhasil memberikan ijin');
         } catch (Exception $e) {
             DB::rollBack();
             return $this->responseError($e->getMessage(), 400);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\FacultyAPIController;
+use App\Http\Controllers\API\HumanResourceAPIController;
 use App\Http\Controllers\API\LecturerAPIController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,6 +30,12 @@ Route::get('/', [HomeController::class, 'api']);
 Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
     Route::get('/user', 'user')->middleware('auth:sanctum');
     Route::post('/token', 'token');
+    Route::prefix('student')->controller(StudentAPIController::class)->group(function () {
+        Route::post('change-password', 'changePasswordStudent');
+    });
+    Route::prefix('sdm')->controller(HumanResourceAPIController::class)->group(function () {
+        Route::post('change-password', 'changePasswordSDM');
+    });
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -50,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/check-out', 'update');
         Route::post('/half-day', 'halfDayPresence');
         Route::post('/full-day', 'fullDayPresence');
+        Route::post('/confirm', 'confirmPermissionPresence');
         Route::get('/{presence}', 'show');
     });
     Route::prefix('lecture')->controller(LecturerAPIController::class)->group(function () {

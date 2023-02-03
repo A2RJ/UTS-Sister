@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Ability;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAbilityRequest extends FormRequest
+class ChangePasswordSDM extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateAbilityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateAbilityRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/',
+            'confirm_password' => 'required|same:password',
+            'sdm_id' => 'required'
         ];
     }
 }

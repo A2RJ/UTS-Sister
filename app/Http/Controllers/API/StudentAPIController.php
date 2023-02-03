@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordSDM;
+use App\Http\Requests\Auth\ChangePasswordStudent;
+use App\Models\HumanResource;
 use App\Models\Student;
 use App\Models\StudentDetail;
 use App\Models\StudyProgram;
-use App\Rules\ExcelRule;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -310,5 +311,22 @@ class StudentAPIController extends Controller
             'valid' => $valid,
             'invalid' => $invalid
         ]);
+    }
+
+    public function changePasswordStudent(changePasswordStudent $request)
+    {
+        try {
+            $student = Student::where('student_id', $request->student_id)->first();
+            if (!$student) return response()->json([
+                'message' => 'Data not found.',
+            ], 404);
+
+            $student->update([
+                'password' => Hash::make($request->password)
+            ]);
+            return $this->responseMessage(true, 200);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 500);
+        }
     }
 }

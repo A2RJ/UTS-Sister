@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('latitude_in', 10, 8)->default(0);
             $table->string('longitude_in', 11, 8)->default(0);
             $table->timestamp('check_in_time')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('check_out_time')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('check_out_time')->nullable();
             $table->string('latitude_out', 10, 8)->nullable();
             $table->string('longitude_out', 11, 8)->nullable();
             $table->boolean('permission')->default(1);

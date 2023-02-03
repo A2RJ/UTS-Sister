@@ -96,7 +96,7 @@ class Controller extends BaseController
     {
         return response()->json(['message' => $message], $statusCode);
     }
-    public function responseError($error, $statusCode = 200)
+    public function responseError($error, $statusCode = 500)
     {
         return response()->json(['error' => $error], $statusCode);
     }
