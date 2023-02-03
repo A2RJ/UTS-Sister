@@ -119,7 +119,8 @@ class AppServiceProvider extends ServiceProvider
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
                 ELSE 0
                 END)) as overtime_minutes"),
-            );
+            )
+                ->where('permission', 1);
         });
     }
 }
