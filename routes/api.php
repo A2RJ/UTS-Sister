@@ -1,19 +1,16 @@
 <?php
 
-use App\Http\Controllers\API\FacultyAPIController;
-use App\Http\Controllers\API\HumanResourceAPIController;
-use App\Http\Controllers\API\LecturerAPIController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\API\FacultyAPIController;
+use App\Http\Controllers\API\LecturerAPIController;
 use App\Http\Controllers\API\MeetingAPIController;
 use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\API\SanctumAuthController;
 use App\Http\Controllers\API\StudentAPIController;
 use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
-use App\Http\Controllers\Student\StudentController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\SuperAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,3 +82,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', 'index');
     });
 });
+
+
+Route::prefix('super-admin')
+    ->middleware(['auth:sanctum,users', 'admin'])
+    ->controller(SuperAdminController::class)
+    ->group(function () {
+        // define('STDIN', fopen("php://stdin", "r"));
+        Route::get('migrate', 'migrate');
+        Route::get('rollback', 'rollback');
+        Route::get('seed', 'seed');
+    });

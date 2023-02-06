@@ -81,6 +81,7 @@ class Kernel extends HttpKernel
         // 'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
 
         "dynamic" => \App\Http\Middleware\Custom\Dynamic::class,
-        'checkRole' => \App\Http\Middleware\Custom\CheckRole::class
+        'checkRole' => \App\Http\Middleware\Custom\CheckRole::class,
+        'admin' => \App\Http\Middleware\Custom\Admin::class
     ];
 }
