@@ -26,7 +26,6 @@ class ChangePasswordSDM extends FormRequest
         return [
             'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/',
             'confirm_password' => 'required|same:password',
-            'sdm_id' => 'required'
         ];
     }
 }

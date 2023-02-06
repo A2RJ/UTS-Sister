@@ -4,7 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePasswordStudent extends FormRequest
+class StudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class ChangePasswordStudent extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/',
-            'confirm_password' => 'required|same:password',
+            "nim" => ["required"],
+            "password" => ["required"]
         ];
     }
 }

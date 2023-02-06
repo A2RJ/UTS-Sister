@@ -12,6 +12,8 @@ use App\Http\Controllers\API\StudentAPIController;
 use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Student\StudentController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,16 +29,21 @@ use App\Http\Controllers\Student\StudentController;
 
 Route::get('/', [HomeController::class, 'api']);
 
-Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
-    Route::get('/user', 'user')->middleware('auth:sanctum');
-    Route::post('/token', 'token');
-    Route::prefix('student')->controller(StudentAPIController::class)->group(function () {
-        Route::post('change-password', 'changePasswordStudent');
+Route::prefix('/auth')
+    ->controller(SanctumAuthController::class)
+    ->group(function () {
+        Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
+            Route::get('/user', 'user');
+            Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
+            Route::post('change-password', 'changePasswordSDM');
+        });
+        Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
+            Route::get('/', 'student');
+            Route::post('/', 'studentAuth')->withoutMiddleware(['auth:sanctum,students', 'checkRole:student']);
+            Route::post('change-password', 'changePasswordStudent');
+        });
     });
-    Route::prefix('sdm')->controller(HumanResourceAPIController::class)->group(function () {
-        Route::post('change-password', 'changePasswordSDM');
-    });
-});
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {

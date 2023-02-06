@@ -312,21 +312,4 @@ class StudentAPIController extends Controller
             'invalid' => $invalid
         ]);
     }
-
-    public function changePasswordStudent(changePasswordStudent $request)
-    {
-        try {
-            $student = Student::where('student_id', $request->student_id)->first();
-            if (!$student) return response()->json([
-                'message' => 'Data not found.',
-            ], 404);
-
-            $student->update([
-                'password' => Hash::make($request->password)
-            ]);
-            return $this->responseMessage(true, 200);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
-        }
-    }
 }
