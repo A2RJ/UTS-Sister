@@ -29,6 +29,7 @@ Route::get('/', [HomeController::class, 'api']);
 Route::prefix('/auth')
     ->controller(SanctumAuthController::class)
     ->group(function () {
+        Route::post('/', 'login');
         Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
             Route::get('/user', 'user');
             Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);

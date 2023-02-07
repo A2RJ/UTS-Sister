@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePasswordSDM;
 use App\Http\Requests\Auth\ChangePasswordStudent;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RequestToken;
 use App\Http\Requests\Auth\StudentRequest;
 use App\Models\HumanResource;
@@ -15,6 +16,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Error;
 use Exception;
+use stdClass;
 
 class SanctumAuthController extends Controller
 {
@@ -24,6 +26,7 @@ class SanctumAuthController extends Controller
             return response([
                 'data' => [
                     'sdm_name' => $request->user()->sdm_name,
+                    'sdm_id' => $request->user()->sdm_id,
                     'email' => $request->user()->email,
                     'nidn' => $request->user()->nidn,
                     'nip' => $request->user()->nip,
@@ -47,7 +50,10 @@ class SanctumAuthController extends Controller
             }
 
             return response([
-                'data' => ["access_token" => $user->createToken($user->sdm_name)->plainTextToken]
+                'data' => [
+                    'access_token' => $user->createToken($user->sdm_name)->plainTextToken,
+                    'sdm_id' => $user->sdm_id,
+                ]
             ]);
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
@@ -78,7 +84,10 @@ class SanctumAuthController extends Controller
         }
 
         return response([
-            'data' => ["access_token" => $student->createToken($student->nim)->plainTextToken]
+            'data' => [
+                'access_token' => $student->createToken($student->nim)->plainTextToken,
+                'student_id' => $student->student_id
+            ]
         ]);
     }
 
@@ -87,6 +96,7 @@ class SanctumAuthController extends Controller
         return response([
             'data' => [
                 'nama lengkap' => $request->user()->nama_lengkap,
+                'student_id' => $request->user()->student_id,
                 'gender' => $request->user()->gender,
                 'nim' => $request->user()->nim,
                 'prodi' => $request->user()->program_studi_id,
@@ -105,9 +115,53 @@ class SanctumAuthController extends Controller
             $student->update([
                 'password' => Hash::make($request->password)
             ]);
-            return $this->responseMessage(true, 200);
+            return $this->responseMessage(true, 204);
         } catch (Exception $e) {
             return $this->responseError($e->getMessage(), 500);
+        }
+    }
+
+    public function findUserOrStudent($username)
+    {
+        $user = User::where('email', $username)
+            ->orWhere('nidn', $username)
+            ->first();
+        if ($user) {
+            $result = new stdClass();
+            $result->role = 'dosen';
+            $result->user = $user;
+            $result->id = $user->sdm_id;
+            return $result;
+        }
+
+        $student = Student::where('nim', $username)->first();
+        if ($student) {
+            $result = new stdClass();
+            $result->role = 'mahasiswa';
+            $result->user = $student;
+            $result->id = $student->student_id;
+            return $result;
+        }
+
+        return false;
+    }
+
+    public function login(LoginRequest $request)
+    {
+        try {
+            $userInfo = $this->findUserOrStudent($request->username);
+            if (!$userInfo) throw new Error('Your account is not registered.', 404);
+            if (!Hash::check($request->password, $userInfo->user->password)) throw new Error('The provided credentials are incorrect.', 422);
+
+            return response([
+                'data' => [
+                    'role' => $userInfo->role,
+                    'id' => $userInfo->id,
+                    'access_token' => $userInfo->user->createToken($userInfo->id)->plainTextToken,
+                ]
+            ]);
+        } catch (\Throwable $th) {
+            return $this->responseError($th->getMessage(), $th->getCode());
         }
     }
 }
