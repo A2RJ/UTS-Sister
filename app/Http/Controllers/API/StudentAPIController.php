@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\ChangePasswordSDM;
-use App\Http\Requests\Auth\ChangePasswordStudent;
-use App\Models\HumanResource;
 use App\Models\Student;
 use App\Models\StudentDetail;
 use App\Models\StudyProgram;
@@ -24,6 +21,7 @@ class StudentAPIController extends Controller
         ]);
         $excelFile = $request->file('excel');
         $imported = (new FastExcel())->import($excelFile);
+        // return response()->json($imported, 200);
         $program_studi = $this->prodi($imported);
         $students = $this->students($imported);
         return response()->json([
@@ -195,7 +193,7 @@ class StudentAPIController extends Controller
                 return !in_array($student['student']['nim'], $list_students);
             });
             $students = collect($notExist)->map(function ($student) {
-                $uniqid = $this->genId($student);
+                $uniqid = (new Student())->genId($student['student']['nim']);
                 $student['student']['student_id'] = $uniqid;
                 $student['detail']['student_id'] = $uniqid;
                 Student::create($student['student']);

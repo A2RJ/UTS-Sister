@@ -25,7 +25,6 @@ use App\Http\Controllers\Admin\SuperAdminController;
 */
 
 Route::get('/', [HomeController::class, 'api']);
-Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
 Route::prefix('/auth')
     ->controller(SanctumAuthController::class)
     ->group(function () {
@@ -85,13 +84,13 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-
 Route::prefix('super-admin')
     ->middleware(['auth:sanctum,users', 'admin'])
     ->controller(SuperAdminController::class)
     ->group(function () {
         // define('STDIN', fopen("php://stdin", "r"));
-        Route::get('migrate', 'migrate');
-        Route::get('rollback', 'rollback');
-        Route::get('seed', 'seed');
+        // Route::get('migrate', 'migrate');
+        // Route::get('rollback', 'rollback');
+        // Route::get('seed', 'seed');
+        // Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
     });

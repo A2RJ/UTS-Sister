@@ -21,12 +21,11 @@ class SocialiteController extends Controller
         try {
             $user = Socialite::driver('google')->user();
             $user = User::where('email', $user->getEmail())->first();
-            if ($user) {
-                Auth::login($user);
-                return redirect()->route('home');
-            }
+            if (!$user) throw new Exception('Your email is not registered', 422);
+            Auth::login($user);
+            return redirect()->route('home');
         } catch (Exception $e) {
-            return redirect()->back()->with('message', 'Your email is not registered');
+            return redirect()->route('index')->with('message', $e->getMessage());
         }
     }
 }
