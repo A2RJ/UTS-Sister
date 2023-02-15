@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\ChangePasswordSDM;
 use App\Http\Requests\Auth\ChangePasswordStudent;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RequestToken;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\StudentRequest;
 use App\Models\HumanResource;
 use App\Models\Student;
@@ -192,6 +193,42 @@ class SanctumAuthController extends Controller
 
             $record->update([
                 'password' => Hash::make($request->password)
+            ]);
+
+            return response()->json(true, 204);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 500);
+        }
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        try {
+            $role = $request->role;
+
+            if ($role === 'dosen') {
+                $model = HumanResource::class;
+                $id_field = 'sdm_id';
+                $reset = 'nidn';
+            } elseif ($role === 'mahasiswa') {
+                $model = Student::class;
+                $id_field = 'student_id';
+                $reset = 'nim';
+            } else {
+                return response()->json([
+                    'message' => 'Invalid role.',
+                ], 400);
+            }
+
+            $record = $model::where($id_field, $request->id_user)->first();
+            if (!$record) {
+                return response()->json([
+                    'message' => 'Data not found.',
+                ], 404);
+            }
+
+            $record->update([
+                'password' => Hash::make($record->$reset)
             ]);
 
             return response()->json(true, 204);

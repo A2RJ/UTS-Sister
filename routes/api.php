@@ -35,6 +35,7 @@ Route::prefix('/auth')
             Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
             Route::post('change-password', 'changePasswordSDM');
             Route::post('/admin/change-password', 'changePassword');
+            Route::post('/admin/reset-password', 'resetPassword');
         });
         Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
             Route::get('/', 'student');
