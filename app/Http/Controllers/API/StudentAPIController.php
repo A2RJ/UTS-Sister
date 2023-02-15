@@ -311,6 +311,7 @@ class StudentAPIController extends Controller
             if (!$angkatan) throw new Exception('Angkatan tidak diberikan', 422);
 
             $students = Student::where('angkatan', 'LIKE', "%$angkatan%")
+                // ->whereRaw('LENGTH(student_id) - LENGTH(REPLACE(student_id, "-", "")) = 1')
                 // ->where('student_id', 'not like', '%-%')
                 ->get();
 
