@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\SuperAdminController;
 */
 
 Route::get('/', [HomeController::class, 'api']);
-
+Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
 Route::prefix('/auth')
     ->controller(SanctumAuthController::class)
     ->group(function () {
@@ -34,6 +34,7 @@ Route::prefix('/auth')
             Route::get('/user', 'user');
             Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
             Route::post('change-password', 'changePasswordSDM');
+            Route::post('/admin/change-password', 'changePassword');
         });
         Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
             Route::get('/', 'student');
@@ -41,7 +42,6 @@ Route::prefix('/auth')
             Route::post('change-password', 'changePasswordStudent');
         });
     });
-
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {

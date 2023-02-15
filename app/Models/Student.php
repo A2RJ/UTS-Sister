@@ -81,7 +81,17 @@ class Student extends Authenticatable
         $random = rand(100000000, 999999999);
         $random = str_pad($random, 9, "0", STR_PAD_LEFT);
         $uniqid = hash('md5', $nim . $random);
-        return $nim . '-' . $uniqid;
+        $segments = str_split($uniqid, 6);
+        $result = $nim . '-';
+
+        foreach ($segments as $index => $segment) {
+            $result .= $segment;
+            if ($index !== count($segments) - 1) {
+                $result .= '-';
+            }
+        }
+
+        return $result;
     }
 
     public function detail()

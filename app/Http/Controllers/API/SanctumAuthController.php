@@ -170,6 +170,7 @@ class SanctumAuthController extends Controller
     {
         try {
             $role = $request->role;
+
             if ($role === 'dosen') {
                 $model = HumanResource::class;
                 $id_field = 'sdm_id';
