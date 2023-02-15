@@ -209,15 +209,6 @@ class StudentAPIController extends Controller
         });
     }
 
-    public function genId($student)
-    {
-        $nim = preg_replace('/\D/', '', $student['student']['nim']);
-        $random = rand(100000000, 999999999);
-        $random = str_pad($random, 9, "0", STR_PAD_LEFT);
-        $uniqid = hash('md5', $nim . $random);
-        return $nim . $uniqid;
-    }
-
     public function index()
     {
         $prodi = request('prodi');
@@ -311,5 +302,25 @@ class StudentAPIController extends Controller
             'valid' => $valid,
             'invalid' => $invalid
         ]);
+    }
+
+    public function changeAllStudentId()
+    {
+        try {
+            $angkatan = request('angkatan');
+            if (!$angkatan) throw new Exception('Angkatan tidak diberikan', 422);
+
+            $students = Student::where('angkatan', 'LIKE', "%$angkatan%")
+                ->where('student_id', 'not like', '%-%')
+                ->get();
+
+            $students->each(function ($student) {
+                $new_student_id = (new Student())->genId($student->nim);
+                $student->update(['student_id' => $new_student_id]);
+            });
+            return response()->json(['message' => 'Berhasil ' . $angkatan], 200);
+        } catch (Exception $th) {
+            return $this->responseError($th->getMessage(), $th->getCode());
+        }
     }
 }

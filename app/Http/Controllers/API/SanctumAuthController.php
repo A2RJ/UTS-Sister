@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ChangePasswordSDM;
 use App\Http\Requests\Auth\ChangePasswordStudent;
 use App\Http\Requests\Auth\LoginRequest;
@@ -162,6 +163,73 @@ class SanctumAuthController extends Controller
             ]);
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage(), $th->getCode());
+        }
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        try {
+            $role = $request->role;
+            if ($role === 'dosen') {
+                $model = HumanResource::class;
+                $id_field = 'sdm_id';
+            } elseif ($role === 'mahasiswa') {
+                $model = Student::class;
+                $id_field = 'student_id';
+            } else {
+                return response()->json([
+                    'message' => 'Invalid role.',
+                ], 400);
+            }
+
+            $record = $model::where($id_field, $request->id_user)->first();
+            if (!$record) {
+                return response()->json([
+                    'message' => 'Data not found.',
+                ], 404);
+            }
+
+            $record->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            return response()->json(true, 204);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 500);
+        }
+    }
+
+    public function changePasswordOpsi(ChangePasswordRequest $request)
+    {
+        try {
+            $user = $request->user();
+
+            if ($user instanceof HumanResource) {
+                $model = HumanResource::class;
+                $id_field = 'sdm_id';
+            } elseif ($user instanceof Student) {
+                $model = Student::class;
+                $id_field = 'student_id';
+            } else {
+                return response()->json([
+                    'message' => 'Invalid user type.',
+                ], 400);
+            }
+
+            $record = $model::where($id_field, $user->$id_field)->first();
+            if (!$record) {
+                return response()->json([
+                    'message' => 'Data not found.',
+                ], 404);
+            }
+
+            $record->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            return response()->json(true, 204);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 500);
         }
     }
 }

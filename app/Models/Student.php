@@ -75,6 +75,15 @@ class Student extends Authenticatable
 
     public $timestamps = false;
 
+    public function genId($nim)
+    {
+        $nim = preg_replace('/\D/', '', $nim);
+        $random = rand(100000000, 999999999);
+        $random = str_pad($random, 9, "0", STR_PAD_LEFT);
+        $uniqid = hash('md5', $nim . $random);
+        return $nim . '-' . $uniqid;
+    }
+
     public function detail()
     {
         return $this->hasOne(StudentDetail::class, 'student_id', 'student_id');
