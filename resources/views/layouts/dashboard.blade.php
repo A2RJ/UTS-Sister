@@ -105,6 +105,11 @@
                     @include('partials.sub-division.sidebar')
                     @endif
 
+                    @if (session('id_sdm'))
+                    <li class="nav-item nav-category">SDM Menu</li>
+                    <x-sidebar-menu></x-sidebar-menu>
+                    @endif
+
                     <li class="nav-item nav-category">Auth</li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

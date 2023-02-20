@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
@@ -24,9 +25,9 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Utils\Mail\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,19 +40,19 @@ use App\Http\Controllers\Student\StudentController;
 |
 */
 
-Route::prefix('student')->controller(StudentController::class)->group(function () {
-    Route::get('import', 'index')->name('student.import');
-    Route::post('import-post', 'import')->name('student.import.post');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('login', 'form')->name('form.login');
+    Route::post('login', 'login')->name('login');
+    Route::post('logout', 'logout')->name('logout');
 });
 
-Auth::routes();
 Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
     Route::get('/google', 'redirectToProvider');
     Route::get('/google/callback', 'handleProvideCallback');
 });
 
 Route::get('/', [Controller::class, 'index'])->name('index');
-Route::get('/send', [MailController::class, 'presences']);
+// Route::get('/send', [MailController::class, 'presences']);
 
 Route::get('/verify', [Controller::class, 'verify']);
 Route::post('/presence-mahasiswa/{meeting_id}', [Controller::class, 'presenceMahasiswa'])->name('presence.mahasiswa');

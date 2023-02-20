@@ -6,14 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
-                    @if (session('message'))
-                    <div class="alert alert-danger">
-                        {{ session('message') }}
-                    </div>
-                    @endif
-
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -54,17 +47,21 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
+                                @if (session('message'))
+                                <div class="alert alert-danger">
+                                    {{ session('message') }}
+                                </div>
+                                @endif
                             </div>
                         </div>
 
                         <div class="row ">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    Login
                                 </button>
-                                <br>
                                 <a href="/auth/google" class="btn btn-outline-primary">
-                                    Login with google
+                                    With google
                                 </a>
                             </div>
                         </div>

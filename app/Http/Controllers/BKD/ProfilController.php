@@ -13,7 +13,7 @@ class ProfilController extends Controller
         $penugasan = Sister::penugasan(session('id_sdm'))[0];
         $kepegawaian = array_merge($response['kepegawaian'], $penugasan);
 
-        return view('Profil.Index', [
+        return view('BKD.Profil.Index', [
             'profil' => $response['profil'],
             'kependudukan' => $response['kependudukan'],
             'keluarga' => $response['keluarga'],
@@ -26,54 +26,54 @@ class ProfilController extends Controller
 
     public function inpassing()
     {
-        return view('Profil.Inpassing.Inpassing', [
+        return view('BKD.Profil.Inpassing.Inpassing', [
             'data' => json_decode(Sister::inpassing(session('id_sdm')), true)
         ]);
     }
 
     public function detailInpassing($id)
     {
-        return view('Profil.Inpassing.Id', [
+        return view('BKD.Profil.Inpassing.Id', [
             'data' => json_decode(Sister::detailInpassing($id), true)
         ]);
     }
 
     public function downloadInpassing($id)
     {
-        return view('Profil.Inpassing.download', ['id' => $id]);
+        return view('BKD.Profil.Inpassing.download', ['id' => $id]);
     }
 
     public function jabatanFungsional()
     {
-        return view('Profil.JabatanFungsional.Index', [
+        return view('BKD.Profil.JabatanFungsional.Index', [
             'data' => json_decode(Sister::japung(session('id_sdm')), true)
         ]);
     }
 
     public function detailJabatanFungsional($id)
     {
-        return view('Profil.JabatanFungsional.Id', [
+        return view('BKD.Profil.JabatanFungsional.Id', [
             'data' => json_decode(Sister::detailJapung($id), true)
         ]);
     }
 
     public function ajuanJabatanFungsional()
     {
-        return view('Profil.JabatanFungsional.Ajuan.Index', [
+        return view('BKD.Profil.JabatanFungsional.Ajuan.Index', [
             'data' => json_decode(Sister::ajuanJapung(session('id_sdm')), true)
         ]);
     }
 
     public function detailAjuanJabatanFungsional($id)
     {
-        return view('Profil.JabatanFungsional.Ajuan.Id', [
+        return view('BKD.Profil.JabatanFungsional.Ajuan.Id', [
             'data' => json_decode(Sister::detailAjuanJapung($id), true)
         ]);
     }
 
     public function kepangkatan()
     {
-        return view('Profil.Kepangkatan.Index', [
+        return view('BKD.Profil.Kepangkatan.Index', [
             'data' => json_decode(Sister::kepangkatan(session('id_sdm')), true)
         ]);
     }
@@ -87,14 +87,14 @@ class ProfilController extends Controller
 
     public function penempatan()
     {
-        return view('Profil.Penempatan.Index', [
+        return view('BKD.Profil.Penempatan.Index', [
             'data' => json_decode(Sister::penugasan(session('id_sdm')), true)
         ]);
     }
 
     public function detailPenempatan($id)
     {
-        return view('Profil.Penempatan.Id', [
+        return view('BKD.Profil.Penempatan.Id', [
             'data' => json_decode(Sister::detailPenugasan($id), true)
         ]);
     }

@@ -17,6 +17,8 @@
                     @endif
 
                     <h5 class="mb-3">Nama: {{ Auth::user()->sdm_name }}</h5>
+                    <small>Sister ID: {{ session('id_sdm') }}</small>
+
                     <div class="mb-2">
                         @if (auth()->user()->isDirAkademik())
                         <p>Role and adalah Dir Akademik</p>

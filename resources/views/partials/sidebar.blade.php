@@ -18,10 +18,10 @@
                      <span class="link-title">Dashboard</span>
                  </a>
              </li>
+             @if (session('id_sdm'))
              <li class="nav-item nav-category">SDM Menu</li>
-             <!-- @if (session('id_sdm'))
              <x-sidebar-menu></x-sidebar-menu>
-             @endif -->
+             @endif
          </ul>
      </div>
  </nav>

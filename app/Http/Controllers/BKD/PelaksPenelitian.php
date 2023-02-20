@@ -9,63 +9,63 @@ class PelaksPenelitian extends Controller
 {
     public function penelitian()
     {
-        return view('PelaksPenelitian.Penelitian.Index', [
+        return view('BKD.PelaksPenelitian.Penelitian.Index', [
             'data' => json_decode(Sister::penelitian(session('id_sdm')), true)
         ]);
     }
 
     public function detailPenelitian($id)
     {
-        return view('PelaksPenelitian.Penelitian.Id', [
+        return view('BKD.PelaksPenelitian.Penelitian.Id', [
             'data' => json_decode(Sister::detailPenelitian($id), true)
         ]);
     }
 
     public function bidangIlmuPenelitian($id)
     {
-        return view('PelaksPenelitian.Penelitian.BidangIlmu', [
+        return view('BKD.PelaksPenelitian.Penelitian.BidangIlmu', [
             'data' => json_decode(Sister::bidangIlmuPenelitian($id), true)
         ]);
     }
 
     public function publikasiKarya()
     {
-        return view('PelaksPenelitian.PublikasiKarya.Index', [
+        return view('BKD.PelaksPenelitian.PublikasiKarya.Index', [
             'data' => json_decode(Sister::publikasiKarya(session('id_sdm')), true)
         ]);
     }
 
     public function detailPublikasiKarya($id)
     {
-        return view('PelaksPenelitian.PublikasiKarya.Id', [
+        return view('BKD.PelaksPenelitian.PublikasiKarya.Id', [
             'data' => json_decode(Sister::detailPublikasiKarya($id), true)
         ]);
     }
 
     public function bidangIlmuPublikasiKarya($id)
     {
-        return view('PelaksPenelitian.PublikasiKarya.BidangIlmu', [
+        return view('BKD.PelaksPenelitian.PublikasiKarya.BidangIlmu', [
             'data' => json_decode(Sister::bidangIlmuPublikasiKarya($id), true)
         ]);
     }
 
     public function patenHKI()
     {
-        return view('PelaksPenelitian.PatenHKI.Index', [
+        return view('BKD.PelaksPenelitian.PatenHKI.Index', [
             'data' => json_decode(Sister::patenHKI(session('id_sdm')), true)
         ]);
     }
 
     public function detailPatenHKI($id)
     {
-        return view('PelaksPenelitian.PatenHKI.Id', [
+        return view('BKD.PelaksPenelitian.PatenHKI.Id', [
             'data' => json_decode(Sister::detailPatenHKI($id), true)
         ]);
     }
 
     public function bidangIlmuPatenHKI($id)
     {
-        return view('PelaksPenelitian.PatenHKI.BidangIlmu', [
+        return view('BKD.PelaksPenelitian.PatenHKI.BidangIlmu', [
             'data' => json_decode(Sister::bidangIlmuPatenHKI($id), true)
         ]);
     }

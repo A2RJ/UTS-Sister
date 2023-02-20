@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Sister;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +25,8 @@ class SocialiteController extends Controller
             $user = User::where('email', $user->getEmail())->first();
             if (!$user) throw new Exception('Your email is not registered', 422);
             Auth::login($user);
+            Sister::authorize();
+            session(['id_sdm' => $user->sdm_id, 'sdm_name' => $user->sdm_name]);
             return redirect()->route('home');
         } catch (Exception $e) {
             return redirect()->route('index')->with('message', $e->getMessage());
