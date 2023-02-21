@@ -18,6 +18,9 @@
     <div class="collapse" id="emails">
         <ul class="nav sub-menu">
             <li class="nav-item">
+                <a href="{{ route('presence.sub.permission') }}" class="nav-link">Izin sub divisi</a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('presence.per-civitas') }}" class="nav-link">Per dosen</a>
             </li>
             <li class="nav-item">
