@@ -11,6 +11,7 @@ use App\Http\Controllers\API\StudentAPIController;
 use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Admin\SuperAdminController;
+use App\Http\Controllers\API\CoordinateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,12 +59,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('presence')->controller(PresenceAPIController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/today', 'today');
+        Route::get('/is-late', 'isLate');
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
-        Route::post('/half-day', 'halfDayPresence');
-        Route::post('/full-day', 'fullDayPresence');
-        Route::post('/confirm', 'confirmPermissionPresence');
         Route::get('/{presence}', 'show');
+    });
+    Route::prefix('coord')->controller(CoordinateController::class)->group(function () {
+        Route::get('/', 'index');
     });
     Route::prefix('lecture')->controller(LecturerAPIController::class)->group(function () {
         Route::get('/', 'index');

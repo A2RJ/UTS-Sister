@@ -38,9 +38,10 @@ class MeetingAPIController extends Controller
             'meeting_start' => date('Y-m-d\TH:i', strtotime($request->meeting_start)),
             'file' => Meeting::upload($request, "file", $request->user()->id)
         ]);
-        $link = Link::create([
+        $link = env('APP_REDIRECT') . "/verify?sharer=$meeting_id&is=" . uniqid();
+        Link::create([
             'meeting_id' => $meeting_id,
-            'link' => env('APP_REDIRECT') . "/verify?sharer=$meeting_id&is=" . uniqid()
+            'link' => $link
         ]);
         return response([
             'data' => $link

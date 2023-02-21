@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Presence\PermissionPresenceRequest;
 use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
 use App\Models\Presence;
@@ -29,6 +28,11 @@ class PresenceAPIController extends Controller
         );
     }
 
+    public function isLate(Request $request)
+    {
+        return Presence::isLate($request->user()->sdm_type);
+    }
+
     public function store(StorePresenceRequestAPI $request)
     {
         try {
@@ -40,15 +44,15 @@ class PresenceAPIController extends Controller
 
             $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
-                'check_in_time' => Carbon::today(),
-                'latitude_in' => $request->input('latitude'),
-                'longitude_in' => $request->input('longitude')
+                'check_in_time' => $request->check_in_time,
+                'latitude_in' => $request->latitude,
+                'longitude_in' => $request->longitude
             ]);
 
             if (Presence::isLate($request->user()->sdm_type)) {
                 $validatedData = $request->validate([
                     'detail' => 'required',
-                    'attachment' => 'nullable|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
+                    'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
                 ]);
 
                 if ($request->hasFile('attachment')) {
@@ -64,7 +68,7 @@ class PresenceAPIController extends Controller
             return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->responseError($e->getMessage(), $e->getCode());
+            return $this->responseError($e->getMessage(), 500);
         }
     }
 
@@ -85,9 +89,9 @@ class PresenceAPIController extends Controller
             if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 422);
 
             $presence->update([
-                'check_out_time' => Carbon::today(),
-                'latitude_out' => $request->input('latitude'),
-                'longitude_out' => $request->input('longitude')
+                'check_out_time' => $request->check_out_time,
+                'latitude_out' => $request->latitude,
+                'longitude_out' => $request->longitude
             ]);
 
             return $this->responseData(true, 204);

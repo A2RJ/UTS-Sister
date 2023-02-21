@@ -26,6 +26,7 @@ class StorePresenceRequestAPI extends FormRequest
     public function rules()
     {
         return [
+            'check_in_time' => 'required|date',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180'
         ];

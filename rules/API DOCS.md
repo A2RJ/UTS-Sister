@@ -6,6 +6,12 @@
 
 Pastikan mengirim headers setiap request:
 
+Base URL
+
+```
+https://kepegawaian.uts.ac.id/api
+```
+
 Headers
 
 ```
@@ -51,14 +57,14 @@ Response
 ```
 
 {
-  "data" : {
-    "access_token": "1000|98rw90er89wncrw9mrwen7yrcwer"
+  "data": {
+    "access_token": "1|8WPkt0QI3Hlgi42G4VJydWA9f6XlBAwB0RvTZ3Jp",
+    "sdm_id": "3656416-df1d-46451-aefdgrg71-372354568"
   }
 }
-
 ```
 
-### 2. profile user
+### 2. Profile User
 
 Endpoint
 
@@ -71,26 +77,16 @@ POST /auth/user
 Response
 
 ```
-
 {
   "data": {
-    "id": 237,
-    "sdm_id": "3656456-df9d-46456-aefdgrg71-376454568",
-    "sdm_name": "ARDIANSYAH PUTRA",
-    "email": "ardiansyah.putra@uts.ac.id",
-    "nidn": "83947838749",
-    "nip": "",
-    "active_status_name": "Aktif",
-    "employee_status": "NON PNS",
-    "sdm_type": "Tenaga Kependidikan",
-    "faculty_id": null,
-    "structure_id": null,
-    "structure_id": 1,
-    "created_at": "2022-12-10T20:45:41.000000Z",
-    "updated_at": "2022-12-10T20:47:39.000000Z"
+    "sdm_name": "I MADE WIDIARTA",
+    "sdm_id": "5ded2223-3d3d-4cd4-bbab-8e041f1aec6c",
+    "email": "i.made.widiarta@uts.ac.id",
+    "nidn": "0813018701",
+    "nip": "0",
+    "is_lecturer": true
   }
 }
-
 ```
 
 ### 3. Daftar Mata Kuliah
@@ -108,19 +104,45 @@ Response
   "data": [
     {
       "id": 1,
-      "subject": "Dasar pemrograman web",
+      "subject_name": "Dasar pemrograman web",
+      "class_name": "SPL-2016-A1",
+      "study_program": "Teknik Sipil",
+      "semester": "Ganjil 2022/2023",
       "sks": 4,
       "number_of_meetings": 16,
-      "structure_id": 1,
-      "sdm_id": 237,
-      "meetings_completed": "1",
-      "meetings_pending": "15",
+      "sdm_id": 98,
+      "sdm_name": "I MADE WIDIARTA",
+      "value_sks": "0.50",
+      "meetings_completed": 2,
+      "meetings_pending": 14
+    },
+    {
+      "id": 2,
+      "subject_name": "Matematika diskrit",
+      "class_name": "SPL-2016-A1",
+      "study_program": "Teknik Sipil",
+      "semester": "Ganjil 2022/2023",
+      "sks": 4,
+      "number_of_meetings": 16,
+      "sdm_id": 98,
+      "sdm_name": "I MADE WIDIARTA",
       "value_sks": "0.25",
-      "study_program": {
-        "id": 1,
-        "faculty_id": 1,
-        "study_program": "informatika"
-      }
+      "meetings_completed": 1,
+      "meetings_pending": 15
+    },
+    {
+      "id": 3,
+      "subject_name": "Matematika sidkrit",
+      "class_name": "SPL-2016-A1",
+      "study_program": "Teknik Sipil",
+      "semester": "Ganjil 2022/2023",
+      "sks": 4,
+      "number_of_meetings": 16,
+      "sdm_id": 98,
+      "sdm_name": "I MADE WIDIARTA",
+      "value_sks": "0.50",
+      "meetings_completed": 2,
+      "meetings_pending": 14
     }
   ]
 }
@@ -141,19 +163,17 @@ Response
   "data" : [
     {
       "id": 1,
-      "subject": "Dasar pemrograman web",
+      "subject_name": "Dasar pemrograman web",
+      "class_name": "SPL-2016-A1",
+      "study_program": "Teknik Sipil",
+      "semester": "Ganjil 2022/2023",
       "sks": 4,
       "number_of_meetings": 16,
-      "structure_id": 1,
-      "sdm_id": 237,
-      "meetings_completed": "1",
-      "meetings_pending": "15",
-      "value_sks": "0.25",
-      "study_program": {
-        "id": 1,
-        "faculty_id": 1,
-        "study_program": "informatika"
-      }
+      "sdm_id": 98,
+      "sdm_name": "I MADE WIDIARTA",
+      "value_sks": "0.50",
+      "meetings_completed": 2,
+      "meetings_pending": 14
     }
   ]
 }
@@ -173,20 +193,18 @@ Response
 ```
 {
   "data": {
-      "id": 1,
-      "subject": "Dasar pemrograman web",
-      "sks": 4,
-      "number_of_meetings": 16,
-      "structure_id": 1,
-      "sdm_id": 237,
-      "meetings_completed": "1",
-      "meetings_pending": "15",
-      "value_sks": "0.25",
-      "study_program": {
-        "id": 1,
-        "faculty_id": 1,
-        "study_program": "informatika"
-      }
+    "id": 1,
+    "subject_name": "Dasar pemrograman web",
+    "class_name": "SPL-2016-A1",
+    "study_program": "Teknik Sipil",
+    "semester": "Ganjil 2022/2023",
+    "sks": 4,
+    "number_of_meetings": 16,
+    "sdm_id": 98,
+    "sdm_name": "I MADE WIDIARTA",
+    "value_sks": "0.50",
+    "meetings_completed": 2,
+    "meetings_pending": 14
   }
 }
 ```
@@ -205,36 +223,30 @@ Response
 ```
 {
   "data": [
-      {
+    {
       "id": 1,
-      "subject_id": 1,
       "meeting_name": "Pertemuan ke 1",
-      "date": "2022-12-10T20:50",
-      "meeting_start": "2022-12-10T20:50",
-      "meeting_end": "2022-12-10T20:50",
-      "file_start": "C:\\xampp\\tmp\\php50D.tmp",
-      "file_end": "C:\\xampp\\tmp\\php50E.tmp"
+      "date": "2022-12-17T20:23",
+      "meeting_start": "2022-12-17T20:23",
+      "file": null,
+      "url": null
     },
     {
       "id": 2,
-      "subject_id": 1,
       "meeting_name": "Pertemuan ke 2",
-      "date": null,
-      "meeting_start": null,
-      "meeting_end": null,
-      "file_start": null,
-      "file_end": null
+      "date": "2022-12-18T13:37",
+      "meeting_start": "2022-12-18T13:37",
+      "file": "639ea7197d5841671341849download.jfif.jpg",
+      "url": null
     },
     ...
     {
       "id": 16,
-      "subject_id": 1,
       "meeting_name": "Pertemuan ke 16",
       "date": null,
       "meeting_start": null,
-      "meeting_end": null,
-      "file_start": null,
-      "file_end": null
+      "file": null,
+      "url": null
     }
   ]
 }
@@ -245,15 +257,16 @@ Response
 Endpoint
 
 ```
-POST /subject/{subject_id}/start-meeting/{meeting_id}
-Ex: POST /subject/1/start-meeting/1
+POST /subject/{subject_id}/meeting/{meeting_id}/start
+Ex: POST /subject/1/meeting/1/start
 ```
 
 Body
 
 ```
 {
-    "file_start": "upload file with"
+    "file_start": "file",
+    "meeting_start": "datetime"
 }
 ```
 
@@ -261,33 +274,90 @@ Response
 
 ```
 {
-  "data":  {
-      "id": 1,
-      "subject_id": 1,
-      "meeting_name": "Pertemuan ke 1",
-      "date": "2022-12-10T20:50",
-      "meeting_start": "2022-12-11 06:46:09",
-      "meeting_end": null,
-      "file_start": "63957cb1577431670741169-156.png",
-      "file_end": null
-  }
+  "data": "https://kepegawaian.uts.ac.id/verify?sharer=3&is=63f4677ea2a86"
 }
 ```
 
-### 8. Absen Selesai Kelas
+### 8. List Absensi Kehadiran
 
 Endpoint
 
 ```
-POST /subject/{subject_id}/end-meeting/{meeting_id}
-Ex: POST /subject/1/end-meeting/1
+GET /presence
+```
+
+Response
+
+```
+{
+  "data": [
+    {
+      "id": 3,
+      "sdm_id": 98,
+      "latitude_in": "0",
+      "longitude_in": "0",
+      "latitude_out": null,
+      "longitude_out": null,
+      "check_in_date": "Sunday, 18-12-2022",
+      "check_out_date": "Sunday, 18-12-2022",
+      "check_in_hour": "22:08",
+      "check_out_hour": "22:08",
+      "hours": "0",
+      "minutes": "0"
+    },
+    {
+      "id": 4,
+      "sdm_id": 98,
+      "latitude_in": "80",
+      "longitude_in": "80",
+      "latitude_out": "90",
+      "longitude_out": "90",
+      "check_in_date": "Sunday, 18-12-2022",
+      "check_out_date": "Sunday, 18-12-2022",
+      "check_in_hour": "22:11",
+      "check_out_hour": "22:28",
+      "hours": "0",
+      "minutes": "17"
+    },
+    ...
+    {
+      "id": 6,
+      "sdm_id": 98,
+      "latitude_in": "80",
+      "longitude_in": "80",
+      "latitude_out": null,
+      "longitude_out": null,
+      "check_in_date": "Monday, 19-12-2022",
+      "check_out_date": "Monday, 19-12-2022",
+      "check_in_hour": "08:29",
+      "check_out_hour": "08:29",
+      "hours": "0",
+      "minutes": "0"
+    }
+  ]
+}
+```
+
+### 9. Absensi Kehadiran Masuk
+
+Endpoint
+
+```
+POST /presence/check-in
+Ex: POST /presence/check-in
 ```
 
 Body
 
+Jika masuk telat maka harus isi detail dan attachment, pengecekan telat terakhir
+
 ```
 {
-    "file_start": "upload file with"
+    "latitude": "80",
+    "longitude": "80",
+    "check_in_time": "date",
+    "detail": "text",
+    "attachment": "file"
 }
 ```
 
@@ -296,14 +366,111 @@ Response
 ```
 {
   "data": {
-      "id": 1,
-      "subject_id": 1,
-      "meeting_name": "Pertemuan ke 1",
-      "date": "2022-12-10T20:50",
-      "meeting_start": "2022-12-11 06:46:09",
-      "meeting_end": "2022-12-11 06:47:34",
-      "file_start": "63957cb1577431670741169-156.png",
-      "file_end": "63957d065151c1670741254-156.png"
+    "sdm_id": 98,
+    "check_in_time": "2023-02-21 18:45:41",
+    "latitude_in": "80",
+    "longitude_in": "80",
+    "updated_at": "2023-02-21T10:20:34.000000Z",
+    "created_at": "2023-02-21T10:20:34.000000Z",
+    "id": 12
   }
+}
+```
+
+### 10. Absensi Kehadiran Pulang
+
+Endpoint
+
+```
+POST /presence/check-out
+Ex: POST /presence/check-out
+```
+
+Body
+
+```
+{
+    "latitude": "80",
+    "longitude": "80",
+    "check_in_time": "date"
+}
+```
+
+Response No Content (204)
+
+### 11. List Absensi Hari Ini
+
+Endpoint
+
+```
+POST /presence/today
+Ex: POST /presence/today
+```
+
+Response
+
+```
+{
+  "data": {
+    "id": 11,
+    "sdm_id": 98,
+    "latitude_in": "80",
+    "longitude_in": "80",
+    "check_in_time": "2022-12-19 12:13:18",
+    "check_out_time": "2022-12-19 12:13:36",
+    "latitude_out": "80",
+    "longitude_out": "80",
+  }
+}
+```
+
+### 11. Check Apakah Sudah Telat
+
+Endpoint
+
+```
+GET /presence/is-late
+Ex: GET /presence/is-late
+```
+
+Response
+
+```
+{
+  "data": true or false
+}
+```
+
+### 12. List Coordinates
+
+Endpoint
+
+```
+GET /coord
+Ex: GET /coord
+```
+
+Response
+
+```
+{
+  "data": [
+    {
+      "latitude": "80",
+      "longitude": "80",
+    },
+    {
+      "latitude": "80",
+      "longitude": "80",
+    },
+    {
+      "latitude": "80",
+      "longitude": "80",
+    },
+    {
+      "latitude": "80",
+      "longitude": "80",
+    },
+  ]
 }
 ```
