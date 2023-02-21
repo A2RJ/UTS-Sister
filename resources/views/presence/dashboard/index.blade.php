@@ -4,6 +4,10 @@
 @section('content')
 <div class="container p-5 card">
     <h4 class="mb-4">List Absensi Kehadiran</h4>
+    <div class="mb-4">
+        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
+        <a href="{{ route('presence.sub.permission') }}" class="btn btn-primary btn-block">Izin sub divisi</a>
+    </div>
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Durasi']">

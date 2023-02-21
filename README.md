@@ -7,11 +7,14 @@
 ## Sedang dikerjakan
 
 -   [ ] Laporan mata kuliah
--   [ ] jika telat maka wajib isi detail (opsional attachment)
--   [ ] izin 1/5 hari
--   [ ] izin 1 hari
--   [ ] aksi tidak masuk dengan alasan
+-   [ ] jika ada attachment maka tampilkan pada tabel presensi
+-   [ ] jika telat maka wajib isi detail (opsional attachment - ANDROID)
+-   [x] izin 1/2 hari
+-   [x] izin 1 hari
+-   [x] izin tidak masuk dengan alasan
+-   [x] izin sakit
 -   [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
+-   [ ] berikan query permission = 1
 
 ## Databases
 

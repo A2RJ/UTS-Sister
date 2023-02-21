@@ -45,7 +45,7 @@ class PresenceAPIController extends Controller
                 'longitude_in' => $request->input('longitude')
             ]);
 
-            if (Presence::isLate()) {
+            if (Presence::isLate($request->user()->sdm_type)) {
                 $validatedData = $request->validate([
                     'detail' => 'required',
                     'attachment' => 'nullable|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
@@ -105,7 +105,7 @@ class PresenceAPIController extends Controller
                 ->exists();
             if ($today) throw new Exception('Hari ini sudah mengisi presensi');
 
-            $checkInHour = Presence::workHour()['in'];
+            $checkInHour = Presence::workHour($request->user()->sdm_type)['in'];
             $today = Carbon::today();
             $targetTime = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
             $presence = Presence::create([
@@ -141,9 +141,9 @@ class PresenceAPIController extends Controller
             if ($today) throw new Exception('Hari ini sudah mengisi presensi');
 
             $today = Carbon::today();
-            $checkInHour = Presence::workHour()['in'];
+            $checkInHour = Presence::workHour($request->user()->sdm_type)['in'];
             $checkInHour = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
-            $checkOutHour = Presence::workHour()['out'];
+            $checkOutHour = Presence::workHour($request->user()->sdm_type)['out'];
             $checkOutHour = Carbon::parse($today->toDateString() . ' ' . $checkOutHour)->format('Y-m-d H:i:s');
 
             $presence = Presence::create([

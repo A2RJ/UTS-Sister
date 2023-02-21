@@ -253,6 +253,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
             Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
             Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
+            Route::prefix('permission')->group(function () {
+                Route::get('/', 'form')->name('presence.absen');
+                Route::get('/sub', 'subPermission')->name('presence.sub.permission');
+                Route::post('/', 'permission')->name('presence.permission');
+                Route::post('/{presence}', 'confirm')->name('presence.confirm');
+            });
             Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
                 Route::get('/my-presence', 'myPresence')->name('download.my-presence');
                 Route::get('/per-civitas', 'perCivitas')->name('download.per-civitas');

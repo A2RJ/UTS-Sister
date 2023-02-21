@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Presence;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Presence\PermissionPresenceRequest;
+use App\Http\Requests\Presence\PermissionRequest;
 use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
+use App\Models\StructuralPosition;
+use App\Models\Structure;
 use App\Models\Subject;
+use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PresenceController extends Controller
 {
@@ -112,5 +121,133 @@ class PresenceController extends Controller
     {
         $presence->delete();
         return redirect()->route('presence.index')->with('message', "Berhasil hapus presensi kehadiran");
+    }
+
+    public function form(Request $request)
+    {
+        return view('presence.permission.sub')
+            ->with('jenis_izin', [
+                'Tidak Masuk',
+                'Izin Berkegiatan Diluar 1/2 Hari',
+                'Izin Berkegiatan Diluar 1 Hari',
+                'Izin Sakit'
+            ]);
+    }
+
+    public function subPermission(Request $request)
+    {
+        $child_id = collect(Auth::user()->structure)->pluck('id');
+        $user = StructuralPosition::whereIn('structure_id', $child_id)
+            ->whereNot('sdm_id', Auth::id())
+            ->distinct()
+            ->select('sdm_id')
+            ->get();
+        $user_id = collect($user)->pluck('sdm_id');
+        $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->whereIn('presences.sdm_id', $user_id)
+            ->where('permission', 0)
+            ->with('attachment')
+            ->select(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->groupBy(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )->paginate();
+
+        return view('presence.permission.index')
+            ->with('permissions', $permissions);
+    }
+
+    public function permission(PermissionRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $today = Presence::where('sdm_id', Auth::id())
+                ->whereDate('check_in_time', Carbon::today())
+                ->exists();
+            if ($today) return back()->with('message', 'Anda sudah mengisi ijin');
+
+            $today = Carbon::today();
+            $checkInHour = Presence::workHour(Auth::user()->sdm_type)['in'];
+            $checkInHour = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
+            $checkOutHour = Presence::workHour(Auth::user()->sdm_type)['out'];
+            $checkOutHour = Carbon::parse($today->toDateString() . ' ' . $checkOutHour)->format('Y-m-d H:i:s');
+
+            if ($request->jenis_izin == 1) {
+                $presence = Presence::create([
+                    'sdm_id' => Auth::id(),
+                    'check_in_time' => NULL,
+                    'check_out_time' => NULL,
+                    'permission' => 0
+                ]);
+            } else if ($request->jenis_izin == 2) {
+                $presence = Presence::create([
+                    'sdm_id' => Auth::id(),
+                    'check_in_time' => $checkInHour,
+                    'latitude_in' => Presence::$latitude,
+                    'longitude_in' => Presence::$longitude,
+                    'permission' => 0
+                ]);
+            } else if ($request->jenis_izin == 3) {
+                $presence = Presence::create([
+                    'sdm_id' => Auth::id(),
+                    'check_in_time' => $checkInHour,
+                    'latitude_in' => Presence::$latitude,
+                    'longitude_in' => Presence::$longitude,
+                    'check_out_time' => $checkOutHour,
+                    'latitude_out' => Presence::$latitude,
+                    'longitude_out' => Presence::$longitude,
+                    'permission' => 0
+                ]);
+            } else if ($request->jenis_izin == 4) {
+                $presence = Presence::create([
+                    'sdm_id' => Auth::id(),
+                    'check_in_time' => $checkInHour,
+                    'latitude_in' => Presence::$latitude,
+                    'longitude_in' => Presence::$longitude,
+                    'check_out_time' => $checkOutHour,
+                    'latitude_out' => Presence::$latitude,
+                    'longitude_out' => Presence::$longitude,
+                    'permission' => 0
+                ]);
+            }
+
+            $validatedData = $request->only(['detail', 'attachment']);
+            $file = $request->file('attachment');
+            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+            if (!$file->storeAs('presense/attachments', $filename)) return back()->with('message', 'Gagal menyimpan file');
+            $validatedData['attachment'] = $filename;
+            $presence->attachment()->create($validatedData);
+
+            DB::commit();
+            return redirect()->route('presence.my-presence')->with('message', 'berhasil mengisi ijin');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('message', $e->getMessage());
+        }
+    }
+
+    public function confirm(Request $request, Presence $presence)
+    {
+        try {
+            $child_id = collect(Auth::user()->structure)->pluck('id');
+            $user = StructuralPosition::whereIn('structure_id', $child_id)
+                ->whereNot('sdm_id', Auth::id())
+                ->distinct()
+                ->select('sdm_id')
+                ->get();
+            $user_id = collect($user)->pluck('sdm_id');
+            if (!in_array($presence->sdm_id, $user_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
+            $presence->update(['permission' => 1]);
+            return back()->with('message', 'berhasil menyetujui ijin');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

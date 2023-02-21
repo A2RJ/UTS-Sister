@@ -35,7 +35,7 @@ class Presence extends Model
         'Customer Service' => 55,
     ];
 
-    public static function workHour()
+    public static function workHour($sdm_type)
     {
         $workHour = [
             'Dosen' => [
@@ -59,13 +59,13 @@ class Presence extends Model
                 'out' => "17:00",
             ],
         ];
-        if (!array_key_exists(Str::title(request()->user()->sdm_type), $workHour))  throw new Exception('Invalid sdm_type' . request()->user()->sdm_type);
-        return $workHour[Str::title(request()->user()->sdm_type)];
+        if (!array_key_exists(Str::title($sdm_type), $workHour))  throw new Exception('Invalid sdm_type' . $sdm_type);
+        return $workHour[Str::title($sdm_type)];
     }
 
-    public static function isLate()
+    public static function isLate($sdm_type)
     {
-        return Carbon::now()->format('H:i') > Presence::workHour()['in'];
+        return Carbon::now()->format('H:i') > Presence::workHour($sdm_type)['in'];
     }
 
     public function human_resource()

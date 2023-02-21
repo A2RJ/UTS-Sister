@@ -35,27 +35,15 @@ class MeetingAPIController extends Controller
             ]);
         }
         $meeting->update([
-            'meeting_start' => date('Y-m-d\TH:i'),
+            'meeting_start' => date('Y-m-d\TH:i', strtotime($request->meeting_start)),
             'file' => Meeting::upload($request, "file", $request->user()->id)
         ]);
-        Link::create([
+        $link = Link::create([
             'meeting_id' => $meeting_id,
             'link' => env('APP_REDIRECT') . "/verify?sharer=$meeting_id&is=" . uniqid()
         ]);
         return response([
-            'data' => 'Meeting dimulai'
+            'data' => $link
         ]);
     }
-
-    // public function endMeeting(EndMeeting $request, $subject_id, $meeting_id)
-    // {
-    //     $meeting = Meeting::where('id', $meeting_id)->where('subject_id', $subject_id)->first();
-    //     $meeting->update([
-    //         'meeting_end' => date('Y-m-d H:i:s'),
-    //         'file_end' => Meeting::upload($request, "file", $request->user()->id)
-    //     ]);
-    //     return response([
-    //         'data' => 'Meeting selesai'
-    //     ]);
-    // }
 }

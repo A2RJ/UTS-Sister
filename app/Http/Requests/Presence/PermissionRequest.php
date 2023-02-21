@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Meeting;
+namespace App\Http\Requests\Presence;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
-class StartMeeting extends FormRequest
+class PermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +24,9 @@ class StartMeeting extends FormRequest
     public function rules()
     {
         return [
-            'meeting_start' => 'required',
-            "file" => [
-                'required',
-                File::types(['jpg', 'jpeg', 'png'])
-                    ->max(24 * 1024),
-            ],
+            'jenis_izin' => 'required',
+            'detail' => 'required',
+            'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:2048',
         ];
     }
 }
