@@ -15,7 +15,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $presence->human_resource->sdm_name }}</td>
-            <td>{{ $presence->check_in_date }}</td>
+            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
             <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>

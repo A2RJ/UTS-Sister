@@ -8,6 +8,7 @@
 
 -   [ ] Laporan mata kuliah
 -   [ ] jika ada attachment maka tampilkan pada tabel presensi
+-   [ ] tampilkan tanggal jika telah izin
 -   [ ] jika telat maka wajib isi detail (opsional attachment - ANDROID)
 -   [x] izin 1/2 hari
 -   [x] izin 1 hari

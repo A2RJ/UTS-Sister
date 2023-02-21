@@ -36,7 +36,7 @@ class PresenceAPIController extends Controller
             $today = Presence::where('sdm_id', $request->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
                 ->exists();
-            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
+            if ($today) throw new Exception('Hari ini sudah mengisi presensi', 422);
 
             $presence = Presence::create([
                 'sdm_id' => $request->user()->id,
@@ -54,7 +54,7 @@ class PresenceAPIController extends Controller
                 if ($request->hasFile('attachment')) {
                     $file = $request->file('attachment');
                     $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-                    if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
+                    if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.", 422);
                     $validatedData['attachment'] = $filename;
                 }
                 $presence->attachment()->create($validatedData);
@@ -64,7 +64,7 @@ class PresenceAPIController extends Controller
             return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->responseError($e->getMessage(), 422);
+            return $this->responseError($e->getMessage(), $e->getCode());
         }
     }
 
@@ -81,8 +81,8 @@ class PresenceAPIController extends Controller
                 ->latest()
                 ->first();
 
-            if (!$presence) throw new Exception('Anda belum absen masuk');
-            if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang');
+            if (!$presence) throw new Exception('Anda belum absen masuk', 422);
+            if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 422);
 
             $presence->update([
                 'check_out_time' => Carbon::today(),
@@ -92,107 +92,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData(true, 204);
         } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 400);
-        }
-    }
-
-    public function halfDayPresence(PermissionPresenceRequest $request)
-    {
-        try {
-            DB::beginTransaction();
-            $today = Presence::where('sdm_id', $request->user()->id)
-                ->whereDate('check_in_time', Carbon::today())
-                ->exists();
-            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
-
-            $checkInHour = Presence::workHour($request->user()->sdm_type)['in'];
-            $today = Carbon::today();
-            $targetTime = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
-            $presence = Presence::create([
-                'sdm_id' => $request->user()->id,
-                'check_in_time' => $targetTime,
-                'latitude_in' => Presence::$latitude,
-                'longitude_in' => Presence::$longitude,
-                'permission' => 0
-            ]);
-
-            $validatedData = $request->only(['detail', 'attachment']);
-            $file = $request->file('attachment');
-            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-            if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
-            $validatedData['attachment'] = $filename;
-            $presence->attachment()->create($validatedData);
-
-            DB::commit();
-            return $this->responseData($presence, 201);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return $this->responseError($e->getMessage(), 400);
-        }
-    }
-
-    public function fullDayPresence(PermissionPresenceRequest $request)
-    {
-        try {
-            DB::beginTransaction();
-            $today = Presence::where('sdm_id', $request->user()->id)
-                ->whereDate('check_in_time', Carbon::today())
-                ->exists();
-            if ($today) throw new Exception('Hari ini sudah mengisi presensi');
-
-            $today = Carbon::today();
-            $checkInHour = Presence::workHour($request->user()->sdm_type)['in'];
-            $checkInHour = Carbon::parse($today->toDateString() . ' ' . $checkInHour)->format('Y-m-d H:i:s');
-            $checkOutHour = Presence::workHour($request->user()->sdm_type)['out'];
-            $checkOutHour = Carbon::parse($today->toDateString() . ' ' . $checkOutHour)->format('Y-m-d H:i:s');
-
-            $presence = Presence::create([
-                'sdm_id' => $request->user()->id,
-                'check_in_time' => $checkInHour,
-                'latitude_in' => Presence::$latitude,
-                'longitude_in' => Presence::$longitude,
-                'check_out_time' => $checkOutHour,
-                'latitude_out' => Presence::$latitude,
-                'longitude_out' => Presence::$longitude,
-                'permission' => 0
-            ]);
-
-            $validatedData = $request->only(['detail', 'attachment']);
-            $file = $request->file('attachment');
-            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-            if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.");
-            $validatedData['attachment'] = $filename;
-            $presence->attachment()->create($validatedData);
-
-            DB::commit();
-            return $this->responseData($presence, 201);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return $this->responseError($e->getMessage(), 400);
-        }
-    }
-
-    public function confirmPermissionPresence(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-            $request->validate([
-                'id' => 'required',
-                'sdm_id' => 'required'
-            ]);
-            $presence = Presence::where('id', $request->id)->where('sdm_id', $request->sdm_id)->firstOrFail();
-            if ($presence instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-                return response()->json([
-                    'message' => 'Data not found.',
-                ], 404);
-            }
-            $presence->update(['permission' => 1]);
-
-            DB::commit();
-            return $this->responseMessage('Berhasil memberikan ijin');
-        } catch (Exception $e) {
-            DB::rollBack();
-            return $this->responseError($e->getMessage(), 400);
+            return $this->responseError($e->getMessage(), $e->getCode());
         }
     }
 }

@@ -175,6 +175,7 @@ class Presence extends Model
                 'longitude_in',
                 'latitude_out',
                 'longitude_out',
+                DB::raw("DATE_FORMAT(presences.created_at, '%W, %d-%m-%Y') AS created_at"),
                 DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
                 DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
                 DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
