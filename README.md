@@ -11,6 +11,7 @@
 -   [x] izin tidak masuk dengan alasan
 -   [x] izin sakit
 -   [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
+-   [ ] batasai perhitungan jam kerja sampai jam 4
 -   [ ] berikan query permission = 1
 -   [ ] pada menu civitas berikan detail struktural/posisi tiap civitas
 -   [ ] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)

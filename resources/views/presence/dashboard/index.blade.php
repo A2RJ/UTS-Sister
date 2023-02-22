@@ -7,6 +7,10 @@
     <div class="mb-4">
         <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
     </div>
+    @php
+    $hours = $hours ?? collect();
+    @endphp
+    @if (count($hours))
     <div class="table-responsive mb-4">
         <table class="table table-bordered">
             <thead>
@@ -27,6 +31,8 @@
             </tbody>
         </table>
     </div>
+    @endif
+
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Durasi']">
         @foreach ($presences as $presence)

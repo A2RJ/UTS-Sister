@@ -85,7 +85,8 @@ class FilePresenceController extends Controller
             ->getDiffAttribute()
             ->groupBy(
                 'human_resources.sdm_name',
-                'human_resources.id'
+                'human_resources.id',
+                'human_resources.sdm_type'
             )
             ->get();
 
@@ -154,7 +155,8 @@ class FilePresenceController extends Controller
             ->getDiffAttribute()
             ->groupBy(
                 'human_resources.sdm_name',
-                'human_resources.id'
+                'human_resources.id',
+                'human_resources.sdm_type'
             )
             ->get();
 
