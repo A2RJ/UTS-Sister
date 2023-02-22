@@ -7,7 +7,26 @@
     <div class="mb-4">
         <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
     </div>
-
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Total jam</th>
+                    <th>Kurang jam</th>
+                    <th>Lebih jam</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($hours as $hour)
+                <tr>
+                    <td>{{ $hour->hours }} Jam dan {{ $hour->minutes }} Menit</td>
+                    <td>{{ $hour->hour_difference }} Jam dan {{ $hour->minute_difference }} Menit</td>
+                    <td>{{ $hour->overtime_hours }} Jam dan {{ $hour->overtime_minutes }} Menit</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Durasi']">
         @foreach ($presences as $presence)

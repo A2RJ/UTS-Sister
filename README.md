@@ -1,9 +1,5 @@
 # APP
 
--   iseed before migrate:rollback
--   php artisan optimize:clear
--   php artisan config:clear
-
 ## Sedang dikerjakan
 
 -   [ ] Laporan mata kuliah
@@ -16,6 +12,8 @@
 -   [x] izin sakit
 -   [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
 -   [ ] berikan query permission = 1
+-   [ ] pada menu civitas berikan detail struktural/posisi tiap civitas
+-   [ ] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
 
 ## List testing
 
@@ -66,16 +64,12 @@ email: ihwan.khuldi@uts.ac.id
 password: 7700013494
 ```
 
-7. Admin
-
-```
-email: ardiansyah.putra@uts.ac.id
-password: 16011998
-```
-
 ## Databases
 
 -   php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
+-   iseed before migrate:rollback
+-   php artisan optimize:clear
+-   php artisan config:clear
 
 ## Tools
 

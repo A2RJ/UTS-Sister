@@ -79,6 +79,9 @@
 
                     @if (auth()->user()->isAdmin())
                     @include('partials.admin.sidebar')
+
+                    <li class="nav-item nav-category">SDM Menu</li>
+                    <x-sidebar-menu></x-sidebar-menu>
                     @endif
 
                     @if (auth()->user()->isLecturer())
@@ -99,13 +102,16 @@
 
                     @if (auth()->user()->isDSDM())
                     @include('partials.dsdm.sidebar')
+
+                    <li class="nav-item nav-category">SDM Menu</li>
+                    <x-sidebar-menu></x-sidebar-menu>
                     @endif
 
                     @if (auth()->user()->hasSub())
                     @include('partials.sub-division.sidebar')
                     @endif
 
-                    @if (session('id_sdm'))
+                    @if (auth()->user()->is_sister_exist)
                     <li class="nav-item nav-category">SDM Menu</li>
                     <x-sidebar-menu></x-sidebar-menu>
                     @endif

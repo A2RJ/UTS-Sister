@@ -135,6 +135,9 @@ class FilePresenceController extends Controller
     public function dsdmByCivitas()
     {
         $search = request('search');
+        $start = request('start');
+        $end = request('end');
+
         $result = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
@@ -144,6 +147,9 @@ class FilePresenceController extends Controller
             )
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
             })
             ->getDiffAttribute()
             ->groupBy(

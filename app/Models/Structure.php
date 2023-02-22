@@ -46,6 +46,7 @@ class Structure extends Model
     public static function search()
     {
         $query = self::query();
+        $query->whereNot('parent_id', 'none');
         $role = request('role');
         if ($role) {
             return $query->with('humanResource')->where('role', "LIKE", "%$role%")->paginate();

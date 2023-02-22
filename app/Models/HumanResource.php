@@ -103,9 +103,9 @@ class HumanResource extends Model
     public static function searchSDM()
     {
         $sdm = HumanResource::query();
-        $nama_sdm = request('nama');
-        if ($nama_sdm) {
-            return $sdm->where('sdm_name', 'LIKE', '%$nama_sdm%')->paginate();
+        $search = request('search');
+        if ($search) {
+            return $sdm->where('sdm_name', 'LIKE', "%$search%")->paginate();
         } else {
             return $sdm->paginate();
         }

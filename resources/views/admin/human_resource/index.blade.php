@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard BKD')
+@section('title', 'Daftar Civitas')
 
 @section('content')
 <div class="row">
@@ -18,21 +18,16 @@
                 <b>
                     ID SDM: {{ session('sdm_id') }} <br>
                     Nama SDM: {{ session('sdm_name') }} <br>
-                    <!-- token: {{ session('token') }} -->
                 </b>
-                <form action="{{ route('sdm.index') }}" method="GET" class="row mt-3">
-                    @csrf
-                    <div class="col-9">
-                        <label for="nama" class="visually-hidden">Password</label>
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Cari nama SDM" autocomplete="off">
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Cari</button>
-                    </div>
-                    <div class="col-auto">
-                        <a href="/"><button type="submit" class="btn btn-danger mb-3">Reset</button></a>
+
+                <form class="mb-4" action="{{ url()->current() }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" value="{{ request('search')}}" placeholder="Search..." autocomplete="off">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
+                        <a href="{{ url()->current(false, true) }}" class="btn btn-sm btn-outline-warning">Cancel</a>
                     </div>
                 </form>
+
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -55,9 +50,11 @@
                                     <a href="{{ route('human_resource.show', ['human_resource' => $item->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Detail</button>
                                     </a>
+                                    @if ($item->is_sister_exist)
                                     <a href="{{ route('sdm.set-sdm', ['sdm_id' => $item->sdm_id, 'sdm_name' => $item->sdm_name]) }}">
                                         <button class="btn btn-sm btn-outline-success">Set SDM</button>
                                     </a>
+                                    @endif
                                     <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</button>
                                     </a>

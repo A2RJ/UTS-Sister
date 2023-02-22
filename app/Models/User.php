@@ -179,4 +179,34 @@ class User extends Authenticatable
             return $id !== Auth::id();
         });
     }
+
+    public function faculty()
+    {
+        $child_id = collect(Auth::user()->structure)->pluck('child_id');
+        $structure = collect(Structure::whereIn('child_id', $child_id)->get())->pluck('role');
+        return $structure->implode(', ');
+    }
+
+    public function studyProgram()
+    {
+        return collect(Auth::user()->structure)->pluck('role')->implode(', ');
+    }
+
+    public function studyProgramByDosen()
+    {
+        $child_id = collect(Auth::user()->structure)->pluck('parent_id');
+        $structure = collect(Structure::whereIn('child_id', $child_id)->get())->pluck('role');
+        return $structure->implode(', ');
+    }
+
+    public function bySub()
+    {
+        $parent_id = collect(Auth::user()->structure)->pluck('parent_id');
+        $structure = collect(Structure::parents($parent_id));
+        $structure = collect($structure)->filter(function ($item) {
+            return $item['type'] != 'struktural';
+        });
+        $structure = $structure->pluck('role')->reverse()->implode(' sub ');
+        return $structure;
+    }
 }

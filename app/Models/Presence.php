@@ -211,11 +211,14 @@ class Presence extends Model
         return $query->paginate();
     }
 
-    public static function dsdmByCivitas()
+    public static function getPresenceHours($sdm_id)
     {
         $search = request('search');
-        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
-            // ->where('human_resources.id', '!=', Auth::id())
+        $start = request('start');
+        $end = request('end');
+
+        return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->where('human_resources.id', $sdm_id)
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -225,6 +228,37 @@ class Presence extends Model
             ->getDiffAttribute()
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            })
+            ->groupBy(
+                'human_resources.sdm_name',
+                'human_resources.id'
+            )
+            ->orderByDesc('hours')
+            ->get();
+    }
+
+    public static function dsdmByCivitas()
+    {
+        $search = request('search');
+        $start = request('start');
+        $end = request('end');
+
+        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id',
+                DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
+                DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
+            )
+            ->getDiffAttribute()
+            ->when($search, function ($query) use ($search) {
+                $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
             })
             ->groupBy(
                 'human_resources.sdm_name',
