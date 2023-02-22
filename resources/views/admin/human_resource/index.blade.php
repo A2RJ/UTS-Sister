@@ -59,7 +59,7 @@
                                         <button class="btn btn-sm btn-outline-success">Set SDM</button>
                                     </a>
                                     <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
-                                        <button class="btn btn-sm btn-outline-warning">Edit</button>
+                                        <button class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</button>
                                     </a>
                                     <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" />
                                 </td>

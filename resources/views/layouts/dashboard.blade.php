@@ -154,7 +154,8 @@
     <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('/themeforest/NobleUI/template/assets/js/template.') }}js"></script>
     <!-- endinject -->
-    {{-- Custom js --}}
+
+    <!-- Custom js -->
     @yield('custom_js')
     <!-- End custom js for this page -->
 

@@ -19,7 +19,7 @@
             <td>{{ $semester->semester }}</td>
             <td>
                 @if (auth()->user()->isAdmin())
-                <a href="{{ route('semester.edit', $semester->id) }}">Edit</a>
+                <a href="{{ route('semester.edit', $semester->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a>
                 <x-delete action="{{ route('semester.destroy', $semester->id) }}" confirm="Yakin hapus semester?" />
                 @endif
             </td>

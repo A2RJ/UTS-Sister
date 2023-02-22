@@ -22,14 +22,23 @@
             <td>
                 <ul>
                     @foreach ($structure->humanResource as $civitas)
-                    <li>{{ $civitas->sdm_name }}</li>
+                    <li>
+                        <form action="{{ route('structure.delete', [
+                            'sdm_id' => $civitas->id,
+                            'structural_id' => $structure->id
+                            ]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            {{ $civitas->sdm_name }} <button type="submit" class="btn btn-xs btn-outline-danger mb-1" onclick="return confirm('Are you sure you want to delete this data?')">delete</button>
+                        </form>
+                    </li>
                     @endforeach
                 </ul>
             </td>
             <td>{{ $structure->role }} <br> ({{ $structure->type }})</td>
             <td>{{ $structure->child ? $structure->child->role : 'Tidak ada' }}</td>
             <td>
-                <a href="{{ route('structure.edit', $structure->id) }}">Edit</a>
+                <a href="{{ route('structure.edit', $structure->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a>
                 @if ($structure->humanResource)
                 @endif
                 <x-delete action="{{ route('structure.destroy', $structure->id) }}" confirm="Yakin hapus {{ $structure->role}}" />

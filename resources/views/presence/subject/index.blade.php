@@ -8,7 +8,7 @@
         <h4>List mata kuliah</h4>
         <small>Hanya masing-masing program studi yang dapat input mata kuliah.</small>
     </div>
-    @if (auth()->user()->isStudyProgram())
+    @if (auth()->user()->isStudyProgram() && Route::currentRouteName() != 'subject.my-subject')
     <div class="mb-3">
         <a href="{{ route('subject.create') }}">
             <button class="btn btn-sm btn-primary">Tambah mata kuliah</button>
@@ -34,7 +34,7 @@
             <td>
                 <a href="{{ route('subject.show', $subject->id) }}">Detail</a> <br>
                 @if (auth()->user()->isStudyProgram())
-                <a href="{{ route('subject.edit', $subject->id) }}">Edit</a> <br>
+                <a href="{{ route('subject.edit', $subject->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a> <br>
                 <x-delete action="{{ route('subject.destroy', $subject->id) }}" />
                 @endif
             </td>

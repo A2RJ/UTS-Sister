@@ -19,7 +19,7 @@
             <td>{{ $class->class }}</td>
             <td>{{ $class->structure->role }}</td>
             <td>
-                <a href="{{ route('class.edit', $class->id) }}">Edit</a>
+                <a href="{{ route('class.edit', $class->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a>
                 <x-delete action="{{ route('class.destroy', $class->id) }}" confirm="Yakin hapus {{ $class->class }}" />
             </td>
         </tr>

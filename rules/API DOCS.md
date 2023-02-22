@@ -392,7 +392,7 @@ Body
 {
     "latitude": "80",
     "longitude": "80",
-    "check_in_time": "date"
+    "check_out_time": "date"
 }
 ```
 
@@ -456,21 +456,33 @@ Response
 {
   "data": [
     {
-      "latitude": "80",
-      "longitude": "80",
+      "latitude": "-8.569655",
+      "longitude": "117.432436"
     },
     {
-      "latitude": "80",
-      "longitude": "80",
+      "latitude": "-8.5699827",
+      "longitude": "117.4318655"
     },
     {
-      "latitude": "80",
-      "longitude": "80",
+      "latitude": "-8.5699827",
+      "longitude": "117.4318655"
     },
     {
-      "latitude": "80",
-      "longitude": "80",
+      "latitude": "-8.5699827",
+      "longitude": "117.4318655"
     },
+    {
+      "latitude": "-8.5709854",
+      "longitude": "117.4311414"
+    },
+    {
+      "latitude": "-8.5709854",
+      "longitude": "117.4311414"
+    },
+    {
+      "latitude": "-8.5709854",
+      "longitude": "117.4311414"
+    }
   ]
 }
 ```

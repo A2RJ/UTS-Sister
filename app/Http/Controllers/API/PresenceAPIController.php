@@ -30,7 +30,7 @@ class PresenceAPIController extends Controller
 
     public function isLate(Request $request)
     {
-        return Presence::isLate($request->user()->sdm_type);
+        return $this->responseData(Presence::isLate($request->user()->sdm_type) ? true : false);
     }
 
     public function store(StorePresenceRequestAPI $request)
@@ -93,8 +93,12 @@ class PresenceAPIController extends Controller
                 'latitude_out' => $request->latitude,
                 'longitude_out' => $request->longitude
             ]);
+            $presence = Presence::where('sdm_id', request()->user()->id)
+                ->whereDate('check_in_time', request()->user()->isSecurity() ? Carbon::yesterday() : Carbon::today())
+                ->latest()
+                ->first();
 
-            return $this->responseData(true, 204);
+            return $this->responseData($presence, 200);
         } catch (Exception $e) {
             return $this->responseError($e->getMessage(), $e->getCode());
         }

@@ -20,7 +20,7 @@
             <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
             <td>
                 @if (auth()->user()->isAdmin())
-                <a href="{{ route('presence.edit', $presence->id) }}">Edit</a> <br>
+                <a href="{{ route('presence.edit', $presence->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a> <br>
                 @endif
                 <a href="{{ route('presence.detail', $presence->id) }}">Detail</a> <br>
             </td>

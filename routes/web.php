@@ -228,6 +228,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix("/admin")->group(function () {
         Route::get('comments', [Controller::class, 'allComments'])->name('comments');
         Route::prefix('structure')->group(function () {
+            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
             Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
         });
         Route::resource("/structure", StructureController::class);
