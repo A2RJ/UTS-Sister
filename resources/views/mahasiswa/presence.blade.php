@@ -28,6 +28,7 @@
 
                     <div class="card-body">
                         <x-success-message />
+                        <x-error-message />
 
                         <form method="POST" action="{{ route('presence.mahasiswa', $id) }}">
                             @csrf

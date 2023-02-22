@@ -5,7 +5,9 @@
 @section('content')
 <div class="container p-5 card">
     <h4 class="mb-4">List jadwal pertemuan: {{ $subject->subject }} ({{ $subject->sks}} SKS)</h4>
+
     <x-success-message />
+    <x-error-message />
     @php
     $action = collect(['Pertemuan' , 'Tanggal', 'Jam Dimulai', 'Foto', 'Link (Click to copy)']);
     if(auth()->user()->isStudyProgram()){

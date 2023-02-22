@@ -12,6 +12,7 @@
     </div>
 
     <x-success-message />
+    <x-error-message />
     <x-table :header="['Semester', 'Aksi']">
         @foreach ($semesters as $semester)
         <tr class="text-capitalize">

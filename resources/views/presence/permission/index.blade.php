@@ -4,16 +4,10 @@
 @section('content')
 <div class="container p-5 card">
     <h4 class="mb-4">List izin kehadiran</h4>
-    @if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-    @endif
-    @if(session()->has('error'))
-    <div class="alert alert-danger">
-        {{ session()->get('error') }}
-    </div>
-    @endif
+
+    <x-success-message />
+    <x-error-message />
+
     <x-table :header="['Nama', 'Tanggal', 'Detail', 'File', 'Aksi']">
         @foreach ($permissions as $permission)
         <tr>

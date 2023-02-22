@@ -12,6 +12,7 @@
     </div>
 
     <x-success-message />
+    <x-error-message />
     <x-table :header="['Mata Kuliah', 'Pertemuan' , 'Waktu' , 'Jam Dimulai' , 'Jam Diakhiri' , 'Foto Mulai' , 'Foto Selesai', 'Aksi']">
         @foreach ($meetings as $meeting)
         <tr>

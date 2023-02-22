@@ -12,6 +12,7 @@
     </div>
 
     <x-success-message />
+    <x-error-message />
     <x-table :header="['Kelas', 'Prodi', 'Aksi']">
         @foreach ($classes as $class)
         <tr>

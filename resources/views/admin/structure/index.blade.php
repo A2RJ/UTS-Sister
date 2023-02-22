@@ -15,6 +15,7 @@
     </div>
 
     <x-success-message />
+    <x-error-message />
     <x-table :header="['Nama Civitas', 'Jabatan Struktural', 'Berada dibawah', 'Aksi']">
         @foreach ($structures as $structure)
         <tr class="text-capitalize">
