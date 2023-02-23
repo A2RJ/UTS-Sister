@@ -50,7 +50,8 @@ class AppServiceProvider extends ServiceProvider
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });
         PendingRequest::macro('dataPribadi', function () {
-            return PendingRequest::withToken(
+            return (new PendingRequest)->withToken(
+                // return PendingRequest::withToken(
                 session('token')
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });
@@ -65,6 +66,24 @@ class AppServiceProvider extends ServiceProvider
         });
         Builder::macro('getDiffAttribute', function () {
             return $this->addSelect(
+                DB::raw("GREATEST(0, (CASE 
+                WHEN human_resources.sdm_type = 'Dosen' 
+                    THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+                WHEN human_resources.sdm_type = 'Dosen DT' 
+                    THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
+                    THEN IFNULL(((CASE 
+                        WHEN TIME(check_out_time) > '16:00:00' 
+                            THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
+                        ELSE 
+                            SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
+                        END)) DIV 60, 0)
+                WHEN human_resources.sdm_type = 'Security'
+                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+                WHEN human_resources.sdm_type = 'Customer Service'
+                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+                ELSE 0
+                END)) as testing"),
                 DB::raw("GREATEST(0, (CASE 
                 WHEN human_resources.sdm_type = 'Dosen' 
                     THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)

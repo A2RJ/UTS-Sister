@@ -2,17 +2,17 @@
 
 ## Sedang dikerjakan
 
--   [ ] Laporan mata kuliah
+-   [x] Laporan mata kuliah
 -   [ ] jika ada attachment maka tampilkan pada tabel presensi
 -   [ ] tampilkan tanggal jika telah izin
--   [ ] jika telat maka wajib isi detail (opsional attachment - ANDROID)
+-   [x] jika telat maka wajib isi detail (opsional attachment - ANDROID)
 -   [x] izin 1/2 hari
 -   [x] izin 1 hari
 -   [x] izin tidak masuk dengan alasan
 -   [x] izin sakit
 -   [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
 -   [ ] batasai perhitungan jam kerja sampai jam 4
--   [ ] berikan query permission = 1
+-   [x] berikan query permission = 1
 -   [ ] pada menu civitas berikan detail struktural/posisi tiap civitas
 -   [ ] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
 

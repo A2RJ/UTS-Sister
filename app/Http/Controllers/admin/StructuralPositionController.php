@@ -8,6 +8,7 @@ use App\Http\Requests\StructuralPosition\UpdateStructuralPositionRequest;
 use App\Models\StructuralPosition;
 use App\Models\HumanResource;
 use App\Models\Structure;
+use Illuminate\Http\Request;
 
 class StructuralPositionController extends Controller
 {
@@ -46,5 +47,16 @@ class StructuralPositionController extends Controller
     {
         $structuralPosition->delete();
         return redirect()->route('structure.index')->with('message', 'Berhasil delete assign jabatan struktural');
+    }
+
+    public function removeStructuralPosition($sdm_id, $structural_id)
+    {
+        $structuralPosition = StructuralPosition::where('structure_id', $structural_id)
+            ->where('sdm_id', $sdm_id)
+            ->first();
+
+        if (!$structuralPosition) return back()->with('error', 'Gagal menghapus jabatan struktural. Data tidak ditemukan.');
+        $structuralPosition->delete();
+        return back()->with('message', 'Berhasil menghapus jabatan struktural dengan ID ' . $structural_id . ' dan ID SDM ' . $sdm_id . '.');
     }
 }
