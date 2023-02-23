@@ -24,6 +24,7 @@ use App\Http\Controllers\BKD\PelaksPengabdian;
 use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Student\StudentController;
@@ -56,6 +57,11 @@ Route::get('/', [Controller::class, 'index'])->name('index');
 
 Route::get('/verify', [Controller::class, 'verify']);
 Route::post('/presence-mahasiswa/{meeting_id}', [Controller::class, 'presenceMahasiswa'])->name('presence.mahasiswa');
+
+Route::prefix('download')->controller(DownloadController::class)->group(function () {
+    Route::get('presense/{filename}', 'presense')->name('download.presense');
+    Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
+});
 
 Route::middleware("auth")->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

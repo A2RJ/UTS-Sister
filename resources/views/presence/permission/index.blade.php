@@ -17,7 +17,7 @@
             <td>{{ $permission->attachment->detail }}</td>
             <td>
                 @if ($permission->attachment->attachment)
-                <a href="{{ asset('presense/attachments/' . $permission->attachment->attachment) }}">File</a>
+                <a href="{{ route('download.presense', ['filename' => $permission->attachment->attachment]) }}">File</a>
                 @endif
             </td>
             <td>

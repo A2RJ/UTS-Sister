@@ -269,14 +269,14 @@ class PresenceController extends Controller
     public function confirm(Request $request, Presence $presence)
     {
         try {
-            $child_id = collect(Auth::user()->structure)->pluck('id');
-            $user = StructuralPosition::whereIn('structure_id', $child_id)
-                ->whereNot('sdm_id', Auth::id())
-                ->distinct()
+            $child_id = collect(Auth::user()->structure)->pluck('child_id');
+            $child_id = Structure::whereIn("parent_id", $child_id)->get();
+            $structure_id = collect($child_id)->pluck('id');
+            $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
                 ->select('sdm_id')
-                ->get();
-            $user_id = collect($user)->pluck('sdm_id');
-            if (!in_array($presence->sdm_id, $user_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
+                ->get())
+                ->pluck('sdm_id');
+            if (!in_array($presence->sdm_id, $sdm_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
             $presence->update(['permission' => 1]);
             return back()->with('message', 'berhasil menyetujui ijin');
         } catch (Exception $e) {

@@ -102,8 +102,8 @@
                     @if (auth()->user()->isDSDM())
                     @include('partials.dsdm.sidebar')
 
-                    <li class="nav-item nav-category">SDM Menu</li>
-                    <x-sidebar-menu></x-sidebar-menu>
+                    <!-- <li class="nav-item nav-category">SDM Menu</li>
+                    <x-sidebar-menu></x-sidebar-menu> -->
                     @endif
 
                     @if (auth()->user()->hasSub())

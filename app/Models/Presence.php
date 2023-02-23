@@ -131,6 +131,7 @@ class Presence extends Model
         $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId())
             ->where('human_resources.id', '!=', Auth::id())
+            ->where('presences.permission', 1)
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -167,6 +168,7 @@ class Presence extends Model
 
         $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdm_id)
+            ->where('presences.permission', 1)
             ->select(
                 'presences.id',
                 'presences.sdm_id',
@@ -219,6 +221,7 @@ class Presence extends Model
 
         return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->where('human_resources.id', $sdm_id)
+            ->where('presences.permission', 1)
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -261,6 +264,7 @@ class Presence extends Model
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('check_in_time', [$start, $end]);
             })
+            ->where('presences.permission', 1)
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -291,6 +295,7 @@ class Presence extends Model
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
             )
+            ->where('presences.permission', 1)
             ->groupBy('presences.id', 'presences.sdm_id', 'sdm_name', 'latitude_in', 'longitude_in', 'latitude_out', 'longitude_out', 'check_in_date', 'check_out_date', 'check_in_hour', 'check_out_hour');
         if ($search) {
             $query->when($search, function ($query) use ($search) {

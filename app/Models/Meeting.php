@@ -49,8 +49,8 @@ class Meeting extends Model
             $file = $request->file($name);
             $originalFileName = $file->getClientOriginalName();
             $fileName = uniqid() . time() . $originalFileName . '.' . $file->extension();
-            $file->move(public_path('uploads/meetings'), $fileName);
-            if (!File::exists(public_path('uploads/meetings/' . $fileName))) return false;
+            $file->move(public_path('presense/meetings'), $fileName);
+            if (!File::exists(public_path('presense/meetings/' . $fileName))) return false;
             return $fileName;
         } else {
             return false;
