@@ -28,7 +28,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            Sister::authorize();
+            // Sister::authorize();
             $user = Auth::user();
             session(['id_sdm' => $user->sdm_id, 'sdm_name' => $user->sdm_name]);
             return redirect()->route('home');

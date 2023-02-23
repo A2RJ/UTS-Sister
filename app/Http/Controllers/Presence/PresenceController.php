@@ -19,6 +19,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class PresenceController extends Controller
 {
@@ -138,15 +139,15 @@ class PresenceController extends Controller
 
     public function subPermission(Request $request)
     {
-        $child_id = collect(Auth::user()->structure)->pluck('id');
-        $user = StructuralPosition::whereIn('structure_id', $child_id)
-            ->whereNot('sdm_id', Auth::id())
-            ->distinct()
+        $child_id = collect(Auth::user()->structure)->pluck('child_id');
+        $child_id = Structure::whereIn("parent_id", $child_id)->get();
+        $structure_id = collect($child_id)->pluck('id');
+        $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
             ->select('sdm_id')
-            ->get();
-        $user_id = collect($user)->pluck('sdm_id');
+            ->get())
+            ->pluck('sdm_id');
         $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
-            ->whereIn('presences.sdm_id', $user_id)
+            ->whereIn('presences.sdm_id', $sdm_id)
             ->where('permission', 0)
             ->with('attachment')
             ->select(
@@ -164,6 +165,35 @@ class PresenceController extends Controller
 
         return view('presence.permission.index')
             ->with('permissions', $permissions);
+    }
+
+    public function myPermission(Request $request)
+    {
+        $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->where('presences.sdm_id', Auth::id())
+            ->where('permission', 0)
+            ->with('attachment')
+            ->select(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->groupBy(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )->paginate();
+
+        return view('presence.permission.index')
+            ->with('permissions', $permissions);
+    }
+
+    public function delete(Request $request, Presence $presence)
+    {
+        $presence->delete();
+        return back();
     }
 
     public function permission(PermissionRequest $request)
@@ -223,7 +253,8 @@ class PresenceController extends Controller
             $validatedData = $request->only(['detail', 'attachment']);
             $file = $request->file('attachment');
             $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-            if (!$file->storeAs('presense/attachments', $filename)) return back()->with('message', 'Gagal menyimpan file');
+            $file->move(public_path('/presense/attachments'), $filename);
+            if (!File::exists(public_path('/presense/attachments/' . $filename))) return  back()->with('message', 'Gagal menyimpan file');
             $validatedData['attachment'] = $filename;
             $presence->attachment()->create($validatedData);
 

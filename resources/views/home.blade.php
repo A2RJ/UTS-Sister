@@ -37,15 +37,15 @@
                         @endif
 
                         @if (auth()->user()->isFaculty())
-                        <p>Role anda adalah dekan fakultas {{ auth()->user()->faculty() }}</p>
+                        <p>Role anda adalah dekan fakultas</p>
                         @endif
 
                         @if (auth()->user()->isStudyProgram())
-                        <p>Role anda adalah ka prodi {{ auth()->user()->studyProgram() }} {{ auth()->user()->bySub() }}</p>
+                        <p>Role anda adalah ka prodi</p>
                         @endif
 
                         @if (auth()->user()->isLecturer())
-                        <p>Role anda adalah Dosen - Prodi {{ auth()->user()->bySub() }}</p>
+                        <p>Role anda adalah Dosen</p>
                         @endif
 
                         @if (auth()->user()->isStructural())

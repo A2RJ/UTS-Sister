@@ -6,6 +6,7 @@
     <h4 class="mb-4">List Absensi Kehadiran</h4>
     <div class="mb-4">
         <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
+        <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">List izin</a>
     </div>
     @php
     $hours = $hours ?? collect();

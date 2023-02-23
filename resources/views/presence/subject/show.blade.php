@@ -23,7 +23,7 @@
             <td>{{ $meeting->meeting_start }}</td>
             <td>
                 @if ($meeting->file)
-                <a href="#{{ $meeting->file }}">Foto</a>
+                <a href="{{ asset('/uploads/meetings/' . $meeting->file) }}">Foto</a>
                 @endif
             </td>
             <td>

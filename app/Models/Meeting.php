@@ -43,16 +43,14 @@ class Meeting extends Model
         self::insert($newNumbers);
     }
 
-    public static function upload($request, $name, $folder)
+    public static function upload($request, $name)
     {
         if ($request->hasFile($name)) {
             $file = $request->file($name);
             $originalFileName = $file->getClientOriginalName();
             $fileName = uniqid() . time() . $originalFileName . '.' . $file->extension();
-            $file->move(public_path('uploads/' . $folder), $fileName);
-            if (!File::exists(public_path('uploads/' . $folder . "/" . $fileName))) {
-                return false;
-            }
+            $file->move(public_path('uploads/meetings'), $fileName);
+            if (!File::exists(public_path('uploads/meetings/' . $fileName))) return false;
             return $fileName;
         } else {
             return false;

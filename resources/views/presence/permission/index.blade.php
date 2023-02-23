@@ -15,13 +15,30 @@
             <td>{{ $permission->sdm_name }}</td>
             <td>{{ $permission->created_at }}</td>
             <td>{{ $permission->attachment->detail }}</td>
-            <td>{{ $permission->attachment->attachment }}</td>
             <td>
-                <form method="POST" action="{{ route('presence.confirm', ['presence' => $permission->id]) }}">
+                @if ($permission->attachment->attachment)
+                <a href="{{ asset('presense/attachments/' . $permission->attachment->attachment) }}">File</a>
+                @endif
+            </td>
+            <td>
+                @if ($permission->sdm_id != auth()->user()->id)
+                <form method="POST" class="mb-1 mr-1" action="{{ route('presence.confirm', ['presence' => $permission->id]) }}">
                     @csrf
                     <button type="submit" class="btn btn-primary btn-block">Terima</button>
                 </form>
-                <a href="{{ route('presence.sub.permission') }}" class="btn btn-danger btn-block">Tolak</a>
+                @endif
+                <form method="POST" action="{{ route('presence.delete', ['presence' => $permission->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-block">
+                        @if ($permission->sdm_id != auth()->user()->id)
+                        Tolak
+                        @else
+                        Hapus
+                        @endif
+
+                    </button>
+                </form>
             </td>
         </tr>
         @endforeach
