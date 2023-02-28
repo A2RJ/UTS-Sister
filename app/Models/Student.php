@@ -78,20 +78,18 @@ class Student extends Authenticatable
     public function genId($nim)
     {
         $nim = preg_replace('/\D/', '', $nim);
-        $random = rand(100000000, 999999999);
-        $random = str_pad($random, 9, "0", STR_PAD_LEFT);
+        $random = rand(10000000, 99999999);
+        $random = str_pad($random, 8, "0", STR_PAD_LEFT);
         $uniqid = hash('md5', $nim . $random);
-        $segments = str_split($uniqid, 6);
-        $result = $nim . '-';
-
-        foreach ($segments as $index => $segment) {
-            $result .= $segment;
-            if ($index !== count($segments) - 1) {
-                $result .= '-';
-            }
-        }
-
-        return $result;
+        $string = str_replace('-', '', $uniqid);
+        $parts = [
+            substr($string, 0, 8),
+            substr($string, 8, 4),
+            substr($string, 12, 4),
+            substr($string, 16, 4),
+            substr($string, 20, 12)
+        ];
+        return implode('-', $parts);
     }
 
     public function detail()

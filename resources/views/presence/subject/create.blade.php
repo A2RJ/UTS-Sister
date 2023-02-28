@@ -6,7 +6,7 @@
 <div class="container p-5 card">
     <h4 class="mb-4">Form mata kuliah</h4>
 
-    <x-form action="{{ route('subject.store') }}" displayError="true">
+    <x-form action="{{ route('subject.store') }}" displayError="false">
         <x-input name="subject" label="Mata Kuliah" placeholder="Mata Kuliah" />
         <x-input name="sks" label="Jumlah SKS" placeholder="Jumlah SKS" />
         <x-input name="number_of_meetings" label="Jumlah Pertemuan" placeholder="Jumlah Pertemuan" />

@@ -6,7 +6,7 @@
 <div class="container p-5 card">
     <h4 class="mb-4">Form edit civitas:</h4>
 
-    <x-form action="{{ route('human_resource.update', $human_resource->sdm_id) }}" displayError="true">
+    <x-form action="{{ route('human_resource.update', $human_resource->sdm_id) }}" displayError="false">
         @method('PUT')
         <x-input name="sdm_name" label="Nama SDM" placeholder="Nama" :value="$human_resource->sdm_name" />
         <x-input name="email" label="Email" placeholder="Email" :value="$human_resource->email" />

@@ -6,7 +6,7 @@
 <div class="container p-5 card">
     <h4 class="mb-4">Form Presensi Kehadiran</h4>
 
-    <x-form action="{{ route('presence.update', $presence->id) }}" displayError="true">
+    <x-form action="{{ route('presence.update', $presence->id) }}" displayError="false">
         @method('PUT')
         <x-select name="sdm_id" label="Dosen" :select="$human_resources" :current="$presence->sdm_id" />
         <x-input name="check_in_time" type="datetime-local" label="Jam Masuk" placeholder="Jam Masuk" :value="$presence->check_in_time" />

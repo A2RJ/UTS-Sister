@@ -6,7 +6,7 @@
 <div class="container p-5 card">
     <h4 class="mb-4">Form edit mata kuliah</h4>
 
-    <x-form action="{{ route('subject.update', $subject->id) }}" displayError="true">
+    <x-form action="{{ route('subject.update', $subject->id) }}" displayError="false">
         @method('PUT')
         <x-input name="subject" label="Mata Kuliah" placeholder="Mata Kuliah" :value="$subject->subject" />
         <x-input name="sks" label="Jumlah SKS" placeholder="Jumlah SKS" :value="$subject->sks" />

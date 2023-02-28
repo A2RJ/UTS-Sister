@@ -12,6 +12,7 @@ use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Admin\SuperAdminController;
 use App\Http\Controllers\API\CoordinateController;
+use App\Http\Controllers\Utils\RandomUtilsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,3 +97,13 @@ Route::prefix('super-admin')
         // Route::get('seed', 'seed');
         // Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
     });
+
+// Route::prefix('utils')->group(function () {
+//     Route::controller(RandomUtilsController::class)->group(function () {
+//         Route::prefix('import')->group(function () {
+//             Route::post('dosen', 'importDosen');
+//             Route::post('tendik', 'importTendik');
+//             Route::post('change-email', 'changeAllEmail');
+//         });
+//     });
+// });
