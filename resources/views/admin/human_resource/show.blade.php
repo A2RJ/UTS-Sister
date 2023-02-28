@@ -7,6 +7,7 @@
     <h4 class="mb-4">Detail civitas:</h4>
 
     <x-input name="sdm_name" label="Nama SDM" placeholder="Nama" :value="$human_resource->sdm_name" />
+    <x-input name="email" label="Email" placeholder="Email" :value="$human_resource->email" />
     <x-input name="nidn" label="NIDN" placeholder="NIDN" :value="$human_resource->nidn" />
     <x-input name="nip" label="NIP" placeholder="NIP" :value="$human_resource->nip" />
     <x-select name="active_status_name" label="Status" :select="$active_status_name" :current="$human_resource->active_status_name" />

@@ -28,4 +28,11 @@ class ChangePasswordSDM extends FormRequest
             'confirm_password' => 'required|same:password',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'password.regex' => 'Password must contain at least one letter and one number',
+        ];
+    }
 }

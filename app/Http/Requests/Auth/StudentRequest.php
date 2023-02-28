@@ -24,8 +24,8 @@ class StudentRequest extends FormRequest
     public function rules()
     {
         return [
-            "nim" => ["required"],
-            "password" => ["required"]
+            "nim" => ["required", "string"],
+            "password" => ["required", "string"]
         ];
     }
 }

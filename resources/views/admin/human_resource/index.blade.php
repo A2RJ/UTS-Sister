@@ -28,6 +28,12 @@
                     </div>
                 </form>
 
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -35,6 +41,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Jabatan</th>
+                                <th>Email</th>
                                 <th>NIDN</th>
                                 <th>Aksi</th>
                             </tr>
@@ -45,6 +52,7 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $item->sdm_name }}</td>
                                 <td>{{ $item->structure_id ? $item->structure->role : '' }}</td>
+                                <td>{{ $item->email }}</td>
                                 <td>{{ $item->nidn }}</td>
                                 <td>
                                     <a href="{{ route('human_resource.show', ['human_resource' => $item->sdm_id]) }}">
@@ -52,13 +60,18 @@
                                     </a>
                                     @if ($item->is_sister_exist)
                                     <a href="{{ route('sdm.set-sdm', ['sdm_id' => $item->sdm_id, 'sdm_name' => $item->sdm_name]) }}">
-                                        <button class="btn btn-sm btn-outline-success">Set SDM</button>
+                                        <button class="btn btn-sm btn-outline-primary">Set SDM</button>
                                     </a>
                                     @endif
                                     <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</button>
                                     </a>
-                                    <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" />
+                                    <div class="d-flex gap-1">
+                                        <a href="{{ route('human_resource.resetPassword', ['human_resource' => $item->sdm_id]) }}" onclick="return confirm('Yakin reset password (NIDN - {{ $item->nidn }}) untuk {{ $item->sdm_name }}?')">
+                                            <button class="btn btn-sm btn-outline-danger">Reset password</button>
+                                        </a>
+                                        <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" />
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

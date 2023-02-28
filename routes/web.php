@@ -44,6 +44,8 @@ use App\Http\Controllers\Utils\Mail\MailController;
 Route::controller(AuthController::class)->group(function () {
     Route::get('login', 'form')->name('form.login');
     Route::post('login', 'login')->name('login');
+    Route::get('change-password', 'changePassword')->name('auth.change-password');
+    Route::post('change-password', 'updatePassword')->name('auth.update-password');
     Route::post('logout', 'logout')->name('logout');
 });
 
@@ -238,6 +240,9 @@ Route::middleware('auth')->group(function () {
             Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
         });
         Route::resource("/structure", StructureController::class);
+        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
+            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
+        });
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/semester", SemesterController::class)->except('show');
     });

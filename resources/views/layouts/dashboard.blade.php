@@ -117,6 +117,12 @@
 
                     <li class="nav-item nav-category">Auth</li>
                     <li class="nav-item">
+                        <a href="{{ route('auth.change-password') }}" class="nav-link">
+                            <i class="link-icon" data-feather="message-square"></i>
+                            <span class="link-title">Ubah password</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <i class="link-icon" data-feather="message-square"></i>

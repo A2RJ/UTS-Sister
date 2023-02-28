@@ -104,11 +104,8 @@ class HumanResource extends Model
     {
         $sdm = HumanResource::query();
         $search = request('search');
-        if ($search) {
-            return $sdm->where('sdm_name', 'LIKE', "%$search%")->paginate();
-        } else {
-            return $sdm->paginate();
-        }
+        if ($search) $sdm->where('sdm_name', 'LIKE', "%$search%");
+        return $sdm->paginate(10);
     }
 
     public static function selectOption()

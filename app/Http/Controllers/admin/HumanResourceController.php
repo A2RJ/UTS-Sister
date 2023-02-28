@@ -34,6 +34,7 @@ class HumanResourceController extends Controller
     {
         $form = $request->safe()->only([
             "sdm_name",
+            "email",
             "nidn",
             "nip",
             "active_status_name",
@@ -45,8 +46,8 @@ class HumanResourceController extends Controller
             "structure_id",
         ]);
         $form['sdm_id'] = $this->genId(date('DMYhis'));
-        $sdmEmail = preg_replace("/\s+/", ".", $request['sdm_name']);
-        $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
+        // $sdmEmail = preg_replace("/\s+/", ".", $request['sdm_name']);
+        // $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
         $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
         return redirect()->route('human_resource.index')->with('message', "$request->sdm_name created");
@@ -87,6 +88,7 @@ class HumanResourceController extends Controller
     {
         $form = $request->safe()->only([
             "sdm_name",
+            "email",
             "nidn",
             "nip",
             "active_status_name",
@@ -98,6 +100,14 @@ class HumanResourceController extends Controller
         ]);
         $humanResource->update($form);
         return redirect()->route('human_resource.index')->with('message', "$request->sdm_name updated");
+    }
+
+    public function resetPassword(HumanResource $humanResource)
+    {
+        $humanResource->password = Hash::make($humanResource->nidn);
+        $humanResource->save();
+        return back()
+            ->with('success', "Password $humanResource->sdm_name updated successfully.");
     }
 
     public function destroy(HumanResource $humanResource)

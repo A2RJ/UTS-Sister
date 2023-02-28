@@ -50,8 +50,8 @@ class AppServiceProvider extends ServiceProvider
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });
         PendingRequest::macro('dataPribadi', function () {
-            return (new PendingRequest)->withToken(
-                // return PendingRequest::withToken(
+            // return (new PendingRequest)->withToken(
+            return PendingRequest::withToken(
                 session('token')
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });

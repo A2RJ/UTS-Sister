@@ -24,8 +24,8 @@ class RequestToken extends FormRequest
     public function rules()
     {
         return [
-            "email" => ["email", "required"],
-            "password" => ["required"]
+            "email" => ["email", "required", "string"],
+            "password" => ["required", "string"]
         ];
     }
 }
