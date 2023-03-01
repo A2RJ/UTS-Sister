@@ -10,6 +10,7 @@ use App\Http\Requests\HumanResource\StoreHumanResourceRequest;
 use App\Http\Requests\HumanResource\UpdateHumanResourceRequest;
 use App\Models\HumanResource;
 use App\Models\Structure;
+use App\Models\Student;
 use App\Models\Subject;
 
 class HumanResourceController extends Controller
@@ -42,15 +43,11 @@ class HumanResourceController extends Controller
             "sdm_type",
             "is_sister_exist",
             "faculty_id",
-            "structure_id",
-            "structure_id",
         ]);
-        $form['sdm_id'] = $this->genId(date('DMYhis'));
-        // $sdmEmail = preg_replace("/\s+/", ".", $request['sdm_name']);
-        // $form['email'] = Str::lower($sdmEmail) . '@uts.ac.id';
+        $form['sdm_id'] = (new Student())->genId(date('DMYhis'));
         $form['password'] = Hash::make($request['nidn']);
         HumanResource::create($form);
-        return redirect()->route('human_resource.index')->with('message', "$request->sdm_name created");
+        return redirect()->route('human_resource.index')->with('success', "$request->sdm_name created");
     }
 
     public function genId($string)
@@ -99,7 +96,7 @@ class HumanResourceController extends Controller
             "structure_id"
         ]);
         $humanResource->update($form);
-        return redirect()->route('human_resource.index')->with('message', "$request->sdm_name updated");
+        return redirect()->route('human_resource.index')->with('success', "$request->sdm_name updated");
     }
 
     public function resetPassword(HumanResource $humanResource)

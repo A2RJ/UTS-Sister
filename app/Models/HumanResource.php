@@ -104,7 +104,9 @@ class HumanResource extends Model
     {
         $sdm = HumanResource::query();
         $search = request('search');
-        if ($search) $sdm->where('sdm_name', 'LIKE', "%$search%");
+        if ($search) $sdm->where('sdm_name', 'LIKE', "%$search%")
+            ->orWhere('email', 'LIKE', "%$search%")
+            ->orWhere('nidn', 'LIKE', "%$search%");
         return $sdm->paginate(10);
     }
 
