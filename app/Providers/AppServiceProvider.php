@@ -64,33 +64,24 @@ class AppServiceProvider extends ServiceProvider
             }
             return $collect;
         });
+        // 1. THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+        // 2. THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
+        // 3. THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60),0)
+        // 4. THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60),0)
         Builder::macro('getDiffAttribute', function () {
             return $this->addSelect(
-                // DB::raw("GREATEST(0, (CASE 
-                // WHEN human_resources.sdm_type = 'Dosen' 
-                //     THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                // WHEN human_resources.sdm_type = 'Dosen DT' 
-                //     THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                // WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                //     THEN IFNULL(((CASE 
-                //         WHEN TIME(check_out_time) > '16:00:00' 
-                //             THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
-                //         ELSE 
-                //             SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
-                //         END)) DIV 60, 0)
-                // WHEN human_resources.sdm_type = 'Security'
-                //     THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                // WHEN human_resources.sdm_type = 'Customer Service'
-                //     THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                // ELSE 0
-                // END)) as testing"),
                 DB::raw("GREATEST(0, (CASE 
                 WHEN human_resources.sdm_type = 'Dosen' 
                     THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
                 WHEN human_resources.sdm_type = 'Dosen DT' 
                     THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
+                WHEN human_resources.sdm_type = 'Tenaga Kependidikan'
+                    THEN IFNULL(((CASE 
+                        WHEN TIME(check_out_time) > '16:00:00' 
+                            THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
+                        ELSE 
+                            SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
+                        END)) DIV 60, 0)
                 WHEN human_resources.sdm_type = 'Security'
                     THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
                 WHEN human_resources.sdm_type = 'Customer Service'
@@ -103,7 +94,12 @@ class AppServiceProvider extends ServiceProvider
                 WHEN human_resources.sdm_type = 'Dosen DT' 
                     THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
                 WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
+                    THEN IFNULL(((CASE 
+                        WHEN TIME(check_out_time) > '16:00:00' OR (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) >= (35*60))
+                            THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
+                        ELSE 
+                            SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
+                        END)) MOD 60, 0)
                 WHEN human_resources.sdm_type = 'Security'
                     THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
                 WHEN human_resources.sdm_type = 'Customer Service'
@@ -116,8 +112,13 @@ class AppServiceProvider extends ServiceProvider
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) DIV 60),0)
                 WHEN human_resources.sdm_type = 'Dosen DT' 
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60),0)
+                WHEN human_resources.sdm_type = 'Tenaga Kependidikan'
+                    THEN IFNULL(((CASE 
+                        WHEN SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) <= (35*60)
+                            THEN 0
+                        ELSE 
+                            (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60 
+                        END)), 0)
                 WHEN human_resources.sdm_type = 'Security'
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) DIV 60),0)
                 WHEN human_resources.sdm_type = 'Customer Service'
@@ -131,7 +132,12 @@ class AppServiceProvider extends ServiceProvider
                 WHEN human_resources.sdm_type = 'Dosen DT' 
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60),0)
+                    THEN IFNULL(((CASE 
+                        WHEN SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) <= (35*60)
+                            THEN 0
+                        ELSE 
+                            (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60 
+                        END)), 0)
                 WHEN human_resources.sdm_type = 'Security'
                     THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
                 WHEN human_resources.sdm_type = 'Customer Service'

@@ -99,7 +99,7 @@ class Controller extends BaseController
     }
     public function responseError($error, $statusCode = 500)
     {
-        return response()->json(['error' => $error], $statusCode);
+        return response()->json(['error' => $error], $error->getCode() ?: $statusCode);
     }
 
     public function responseMesData($message, $data, $statusCode = 200)

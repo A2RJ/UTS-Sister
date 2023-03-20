@@ -49,20 +49,14 @@ class PresenceAPIController extends Controller
                 'longitude_in' => $request->longitude
             ]);
 
-            if (Presence::isLate($request->user()->sdm_type)) {
-                $validatedData = $request->validate([
-                    'detail' => 'required',
-                    'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
-                ]);
+            $file = $request->file('attachment');
+            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+            if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.", 422);
 
-                if ($request->hasFile('attachment')) {
-                    $file = $request->file('attachment');
-                    $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-                    if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.", 422);
-                    $validatedData['attachment'] = $filename;
-                }
-                $presence->attachment()->create($validatedData);
-            }
+            $presence->attachment()->create([
+                'detail' => $request->detail,
+                'attachment' => $filename
+            ]);
 
             DB::commit();
             return $this->responseData($presence, 201);
@@ -86,7 +80,7 @@ class PresenceAPIController extends Controller
                 ->first();
 
             if (!$presence) throw new Exception('Anda belum absen masuk', 422);
-            if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 422);
+            // if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 422);
 
             $presence->update([
                 'check_out_time' => $request->check_out_time,

@@ -39,12 +39,12 @@ class Presence extends Model
     {
         $workHour = [
             'Dosen' => [
-                'in' => false,
-                'out' => false,
+                'in' => "07:00",
+                'out' => "19:00",
             ],
             'Dosen DT' => [
-                'in' => false,
-                'out' => false,
+                'in' => "07:00",
+                'out' => "19:00",
             ],
             'Tenaga Kependidikan' => [
                 'in' => "09:00",
@@ -149,7 +149,8 @@ class Presence extends Model
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id',
-                'human_resources.sdm_type'
+                'human_resources.sdm_type',
+                'presences.check_out_time'
             );
 
         return $query->paginate();
@@ -165,6 +166,8 @@ class Presence extends Model
         $search = request('search');
         $start = request('start');
         $end = request('end');
+
+        DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
 
         $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdm_id)
