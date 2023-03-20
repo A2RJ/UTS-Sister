@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
@@ -9,6 +8,8 @@ use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
@@ -27,8 +28,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Utils\Mail\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,24 +40,35 @@ use App\Http\Controllers\Utils\Mail\MailController;
 |
 */
 
-Route::controller(AuthController::class)->group(function () {
-    Route::get('login', 'form')->name('form.login');
-    Route::post('login', 'login')->name('login');
-    Route::get('change-password', 'changePassword')->name('auth.change-password');
-    Route::post('change-password', 'updatePassword')->name('auth.update-password');
-    Route::post('logout', 'logout')->name('logout');
+Route::prefix('/')->group(function () {
+    Route::controller(Controller::class)->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('verify', 'verify');
+        Route::post('presence-mahasiswa/{meeting_id}', 'presenceMahasiswa')->name('presence.mahasiswa');
+    });
+    Route::controller(ResetPasswordController::class)->group(function () {
+        Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
+        Route::post('password/reset', 'reset')->name('password.update');
+    });
+    Route::controller(ForgotPasswordController::class)->group(function () {
+        Route::get('password/reset', 'showLinkRequestForm')->name('password.request');
+        Route::post('password/email', 'sendResetLinkEmail')->name('password.email');
+    });
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('login', 'form')->name('form.login');
+        Route::post('login', 'login')->name('login');
+        Route::middleware('auth')->group(function () {
+            Route::get('change-password', 'changePassword')->name('auth.change-password');
+            Route::post('change-password', 'updatePassword')->name('auth.update-password');
+            Route::post('logout', 'logout')->name('logout');
+        });
+    });
 });
 
 Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
     Route::get('/google', 'redirectToProvider');
     Route::get('/google/callback', 'handleProvideCallback');
 });
-
-Route::get('/', [Controller::class, 'index'])->name('index');
-// Route::get('/send', [MailController::class, 'presences']);
-
-Route::get('/verify', [Controller::class, 'verify']);
-Route::post('/presence-mahasiswa/{meeting_id}', [Controller::class, 'presenceMahasiswa'])->name('presence.mahasiswa');
 
 Route::prefix('download')->controller(DownloadController::class)->group(function () {
     Route::get('presense/{filename}', 'presense')->name('download.presense');

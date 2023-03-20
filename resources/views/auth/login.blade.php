@@ -46,6 +46,8 @@
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
+                                    <br>
+                                    <a href="{{ route('password.request') }}">Forgot password</a>
                                 </div>
                                 @if (session('message'))
                                 <div class="alert alert-danger">

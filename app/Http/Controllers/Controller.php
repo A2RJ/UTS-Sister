@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -38,7 +39,7 @@ class Controller extends BaseController
 
     public function index()
     {
-        // Sister::authorize();
+        if (Auth::check()) return redirect()->route('home');
         return view('auth.login');
     }
 
