@@ -13,6 +13,7 @@ use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Admin\SuperAdminController;
 use App\Http\Controllers\API\CoordinateController;
 use App\Http\Controllers\Utils\RandomUtilsController;
+use App\Models\Presence;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,3 +108,9 @@ Route::prefix('super-admin')
 //         });
 //     });
 // });
+
+Route::prefix('test')->group(function () {
+    Route::get('/', function () {
+        return response(Presence::subPresenceByCivitas());
+    });
+});

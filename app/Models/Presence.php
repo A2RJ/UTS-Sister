@@ -121,31 +121,33 @@ class Presence extends Model
         $start = request('start');
         $search = request('search');
 
+        // $query = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
+        //     ->select(
+        //         'human_resources.sdm_name',
+        //         'human_resources.id',
+        //         'human_resources.sdm_type',
+        //         DB::raw('IFNULL(TIME(SUM(TIMEDIFF(
+        //             presences.check_out_time, presences.check_in_time
+        //         ))), "00:00:00") as hours')
+        //     )
+        //     // ->with('presence')
+        //     ->groupBy('human_resources.id')
+        //     ->get();
+
         $query = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
                 'human_resources.sdm_type',
-                DB::raw('IFNULL(TIME(SUM(TIME_TO_SEC(TIMEDIFF(check_out_time, check_in_time)))), "00:00:00") as total_time_worked')
+                DB::raw('IFNULL(TIME(SUM(TIMEDIFF(
+                    CASE
+                        WHEN human_resources.sdm_type = "Tenaga Kependidikan"
+                            THEN 
+                    presences.check_out_time, presences.check_in_time
+                ))), "00:00:00") as hours')
             )
-            ->with(['presence' => function ($query) {
-                $query->select(
-                    'sdm_id',
-                    'check_in_time',
-                    'check_out_time',
-                    DB::raw('IFNULL(TIMEDIFF(check_out_time, check_in_time), "00:00:00") as total_time_worked')
-                )
-                    ->groupBy(
-                        'sdm_id',
-                        'check_in_time',
-                        'check_out_time',
-                    );
-            }])
-            ->groupBy(
-                'human_resources.sdm_name',
-                'human_resources.id',
-                'human_resources.sdm_type'
-            )
+            // ->with('presence')
+            ->groupBy('human_resources.id')
             ->get();
 
         return $query;
@@ -161,8 +163,6 @@ class Presence extends Model
         $search = request('search');
         $start = request('start');
         $end = request('end');
-
-        DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
 
         $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdm_id)
