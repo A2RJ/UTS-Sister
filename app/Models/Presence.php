@@ -121,55 +121,31 @@ class Presence extends Model
         $start = request('start');
         $search = request('search');
 
-        $query = HumanResource::select(
-            'human_resources.sdm_name',
-            'human_resources.id',
-            'human_resources.sdm_type',
-            DB::raw('SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, check_in_time, check_out_time))) as total_work_hour')
-        )
-            ->join('presences', 'human_resources.id', '=', 'presences.sdm_id')
-            ->whereNotNull('presences.check_in_time')
-            ->whereNotNull('presences.check_out_time')
-            ->where(function ($query) {
-                $query
-                    ->where(function ($q) {
-                        $q->where('human_resources.sdm_type', 'Dosen')
-                            ->whereRaw('TIME(check_in_time) >= "07:00:00"')
-                            ->whereRaw('TIME(check_out_time) <= "19:00:00"');
-                    })
-                    ->orWhere(function ($q) {
-                        $q->where('human_resources.sdm_type', 'Dosen DT')
-                            ->whereRaw('TIME(check_in_time) >= "07:00:00"')
-                            ->whereRaw('TIME(check_out_time) <= "19:00:00"');
-                    })
-                    ->orWhere(function ($q) {
-                        $q->where('human_resources.sdm_type', 'Tenaga Kependidikan')
-                            ->whereRaw('TIME(check_in_time) >= "09:00:00"')
-                            ->whereRaw('TIME(check_in_time) <= "16:00:00"')
-                            ->where(function ($q) {
-                                $q->whereRaw('TIME(check_out_time) <= "16:00:00"')
-                                    ->orWhereRaw('TIME(check_out_time) >= "17:00:00"');
-                            });
-                    })
-                    ->orWhere(function ($q) {
-                        $q->where('human_resources.sdm_type', 'Security')
-                            ->where(function ($q) {
-                                $q->whereRaw('TIME(check_in_time) >= "17:00:00"')
-                                    ->whereRaw('TIME(check_out_time) <= "06:00:00"');
-                            });
-                    })
-                    ->orWhere(function ($q) {
-                        $q->where('human_resources.sdm_type', 'Customer Service')
-                            ->whereRaw('TIME(check_in_time) >= "07:00:00"')
-                            ->whereRaw('TIME(check_out_time) <= "17:00:00"');
-                    });
-            })
+        $query = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id',
+                'human_resources.sdm_type',
+                DB::raw('IFNULL(TIME(SUM(TIME_TO_SEC(TIMEDIFF(check_out_time, check_in_time)))), "00:00:00") as total_time_worked')
+            )
+            ->with(['presence' => function ($query) {
+                $query->select(
+                    'sdm_id',
+                    'check_in_time',
+                    'check_out_time',
+                    DB::raw('IFNULL(TIMEDIFF(check_out_time, check_in_time), "00:00:00") as total_time_worked')
+                )
+                    ->groupBy(
+                        'sdm_id',
+                        'check_in_time',
+                        'check_out_time',
+                    );
+            }])
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id',
                 'human_resources.sdm_type'
             )
-            ->distinct()
             ->get();
 
         return $query;
