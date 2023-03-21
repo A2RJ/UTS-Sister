@@ -140,13 +140,22 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_type',
                 DB::raw('IFNULL(TIME(SUM(TIMEDIFF(
-                    CASE
-                        WHEN human_resources.sdm_type = "Tenaga Kependidikan"
-                            THEN 
                     presences.check_out_time, presences.check_in_time
-                ))), "00:00:00") as hours')
+                ))), "00:00:00") as hour'),
+                DB::raw('TIME_FORMAT(
+                    IFNULL(SUM(
+                        CASE
+                            WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
+                                TIMEDIFF(
+                                    presences.check_out_time, presences.check_in_time
+                                )
+                            ELSE
+                                0
+                        END
+                    ), 0), "%H:%i:%s"
+                ) as hours')
             )
-            // ->with('presence')
+            ->with(['presence:sdm_id,check_in_time,check_out_time'])
             ->groupBy('human_resources.id')
             ->get();
 
