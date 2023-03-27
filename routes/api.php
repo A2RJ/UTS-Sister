@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('presence')->controller(PresenceAPIController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/today', 'today');
+        Route::get('/total-hour', 'totalHour');
         Route::get('/is-late', 'isLate');
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
@@ -109,8 +110,6 @@ Route::prefix('super-admin')
 //     });
 // });
 
-Route::prefix('test')->group(function () {
-    Route::get('/', function () {
-        return response(Presence::subPresenceByCivitas());
-    });
+Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+    Route::get('/total-hour', 'totalHour');
 });

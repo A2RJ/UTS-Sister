@@ -41,7 +41,6 @@ class PresenceController extends Controller
 
     public function subPresenceByCivitas()
     {
-        return response(Presence::subPresenceByCivitas());
         return view('presence.dashboard.structural')
             ->with('withDate', true)
             ->with('exportUrl', route('download.per-civitas', request()->getQueryString()))
@@ -130,12 +129,7 @@ class PresenceController extends Controller
     public function form(Request $request)
     {
         return view('presence.permission.sub')
-            ->with('jenis_izin', [
-                'Tidak Masuk',
-                'Izin Berkegiatan Diluar 1/2 Hari',
-                'Izin Berkegiatan Diluar 1 Hari',
-                'Izin Sakit'
-            ]);
+            ->with('jenis_izin', Presence::$jenisIzin);
     }
 
     public function subPermission(Request $request)
@@ -147,6 +141,7 @@ class PresenceController extends Controller
             ->select('sdm_id')
             ->get())
             ->pluck('sdm_id');
+
         $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdm_id)
             ->where('permission', 0)
@@ -162,7 +157,8 @@ class PresenceController extends Controller
                 'presences.sdm_id',
                 'sdm_name',
                 'presences.created_at'
-            )->paginate();
+            )
+            ->paginate();
 
         return view('presence.permission.index')
             ->with('permissions', $permissions);
@@ -201,10 +197,6 @@ class PresenceController extends Controller
     {
         try {
             DB::beginTransaction();
-            $today = Presence::where('sdm_id', Auth::id())
-                ->whereDate('check_in_time', Carbon::today())
-                ->exists();
-            if ($today) return back()->with('message', 'Anda sudah mengisi ijin');
 
             $today = Carbon::today();
             $checkInHour = Presence::workHour(Auth::user()->sdm_type)['in'];
@@ -212,58 +204,94 @@ class PresenceController extends Controller
             $checkOutHour = Presence::workHour(Auth::user()->sdm_type)['out'];
             $checkOutHour = Carbon::parse($today->toDateString() . ' ' . $checkOutHour)->format('Y-m-d H:i:s');
 
-            if ($request->jenis_izin == 1) {
-                $presence = Presence::create([
-                    'sdm_id' => Auth::id(),
-                    'check_in_time' => NULL,
-                    'check_out_time' => NULL,
-                    'permission' => 0
-                ]);
-            } else if ($request->jenis_izin == 2) {
-                $presence = Presence::create([
-                    'sdm_id' => Auth::id(),
-                    'check_in_time' => $checkInHour,
-                    'latitude_in' => Presence::$latitude,
-                    'longitude_in' => Presence::$longitude,
-                    'permission' => 0
-                ]);
-            } else if ($request->jenis_izin == 3) {
-                $presence = Presence::create([
-                    'sdm_id' => Auth::id(),
-                    'check_in_time' => $checkInHour,
-                    'latitude_in' => Presence::$latitude,
-                    'longitude_in' => Presence::$longitude,
+            if ($request->jenis_izin == 6) {
+                $presence = Presence::where('sdm_id', Auth::id())
+                    ->whereDate('check_in_time', Carbon::today())
+                    ->whereNull('check_out_time')
+                    ->latest()
+                    ->first();
+
+                if (!$presence) throw new Exception('Anda belum absen masuk atau anda sudah mengisi ijin hari ini', 422);
+
+                $presence->update([
                     'check_out_time' => $checkOutHour,
                     'latitude_out' => Presence::$latitude,
                     'longitude_out' => Presence::$longitude,
                     'permission' => 0
                 ]);
-            } else if ($request->jenis_izin == 4) {
-                $presence = Presence::create([
-                    'sdm_id' => Auth::id(),
-                    'check_in_time' => $checkInHour,
-                    'latitude_in' => Presence::$latitude,
-                    'longitude_in' => Presence::$longitude,
-                    'check_out_time' => $checkOutHour,
-                    'latitude_out' => Presence::$latitude,
-                    'longitude_out' => Presence::$longitude,
-                    'permission' => 0
+                $presence->attachment->update([
+                    'detail' => $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail
                 ]);
+            } else {
+                $today = Presence::where('sdm_id', Auth::id())
+                    ->whereDate('check_in_time', Carbon::today())
+                    ->exists();
+                if ($today) throw new Exception('Anda sudah mengisi ijin hari ini', 422);
+
+                if ($request->jenis_izin == 1) {
+                    $presenceForm = [
+                        'sdm_id' => Auth::id(),
+                        'check_in_time' => NULL,
+                        'check_out_time' => NULL,
+                        'permission' => 0
+                    ];
+                } else if ($request->jenis_izin == 2 || $request->jenis_izin == 5) {
+                    $presenceForm = [
+                        'sdm_id' => Auth::id(),
+                        'check_in_time' => $checkInHour,
+                        'latitude_in' => Presence::$latitude,
+                        'longitude_in' => Presence::$longitude,
+                        'permission' => 0
+                    ];
+                } else if ($request->jenis_izin == 3) {
+                    $presenceForm = [
+                        'sdm_id' => Auth::id(),
+                        'check_in_time' => $checkInHour,
+                        'latitude_in' => Presence::$latitude,
+                        'longitude_in' => Presence::$longitude,
+                        'check_out_time' => $checkOutHour,
+                        'latitude_out' => Presence::$latitude,
+                        'longitude_out' => Presence::$longitude,
+                        'permission' => 0
+                    ];
+                } else if ($request->jenis_izin == 4) {
+                    $presenceForm = [
+                        'sdm_id' => Auth::id(),
+                        'check_in_time' => $checkInHour,
+                        'latitude_in' => Presence::$latitude,
+                        'longitude_in' => Presence::$longitude,
+                        'check_out_time' => $checkOutHour,
+                        'latitude_out' => Presence::$latitude,
+                        'longitude_out' => Presence::$longitude,
+                        'permission' => 0
+                    ];
+                } else if ($request->jenis_izin == 5) {
+                    $presenceForm = [
+                        'sdm_id' => Auth::id(),
+                        'check_in_time' => $checkInHour,
+                        'latitude_in' => Presence::$latitude,
+                        'longitude_in' => Presence::$longitude,
+                        'permission' => 0
+                    ];
+                }
+
+                $presence = Presence::create($presenceForm);
+
+                $validatedData = $request->only(['detail', 'attachment']);
+                $file = $request->file('attachment');
+                $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
+                $file->move(public_path('/presense/attachments'), $filename);
+                if (!File::exists(public_path('/presense/attachments/' . $filename))) return  back()->with('message', 'Gagal menyimpan file');
+                $validatedData['attachment'] = $filename;
+                $validatedData['detail'] = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
+
+                $presence->attachment()->create($validatedData);
             }
-
-            $validatedData = $request->only(['detail', 'attachment']);
-            $file = $request->file('attachment');
-            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
-            $file->move(public_path('/presense/attachments'), $filename);
-            if (!File::exists(public_path('/presense/attachments/' . $filename))) return  back()->with('message', 'Gagal menyimpan file');
-            $validatedData['attachment'] = $filename;
-            $presence->attachment()->create($validatedData);
-
             DB::commit();
-            return redirect()->route('presence.my-presence')->with('message', 'berhasil mengisi ijin');
+            return redirect()->route('presence.my-presence')->with('message', 'Berhasil mengisi ijin');
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->with('message', $e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
     }
 

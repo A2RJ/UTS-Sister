@@ -27,7 +27,7 @@
                     <button type="submit" class="btn btn-primary btn-block">Terima</button>
                 </form>
                 @endif
-                <form method="POST" action="{{ route('presence.delete', ['presence' => $permission->id]) }}">
+                <form method="POST" action="{{ route('presence.delete', ['presence' => $permission->id]) }}" onsubmit="return confirm('@if ($permission->sdm_id != auth()->user()->id) Apakah Anda yakin ingin menolak permintaan ini? @else Apakah Anda yakin ingin menghapus permintaan ini? @endif')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-block">
@@ -36,7 +36,6 @@
                         @else
                         Hapus
                         @endif
-
                     </button>
                 </form>
             </td>

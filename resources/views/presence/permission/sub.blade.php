@@ -7,11 +7,8 @@
     <form action="{{ route('presence.permission') }}" method="post" enctype="multipart/form-data">
         @csrf
 
-        @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-        @endif
+        <x-success-message />
+        <x-error-message />
 
         <div class="mb-3">
             <label for="jenis_izin" class="form-label">Jenis izin</label>

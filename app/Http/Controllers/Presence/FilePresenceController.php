@@ -97,7 +97,7 @@ class FilePresenceController extends Controller
                 'Nama SDM' => $sdm['sdm_name'],
                 'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
                 'Kurang' => $sdm['effective_hours'],
-                'Lembur' => $sdm['ineffective_hours']
+                // 'Lembur' => $sdm['ineffective_hours']
             ];
         });
     }
@@ -167,7 +167,7 @@ class FilePresenceController extends Controller
                 'Nama SDM' => $sdm['sdm_name'],
                 'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
                 'Kurang' => $sdm['effective_hours'],
-                'Lembur' => $sdm['ineffective_hours']
+                // 'Lembur' => $sdm['ineffective_hours']
             ];
         });
     }

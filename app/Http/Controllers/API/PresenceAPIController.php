@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
+use App\Models\HumanResource;
 use App\Models\Presence;
 use Carbon\Carbon;
 use Exception;
@@ -26,6 +27,28 @@ class PresenceAPIController extends Controller
                 ->latest()
                 ->first()
         );
+    }
+
+    public function totalHour()
+    {
+        $startDate = request('start');
+        $endDate = request('end');
+
+        $result = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
+            ->where('human_resources.id', request()->user()->id)
+            ->whereBetween('check_in_time', [$startDate, $endDate])
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id'
+            )
+            ->workHours()
+            ->groupBy(
+                'human_resources.id',
+                'human_resources.sdm_name',
+            )
+            ->first();
+
+        return $this->responseData([$result, $startDate, $endDate]);
     }
 
     public function isLate(Request $request)
@@ -50,7 +73,7 @@ class PresenceAPIController extends Controller
             ]);
 
             $file = $request->file('attachment');
-            $filename = time() . '' . uniqid() . '' . $file->getClientOriginalName();
+            $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
             if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.", 422);
 
             $presence->attachment()->create([

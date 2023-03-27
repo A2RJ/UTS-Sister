@@ -12,6 +12,8 @@
         </a>
     </div>
     @endif
+    <x-success-message />
+    <x-error-message />
     <x-table :header="['Nama', 'Durasi', 'Aksi']">
         @foreach ($presences as $presence)
         <tr>

@@ -6,14 +6,12 @@
     <h4 class="mb-4">List Sub Divisi</h4>
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
-    <x-table :header="['Nama', 'Total Jam', 'Kurang', 'Lembur', 'Detail']">
+    <x-table :header="['Nama', 'Jam Efektif', 'Detail']">
         @foreach ($presences as $presence)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $presence->sdm_name }}</td>
-            <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
             <td>{{ $presence->effective_hours }}</td>
-            <td>{{ $presence->ineffective_hours }}</td>
             <td><a href="{{ route('presence.detail', $presence->id) }}">Detail</a></td>
         </tr>
         @endforeach

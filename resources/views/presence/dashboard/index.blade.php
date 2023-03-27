@@ -10,6 +10,10 @@
         <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">List izin</a>
     </div>
     @endif
+
+    <x-success-message />
+    <x-error-message />
+
     @php
     $hours = $hours ?? collect();
     @endphp
@@ -18,26 +22,18 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Total jam</th>
-                    <th>Kurang jam</th>
-                    <th>Lebih jam</th>
+                    <th style="font-weight: bolder; color: black;">Total jam</th>
+                    @foreach ($hours as $hour)
+                    <th style="font-weight: bolder; color: black;">{{ $hour->effective_hours }}</th>
+                    @endforeach
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($hours as $hour)
-                <tr>
-                    <td>{{ $hour->hours }} Jam dan {{ $hour->minutes }} Menit</td>
-                    <td>{{ $hour->effective_hours }}</td>
-                    <td>{{ $hour->ineffective_hours }}</td>
-                </tr>
-                @endforeach
-            </tbody>
         </table>
     </div>
     @endif
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
-    <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Durasi']">
+    <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
         @foreach ($presences as $presence)
         <tr>
             <td>{{ $loop->iteration}}</td>
@@ -45,7 +41,7 @@
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
-            <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
+            <td>{{ $presence->effective_hours }}</td>
         </tr>
         @endforeach
     </x-table>
