@@ -12,8 +12,8 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
-            <td>{{ $presence->hour_difference }} Jam {{ $presence->minute_difference }} Menit</td>
-            <td>{{ $presence->overtime_hours }} Jam {{ $presence->overtime_minutes }} Menit</td>
+            <td>{{ $presence->effective_hours }}</td>
+            <td>{{ $presence->ineffective_hours }}</td>
             <td><a href="{{ route('presence.detail', $presence->id) }}">Detail</a></td>
         </tr>
         @endforeach

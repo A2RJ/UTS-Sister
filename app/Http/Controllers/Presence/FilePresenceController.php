@@ -82,7 +82,7 @@ class FilePresenceController extends Controller
                 DB::raw('SUM(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time)) as hours'),
                 DB::raw('SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) % 60 as minutes')
             )
-            ->getDiffAttribute()
+            ->workHour()
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -96,8 +96,8 @@ class FilePresenceController extends Controller
             return [
                 'Nama SDM' => $sdm['sdm_name'],
                 'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
-                'Kurang' => $sdm['hour_difference'] . " Jam " . $sdm['minute_difference'],
-                'Lembur' => $sdm['overtime_hours'] . " Jam " . $sdm['overtime_minutes']
+                'Kurang' => $sdm['effective_hours'],
+                'Lembur' => $sdm['ineffective_hours']
             ];
         });
     }
@@ -152,7 +152,7 @@ class FilePresenceController extends Controller
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('check_in_time', [$start, $end]);
             })
-            ->getDiffAttribute()
+            ->workHour()
             ->groupBy(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -166,8 +166,8 @@ class FilePresenceController extends Controller
             return [
                 'Nama SDM' => $sdm['sdm_name'],
                 'Total Jam' => $hours . ' Jam ' . $minutes . ' Menit',
-                'Kurang' => $sdm['hour_difference'] . " Jam " . $sdm['minute_difference'],
-                'Lembur' => $sdm['overtime_hours'] . " Jam " . $sdm['overtime_minutes']
+                'Kurang' => $sdm['effective_hours'],
+                'Lembur' => $sdm['ineffective_hours']
             ];
         });
     }

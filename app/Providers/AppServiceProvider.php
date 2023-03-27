@@ -51,7 +51,8 @@ class AppServiceProvider extends ServiceProvider
         });
         PendingRequest::macro('dataPribadi', function () {
             // return (new PendingRequest)->withToken(
-            return PendingRequest::withToken(
+            $http = new PendingRequest();
+            return $http->withToken(
                 session('token')
             )->baseUrl(env('SISTER_URL') . "/data_pribadi");
         });
@@ -64,86 +65,64 @@ class AppServiceProvider extends ServiceProvider
             }
             return $collect;
         });
-        // 1. THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-        // 2. THEN IFNULL(((35*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-        // 3. THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60),0)
-        // 4. THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60),0)
-        Builder::macro('getDiffAttribute', function () {
+        Builder::macro('workHour', function () {
             return $this->addSelect(
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan'
-                    THEN IFNULL(((CASE 
-                        WHEN TIME(check_out_time) > '16:00:00' 
-                            THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
-                        ELSE 
-                            SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
-                        END)) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) DIV 60, 0)
-                ELSE 0
-                END)) as hour_difference"),
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((18*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((30*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((CASE 
-                        WHEN TIME(check_out_time) > '16:00:00' OR (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) >= (35*60))
-                            THEN (16*60) - TIME_TO_SEC('16:00:00')/60 
-                        ELSE 
-                            SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))
-                        END)) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((55*60) - SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time))) MOD 60, 0)
-                ELSE 0
-                    END)) as minute_difference"),
                 DB::raw(
-                    "GREATEST(0, (CASE
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan'
-                    THEN IFNULL(((CASE 
-                        WHEN SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) <= (35*60)
-                            THEN 0
-                        ELSE 
-                            (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) DIV 60 
-                        END)), 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) DIV 60),0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) DIV 60),0)
-                ELSE 0
-                END)) as overtime_hours"
+                    'TIME_FORMAT(GREATEST(0, SUM(
+                        CASE
+                            WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
+                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                                TIMEDIFF(
+                                    IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
+                                ), 0) 
+                            WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
+                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                                TIMEDIFF(
+                                    IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
+                                ), 0)
+                            WHEN human_resources.sdm_type = "Customer Service" THEN
+                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                                TIMEDIFF(
+                                    IF(TIME(presences.check_out_time) > TIME("17:00:00"), TIME("17:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
+                                ), 0)
+                            WHEN human_resources.sdm_type = "Security Siang" THEN
+                                TIMEDIFF(
+                                    IF(TIME(presences.check_out_time) > TIME("17:00:00"), TIME("17:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
+                                )
+                            WHEN human_resources.sdm_type = "Security Malam" THEN
+                                TIMEDIFF(
+                                    IF(TIME(presences.check_out_time) > TIME("06:00:00"), TIME("06:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
+                                )
+                            ELSE
+                                0
+                        END
+                    ) ), "%H:%i:%s") 
+                    as effective_hours'
                 ),
-                DB::raw("GREATEST(0, (CASE 
-                WHEN human_resources.sdm_type = 'Dosen' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (18*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Dosen DT' 
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (30*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Tenaga Kependidikan' 
-                    THEN IFNULL(((CASE 
-                        WHEN SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) <= (35*60)
-                            THEN 0
-                        ELSE 
-                            (SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (35*60)) MOD 60 
-                        END)), 0)
-                WHEN human_resources.sdm_type = 'Security'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
-                WHEN human_resources.sdm_type = 'Customer Service'
-                    THEN IFNULL(((SUM(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time)) - (55*60)) MOD 60),0)
-                ELSE 0
-                END)) as overtime_minutes"),
+                DB::raw(
+                    'TIME_FORMAT(GREATEST(0, SUM(
+                        CASE
+                            WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
+                                IF(TIME(presences.check_out_time) > TIME("19:00:00"),
+                                TIMEDIFF(TIME(presences.check_out_time), TIME("19:00:00")), 0)
+                            WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
+                                IF(TIME(presences.check_out_time) > TIME("16:00:00"),
+                                TIMEDIFF(TIME(presences.check_out_time), TIME("16:00:00")), 0)
+                            WHEN human_resources.sdm_type = "Customer Service" THEN
+                                IF(TIME(presences.check_out_time) > TIME("17:00:00"),
+                                TIMEDIFF(TIME(presences.check_out_time), TIME("17:00:00")), 0)
+                            WHEN human_resources.sdm_type = "Security Siang" THEN
+                                IF(TIME(presences.check_out_time) > TIME("17:00:00"),
+                                TIMEDIFF(TIME(presences.check_out_time), TIME("17:00:00")), 0)
+                            WHEN human_resources.sdm_type = "Security Malam" THEN
+                                IF(TIME(presences.check_out_time) > TIME("06:00:00"),
+                                TIMEDIFF(TIME(presences.check_out_time), TIME("06:00:00")), 0)
+                            ELSE
+                                0
+                        END
+                    ) ), "%H:%i:%s") 
+                    as ineffective_hours'
+                )
             )
                 ->where('permission', 1);
         });

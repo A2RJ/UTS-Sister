@@ -27,8 +27,8 @@
                 @foreach ($hours as $hour)
                 <tr>
                     <td>{{ $hour->hours }} Jam dan {{ $hour->minutes }} Menit</td>
-                    <td>{{ $hour->hour_difference }} Jam dan {{ $hour->minute_difference }} Menit</td>
-                    <td>{{ $hour->overtime_hours }} Jam dan {{ $hour->overtime_minutes }} Menit</td>
+                    <td>{{ $hour->effective_hours }}</td>
+                    <td>{{ $hour->ineffective_hours }}</td>
                 </tr>
                 @endforeach
             </tbody>

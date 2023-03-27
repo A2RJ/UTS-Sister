@@ -121,37 +121,22 @@ class Presence extends Model
         $end = request('end');
         $start = request('start');
         $search = request('search');
-        // DB::raw('IFNULL(TIME(SUM(TIMEDIFF(
-        //     presences.check_out_time, presences.check_in_time
-        // ))), "00:00:00") as hour'),
 
         $query = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
                 'human_resources.sdm_type',
-                DB::raw('TIME_FORMAT(
-                    IFNULL(SUM(
-                        CASE
-                            WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
-                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)), TIME(presences.check_in_time)
-                                ), 0)
-                            ELSE
-                                0
-                        END
-                    ), 0), "%H:%i:%s"
-                ) as hours')
             )
-            ->with(['presence' => function ($query) {
-                $query->select(
-                    'sdm_id',
-                    "check_in_time",
-                    "check_out_time",
-                    DB::Raw('TIMEDIFF(check_out_time, check_in_time) AS duration')
-                );
-            }])
+            ->workHour()
+            // ->with(['presence' => function ($query) {
+            //     $query->select(
+            //         'sdm_id',
+            //         "check_in_time",
+            //         "check_out_time",
+            //         DB::Raw('TIMEDIFF(check_out_time, check_in_time) AS duration')
+            //     );
+            // }])
             ->groupBy('human_resources.id')
             ->get();
 
@@ -231,7 +216,7 @@ class Presence extends Model
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
             )
-            ->getDiffAttribute()
+            ->workHour()
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })
@@ -260,7 +245,7 @@ class Presence extends Model
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(HOUR, check_in_time, check_out_time),0)) as hours'),
                 DB::raw('SUM(IFNULL(TIMESTAMPDIFF(MINUTE, check_in_time, check_out_time),0)) % 60 as minutes')
             )
-            ->getDiffAttribute()
+            ->workHour()
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })
