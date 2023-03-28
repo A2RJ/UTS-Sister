@@ -487,13 +487,20 @@ Response
 }
 ```
 
-### 13. Get work hours - buat filter dan buat api ijin
+### 13. Get work hours
 
 Endpoint
 
 ```
 GET /presence/total-hour
-Ex: GET /presence/total-hour
+Ex: GET /presence/total-hour?start=2022-12-18&end=2022-12-18
+```
+
+Query Params (Optional)
+
+```
+start = 2022-12-18
+end = 2022-12-18
 ```
 
 Response
@@ -508,3 +515,15 @@ Response
   }
 }
 ```
+
+### Get jenis izin
+
+### Get izin saya
+
+### Get izin sub divisi
+
+### Post ajukan izin
+
+### Post terima izin
+
+### Delete hapus/tolak izin (hanya pengaju dan atasan)

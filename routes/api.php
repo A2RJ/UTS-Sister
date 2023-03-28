@@ -66,6 +66,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
         Route::get('/{presence}', 'show');
+        Route::prefix('permission')->group(function () {
+            Route::get('/', 'permissionType');
+            Route::get('/my-absen', 'myPermission');
+            Route::get('/sub', 'subPermission');
+            Route::post('/', 'permission');
+            Route::post('/{presence}', 'confirm');
+            Route::delete('/{presence}', 'delete');
+        });
     });
     Route::prefix('coord')->controller(CoordinateController::class)->group(function () {
         Route::get('/', 'index');
@@ -89,16 +97,16 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::prefix('super-admin')
-    ->middleware(['auth:sanctum,users', 'admin'])
-    ->controller(SuperAdminController::class)
-    ->group(function () {
+// Route::prefix('super-admin')
+//     ->middleware(['auth:sanctum,users', 'admin'])
+//     ->controller(SuperAdminController::class)
+//     ->group(function () {
         // define('STDIN', fopen("php://stdin", "r"));
         // Route::get('migrate', 'migrate');
         // Route::get('rollback', 'rollback');
         // Route::get('seed', 'seed');
         // Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
-    });
+    // });
 
 // Route::prefix('utils')->group(function () {
 //     Route::controller(RandomUtilsController::class)->group(function () {
@@ -110,6 +118,6 @@ Route::prefix('super-admin')
 //     });
 // });
 
-Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-    Route::get('/total-hour', 'totalHour');
-});
+// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+//     Route::get('/total-hour', 'totalHour');
+// });

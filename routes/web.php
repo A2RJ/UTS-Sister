@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
+use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
+use App\Http\Controllers\Presence\PresencePermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -243,19 +245,6 @@ Route::middleware("auth")->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::prefix("/admin")->group(function () {
-        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
-        Route::prefix('structure')->group(function () {
-            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
-            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
-        });
-        Route::resource("/structure", StructureController::class);
-        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
-            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
-        });
-        Route::resource("/human_resource", HumanResourceController::class);
-        Route::resource("/semester", SemesterController::class)->except('show');
-    });
     Route::prefix("/")->group(function () {
         Route::resource("/class", ClassController::class)->except('show');
         Route::prefix('subject')->controller(SubjectController::class)->group(function () {
@@ -275,7 +264,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
             Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
             Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
-            Route::prefix('permission')->group(function () {
+            Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
                 Route::get('/', 'form')->name('presence.absen');
                 Route::get('/my-absen', 'myPermission')->name('presence.my-absen');
                 Route::get('/sub', 'subPermission')->name('presence.sub.permission');
@@ -301,5 +290,18 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('fakultas')->group(function () {
         });
+    });
+    Route::prefix("/admin")->group(function () {
+        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
+        Route::prefix('structure')->group(function () {
+            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
+            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
+        });
+        Route::resource("/structure", StructureController::class);
+        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
+            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
+        });
+        Route::resource("/human_resource", HumanResourceController::class);
+        Route::resource("/semester", SemesterController::class)->except('show');
     });
 });

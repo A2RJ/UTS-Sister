@@ -129,6 +129,8 @@ class Presence extends Model
         $end = request('end');
         $start = request('start');
         $search = request('search');
+        $isSearchROle = Str::contains($search, ':');
+        $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
         $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', User::getChildrenSdmId())
@@ -142,8 +144,11 @@ class Presence extends Model
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);
             })
-            ->when($search, function ($query) use ($search) {
+            ->when($search && !$isSearchROle, function ($query) use ($search) {
                 return $query->where('human_resources.sdm_name', 'like', "%$search%");
+            })
+            ->when($isSearchROle, function ($query) use ($role) {
+                return $query->where('human_resources.sdm_type', 'like', "%$role%");
             })
             ->groupBy(
                 'human_resources.sdm_name',
@@ -164,6 +169,8 @@ class Presence extends Model
         $search = request('search');
         $start = request('start');
         $end = request('end');
+        $isSearchROle = Str::contains($search, ':');
+        $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
         $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdm_id)
@@ -182,6 +189,15 @@ class Presence extends Model
                 DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour")
             )
             ->workHours()
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('presences.check_in_time', [$start, $end]);
+            })
+            ->when($search && !$isSearchROle, function ($query) use ($search) {
+                return $query->where('human_resources.sdm_name', 'like', "%$search%");
+            })
+            ->when($isSearchROle, function ($query) use ($role) {
+                return $query->where('human_resources.sdm_type', 'like', "%$role%");
+            })
             ->groupBy(
                 'presences.id',
                 'presences.sdm_id',
@@ -192,17 +208,7 @@ class Presence extends Model
                 'latitude_out',
                 'longitude_out'
             );
-        if ($search) {
-            $query->when($search, function ($query) use ($search) {
-                return $query->where('sdm_name', 'like', "%$search%");
-            });
-        }
 
-        if ($start && $end) {
-            $query->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
-            });
-        }
         return $query->paginate();
     }
 
@@ -231,7 +237,7 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_type'
             )
-            ->get();
+            ->first();
     }
 
     public static function dsdmByCivitas()

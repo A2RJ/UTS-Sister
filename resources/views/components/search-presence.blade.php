@@ -1,4 +1,5 @@
-<form class="mb-4" action="{{ url()->current() }}" method="GET">
+<small>Tambahkan titik dua (:) pada karakter pertama untuk mencari tipe sdm, seperti :dosen, :tenaga kependidikan</small>
+<form class="mb-4 mt-1" action="{{ url()->current() }}" method="GET">
     <div class="input-group">
         <input type="text" name="search" class="form-control" value="{{ request('search')}}" placeholder="Search..." autocomplete="off">
         @if ($withDate)

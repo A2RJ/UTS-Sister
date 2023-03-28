@@ -15,17 +15,15 @@
     <x-error-message />
 
     @php
-    $hours = $hours ?? collect();
+    $hours = $hours ?? false;
     @endphp
-    @if (count($hours))
+    @if ($hours)
     <div class="table-responsive mb-4">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th style="font-weight: bolder; color: black;">Total jam</th>
-                    @foreach ($hours as $hour)
-                    <th style="font-weight: bolder; color: black;">{{ $hour->effective_hours }}</th>
-                    @endforeach
+                    <th style="font-weight: bolder; color: black;">{{ $hours->effective_hours }}</th>
                 </tr>
             </thead>
         </table>

@@ -21,7 +21,7 @@
                 <a href="{{ route('presence.sub.permission') }}" class="nav-link">Izin sub divisi</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('presence.per-civitas') }}" class="nav-link">Per dosen</a>
+                <a href="{{ route('presence.per-civitas') }}" class="nav-link">Per Civitas</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('presence.civitas-all') }}" class="nav-link">Semua absensi</a>

@@ -29,8 +29,8 @@ class StorePresenceRequestAPI extends FormRequest
             'check_in_time' => 'required|date',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
-            'detail' => 'required',
-            'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:4096',
+            // 'detail' => 'required',
+            // 'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:4096',
         ];
     }
 }
