@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -18,11 +19,17 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'sdm_id' => fake()->uuid,
+            'sdm_name' => fake()->name,
+            'email' => fake()->email(),
+            'nidn' => fake()->unique()->numberBetween(1000000000, 9999999999),
+            'password' => Hash::make('password'),
+            'nidn' => '1234567890',
+            'nip' => '123456789',
+            'active_status_name' => 'Active',
+            'employee_status' => 'Permanent',
+            'sdm_type' => 'Dosen',
+            'is_sister_exist' => true,
         ];
     }
 

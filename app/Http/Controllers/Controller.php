@@ -6,6 +6,7 @@ use App\Http\Requests\PresenceMahasiswa;
 use App\Models\Comment;
 use App\Models\Link;
 use App\Models\Meeting;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -97,9 +98,9 @@ class Controller extends BaseController
     {
         return response()->json(['message' => $message], $statusCode);
     }
-    public function responseError($error, $statusCode = 500)
+    public function responseError(Exception $exception, $statusCode = 500)
     {
-        return response()->json(['error' => $error], $error->getCode() ?: $statusCode);
+        return response()->json(['error' => $exception->getMessage()], $exception->getCode() ?: $statusCode);
     }
 
     public function responseMesData($message, $data, $statusCode = 200)

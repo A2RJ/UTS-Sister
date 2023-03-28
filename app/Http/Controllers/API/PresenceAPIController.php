@@ -97,7 +97,7 @@ class PresenceAPIController extends Controller
             return $this->responseData($presence, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->responseError($e->getMessage(), 500);
+            return $this->responseError($e);
         }
     }
 
@@ -129,13 +129,15 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($presence, 200);
         } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), $e->getCode());
+            return $this->responseError($e);
         }
     }
 
     public function permissionType()
     {
-        return $this->responseData(Presence::$jenisIzin);
+        $jenisIzin = Presence::$jenisIzin;
+        $jenisIzin = array_combine(range(1, count($jenisIzin)), array_values($jenisIzin));
+        return $this->responseData($jenisIzin);
     }
 
     public function subPermission(Request $request)
@@ -169,7 +171,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($permissions);
         } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+            return $this->responseError($e);
         }
     }
 
@@ -196,7 +198,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($permissions);
         } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+            return $this->responseError($e);
         }
     }
 
@@ -214,11 +216,10 @@ class PresenceAPIController extends Controller
             if ($request->jenis_izin == 6) {
                 $presence = Presence::where('sdm_id', $request->user()->id)
                     ->whereDate('check_in_time', Carbon::today())
-                    ->whereNull('check_out_time')
                     ->latest()
                     ->first();
-
-                if (!$presence) throw new Exception('Anda belum absen masuk atau anda sudah mengisi ijin hari ini', 422);
+                if (!$presence) throw new Exception('Anda belum absen masuk hari ini', 422);
+                if ($presence->check_out_time) throw new Exception('Anda sudah mengisi absen pulang hari ini', 422);
 
                 $presence->update([
                     'check_out_time' => $checkOutHour,
@@ -295,34 +296,40 @@ class PresenceAPIController extends Controller
                 $presence->attachment()->create($validatedData);
             }
             DB::commit();
-            return redirect()->route('presence.my-presence')->with('message', 'Berhasil mengisi ijin');
+            return $this->responseData(true, 201);
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->with('error', $e->getMessage());
+            return $this->responseError($e);
         }
     }
 
-    public function confirm(Presence $presence)
+    public function confirm(Request $request, Presence $presence)
     {
         try {
-            $child_id = collect(Auth::user()->structure)->pluck('child_id');
-            $child_id = Structure::whereIn("parent_id", $child_id)->get();
-            $structure_id = collect($child_id)->pluck('id');
-            $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
-                ->select('sdm_id')
-                ->get())
-                ->pluck('sdm_id');
-            if (!in_array($presence->sdm_id, $sdm_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
+            if (!$this->checkRole($request, $presence->sdm_id)) throw new Exception('Anda tidak dapat memberikan izin', 422);
             $presence->update(['permission' => 1]);
-            return back()->with('message', 'berhasil menyetujui ijin');
+            return $this->responseData(true);
         } catch (Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return $this->responseError($e);
         }
     }
 
-    public function delete(Presence $presence)
+    public function delete(Request $request, Presence $presence)
     {
         $presence->delete();
-        return back();
+        $this->responseMessage(true, 200);
+    }
+
+    public function checkRole($request, $sdm_id)
+    {
+        $child_id = collect($request->user()->structure)->pluck('child_id');
+        $child_id = Structure::whereIn("parent_id", $child_id)->get();
+        $structure_id = collect($child_id)->pluck('id');
+        $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
+            ->select('sdm_id')
+            ->get())
+            ->pluck('sdm_id');
+
+        return in_array($sdm_id, $sdm_id->toArray());
     }
 }

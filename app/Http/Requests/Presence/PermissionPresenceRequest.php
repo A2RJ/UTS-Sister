@@ -25,7 +25,7 @@ class PermissionPresenceRequest extends FormRequest
     {
         return [
             'detail' => 'required',
-            'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:2048',
+            'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:4096',
         ];
     }
 }

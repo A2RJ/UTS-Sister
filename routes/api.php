@@ -66,14 +66,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
         Route::get('/{presence}', 'show');
-        Route::prefix('permission')->group(function () {
-            Route::get('/', 'permissionType');
-            Route::get('/my-absen', 'myPermission');
-            Route::get('/sub', 'subPermission');
-            Route::post('/', 'permission');
-            Route::post('/{presence}', 'confirm');
-            Route::delete('/{presence}', 'delete');
-        });
+    });
+    Route::prefix('permission')->controller(PresenceAPIController::class)->group(function () {
+        Route::get('/type', 'permissionType');
+        Route::get('/me', 'myPermission');
+        Route::get('/sub', 'subPermission');
+        Route::post('/', 'permission');
+        Route::post('/{presence}', 'confirm');
+        Route::delete('/{presence}', 'delete');
     });
     Route::prefix('coord')->controller(CoordinateController::class)->group(function () {
         Route::get('/', 'index');
