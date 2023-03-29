@@ -133,38 +133,14 @@ class Presence extends Model
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
         $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
-            ->where('permission', 1)
-            // ->where('sdm_type', 'Dosen')
             ->whereIn('human_resources.id', array_merge(User::getChildrenSdmId()->toArray(), collect(Auth::id())->toArray()))
-            ->whereNotNull('check_in_time')
-            ->whereNotNull('check_out_time')
-            ->whereColumn('check_out_time', '>', 'check_in_time')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
-                'sdm_type',
-                DB::raw(
-                    'TIME_FORMAT(
-                        GREATEST(0, SEC_TO_TIME(SUM(
-                            CASE  
-                                WHEN sdm_type = "Tenaga Kependidikan" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
-                                    )
-                                WHEN sdm_type = "dosen" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
-                                    )
-                                ELSE 0
-                            END
-                        ))), "%H:%i:%s"
-                    ) as effective_hours'
-                )
+                'human_resources.sdm_type',
+
             )
+            ->workHours()
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);
             })
@@ -176,8 +152,8 @@ class Presence extends Model
             })
             ->groupBy(
                 'human_resources.id',
-                'sdm_name',
-                'sdm_type',
+                'human_resources.sdm_name',
+                'human_resources.sdm_type',
             );
 
         return $query->paginate();
@@ -186,48 +162,6 @@ class Presence extends Model
     public static function subPresenceAll()
     {
         return self::getPresences(User::justChildSDMId());
-    }
-
-    public static function myPresence($sdm_id)
-    {
-        $search = request('search');
-        $start = request('start');
-        $end = request('end');
-        $isSearchROle = Str::contains($search, ':');
-        $role = $isSearchROle ? str_replace(':', '', $search) : '';
-
-        $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
-            ->whereIn('presences.sdm_id', $sdm_id)
-            ->select(
-                'presences.id',
-                'presences.sdm_id',
-                'sdm_name',
-                'sdm_type',
-                DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
-                DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
-                DB::raw("DATE_FORMAT(check_in_time, '%H:%i:%s') AS check_in_hour"),
-                DB::raw("DATE_FORMAT(check_out_time, '%H:%i:%s') AS check_out_hour"),
-            )
-            ->workHoursGroup()
-            ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('presences.check_in_time', [$start, $end]);
-            })
-            ->when($search && !$isSearchROle, function ($query) use ($search) {
-                return $query->where('human_resources.sdm_name', 'like', "%$search%");
-            })
-            ->when($isSearchROle, function ($query) use ($role) {
-                return $query->where('human_resources.sdm_type', 'like', "%$role%");
-            })
-            ->groupBy(
-                'presences.id',
-                'presences.sdm_id',
-                'presences.check_in_time',
-                'presences.check_out_time',
-                'sdm_name',
-                'sdm_type'
-            );
-
-        return $query->paginate();
     }
 
     public static function getPresences($sdm_id)
@@ -243,14 +177,14 @@ class Presence extends Model
             ->select(
                 'presences.id',
                 'presences.sdm_id',
-                'sdm_name',
-                'sdm_type',
+                'human_resources.sdm_name',
+                'human_resources.sdm_type',
                 DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
                 DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
-                DB::raw("DATE_FORMAT(check_in_time, '%H:%i:%s') AS check_in_hour"),
-                DB::raw("DATE_FORMAT(check_out_time, '%H:%i:%s') AS check_out_hour"),
+                DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
+                DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour")
             )
-            ->workHoursGroup()
+            ->workHours()
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);
             })
@@ -263,10 +197,10 @@ class Presence extends Model
             ->groupBy(
                 'presences.id',
                 'presences.sdm_id',
-                'presences.check_in_time',
-                'presences.check_out_time',
-                'sdm_name',
-                'sdm_type'
+                'human_resources.sdm_name',
+                'human_resources.sdm_type',
+                'check_in_time',
+                'check_out_time'
             );
 
         return $query->paginate();
@@ -280,7 +214,6 @@ class Presence extends Model
 
         return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->where('human_resources.id', $sdm_id)
-            ->where('presences.permission', 1)
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id'
@@ -306,7 +239,7 @@ class Presence extends Model
         $start = request('start');
         $end = request('end');
 
-        return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id'
@@ -320,11 +253,8 @@ class Presence extends Model
             })
             ->groupBy(
                 'human_resources.sdm_name',
-                'human_resources.id',
-                'presences.check_in_time',
-                'presences.check_out_time',
+                'human_resources.id'
             )
-            ->orderByDesc('hours')
             ->paginate();
     }
 
@@ -344,20 +274,24 @@ class Presence extends Model
                 DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour")
             )
             ->workHours()
-            ->when($search, function ($query) use ($search) {
-                return $query->where('sdm_name', 'like', "%$search%");
-            })
-            ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
-            })
             ->groupBy(
                 'presences.id',
                 'presences.sdm_id',
-                'presences.check_in_time',
-                'presences.check_out_time',
                 'sdm_name',
+                'check_in_time',
+                'check_out_time'
             );
+        if ($search) {
+            $query->when($search, function ($query) use ($search) {
+                return $query->where('sdm_name', 'like', "%$search%");
+            });
+        }
 
+        if ($start && $end) {
+            $query->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            });
+        }
         return $query->paginate();
     }
 
