@@ -68,69 +68,100 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro('workHours', function () {
             return $this->addSelect(
                 DB::raw(
-                    'TIME_FORMAT(GREATEST(0, SUM(
-                        CASE
-                            WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
-                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), 
-                                    IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
-                                ), 0)
-                            WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
-                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)),
-                                    IF(TIME(presences.check_in_time) < TIME("09:00:00"), TIME("09:00:00"), TIME(presences.check_in_time))
-                                ), 0)
-                            WHEN human_resources.sdm_type = "Customer Service" THEN
-                                IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("17:00:00"), TIME("17:00:00"), TIME(presences.check_out_time)),
-                                    IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
-                                ), 0)
-                            WHEN human_resources.sdm_type = "Security Siang" THEN
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("17:00:00"), TIME("17:00:00"), TIME(presences.check_out_time)),
-                                    IF(TIME(presences.check_in_time) < TIME("06:00:00"), TIME("06:00:00"), TIME(presences.check_in_time))
-                                )
-                            WHEN human_resources.sdm_type = "Security Malam" THEN
-                                TIMEDIFF(
-                                    IF(TIME(presences.check_out_time) > TIME("06:00:00"), TIME("06:00:00"), TIME(presences.check_out_time)),
-                                    IF(TIME(presences.check_in_time) < TIME("17:00:00"), TIME("17:00:00"), TIME(presences.check_in_time))
-                                )
-                            ELSE
-                                0
-                        END
-                    ) ), "%H:%i:%s") 
-                    as effective_hours'
+                    'TIME_FORMAT(
+                        SEC_TO_TIME(SUM(
+                            CASE  
+                                WHEN sdm_type = "Tenaga Kependidikan" THEN
+                                    TIMESTAMPDIFF(
+                                        SECOND, 
+                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
+                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
+                                    )
+                                WHEN sdm_type = "dosen" THEN
+                                    TIMESTAMPDIFF(
+                                        SECOND, 
+                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+                                    )
+                                ELSE 0
+                            END
+                        )), "%H:%i:%s"
+                    ) as effective_hours'
                 ),
-                DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
                 // DB::raw(
-                //     'TIME_FORMAT(GREATEST(0, SUM(
+                //     'TIME_FORMAT(SUM(
                 //         CASE
                 //             WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
-                //                 IF(TIME(presences.check_in_time) > TIME("07:00:00") AND TIME(presences.check_out_time) > TIME("19:00:00"),
-                //                 TIMEDIFF(TIME(presences.check_out_time), TIME("19:00:00")), 0)
+                //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                //                 TIMEDIFF(
+                //                     IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), 
+                //                     IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
+                //                 ), 0)
                 //             WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
-                //                 IF(TIME(presences.check_out_time) > TIME("16:00:00"),
-                //                 TIMEDIFF(TIME(presences.check_out_time), TIME("16:00:00")), 0)
-                //             WHEN human_resources.sdm_type = "Customer Service" THEN
-                //                 IF(TIME(presences.check_out_time) > TIME("17:00:00"),
-                //                 TIMEDIFF(TIME(presences.check_out_time), TIME("17:00:00")), 0)
-                //             WHEN human_resources.sdm_type = "Security Siang" THEN
-                //                 IF(TIME(presences.check_out_time) > TIME("17:00:00"),
-                //                 TIMEDIFF(TIME(presences.check_out_time), TIME("17:00:00")), 0)
-                //             WHEN human_resources.sdm_type = "Security Malam" THEN
-                //                 IF(TIME(presences.check_out_time) > TIME("06:00:00"),
-                //                 TIMEDIFF(TIME(presences.check_out_time), TIME("06:00:00")), 0)
+                //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                //                 TIMEDIFF(
+                //                     IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)),
+                //                     IF(TIME(presences.check_in_time) < TIME("09:00:00"), TIME("09:00:00"), TIME(presences.check_in_time))
+                //                 ), 0) 
                 //             ELSE
                 //                 0
                 //         END
-                //     ) ), "%H:%i:%s") 
-                //     as ineffective_hours'
-                // )
+                //     ), "%H:%i:%s") 
+                //     as effective_hours'
+                // ),
+                DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
             )
+                ->whereColumn('check_out_time', '>', 'check_in_time')
                 ->where('permission', 1);
+        });
+        Builder::macro('workHoursGroup', function () {
+            return $this->addSelect(
+                // DB::raw(
+                //     'TIME_FORMAT( 
+                //         CASE
+                //             WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
+                //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                //                 TIMEDIFF(
+                //                     IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), 
+                //                     IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
+                //                 ), 0)
+                //             WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
+                //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
+                //                 TIMEDIFF(
+                //                     IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)),
+                //                     IF(TIME(presences.check_in_time) < TIME("09:00:00"), TIME("09:00:00"), TIME(presences.check_in_time))
+                //                 ), 0) 
+                //             ELSE
+                //                 0
+                //         END
+                //     , "%H:%i:%s") 
+                //     as effective_hours'
+                // ),
+                DB::raw(
+                    'TIME_FORMAT(
+                        SEC_TO_TIME(SUM(
+                            CASE  
+                                WHEN sdm_type = "Tenaga Kependidikan" THEN
+                                    TIMESTAMPDIFF(
+                                        SECOND, 
+                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
+                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
+                                    )
+                                WHEN sdm_type = "dosen" THEN
+                                    TIMESTAMPDIFF(
+                                        SECOND, 
+                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+                                    )
+                                ELSE 0
+                            END
+                        )), "%H:%i:%s"
+                    ) as effective_hours'
+                ),
+                DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
+            )
+                ->where('permission', 1)
+                ->whereColumn('check_out_time', '>', 'check_in_time');
         });
     }
 

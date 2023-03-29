@@ -41,18 +41,51 @@ class PresenceAPIController extends Controller
 
         $result = HumanResource::join('presences', 'human_resources.id', 'presences.sdm_id')
             ->where('human_resources.id', $request->user()->id)
+            ->whereNotNull('check_in_time')
+            ->whereNotNull('check_out_time')
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
                 return $query->whereBetween('presences.check_in_time', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
             })
-            ->select('human_resources.sdm_name', 'human_resources.id')
-            ->workHours()
-            // ->with(['presence' => function ($query) use ($startDate, $endDate) {
-            //     return $query->select('sdm_id', 'check_in_time', 'check_out_time')
-            //         ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-            //             return $query->whereBetween('presences.check_in_time', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
-            //         });
-            // }])
-            ->groupBy('human_resources.id', 'human_resources.sdm_name')
+            ->select(
+                'human_resources.sdm_name',
+                'human_resources.id',
+                'human_resources.sdm_type',
+                DB::raw(
+                    'TIME_FORMAT(
+                            SUM(TIMEDIFF(
+                                IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)), 
+                                IF(TIME(presences.check_in_time) < TIME("09:00:00"), TIME("09:00:00"), TIME(presences.check_in_time))
+                            )
+                        ), "%H:%i:%s") 
+                    as effective_hours'
+                ),
+            )
+            ->with(['presence' => function ($query) use ($startDate, $endDate) {
+                return $query->select(
+                    'sdm_id',
+                    'check_in_time',
+                    'check_out_time',
+                    DB::raw(
+                        'TIME_FORMAT( 
+                            SUM(TIMEDIFF(
+                                IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), 
+                                IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
+                            )
+                        ), "%H:%i:%s") 
+                        as effective_hours'
+                    ),
+                )
+                    ->whereNotNull('check_in_time')
+                    ->whereNotNull('check_out_time')
+                    ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                        return $query->whereBetween('presences.check_in_time', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
+                    })->groupBy(
+                        'sdm_id',
+                        'check_in_time',
+                        'check_out_time',
+                    );
+            }])
+            ->groupBy('human_resources.id', 'human_resources.sdm_name', 'sdm_type')
             ->first();
 
         return $this->responseData($result);

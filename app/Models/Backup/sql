@@ -145,25 +145,36 @@ class Presence extends Model
                 'sdm_type',
                 DB::raw(
                     'TIME_FORMAT(
-                        SEC_TO_TIME(SUM(
-                            CASE  
-                                WHEN sdm_type = "Tenaga Kependidikan" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
-                                    )
-                                WHEN sdm_type = "dosen" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
-                                    )
-                                ELSE 0
-                            END
-                        )), "%H:%i:%s"
-                    ) as effective_hours'
+                SEC_TO_TIME(SUM(
+                    CASE  
+                        WHEN sdm_type = "Tenaga Kependidikan" THEN
+                            TIMESTAMPDIFF(
+                                SECOND, 
+                                GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
+                                LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
+                            )
+                        WHEN sdm_type = "dosen" THEN
+                            TIMESTAMPDIFF(
+                                SECOND, 
+                                GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+                                LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+                            )
+                        ELSE 0
+                    END
+                )), "%H:%i:%s"
+            ) as effective_hours'
                 ),
+                // DB::raw(
+                //     'TIME_FORMAT(
+                //         SEC_TO_TIME(SUM(
+                //             TIMESTAMPDIFF(
+                //                 SECOND, 
+                //                 GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+                //                 LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+                //             )
+                //         )), "%H:%i:%s"
+                //     ) as effective_hours'
+                // ),
             )
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);

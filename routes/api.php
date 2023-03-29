@@ -63,9 +63,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/today', 'today');
         Route::get('/total-hour', 'totalHour');
         Route::get('/is-late', 'isLate');
+        Route::get('/{presence}', 'show');
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
-        Route::get('/{presence}', 'show');
     });
     Route::prefix('permission')->controller(PresenceAPIController::class)->group(function () {
         Route::get('/type', 'permissionType');
