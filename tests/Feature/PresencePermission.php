@@ -255,7 +255,7 @@ class PresencePermission extends TestCase
     }
 
     /** @test */
-    public function it_throws_error_when_user_post_permission_but_already_checkou_presence_today()
+    public function it_throws_error_when_user_post_permission_but_already_checkout_presence_today()
     {
         $user = User::factory()->create();
         $token = $user->createToken($user->sdm_name)->plainTextToken;
