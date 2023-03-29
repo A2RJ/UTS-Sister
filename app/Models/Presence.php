@@ -145,7 +145,7 @@ class Presence extends Model
                 'sdm_type',
                 DB::raw(
                     'TIME_FORMAT(
-                        SEC_TO_TIME(SUM(
+                        GREATEST(0, SEC_TO_TIME(SUM(
                             CASE  
                                 WHEN sdm_type = "Tenaga Kependidikan" THEN
                                     TIMESTAMPDIFF(
@@ -161,9 +161,9 @@ class Presence extends Model
                                     )
                                 ELSE 0
                             END
-                        )), "%H:%i:%s"
+                        ))), "%H:%i:%s"
                     ) as effective_hours'
-                ),
+                )
             )
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('presences.check_in_time', [$start, $end]);

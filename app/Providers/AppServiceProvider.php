@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
             return $this->addSelect(
                 DB::raw(
                     'TIME_FORMAT(
-                        SEC_TO_TIME(SUM(
+                        GREATEST(0, SEC_TO_TIME(SUM(
                             CASE  
                                 WHEN sdm_type = "Tenaga Kependidikan" THEN
                                     TIMESTAMPDIFF(
@@ -85,7 +85,7 @@ class AppServiceProvider extends ServiceProvider
                                     )
                                 ELSE 0
                             END
-                        )), "%H:%i:%s"
+                        ))), "%H:%i:%s"
                     ) as effective_hours'
                 ),
                 // DB::raw(
@@ -139,7 +139,7 @@ class AppServiceProvider extends ServiceProvider
                 // ),
                 DB::raw(
                     'TIME_FORMAT(
-                        SEC_TO_TIME(SUM(
+                        GREATEST(0, SEC_TO_TIME(SUM(
                             CASE  
                                 WHEN sdm_type = "Tenaga Kependidikan" THEN
                                     TIMESTAMPDIFF(
@@ -155,7 +155,7 @@ class AppServiceProvider extends ServiceProvider
                                     )
                                 ELSE 0
                             END
-                        )), "%H:%i:%s"
+                        ))), "%H:%i:%s"
                     ) as effective_hours'
                 ),
                 DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
