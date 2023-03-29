@@ -173,9 +173,9 @@ class PresencePermissionController extends Controller
             }
             DB::commit();
             return redirect()->route('presence.my-presence')->with('message', 'Berhasil mengisi ijin');
-        } catch (Exception $e) {
+        } catch (Exception $th) {
             DB::rollBack();
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -192,8 +192,8 @@ class PresencePermissionController extends Controller
             if (!in_array($presence->sdm_id, $sdm_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
             $presence->update(['permission' => 1]);
             return back()->with('message', 'berhasil menyetujui ijin');
-        } catch (Exception $e) {
-            return back()->with('error', $e->getMessage());
+        } catch (Exception $th) {
+            return back()->with('error', $th->getMessage());
         }
     }
 

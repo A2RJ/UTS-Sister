@@ -35,8 +35,8 @@ class SanctumAuthController extends Controller
                     'is_lecturer' => $request->user()->isLecturer(),
                 ]
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage(), $th->getCode());
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -57,8 +57,8 @@ class SanctumAuthController extends Controller
                     'sdm_id' => $user->sdm_id,
                 ]
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage());
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -70,8 +70,8 @@ class SanctumAuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
             return response()->json(true, 204);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -118,8 +118,8 @@ class SanctumAuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
             return $this->responseMessage(true, 204);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -162,8 +162,8 @@ class SanctumAuthController extends Controller
                     'access_token' => $userInfo->user->createToken($userInfo->id)->plainTextToken,
                 ]
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage(), $th->getCode());
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -196,8 +196,8 @@ class SanctumAuthController extends Controller
             ]);
 
             return response()->json(true, 204);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+        } catch (Exception $th) {
+            return $this->responseError($th, 500);
         }
     }
 
@@ -232,8 +232,8 @@ class SanctumAuthController extends Controller
             ]);
 
             return response()->json(true, 204);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -266,8 +266,8 @@ class SanctumAuthController extends Controller
             ]);
 
             return response()->json(true, 204);
-        } catch (Exception $e) {
-            return $this->responseError($e->getMessage(), 500);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 }

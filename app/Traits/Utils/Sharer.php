@@ -3,6 +3,7 @@
 namespace App\Traits\Utils;
 
 use App\Models\Link;
+use Exception;
 use Illuminate\Support\Facades\Crypt;
 
 trait Sharer
@@ -23,7 +24,7 @@ trait Sharer
             $parts = explode("-", $string);
             $sdm_id = $parts[0];
             $subject_id = $parts[1];
-        } catch (\Throwable $th) {
+        } catch (Exception $th) {
             abort(500, 'Link is not valid');
         }
     }

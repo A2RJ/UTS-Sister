@@ -95,9 +95,9 @@ class PresenceAPIController extends Controller
 
             DB::commit();
             return $this->responseData($presence, 201);
-        } catch (Exception $e) {
+        } catch (Exception $th) {
             DB::rollBack();
-            return $this->responseError($e);
+            return $this->responseError($th);
         }
     }
 
@@ -128,8 +128,8 @@ class PresenceAPIController extends Controller
                 ->first();
 
             return $this->responseData($presence, 200);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -170,8 +170,8 @@ class PresenceAPIController extends Controller
                 ->get();
 
             return $this->responseData($permissions);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -197,8 +197,8 @@ class PresenceAPIController extends Controller
                 ->get();
 
             return $this->responseData($permissions);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 
@@ -297,9 +297,9 @@ class PresenceAPIController extends Controller
             }
             DB::commit();
             return $this->responseData(true, 201);
-        } catch (Exception $e) {
+        } catch (Exception $th) {
             DB::rollBack();
-            return $this->responseError($e);
+            return $this->responseError($th);
         }
     }
 
@@ -309,8 +309,8 @@ class PresenceAPIController extends Controller
             if (!$this->checkRole($request, $presence->sdm_id)) throw new Exception('Anda tidak dapat memberikan izin', 422);
             $presence->update(['permission' => 1]);
             return $this->responseData(true);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            return $this->responseError($th);
         }
     }
 

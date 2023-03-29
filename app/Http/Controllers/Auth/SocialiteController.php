@@ -28,8 +28,8 @@ class SocialiteController extends Controller
             Sister::authorize();
             session(['id_sdm' => $user->sdm_id, 'sdm_name' => $user->sdm_name]);
             return redirect()->route('home');
-        } catch (Exception $e) {
-            return redirect()->route('index')->with('message', $e->getMessage());
+        } catch (Exception $th) {
+            return redirect()->route('index')->with('message', $th->getMessage());
         }
     }
 }
