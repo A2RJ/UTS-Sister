@@ -32,7 +32,7 @@ class SanctumAuthController extends Controller
                     'email' => $request->user()->email,
                     'nidn' => $request->user()->nidn,
                     'nip' => $request->user()->nip,
-                    'is_lecturer' => $request->user()->isLecturer(),
+                    'is_lecturer' => $request->user()->sdm_type == 'Dosen' ? true : false
                 ]
             ]);
         } catch (Exception $th) {

@@ -94,7 +94,7 @@ class PresenceAPIController extends Controller
             }
 
             DB::commit();
-            return $this->responseData($presence, 201);
+            return $this->responseData($presence, 200);
         } catch (Exception $th) {
             DB::rollBack();
             return $this->responseError($th);
@@ -296,7 +296,7 @@ class PresenceAPIController extends Controller
                 $presence->attachment()->create($validatedData);
             }
             DB::commit();
-            return $this->responseData(true, 201);
+            return $this->responseData(true, 200);
         } catch (Exception $th) {
             DB::rollBack();
             return $this->responseError($th);
