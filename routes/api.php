@@ -101,12 +101,12 @@ Route::middleware('auth:sanctum')->group(function () {
 //     ->middleware(['auth:sanctum,users', 'admin'])
 //     ->controller(SuperAdminController::class)
 //     ->group(function () {
-        // define('STDIN', fopen("php://stdin", "r"));
-        // Route::get('migrate', 'migrate');
-        // Route::get('rollback', 'rollback');
-        // Route::get('seed', 'seed');
-        // Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
-    // });
+//         define('STDIN', fopen("php://stdin", "r"));
+//         Route::get('migrate', 'migrate');
+//         Route::get('rollback', 'rollback');
+//         Route::get('seed', 'seed');
+//         Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
+//     });
 
 // Route::prefix('utils')->group(function () {
 //     Route::controller(RandomUtilsController::class)->group(function () {
@@ -119,5 +119,6 @@ Route::middleware('auth:sanctum')->group(function () {
 // });
 
 // Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+//     Route::get('/', 'index');
 //     Route::get('/total-hour', 'totalHour');
 // });

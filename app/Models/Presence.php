@@ -208,9 +208,11 @@ class Presence extends Model
 
     public static function getPresenceHours($sdm_id)
     {
-        $search = request('search');
         $start = request('start');
         $end = request('end');
+
+        if (!$start) $start = Carbon::now()->startOfWeek();
+        if (!$end) $end = Carbon::now()->endOfWeek();
 
         return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->where('human_resources.id', $sdm_id)
@@ -219,9 +221,6 @@ class Presence extends Model
                 'human_resources.id'
             )
             ->workHours()
-            ->when($search, function ($query) use ($search) {
-                $query->where('sdm_name', 'like', "%$search%");
-            })
             ->when($start && $end, function ($query) use ($start, $end) {
                 return $query->whereBetween('check_in_time', [$start, $end]);
             })
@@ -298,21 +297,31 @@ class Presence extends Model
     // API
     public static function myPresenceAPI($sdm_id)
     {
-        return self::where('sdm_id', $sdm_id)
+        $start = request('start');
+        $end = request('end');
+
+        if (!$start) $start = Carbon::now()->startOfWeek();
+        if (!$end) $end = Carbon::now()->endOfWeek();
+
+        return Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->select(
-                'id',
-                'sdm_id',
+                'presences.id',
+                'presences.sdm_id',
                 DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
                 DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
                 DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
                 DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour")
             )
             ->workHours()
+            ->where('presences.sdm_id', $sdm_id)
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            })
             ->groupBy(
-                'id',
-                'sdm_id',
-                'check_in_time',
-                'check_out_time'
+                'presences.id',
+                'presences.sdm_id',
+                'presences.check_in_time',
+                'presences.check_out_time'
             )
             ->get();
     }
