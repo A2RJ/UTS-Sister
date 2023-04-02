@@ -32,6 +32,7 @@ class PresenceAPIController extends Controller
         return $this->responseData(
             Presence::where('sdm_id', request()->user()->id)
                 ->whereDate('check_in_time', Carbon::today())
+                ->where('permission', 1)
                 ->latest()
                 ->first()
         );
@@ -63,7 +64,7 @@ class PresenceAPIController extends Controller
                 'longitude_in' => $request->longitude
             ]);
 
-            if (Presence::isLate($request->user()->sdm_type)) {
+            if ($request->user()->sdm_type == 'Tenaga Kependidikan' && Presence::isLate($request->user()->sdm_type)) {
                 $request->validate([
                     'detail' => 'required',
                     'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:4096',
@@ -99,7 +100,6 @@ class PresenceAPIController extends Controller
                 ->first();
 
             if (!$presence) throw new Exception('Anda belum absen masuk', 422);
-            // if ($presence->check_out_time) throw new Exception('Sudah ter-absensi pulang', 422);
 
             $presence->update([
                 'check_out_time' => $request->check_out_time,
@@ -120,8 +120,16 @@ class PresenceAPIController extends Controller
     public function permissionType()
     {
         $jenisIzin = Presence::$jenisIzin;
-        $jenisIzin = array_combine(range(1, count($jenisIzin)), array_values($jenisIzin));
-        return $this->responseData($jenisIzin);
+
+        $izinArray = [];
+        foreach ($jenisIzin as $key => $value) {
+            $izinArray[] = [
+                'id' => $key + 1,
+                'jenis_izin' => $value
+            ];
+        }
+
+        return $this->responseData($izinArray);
     }
 
     public function subPermission(Request $request)

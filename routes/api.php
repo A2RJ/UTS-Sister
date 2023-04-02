@@ -120,5 +120,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
 //     Route::get('/', 'index');
+//     Route::get('/type', 'permissionType');
 //     Route::get('/total-hour', 'totalHour');
 // });

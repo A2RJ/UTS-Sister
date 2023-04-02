@@ -29,7 +29,7 @@ class PermissionRequest extends FormRequest
         //     'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096',
         // ];
         $rules = [
-            'jenis_izin' => 'required',
+            'jenis_izin' => 'required|between:1,6',
             'detail' => 'required',
             'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096',
         ];
