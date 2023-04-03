@@ -34,10 +34,10 @@ class PermissionRequest extends FormRequest
             'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096',
         ];
 
-        if ($this->input('jenis_izin') == 6) {
-            $rules['detail'] = 'nullable';
-            $rules['attachment'] = 'nullable|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096';
-        }
+        // if ($this->input('jenis_izin') == 6) {
+        //     $rules['detail'] = 'nullable';
+        //     $rules['attachment'] = 'nullable|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096';
+        // }
 
         return $rules;
     }

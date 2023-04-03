@@ -116,10 +116,4 @@ Route::middleware('auth:sanctum')->group(function () {
 //             Route::post('change-email', 'changeAllEmail');
 //         });
 //     });
-// });
-
-// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-//     Route::get('/', 'index');
-//     Route::get('/type', 'permissionType');
-//     Route::get('/total-hour', 'totalHour');
-// });
+// }); 

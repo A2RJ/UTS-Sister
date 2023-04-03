@@ -91,20 +91,17 @@ class PresencePermissionController extends Controller
             if ($request->jenis_izin == 6) {
                 $presence = Presence::where('sdm_id', Auth::id())
                     ->whereDate('check_in_time', Carbon::today())
-                    ->whereNull('check_out_time')
                     ->latest()
                     ->first();
 
-                if (!$presence) throw new Exception('Anda belum absen masuk atau anda sudah mengisi ijin hari ini', 422);
+                if (!$presence) throw new Exception('Anda belum absen masuk hari ini', 422);
+                if ($presence->check_out_time) throw new Exception('Anda sudah mengisi absen pulang hari ini', 422);
 
                 $presence->update([
                     'check_out_time' => $checkOutHour,
                     'latitude_out' => Presence::$latitude,
                     'longitude_out' => Presence::$longitude,
                     'permission' => 0
-                ]);
-                $presence->attachment->update([
-                    'detail' => $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail
                 ]);
             } else {
                 $today = Presence::where('sdm_id', Auth::id())
@@ -160,17 +157,25 @@ class PresencePermissionController extends Controller
                 }
 
                 $presence = Presence::create($presenceForm);
-
-                $validatedData = $request->only(['detail', 'attachment']);
-                $file = $request->file('attachment');
-                $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('/presense/attachments'), $filename);
-                if (!File::exists(public_path('/presense/attachments/' . $filename))) throw new Exception('Gagal menyimpan file');
-                $validatedData['attachment'] = $filename;
-                $validatedData['detail'] = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
-
-                $presence->attachment()->create($validatedData);
             }
+
+            $validatedData = $request->only(['detail', 'attachment']);
+            $file = $request->file('attachment');
+            $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
+            $file->move(public_path('/presense/attachments'), $filename);
+            if (!File::exists(public_path('/presense/attachments/' . $filename))) throw new Exception('Gagal menyimpan file');
+
+            if ($presence->attachment && $presence->attachment->detail)  $detail = $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
+            else $detail = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
+
+            $presence->attachment()->updateOrCreate(
+                ['presence_id' => $presence->id],
+                [
+                    'attachment' => $filename,
+                    'detail' => $detail
+                ]
+            );
+
             DB::commit();
             return redirect()->route('presence.my-presence')->with('message', 'Berhasil mengisi ijin');
         } catch (Exception $th) {
@@ -199,7 +204,12 @@ class PresencePermissionController extends Controller
 
     public function delete(Presence $presence)
     {
-        $presence->delete();
+        $presence->update([
+            'check_out_time' => NULL,
+            'latitude_out' => NULL,
+            'longitude_out' => NULL,
+            'permission' => 1
+        ]);
         return back();
     }
 }

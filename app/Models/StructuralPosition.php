@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class StructuralPosition extends Model
 {
+    /**
+     * Perhatikan bahwa updateOrCreate hanya dapat digunakan pada relasi "one-to-one" atau "one-to-many". 
+     * Jika Anda memiliki relasi "many-to-many", Anda harus menggunakan method sync atau syncWithoutDetaching 
+     * untuk membuat atau meng-update record pada tabel pivot.
+     */
     use HasFactory;
 
     public $table = "structural_positions";

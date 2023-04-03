@@ -29,13 +29,17 @@ class PresenceAPIController extends Controller
 
     public function today()
     {
-        return $this->responseData(
-            Presence::where('sdm_id', request()->user()->id)
-                ->whereDate('check_in_time', Carbon::today())
-                ->where('permission', 1)
-                ->latest()
-                ->first()
-        );
+        $result = Presence::where('sdm_id', request()->user()->id)
+            ->whereDate('check_in_time', Carbon::today())
+            ->latest()
+            ->first();
+
+        // $today = Carbon::today();
+        // $todayStartOfDay = $today->startOfDay();
+        // if ($result && $result->check_out_time == NULL) $result->check_out_time = $todayStartOfDay->toDateTimeString();
+        if ($result && $result->permission == 0) $result->check_out_time = NULL;
+
+        return $this->responseData($result);
     }
 
     public function totalHour(Request $request)
@@ -210,6 +214,7 @@ class PresenceAPIController extends Controller
                     ->whereDate('check_in_time', Carbon::today())
                     ->latest()
                     ->first();
+
                 if (!$presence) throw new Exception('Anda belum absen masuk hari ini', 422);
                 if ($presence->check_out_time) throw new Exception('Anda sudah mengisi absen pulang hari ini', 422);
 
@@ -218,9 +223,6 @@ class PresenceAPIController extends Controller
                     'latitude_out' => Presence::$latitude,
                     'longitude_out' => Presence::$longitude,
                     'permission' => 0
-                ]);
-                $presence->attachment->update([
-                    'detail' => $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail
                 ]);
             } else {
                 $today = Presence::where('sdm_id', $request->user()->id)
@@ -276,17 +278,25 @@ class PresenceAPIController extends Controller
                 }
 
                 $presence = Presence::create($presenceForm);
-
-                $validatedData = $request->only(['detail', 'attachment']);
-                $file = $request->file('attachment');
-                $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('/presense/attachments'), $filename);
-                if (!File::exists(public_path('/presense/attachments/' . $filename))) throw new Exception('Gagal menyimpan file');
-                $validatedData['attachment'] = $filename;
-                $validatedData['detail'] = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
-
-                $presence->attachment()->create($validatedData);
             }
+
+            $validatedData = $request->only(['detail', 'attachment']);
+            $file = $request->file('attachment');
+            $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
+            $file->move(public_path('/presense/attachments'), $filename);
+            if (!File::exists(public_path('/presense/attachments/' . $filename))) throw new Exception('Gagal menyimpan file');
+
+            if ($presence->attachment && $presence->attachment->detail)  $detail = $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
+            else $detail = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
+
+            $presence->attachment()->updateOrCreate(
+                ['presence_id' => $presence->id],
+                [
+                    'attachment' => $filename,
+                    'detail' => $detail
+                ]
+            );
+
             DB::commit();
             return $this->responseData(true, 200);
         } catch (Exception $th) {
@@ -308,7 +318,12 @@ class PresenceAPIController extends Controller
 
     public function delete(Request $request, Presence $presence)
     {
-        $presence->delete();
+        $presence->update([
+            'check_out_time' => NULL,
+            'latitude_out' => NULL,
+            'longitude_out' => NULL,
+            'permission' => 1
+        ]);
         $this->responseMessage(true, 200);
     }
 

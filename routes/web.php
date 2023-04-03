@@ -308,3 +308,10 @@ Route::middleware('auth')->group(function () {
         Route::resource("/semester", SemesterController::class)->except('show');
     });
 });
+
+Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/today', 'today');
+    Route::get('/type', 'permissionType');
+    Route::get('/total-hour', 'totalHour');
+});
