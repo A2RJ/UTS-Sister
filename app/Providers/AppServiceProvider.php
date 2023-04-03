@@ -90,11 +90,11 @@ class AppServiceProvider extends ServiceProvider
                 ),
                 DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
             )
-                // ->whereColumn('check_out_time', '>', 'check_in_time')
-                ->where(function ($query) {
-                    $query->whereColumn('check_out_time', '>', 'check_in_time')
-                        ->orWhereNull('check_out_time');
-                })
+                ->whereColumn('check_out_time', '>', 'check_in_time')
+                // ->where(function ($query) {
+                //     $query->whereColumn('check_out_time', '>', 'check_in_time')
+                //         ->orWhereNull('check_out_time');
+                // })
                 ->where('permission', 1);
             // DB::raw(
             //     'TIME_FORMAT(SUM(
