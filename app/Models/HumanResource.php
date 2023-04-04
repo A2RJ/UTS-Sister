@@ -130,6 +130,18 @@ class HumanResource extends Model
         return $this->hasMany(Presence::class, 'sdm_id', 'id');
     }
 
+    public function structure()
+    {
+        return $this->hasManyThrough(
+            Structure::class,
+            StructuralPosition::class,
+            'sdm_id', // Foreign key on struktural table...
+            'id', // Foreign key on structure table...
+            'id', // Local key on users table...
+            'structure_id' // Local key on struktural table...
+        );
+    }
+
     public static function lecturerList()
     {
         return HumanResource::whereIn('id', User::getChildrenSdmId()->unique())->get();

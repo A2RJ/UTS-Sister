@@ -170,4 +170,56 @@ class Structure extends Model
             array_push(self::$roles, $value);
         }
     }
+
+    public function getChildren()
+    {
+        return $this->hasMany(Structure::class, 'child_id', 'parent_id');
+    }
+
+    public function getParent()
+    {
+        return $this->belongsTo(Structure::class, 'child_id', 'parent_id');
+    }
+
+    public function descendants()
+    {
+        return $this->getChildren()->with('descendants');
+    }
+
+    public function ancestors()
+    {
+        return $this->getParent()->with('ancestors');
+    }
+
+    public static function getAllStructure($id, $table = false)
+    {
+        $allIds = self::getAllChildIds($id);
+        if ($table) {
+            $structure = Structure::whereIn('id', $allIds)
+                ->with('humanResource')
+                ->get();
+        } else {
+            $structure = Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
+                ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
+                ->whereIn('structures.id', $allIds)
+                ->get();
+        }
+        return $structure;
+    }
+
+    public static function getAllChildIds($id)
+    {
+        $structure = Structure::where('id', $id)->with('ancestors')->first();
+        $result = [];
+        $structure->getAllChildIdsRecursive($result);
+        return $result;
+    }
+
+    public function getAllChildIdsRecursive(&$result)
+    {
+        $result[] = $this->id;
+        if ($this->ancestors) {
+            $this->ancestors->getAllChildIdsRecursive($result);
+        }
+    }
 }
