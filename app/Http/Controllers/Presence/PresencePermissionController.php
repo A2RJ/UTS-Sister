@@ -24,57 +24,14 @@ class PresencePermissionController extends Controller
 
     public function subPermission(Request $request)
     {
-        $child_id = collect(Auth::user()->structure)->pluck('child_id');
-        $child_id = Structure::whereIn("parent_id", $child_id)->get();
-        $structure_id = collect($child_id)->pluck('id');
-        $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
-            ->select('sdm_id')
-            ->get())
-            ->pluck('sdm_id');
-
-        $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
-            ->whereIn('presences.sdm_id', $sdm_id)
-            ->where('permission', 0)
-            ->with('attachment')
-            ->select(
-                'presences.id',
-                'presences.sdm_id',
-                'sdm_name',
-                'presences.created_at'
-            )
-            ->groupBy(
-                'presences.id',
-                'presences.sdm_id',
-                'sdm_name',
-                'presences.created_at'
-            )
-            ->paginate();
-
         return view('presence.permission.index')
-            ->with('permissions', $permissions);
+            ->with('permissions', Presence::subPermission());
     }
 
     public function myPermission(Request $request)
     {
-        $permissions = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
-            ->where('presences.sdm_id', Auth::id())
-            ->where('permission', 0)
-            ->with('attachment')
-            ->select(
-                'presences.id',
-                'presences.sdm_id',
-                'sdm_name',
-                'presences.created_at'
-            )
-            ->groupBy(
-                'presences.id',
-                'presences.sdm_id',
-                'sdm_name',
-                'presences.created_at'
-            )->paginate();
-
         return view('presence.permission.index')
-            ->with('permissions', $permissions);
+            ->with('permissions', Presence::myPermission());
     }
 
     public function permission(PermissionRequest $request)
@@ -159,7 +116,7 @@ class PresencePermissionController extends Controller
                 $presence = Presence::create($presenceForm);
             }
 
-            $validatedData = $request->only(['detail', 'attachment']);
+            $request->only(['detail', 'attachment']);
             $file = $request->file('attachment');
             $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
             $file->move(public_path('/presense/attachments'), $filename);
@@ -187,14 +144,7 @@ class PresencePermissionController extends Controller
     public function confirm(Presence $presence)
     {
         try {
-            $child_id = collect(Auth::user()->structure)->pluck('child_id');
-            $child_id = Structure::whereIn("parent_id", $child_id)->get();
-            $structure_id = collect($child_id)->pluck('id');
-            $sdm_id = collect(StructuralPosition::whereIn('structure_id', $structure_id)
-                ->select('sdm_id')
-                ->get())
-                ->pluck('sdm_id');
-            if (!in_array($presence->sdm_id, $sdm_id->toArray())) throw new Exception('Anda tidak dapat memberikan izin');
+            if (!Structure::isMySub($presence->sdm_id)) throw new Exception('Anda tidak dapat memberikan izin');
             $presence->update(['permission' => 1]);
             return back()->with('message', 'berhasil menyetujui ijin');
         } catch (Exception $th) {
@@ -202,13 +152,13 @@ class PresencePermissionController extends Controller
         }
     }
 
-    public function delete(Presence $presence)
+    public function decline(Presence $presence)
     {
         $presence->update([
             'check_out_time' => NULL,
             'latitude_out' => NULL,
             'longitude_out' => NULL,
-            'permission' => 1
+            'permission' => 0
         ]);
         return back();
     }

@@ -10,6 +10,7 @@ use App\Models\Classes;
 use App\Models\HumanResource;
 use App\Models\Meeting;
 use App\Models\Semester;
+use App\Models\Structure;
 use App\Models\User;
 
 class SubjectController extends Controller
@@ -84,8 +85,11 @@ class SubjectController extends Controller
 
     public function subDivision()
     {
+        $stuctureIds = Structure::getOwnStructureIds();
+        $sdmIds = Structure::getAllSdmIds($stuctureIds, true);
+
         return view('presence.subject.index')
-            ->with('subjects', Subject::bySdmId(User::getChildrenSdmId()));
+            ->with('subjects', Subject::bySdmId($sdmIds));
     }
 
     public function lecturerList()

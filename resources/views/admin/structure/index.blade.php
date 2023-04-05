@@ -16,6 +16,14 @@
 
     <x-success-message />
     <x-error-message />
+
+    <form class="mb-4" action="{{ url()->current() }}" method="GET">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" id="navbarForm" placeholder="Search here..." value="{{ request('search') ?? '' }}">
+            <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
+            <a href="{{ url()->current(false, true) }}" class="btn btn-sm btn-outline-warning">Cancel</a>
+        </div>
+    </form>
     <x-table :header="['Nama Civitas', 'Jabatan Struktural', 'Berada dibawah', 'Aksi']">
         @foreach ($structures as $structure)
         <tr class="text-capitalize">

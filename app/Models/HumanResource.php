@@ -102,12 +102,13 @@ class HumanResource extends Model
 
     public static function searchSDM()
     {
-        $sdm = HumanResource::query();
         $search = request('search');
+        $sdm = HumanResource::query();
         if ($search) $sdm->where('sdm_name', 'LIKE', "%$search%")
             ->orWhere('email', 'LIKE', "%$search%")
             ->orWhere('nidn', 'LIKE', "%$search%");
-        return $sdm->paginate(10);
+        return $sdm->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function selectOption()
@@ -144,6 +145,7 @@ class HumanResource extends Model
 
     public static function lecturerList()
     {
-        return HumanResource::whereIn('id', User::getChildrenSdmId()->unique())->get();
+        $sdmIds = Structure::childSdmIds(true);
+        return HumanResource::whereIn('id', $sdmIds)->get();
     }
 }

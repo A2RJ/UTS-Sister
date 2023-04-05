@@ -42,14 +42,21 @@ class Structure extends Model
 
     public static function search()
     {
-        $query = self::query();
-        $query->whereNot('parent_id', 'none');
-        $role = request('role');
-        if ($role) {
-            return $query->with('humanResource')->where('role', "LIKE", "%$role%")->paginate();
-        } else {
-            return $query->with('humanResource')->paginate();
-        }
+        $search = request('search');
+        $query = Structure::whereNot('parent_id', 'none')
+            ->when($search, function ($query) use ($search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('role', 'LIKE', "%$search%")
+                        ->orWhereHas('humanResource', function ($q) use ($search) {
+                            $q->where('sdm_name', 'LIKE', "%$search%");
+                        });
+                });
+            })
+            ->with('humanResource')
+            ->paginate()
+            ->appends(request()->except('page'));
+
+        return $query;
     }
 
     public static function selectOption()
@@ -102,10 +109,10 @@ class Structure extends Model
         return $this->parent()->with('ancestors');
     }
 
-    public static function getStructureIdsRecursive($structureIds, $justChild = false)
+    public static function getStructureIds($structureIds, $justChild = false)
     {
         $sessionKey = 'ids';
-        // if (Session::has($sessionKey)) return Session::get($sessionKey);
+        if (Session::has($sessionKey)) return Session::get($sessionKey);
 
         $structures = Structure::whereIn('id', $structureIds)->with('ancestors')->get();
         if (!$structures->count()) {
@@ -116,7 +123,7 @@ class Structure extends Model
             $structure->childIdsRecursive($result, $justChild);
         }
 
-        // Session::put($sessionKey, $result);
+        Session::put($sessionKey, $result);
 
         return $result;
     }
@@ -152,21 +159,24 @@ class Structure extends Model
         return Structure::whereIn('id', $structureIds)->with('ancestors')->get();
     }
 
-    public static function getAllSdmIds($structureIds)
+    public static function getAllSdmIds($structureIds, $justChild = false)
     {
-        $allIds = self::getStructureIdsRecursive($structureIds);
+        $allIds = self::getStructureIds($structureIds, $justChild);
+
         $sdmIds = Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
             ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
             ->whereIn('structures.id', $allIds)
             ->select('human_resources.id')
-            ->get();
+            ->pluck('human_resources.id')
+            ->toArray();
 
         return $sdmIds;
     }
 
-    public static function getStructureSdm($structureIds, $table = false, $justChild)
+    public static function getStructureWithSdm($structureIds, $justChild = false, $table = false)
     {
-        $allIds = self::getStructureIdsRecursive($structureIds, $justChild);
+        $allIds = self::getStructureIds($structureIds, $justChild);
+
         if ($table) {
             $structure = Structure::whereIn('id', $allIds)
                 ->with('humanResource')
@@ -178,5 +188,18 @@ class Structure extends Model
                 ->get();
         }
         return $structure;
+    }
+
+    public static function childSdmIds($justChild)
+    {
+        $structureId = Structure::getOwnStructureIds();
+        $sdmIds = Structure::getAllSdmIds($structureId, $justChild);
+        return $sdmIds;
+    }
+
+    public static function isMySub($sdmId)
+    {
+        $sdmIds = Structure::childSdmIds(false);
+        return in_array($sdmId, $sdmIds);
     }
 }

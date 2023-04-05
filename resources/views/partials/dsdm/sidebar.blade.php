@@ -21,6 +21,9 @@
  <div class="collapse" id="emails">
      <ul class="nav sub-menu">
          <li class="nav-item">
+             <a href="{{ route('presence.dsdm-civitas') }}" class="nav-link">Per Unit</a>
+         </li>
+         <li class="nav-item">
              <a href="{{ route('presence.dsdm-civitas') }}" class="nav-link">Per Civitas</a>
          </li>
          <li class="nav-item">

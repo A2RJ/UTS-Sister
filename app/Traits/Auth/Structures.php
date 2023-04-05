@@ -2,12 +2,11 @@
 
 namespace App\Traits\Auth;
 
-use App\Models\Presence;
 use App\Models\Structure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-trait Role
+trait Structures
 {
     public static function checkRoleType($params, $roleOrType = 'role')
     {
@@ -21,7 +20,7 @@ trait Role
 
     public static function isMissingRole()
     {
-        return Structure::getOwnStructure() ? true : false;
+        return Structure::getOwnStructure() ? false : true;
     }
 
     public function isRektor()

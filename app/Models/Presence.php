@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Termwind\Components\Raw;
 
 class Presence extends Model
 {
@@ -131,9 +130,10 @@ class Presence extends Model
         $search = request('search');
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
+        $sdmIds = Structure::childSdmIds(true);
 
         $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
-            ->whereIn('human_resources.id', array_merge(User::getChildrenSdmId()->toArray(), collect(Auth::id())->toArray()))
+            ->whereIn('human_resources.id', array_merge($sdmIds, collect(Auth::id())->toArray()))
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -156,12 +156,13 @@ class Presence extends Model
                 'human_resources.sdm_type',
             );
 
-        return $query->paginate();
+        return $query->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function subPresenceAll()
     {
-        return self::getPresences(User::justChildSDMId());
+        return self::getPresences(Structure::childSdmIds(true));
     }
 
     public static function getPresences($sdm_id)
@@ -203,7 +204,8 @@ class Presence extends Model
                 'check_out_time'
             );
 
-        return $query->paginate();
+        return $query->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function getPresenceHours($sdm_id)
@@ -254,7 +256,8 @@ class Presence extends Model
                 'human_resources.sdm_name',
                 'human_resources.id'
             )
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function dsdmAllCivitas()
@@ -291,7 +294,8 @@ class Presence extends Model
                 return $query->whereBetween('check_in_time', [$start, $end]);
             });
         }
-        return $query->paginate();
+        return $query->paginate()
+            ->appends(request()->except('page'));
     }
 
     // API
@@ -324,5 +328,57 @@ class Presence extends Model
                 'presences.check_out_time'
             )
             ->get();
+    }
+
+    /**
+     * Permission
+     */
+    public static function myPermission()
+    {
+        $result = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->where('presences.sdm_id', Auth::id())
+            ->where('permission', 0)
+            ->with('attachment')
+            ->select(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->groupBy(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->paginate()
+            ->appends(request()->except('page'));
+
+        return $result;
+    }
+
+    public static function subPermission()
+    {
+        $sdmId = Structure::childSdmIds(true);
+        $result = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+            ->whereIn('presences.sdm_id', $sdmId)
+            ->where('permission', 0)
+            ->with('attachment')
+            ->select(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->groupBy(
+                'presences.id',
+                'presences.sdm_id',
+                'sdm_name',
+                'presences.created_at'
+            )
+            ->paginate()
+            ->appends(request()->except('page'));
+
+        return $result;
     }
 }

@@ -117,7 +117,8 @@ class Subject extends Model
                 'subjects.sdm_id',
                 'human_resources.sdm_name'
             )
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function bySdmId($sdm_id, $semester_id = false)
@@ -193,13 +194,14 @@ class Subject extends Model
             });
         }
 
-        return $result->paginate();
+        return $result->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function subLecturer()
     {
         $search = request('search');
-        $sdm_id = User::justChildSDMId();
+        $sdm_id = Structure::childSdmIds(true);
         $data = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->join('semesters', 'subjects.semester_id', 'semesters.id')
@@ -212,7 +214,9 @@ class Subject extends Model
             })
             ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
             ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
+
         return $data;
     }
 
@@ -228,7 +232,9 @@ class Subject extends Model
             })
             ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
             ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
+
         return $data;
     }
 

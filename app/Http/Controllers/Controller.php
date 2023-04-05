@@ -82,7 +82,9 @@ class Controller extends BaseController
                     ->orWhere('nim', 'like', '%' . $search . '%')
                     ->orWhere('komentar', 'like', '%' . $search . '%');
             })
-            ->paginate();
+            ->paginate()
+            ->appends(request()
+                ->except('page'));
 
 
         return view('admin.comment.index')

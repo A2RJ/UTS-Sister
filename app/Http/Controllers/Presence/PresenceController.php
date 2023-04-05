@@ -9,7 +9,6 @@ use App\Models\Presence;
 use App\Models\HumanResource;
 use App\Models\Subject;
 use App\Traits\Utils\CustomPaginate;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PresenceController extends Controller

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Presence;
 use App\Http\Controllers\Controller;
 use App\Models\HumanResource;
 use App\Models\Presence;
+use App\Models\Structure;
 use App\Models\Subject;
 use App\Models\User;
 use Carbon\Carbon;
@@ -71,7 +72,7 @@ class FilePresenceController extends Controller
         $search = request('search');
         $result = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->where(function ($query) use ($search) {
-                $query->whereIn('human_resources.id', User::justChildSDMId());
+                $query->whereIn('human_resources.id', Structure::childSdmIds(true));
                 if ($search) {
                     $query->where('sdm_name', 'like', "%$search%");
                 }
@@ -104,7 +105,7 @@ class FilePresenceController extends Controller
 
     public function subPresenceAll()
     {
-        return (new FastExcel($this->getPresence(User::justChildSDMId())))->download('laporan-kehadiran-' . Carbon::now() . '.xlsx', function ($sdm) {
+        return (new FastExcel($this->getPresence(Structure::childSdmIds(true))))->download('laporan-kehadiran-' . Carbon::now() . '.xlsx', function ($sdm) {
             $hours = $sdm['hours'] ?? 0;
             $minutes = $sdm['minutes'] ?? 0;
             return [
@@ -231,7 +232,7 @@ class FilePresenceController extends Controller
     public function subLecturer()
     {
         $search = request('search');
-        $sdm_id = User::justChildSDMId();
+        $sdm_id = Structure::childSdmIds(true);
         $result = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->join('semesters', 'subjects.semester_id', 'semesters.id')
