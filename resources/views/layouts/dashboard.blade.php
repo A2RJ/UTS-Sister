@@ -106,7 +106,7 @@
                     <x-sidebar-menu></x-sidebar-menu> -->
                     @endif
 
-                    @if (auth()->user()->hasSub())
+                    @if (auth()->user()->subDivision())
                     @include('partials.sub-division.sidebar')
                     @endif
 

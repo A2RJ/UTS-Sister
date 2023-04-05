@@ -256,9 +256,6 @@ Route::middleware('auth')->group(function () {
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
         Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-            Route::prefix('/')->controller(PresenceAPIController::class)->group(function () {
-                Route::get('/total-hour', 'totalHour');
-            });
             Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
             Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
             Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');

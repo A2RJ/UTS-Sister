@@ -23,7 +23,6 @@ class PresenceController extends Controller
 
     public function myPresence()
     {
-        return response(Presence::getPresences([Auth::id()]));
         return view('presence.dashboard.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.my-presence', request()->getQueryString()))

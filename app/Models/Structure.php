@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Structure extends Model
 {
@@ -24,11 +26,6 @@ class Structure extends Model
                 'text' => $type
             ];
         });
-    }
-
-    public function child()
-    {
-        return $this->belongsTo(Structure::class, 'parent_id', 'child_id');
     }
 
     public function humanResource()
@@ -85,115 +82,91 @@ class Structure extends Model
         });
     }
 
-    public static function role($child_id)
+    public function children()
     {
-        return self::where("child_id", $child_id)->first();
+        return $this->hasMany(Structure::class, 'parent_id', 'child_id');
     }
 
-    public static function parent($child_id)
-    {
-        $child = self::role($child_id);
-        return self::where("child_id", $child->parent_id)->get();
-    }
-
-    public static function children($child_id)
-    {
-        return self::where("parent_id", $child_id)->get();
-    }
-
-    public static function parentNChildren($child_id)
-    {
-        $role = self::role($child_id);
-        return response()->json([
-            "role" => $role,
-            "parent" => self::parent($role->child_id),
-            "child" => self::children($role->child_id)
-        ]);
-    }
-
-    public static function childrenWFlow($child_id)
-    {
-        $response = self::role($child_id);
-        self::recursiveChildren([$response]);
-        $collection = collect(self::$roles);
-        return $collection->filter(function ($value, $key) use ($child_id) {
-            return $value['child_id'] === $child_id;
-        })->shift();
-    }
-
-    public static function childrens($child_id)
-    {
-        $response = self::role($child_id);
-        self::recursiveChildren([$response], false);
-        return collect(self::$roles)->filter(function ($item) use ($child_id) {
-            return $item['child_id'] !== $child_id;
-        });
-    }
-
-    private static function recursiveChildren($data, $withChildren = true)
-    {
-        foreach ($data as $value) {
-            $childs = self::children($value->child_id);
-            if (count($childs)) {
-                if ($withChildren) $value->children = $childs;
-                self::recursiveChildren($childs, $withChildren);
-            }
-            array_push(self::$roles, $value);
-        }
-    }
-
-    public static function parents($child_id)
-    {
-        $response = self::role($child_id);
-        self::recursiveParent([$response], false);
-        return self::$roles;
-    }
-
-    public static function parentWFlow($child_id)
-    {
-        $response = self::role($child_id);
-        self::recursiveParent([$response]);
-        $collection = collect(self::$roles);
-        return  $collection->filter(function ($value, $key) use ($child_id) {
-            return $value['child_id'] === $child_id;
-        })->shift();
-    }
-
-    private static function recursiveParent($data, $withParent = true)
-    {
-        foreach ($data as $value) {
-            $childs = self::parent($value->child_id);
-            if (count($childs)) {
-                if ($withParent) $value->parent = $childs;
-                self::recursiveParent($childs, $withParent);
-            }
-            array_push(self::$roles, $value);
-        }
-    }
-
-    public function getChildren()
-    {
-        return $this->hasMany(Structure::class, 'child_id', 'parent_id');
-    }
-
-    public function getParent()
+    public function parent()
     {
         return $this->belongsTo(Structure::class, 'child_id', 'parent_id');
     }
 
     public function descendants()
     {
-        return $this->getChildren()->with('descendants');
+        return $this->children()->with('descendants');
     }
 
     public function ancestors()
     {
-        return $this->getParent()->with('ancestors');
+        return $this->parent()->with('ancestors');
     }
 
-    public static function getAllStructure($id, $table = false)
+    public static function getStructureIdsRecursive($structureIds, $justChild = false)
     {
-        $allIds = self::getAllChildIds($id);
+        $sessionKey = 'ids';
+        // if (Session::has($sessionKey)) return Session::get($sessionKey);
+
+        $structures = Structure::whereIn('id', $structureIds)->with('ancestors')->get();
+        if (!$structures->count()) {
+            return [];
+        }
+        $result = [];
+        foreach ($structures as $structure) {
+            $structure->childIdsRecursive($result, $justChild);
+        }
+
+        // Session::put($sessionKey, $result);
+
+        return $result;
+    }
+
+    public function childIdsRecursive(&$result, $justChild)
+    {
+        if ($justChild) {
+            if ($this->ancestors) {
+                $result[] = $this->ancestors->id;
+                $this->ancestors->childIdsRecursive($result, $justChild);
+            }
+        } else {
+            $result[] = $this->id;
+            if ($this->ancestors) {
+                $this->ancestors->childIdsRecursive($result, $justChild);
+            }
+        }
+    }
+
+    public static function getOwnStructure()
+    {
+        return Auth::user()->structure;
+    }
+
+    public static function getOwnStructureIds()
+    {
+        $structure = self::getOwnStructure();
+        return collect($structure)->pluck('id');
+    }
+
+    public static function getAllStructure($structureIds)
+    {
+        return Structure::whereIn('id', $structureIds)->with('ancestors')->get();
+    }
+
+    public static function getAllSdmIds($structureIds)
+    {
+        $allIds = self::getStructureIdsRecursive($structureIds);
+        $sdmIds = Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
+            ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
+            ->whereIn('structures.id', $allIds)
+            ->select('human_resources.id')
+            ->get();
+
+        return $sdmIds;
+    }
+
+    public static function getStructureSdm($structureIds, $table = false, $justChild)
+    {
+        $allIds = self::getStructureIdsRecursive($structureIds, $justChild);
         if ($table) {
             $structure = Structure::whereIn('id', $allIds)
                 ->with('humanResource')
@@ -205,21 +178,5 @@ class Structure extends Model
                 ->get();
         }
         return $structure;
-    }
-
-    public static function getAllChildIds($id)
-    {
-        $structure = Structure::where('id', $id)->with('ancestors')->first();
-        $result = [];
-        $structure->getAllChildIdsRecursive($result);
-        return $result;
-    }
-
-    public function getAllChildIdsRecursive(&$result)
-    {
-        $result[] = $this->id;
-        if ($this->ancestors) {
-            $this->ancestors->getAllChildIdsRecursive($result);
-        }
     }
 }

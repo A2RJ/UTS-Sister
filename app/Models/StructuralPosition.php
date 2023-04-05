@@ -19,4 +19,14 @@ class StructuralPosition extends Model
     public $fillable = ['sdm_id', 'structure_id'];
 
     public $timestamps = false;
+
+    public function humanReource()
+    {
+        return $this->belongsTo(HumanResource::class, 'sdm_id');
+    }
+
+    public function structure()
+    {
+        return $this->belongsTo(Structure::class, 'structure_id');
+    }
 }

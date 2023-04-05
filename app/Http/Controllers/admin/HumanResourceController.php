@@ -114,13 +114,9 @@ class HumanResourceController extends Controller
         return $this->responseRedirect($response);
     }
 
-    public function subdivisi($child_id)
+    public function subdivisi($id)
     {
-        $children = Structure::childrens($child_id);
-        $ids = collect($children)->map(function ($item) {
-            return $item['id'];
-        })->toArray();
-
+        $ids = Structure::getStructureIdsRecursive($id);
         $results = Subject::select(
             'subjects.id',
             'subject',
@@ -138,8 +134,8 @@ class HumanResourceController extends Controller
             ->whereIn('subjects.sdm_id', function ($query) use ($ids) {
                 $query->select('id')
                     ->from('human_resources');
-                // ->whereIn('structure_id', $ids);
             })
+            ->whereIn('structure_id', $ids)
             ->groupBy(
                 'subjects.id',
                 'subject',

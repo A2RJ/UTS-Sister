@@ -1,4 +1,4 @@
-@if (count(auth()->user()->hasSub()))
+@if (count(auth()->user()->subDivision()))
 <li class="nav-item nav-category">Sub divisi Menu</li>
 @if (count(auth()->user()->subHasRoleType('dosen')))
 <li class="nav-item">

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Traits\Auth\Role as RoleRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleRole;
 
     public $table = 'human_resources';
     protected $fillable = [
@@ -62,61 +64,6 @@ class User extends Authenticatable
         );
     }
 
-    public static function checkRoleType($params, $roleOrType = 'role')
-    {
-        $roles = Auth::user()->structure;
-        if (!$roles) return false;
-        $hasRole = collect($roles)->filter(function ($roleItem) use ($params, $roleOrType) {
-            return Str::lower($roleItem[$roleOrType]) === Str::lower($params);
-        })->count();
-        return $hasRole > 0 ? true : false;
-    }
-
-    public function isRektor()
-    {
-        return $this->checkRoleType('rektor');
-    }
-
-    public function isAdmin()
-    {
-        return $this->checkRoleType('admin');
-    }
-
-    public function isLecturer()
-    {
-        return $this->checkRoleType('dosen', 'type');
-    }
-
-    public function isFaculty()
-    {
-        return $this->checkRoleType('fakultas', 'type');
-    }
-
-    public function isStudyProgram()
-    {
-        return $this->checkRoleType('prodi', 'type');
-    }
-
-    public function isStructural()
-    {
-        return $this->checkRoleType('struktural', 'type');
-    }
-
-    public function isDirAkademik()
-    {
-        return $this->checkRoleType('639eb2d054fd7DirektoratAkademik', 'child_id');
-    }
-
-    public function isDSDM()
-    {
-        return $this->checkRoleType('639eb26622219DirektoratSumberDayaManusia', 'child_id');
-    }
-
-    public function isSecurity()
-    {
-        return $this->checkRoleType('security', 'type');
-    }
-
     public static function prodi()
     {
         return collect(Auth::user()->structure)->filter(function ($item) {
@@ -126,40 +73,29 @@ class User extends Authenticatable
 
     public static function prodiList()
     {
-        return collect(User::hasSub())->filter(function ($item) {
+        return collect(User::subDivision())->filter(function ($item) {
             return $item['type'] === "prodi";
         })->values();
     }
 
-    public static function isMissingRole()
+    public static function subDivision()
     {
-        return collect(Auth::user()->structure)->count() === 0 ? true : false;
-    }
-
-    public static function hasSub()
-    {
-        $roles = Auth::user()->structure;
-        if (!$roles || !count($roles) > 0) return [];
-        $result = collect([]);
-        collect($roles)->map(function ($structure) use ($result) {
-            $child = collect(Structure::childrens($structure->child_id))->unique();
-            $child->map(function ($item) use ($result) {
-                $result->push($item);
-            });
-        });
-        return $result;
+        $structureIds = Structure::getOwnStructureIds();
+        if (!$structureIds) return [];
+        $sdmChild = Structure::getStructureSdm($structureIds, false, true);
+        return $sdmChild;
     }
 
     public static function getChildrenSdmId()
     {
-        $sdmId = collect(StructuralPosition::whereIn('structure_id', self::hasSub()->pluck('id'))->get());
+        $sdmId = collect(StructuralPosition::whereIn('structure_id', Presence::getChildrenSdmId())->get());
         if ($sdmId->count() === 0) return [];
         return $sdmId->pluck('sdm_id');
     }
 
     public static function subHasRoleType($roleOrType, $field = 'type')
     {
-        $sub = collect(self::hasSub())->filter(function ($sub) use ($roleOrType, $field) {
+        $sub = collect(self::subDivision())->filter(function ($sub) use ($roleOrType, $field) {
             return $sub[$field] === $roleOrType;
         });
         return $sub;
@@ -167,7 +103,7 @@ class User extends Authenticatable
 
     public static function subOtherRoleType($roleOrType, $field = 'type')
     {
-        $sub = collect(self::hasSub())->filter(function ($sub) use ($roleOrType, $field) {
+        $sub = collect(self::subDivision())->filter(function ($sub) use ($roleOrType, $field) {
             return $sub[$field] !== $roleOrType;
         });
         return $sub;
