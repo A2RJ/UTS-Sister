@@ -42,6 +42,10 @@ use App\Http\Controllers\Presence\PresencePermissionController;
 |
 */
 
+// Route::get('welcome', function () {
+//     return view('welcome');
+// });
+
 Route::prefix('/')->group(function () {
     Route::controller(Controller::class)->group(function () {
         Route::get('', 'index')->name('index');

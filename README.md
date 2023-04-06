@@ -83,6 +83,8 @@ password: 7700013494
 
 STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
+-   https://blog.devgenius.io/how-to-upgrade-from-laravel-9-x-to-laravel-10-x-926b826b454f
+
 ## TIPS
 
 -   Validasi valid URL from server (bukan ketikan)
