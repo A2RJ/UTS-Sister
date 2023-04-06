@@ -7,6 +7,7 @@ use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
+use App\Models\Structure;
 use App\Models\Subject;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,6 @@ class PresenceController extends Controller
 
     public function subPresenceAll()
     {
-        // return response(Presence::subPresenceAll());
         return view('presence.dashboard.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.civitas-all', request()->getQueryString()))
@@ -74,6 +74,22 @@ class PresenceController extends Controller
             ->with('withDate', true)
             ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
             ->with('presences', Presence::dsdmAllCivitas());
+    }
+
+    public function dsdmAllCivitasPerUnit()
+    {
+        return view('presence.civitas.perunit')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
+            ->with('units', Presence::dsdmAllCivitasPerUnit());
+    }
+
+    public function sdmByStructure($structureId)
+    {
+        return view('presence.dashboard.index')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
+            ->with('presences', Presence::sdmByStructure($structureId));
     }
 
     public function create()

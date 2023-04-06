@@ -268,6 +268,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
             Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
             Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
+            Route::get('/dsdm-civitas-per-unit', 'dsdmAllCivitasPerUnit')->name('presence.dsdm-civitas-per-unit');
+            Route::get('/dsdm-civitas-per-unit/{structureId}', 'sdmByStructure')->name('presence.dsdm-civitas-per-unit-detail');
             Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
                 Route::get('/', 'form')->name('presence.absen');
                 Route::get('/my-absen', 'myPermission')->name('presence.my-absen');

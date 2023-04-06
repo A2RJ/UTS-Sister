@@ -66,9 +66,7 @@ class User extends Authenticatable
 
     public static function subDivision()
     {
-        $sdmIds = Structure::getSdmIdOneLevelUnder();
-        $sdmChild = Structure::getStructureWithSdmBySdmIds($sdmIds);
-        return $sdmChild;
+        return Structure::getSdmOneLevelUnder();
     }
 
     public static function prodi()
@@ -99,16 +97,5 @@ class User extends Authenticatable
             return $sub[$field] !== $roleOrType;
         });
         return $sub;
-    }
-
-    public function bySub()
-    {
-        $parent_id = collect(Auth::user()->structure)->pluck('parent_id');
-        $structure = collect(Structure::parents($parent_id));
-        $structure = collect($structure)->filter(function ($item) {
-            return $item['type'] != 'struktural';
-        });
-        $structure = $structure->pluck('role')->reverse()->implode(' sub ');
-        return $structure;
     }
 }

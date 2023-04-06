@@ -100,6 +100,25 @@ class Presence extends Model
             ->implode(', <br>');
     }
 
+    public function detail()
+    {
+        $words = explode(' ', $this->attachment->detail);
+        $lineCount = count($words) / 5;
+        $result = '';
+
+        for ($i = 0; $i < $lineCount; $i++) {
+            for ($j = 0; $j < 5; $j++) {
+                $index = $i * 5 + $j;
+                if (isset($words[$index])) {
+                    $result .= $words[$index] . ' ';
+                }
+            }
+            $result .= "<br>";
+        }
+
+        return $result;
+    }
+
     public function structure()
     {
         return $this->hasManyThrough(
@@ -152,7 +171,7 @@ class Presence extends Model
         $search = request('search');
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
-        $sdmIds = Structure::getSdmIdOneLevelUnder();
+        $sdmIds = Structure::getSdmIdAllLevelUnder();
 
         $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', array_merge($sdmIds, collect(Auth::id())->toArray()))
@@ -184,7 +203,7 @@ class Presence extends Model
 
     public static function subPresenceAll()
     {
-        return self::getPresences(Structure::getSdmIdOneLevelUnder());
+        return self::getPresences(Structure::getSdmIdAllLevelUnder());
     }
 
     public static function getPresences($sdm_id)
@@ -318,6 +337,25 @@ class Presence extends Model
         }
         return $query->paginate()
             ->appends(request()->except('page'));
+    }
+
+    public static function dsdmAllCivitasPerUnit()
+    {
+        $search = request('search');
+        $structures = Structure::whereNot('role', 'admin')
+            ->when($search, function ($query) use ($search) {
+                return $query->where('role', 'LIKE', "%$search%");
+            })
+            ->paginate()
+            ->appends(request()->except('page'));
+
+        return $structures;
+    }
+
+    public static function sdmByStructure($structureId)
+    {
+        $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
+        return self::getPresences($sdmIds);
     }
 
     // API

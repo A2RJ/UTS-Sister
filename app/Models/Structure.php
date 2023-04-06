@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Auth\Structures\OneLevelunder;
 use App\Traits\Auth\Structures\StructureTrait;
+use App\Traits\Auth\Structures\UtilsStructure;
 
 class Structure extends Model
 {
-    use HasFactory, StructureTrait, OneLevelunder;
+    use HasFactory, StructureTrait, UtilsStructure;
 
     // Visualize json to flowcart https://vanya.jp.net/vtree/
     public static $roles = [];
@@ -107,10 +107,5 @@ class Structure extends Model
     public function ancestors()
     {
         return $this->parent()->with('ancestors');
-    }
-
-    public static function getAllStructure($structureIds)
-    {
-        return Structure::whereIn('id', $structureIds)->with('ancestors')->get();
     }
 }

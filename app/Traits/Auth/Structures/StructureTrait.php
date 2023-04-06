@@ -12,10 +12,8 @@ trait StructureTrait
         $sessionKey = 'ids';
         // if (Session::has($sessionKey)) return Session::get($sessionKey);
 
-        $structures = StructureModel::whereIn('id', $structureIds)->with('ancestors')->get();
-        if (!$structures->count()) {
-            return [];
-        }
+        $structures = StructureModel::whereIn('id', $structureIds)->with('descendants')->get();
+        if (!$structures->count()) return [];
         $result = [];
         foreach ($structures as $structure) {
             $structure->childIdsRecursive($result, $justChild);
@@ -41,16 +39,6 @@ trait StructureTrait
         }
     }
 
-    public static function getOwnStructure()
-    {
-        return Auth::user()->structure;
-    }
-
-    public static function getOwnStructureIds()
-    {
-        $structure = self::getOwnStructure();
-        return collect($structure)->pluck('id');
-    }
 
     public static function getSdmIdsRecursiveByStructure($structureIds, $justChild = false)
     {
@@ -103,11 +91,5 @@ trait StructureTrait
                 ->get();
         }
         return $structure;
-    }
-
-    public static function isMySub($sdmId)
-    {
-        $sdmIds = StructureModel::getSdmIdOneLevelUnder();
-        return in_array($sdmId, $sdmIds);
     }
 }

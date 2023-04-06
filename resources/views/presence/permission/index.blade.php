@@ -15,7 +15,7 @@
             <td>{{ $permission->sdm_name }}</td>
             <td>{!! $permission->roles() !!}</td>
             <td>{{ $permission->created_at }}</td>
-            <td>{{ $permission->attachment->detail }}</td>
+            <td>{!! $permission->detail() !!}</td>
             <td>
                 @if ($permission->attachment->attachment)
                 <a href="{{ route('download.presense', ['filename' => $permission->attachment->attachment]) }}">File</a>
