@@ -201,7 +201,7 @@ class Subject extends Model
     public static function subLecturer()
     {
         $search = request('search');
-        $sdm_id = Structure::childSdmIds(true);
+        $sdm_id = Structure::getSdmIdOneLevelUnder();
         $data = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->join('semesters', 'subjects.semester_id', 'semesters.id')

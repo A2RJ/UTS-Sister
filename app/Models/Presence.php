@@ -80,7 +80,7 @@ class Presence extends Model
         return Carbon::now()->format('H:i') > Presence::workHour($sdm_type)['in'];
     }
 
-    public function human_resource()
+    public function humanResource()
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
     }
@@ -88,6 +88,28 @@ class Presence extends Model
     public function attachment()
     {
         return $this->hasOne(PresenceAttachment::class, 'presence_id');
+    }
+
+    public function roles()
+    {
+        return $this->structure
+            ->pluck('role')
+            ->reject(function ($role) {
+                return $role === 'admin';
+            })
+            ->implode(', <br>');
+    }
+
+    public function structure()
+    {
+        return $this->hasManyThrough(
+            Structure::class,
+            StructuralPosition::class,
+            'sdm_id', // Foreign key on struktural table...
+            'id', // Foreign key on structure table...
+            'sdm_id', // Local key on presence table...
+            'structure_id' // Local key on struktural table...
+        );
     }
 
     public function processWeek(Request $request)
@@ -130,7 +152,7 @@ class Presence extends Model
         $search = request('search');
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
-        $sdmIds = Structure::childSdmIds(true);
+        $sdmIds = Structure::getSdmIdOneLevelUnder();
 
         $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->whereIn('human_resources.id', array_merge($sdmIds, collect(Auth::id())->toArray()))
@@ -162,7 +184,7 @@ class Presence extends Model
 
     public static function subPresenceAll()
     {
-        return self::getPresences(Structure::childSdmIds(true));
+        return self::getPresences(Structure::getSdmIdOneLevelUnder());
     }
 
     public static function getPresences($sdm_id)
@@ -359,11 +381,11 @@ class Presence extends Model
 
     public static function subPermission()
     {
-        $sdmId = Structure::childSdmIds(true);
+        $sdmId = Structure::getSdmIdOneLevelUnder();
         $result = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->whereIn('presences.sdm_id', $sdmId)
             ->where('permission', 0)
-            ->with('attachment')
+            ->with(['attachment', 'humanResource'])
             ->select(
                 'presences.id',
                 'presences.sdm_id',

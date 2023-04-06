@@ -8,11 +8,12 @@
     <x-success-message />
     <x-error-message />
 
-    <x-table :header="['Nama', 'Tanggal', 'Detail', 'File', 'Aksi']">
+    <x-table :header="['Nama', 'Jabatan', 'Tanggal', 'Detail', 'File', 'Aksi']">
         @foreach ($permissions as $permission)
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $permission->sdm_name }}</td>
+            <td>{!! $permission->roles() !!}</td>
             <td>{{ $permission->created_at }}</td>
             <td>{{ $permission->attachment->detail }}</td>
             <td>

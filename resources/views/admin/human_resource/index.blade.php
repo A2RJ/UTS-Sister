@@ -51,7 +51,7 @@
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $item->sdm_name }}</td>
-                                <td>{{ $item->structure_id ? $item->structure->role : '' }}</td>
+                                <td>{{ $item->roles() }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->nidn }}</td>
                                 <td>

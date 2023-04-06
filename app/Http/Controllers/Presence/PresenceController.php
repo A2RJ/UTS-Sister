@@ -39,6 +39,7 @@ class PresenceController extends Controller
 
     public function subPresenceAll()
     {
+        // return response(Presence::subPresenceAll());
         return view('presence.dashboard.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.civitas-all', request()->getQueryString()))

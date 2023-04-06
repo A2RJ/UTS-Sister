@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Traits\Auth\Structures;
+use App\Traits\Auth\User\RoleStructure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Structures;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleStructure;
 
     public $table = 'human_resources';
     protected $fillable = [
@@ -66,9 +66,8 @@ class User extends Authenticatable
 
     public static function subDivision()
     {
-        $structureIds = Structure::getOwnStructureIds();
-        if (!$structureIds) return [];
-        $sdmChild = Structure::getStructureWithSdm($structureIds, true);
+        $sdmIds = Structure::getSdmIdOneLevelUnder();
+        $sdmChild = Structure::getStructureWithSdmBySdmIds($sdmIds);
         return $sdmChild;
     }
 

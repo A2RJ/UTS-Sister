@@ -138,14 +138,24 @@ class HumanResource extends Model
             StructuralPosition::class,
             'sdm_id', // Foreign key on struktural table...
             'id', // Foreign key on structure table...
-            'id', // Local key on users table...
+            'id', // Local key on sdm table...
             'structure_id' // Local key on struktural table...
         );
     }
 
+    public function roles()
+    {
+        return $this->structure
+            ->pluck('role')
+            ->reject(function ($role) {
+                return $role === 'admin';
+            })
+            ->implode(', <br>');
+    }
+
     public static function lecturerList()
     {
-        $sdmIds = Structure::childSdmIds(true);
+        $sdmIds = Structure::getSdmIdOneLevelUnder();
         return HumanResource::whereIn('id', $sdmIds)->get();
     }
 }

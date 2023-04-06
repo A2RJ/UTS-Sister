@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Traits\Auth;
+namespace App\Traits\Auth\User;
 
 use App\Models\Structure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-trait Structures
+trait RoleStructure
 {
     public static function checkRoleType($params, $roleOrType = 'role')
     {

@@ -86,7 +86,7 @@ class SubjectController extends Controller
     public function subDivision()
     {
         $stuctureIds = Structure::getOwnStructureIds();
-        $sdmIds = Structure::getAllSdmIds($stuctureIds, true);
+        $sdmIds = Structure::getStructureSdmIdsRecursive($stuctureIds, true);
 
         return view('presence.subject.index')
             ->with('subjects', Subject::bySdmId($sdmIds));

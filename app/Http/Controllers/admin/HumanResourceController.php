@@ -144,7 +144,9 @@ class HumanResourceController extends Controller
                 'structure_id',
                 'sdm_id'
             )
-            ->paginate();
+            ->paginate()
+            ->appends(request()
+                ->except('page'));
 
         return response($results);
     }

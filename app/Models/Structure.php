@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use App\Traits\Auth\Structures\OneLevelunder;
+use App\Traits\Auth\Structures\StructureTrait;
 
 class Structure extends Model
 {
-    use HasFactory;
+    use HasFactory, StructureTrait, OneLevelunder;
 
     // Visualize json to flowcart https://vanya.jp.net/vtree/
     public static $roles = [];
@@ -109,97 +109,8 @@ class Structure extends Model
         return $this->parent()->with('ancestors');
     }
 
-    public static function getStructureIds($structureIds, $justChild = false)
-    {
-        $sessionKey = 'ids';
-        if (Session::has($sessionKey)) return Session::get($sessionKey);
-
-        $structures = Structure::whereIn('id', $structureIds)->with('ancestors')->get();
-        if (!$structures->count()) {
-            return [];
-        }
-        $result = [];
-        foreach ($structures as $structure) {
-            $structure->childIdsRecursive($result, $justChild);
-        }
-
-        Session::put($sessionKey, $result);
-
-        return $result;
-    }
-
-    public function childIdsRecursive(&$result, $justChild)
-    {
-        if ($justChild) {
-            if ($this->ancestors) {
-                $result[] = $this->ancestors->id;
-                $this->ancestors->childIdsRecursive($result, $justChild);
-            }
-        } else {
-            $result[] = $this->id;
-            if ($this->ancestors) {
-                $this->ancestors->childIdsRecursive($result, $justChild);
-            }
-        }
-    }
-
-    public static function getOwnStructure()
-    {
-        return Auth::user()->structure;
-    }
-
-    public static function getOwnStructureIds()
-    {
-        $structure = self::getOwnStructure();
-        return collect($structure)->pluck('id');
-    }
-
     public static function getAllStructure($structureIds)
     {
         return Structure::whereIn('id', $structureIds)->with('ancestors')->get();
-    }
-
-    public static function getAllSdmIds($structureIds, $justChild = false)
-    {
-        $allIds = self::getStructureIds($structureIds, $justChild);
-
-        $sdmIds = Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
-            ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
-            ->whereIn('structures.id', $allIds)
-            ->select('human_resources.id')
-            ->pluck('human_resources.id')
-            ->toArray();
-
-        return $sdmIds;
-    }
-
-    public static function getStructureWithSdm($structureIds, $justChild = false, $table = false)
-    {
-        $allIds = self::getStructureIds($structureIds, $justChild);
-
-        if ($table) {
-            $structure = Structure::whereIn('id', $allIds)
-                ->with('humanResource')
-                ->get();
-        } else {
-            $structure = Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
-                ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
-                ->whereIn('structures.id', $allIds)
-                ->get();
-        }
-        return $structure;
-    }
-
-    public static function childSdmIds($justChild)
-    {
-        $structureId = Structure::getOwnStructureIds();
-        $sdmIds = Structure::getAllSdmIds($structureId, $justChild);
-        return $sdmIds;
-    }
-
-    public static function isMySub($sdmId)
-    {
-        $sdmIds = Structure::childSdmIds(false);
-        return in_array($sdmId, $sdmIds);
     }
 }
