@@ -91,32 +91,7 @@ class AppServiceProvider extends ServiceProvider
                 DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
             )
                 ->whereColumn('check_out_time', '>', 'check_in_time')
-                // ->where(function ($query) {
-                //     $query->whereColumn('check_out_time', '>', 'check_in_time')
-                //         ->orWhereNull('check_out_time');
-                // })
                 ->where('permission', 1);
-            // DB::raw(
-            //     'TIME_FORMAT(SUM(
-            //         CASE
-            //             WHEN human_resources.sdm_type = "Dosen" OR human_resources.sdm_type = "Dosen DT" THEN
-            //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-            //                 TIMEDIFF(
-            //                     IF(TIME(presences.check_out_time) > TIME("19:00:00"), TIME("19:00:00"), TIME(presences.check_out_time)), 
-            //                     IF(TIME(presences.check_in_time) < TIME("07:00:00"), TIME("07:00:00"), TIME(presences.check_in_time))
-            //                 ), 0)
-            //             WHEN human_resources.sdm_type = "Tenaga Kependidikan" THEN
-            //                 IF(TIME(presences.check_out_time) > TIME(presences.check_in_time),
-            //                 TIMEDIFF(
-            //                     IF(TIME(presences.check_out_time) > TIME("16:00:00"), TIME("16:00:00"), TIME(presences.check_out_time)),
-            //                     IF(TIME(presences.check_in_time) < TIME("09:00:00"), TIME("09:00:00"), TIME(presences.check_in_time))
-            //                 ), 0) 
-            //             ELSE
-            //                 0
-            //         END
-            //     ), "%H:%i:%s") 
-            //     as effective_hours'
-            // ),
         });
     }
 

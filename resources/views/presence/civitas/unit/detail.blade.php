@@ -1,0 +1,72 @@
+@extends('layouts.dashboard')
+@section('title', 'Absensi Per Unit')
+
+@section('content')
+<div class="container p-5 card">
+    <h4 class="mb-4">List Absensi Kehadiran</h4>
+
+    <div class="table-responsive mb-4">
+        <small>Total jam secara default 1 minggu kalender, pilih range sesuai kebutuhan</small>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="font-weight: bolder; color: black;">Total jam</th>
+                    <th style="font-weight: bolder; color: black;">{{ $hours->effective_hours }}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <small>Tambahkan titik dua (:) pada karakter pertama untuk mencari tipe sdm, seperti :dosen, :tenaga kependidikan</small>
+    <form class="mb-4 mt-1" action="{{ url()->current() }}" method="GET">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" value="{{ request('search')}}" placeholder="Search..." autocomplete="off">
+
+            @if ($withDate)
+            <input type="date" name="start" class="form-control" value="{{ request('start')}}">
+            <input type="date" name="end" class="form-control" value="{{ request('end')}}">
+            @endif
+
+            <input type="checkbox" name="percivitas" class="btn-check" id="percivitas" autocomplete="off" {{ request()->has('percivitas') ? 'checked' : '' }}>
+            <label class="btn btn-outline-primary" for="percivitas">Per Civitas</label>
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
+            <a href="{{ url()->current(false, true) }}" class="btn btn-sm btn-outline-warning">Cancel</a>
+            @if ($exportUrl)
+            <a href="{{ $exportUrl }}" target="_blank" class="btn btn-sm btn-outline-primary">Export</a>
+            @endif
+        </div>
+    </form>
+
+    @if (request()->has('percivitas'))
+    <x-table :header="['Nama', 'Jabatan', 'Jam Efektif', 'Detail']">
+        @foreach ($presences as $presence)
+        <tr>
+            <td>{{ $loop->iteration}}</td>
+            <td>{{ $presence->sdm_name }}</td>
+            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->effective_hours }}</td>
+            <td><a href="{{ route('presence.detail', $presence->id) }}?{{ request()->getQueryString() }}">Detail</a></td>
+        </tr>
+        @endforeach
+    </x-table>
+    @else
+    <x-table :header="['Nama', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
+        @foreach ($presences as $presence)
+        <tr>
+            <td>{{ $loop->iteration}}</td>
+            <td>{{ $presence->sdm_name }}</td>
+            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
+            <td>{{ $presence->check_in_hour }}</td>
+            <td>{{ $presence->check_out_hour }}</td>
+            <td>{{ $presence->effective_hours }}</td>
+        </tr>
+        @endforeach
+    </x-table>
+    @endif
+    <div class="mt-2 float-right">
+        {{ $presences->links() }}
+    </div>
+</div>
+@endsection

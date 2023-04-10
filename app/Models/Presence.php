@@ -214,8 +214,8 @@ class Presence extends Model
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
-        $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
-            ->whereIn('presences.sdm_id', $sdm_id)
+        $query = HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->whereIn('human_resources.id', $sdm_id)
             ->select(
                 'presences.id',
                 'presences.sdm_id',
@@ -275,18 +275,21 @@ class Presence extends Model
             ->first();
     }
 
-    public static function dsdmByCivitas()
+    public static function dsdmByCivitas($sdmIds = false)
     {
         $search = request('search');
         $start = request('start');
         $end = request('end');
 
-        return HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
+        $result =  HumanResource::leftJoin('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id'
             )
             ->workHours()
+            ->when($sdmIds, function ($query) use ($sdmIds) {
+                $query->whereIn('human_resources.id', $sdmIds);
+            })
             ->when($search, function ($query) use ($search) {
                 $query->where('sdm_name', 'like', "%$search%");
             })
@@ -299,6 +302,8 @@ class Presence extends Model
             )
             ->paginate()
             ->appends(request()->except('page'));
+
+        return $result;
     }
 
     public static function dsdmAllCivitas()
@@ -306,7 +311,7 @@ class Presence extends Model
         $search = request('search');
         $start = request('start');
         $end = request('end');
-        $query = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
+        $result = Presence::join('human_resources', 'presences.sdm_id', 'human_resources.id')
             ->select(
                 'presences.id',
                 'presences.sdm_id',
@@ -316,6 +321,12 @@ class Presence extends Model
                 DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
                 DB::raw("DATE_FORMAT(check_out_time, '%H:%i') AS check_out_hour")
             )
+            ->when($search, function ($query) use ($search) {
+                return $query->where('sdm_name', 'like', "%$search%");
+            })
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            })
             ->workHours()
             ->groupBy(
                 'presences.id',
@@ -323,20 +334,11 @@ class Presence extends Model
                 'sdm_name',
                 'check_in_time',
                 'check_out_time'
-            );
-        if ($search) {
-            $query->when($search, function ($query) use ($search) {
-                return $query->where('sdm_name', 'like', "%$search%");
-            });
-        }
-
-        if ($start && $end) {
-            $query->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
-            });
-        }
-        return $query->paginate()
+            )
+            ->paginate()
             ->appends(request()->except('page'));
+
+        return $result;
     }
 
     public static function dsdmAllCivitasPerUnit()
@@ -354,8 +356,32 @@ class Presence extends Model
 
     public static function sdmByStructure($structureId)
     {
+        $perCivitas = request('percivitas');
         $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
-        return self::getPresences($sdmIds);
+        if ($perCivitas) {
+            $result = self::dsdmByCivitas($sdmIds);
+        } else {
+            $result = self::getPresences($sdmIds);
+        }
+        return $result;
+    }
+
+    public static function totalHoursByStructure($structureId)
+    {
+        $start = request('start');
+        $end = request('end');
+        $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
+
+        if (!$start) $start = Carbon::now()->startOfWeek();
+        if (!$end) $end = Carbon::now()->endOfWeek();
+
+        return HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+            ->whereIn('human_resources.id', $sdmIds)
+            ->workHours()
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('check_in_time', [$start, $end]);
+            })
+            ->first();
     }
 
     // API

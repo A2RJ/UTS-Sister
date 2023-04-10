@@ -78,7 +78,7 @@ class PresenceController extends Controller
 
     public function dsdmAllCivitasPerUnit()
     {
-        return view('presence.civitas.perunit')
+        return view('presence.civitas.unit.perunit')
             ->with('withDate', true)
             ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
             ->with('units', Presence::dsdmAllCivitasPerUnit());
@@ -86,10 +86,11 @@ class PresenceController extends Controller
 
     public function sdmByStructure($structureId)
     {
-        return view('presence.dashboard.index')
+        return view('presence.civitas.unit.detail')
             ->with('withDate', true)
             ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
-            ->with('presences', Presence::sdmByStructure($structureId));
+            ->with('presences', Presence::sdmByStructure($structureId))
+            ->with('hours', Presence::totalHoursByStructure($structureId));
     }
 
     public function create()
@@ -108,6 +109,7 @@ class PresenceController extends Controller
     public function detail($sdm_id)
     {
         return view('presence.dashboard.index')
+            ->with('withDate', true)
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
             ->with('exportUrl', route('download.detail', ['sdm_id' => $sdm_id]))
             ->with('presences', Presence::getPresences([$sdm_id]));
