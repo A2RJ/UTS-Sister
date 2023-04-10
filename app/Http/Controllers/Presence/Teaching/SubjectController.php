@@ -94,7 +94,7 @@ class SubjectController extends Controller
 
     public function lecturerList()
     {
-        return view('presence.civitas.index')
+        return view('admin.human_resource.lecturer')
             ->with('human_resources', HumanResource::lecturerList());
     }
 }

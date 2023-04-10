@@ -103,10 +103,6 @@
                     @include('partials.dsdm.sidebar')
                     @endif
 
-                    @if (auth()->user()->subDivision())
-                    @include('partials.sub-division.sidebar')
-                    @endif
-
                     @if (auth()->user()->is_sister_exist)
                     <li class="nav-item nav-category">SDM Menu</li>
                     <x-sidebar-menu></x-sidebar-menu>

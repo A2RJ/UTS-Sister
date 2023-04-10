@@ -27,8 +27,11 @@
             <input type="date" name="end" class="form-control" value="{{ request('end')}}">
             @endif
 
-            <input type="checkbox" name="percivitas" class="btn-check" id="percivitas" autocomplete="off" {{ request()->has('percivitas') ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="percivitas">Per Civitas</label>
+            <select class="form-select" name="filter" id="filter">
+                <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
+                <option value="per-unit" {{ request('filter') == 'per-unit' ? 'selected' : '' }}>Per unit</option>
+                <option value="per-civitas" {{ request('filter') == 'per-civitas' ? 'selected' : '' }}>Per civitas</option>
+            </select>
 
             <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
             <a href="{{ url()->current(false, true) }}" class="btn btn-sm btn-outline-warning">Cancel</a>
@@ -38,7 +41,17 @@
         </div>
     </form>
 
-    @if (request()->has('percivitas'))
+    @if (request('filter') === 'per-unit')
+    <x-table :header="['Nama Unit']">
+        @foreach ($presences as $unit)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $unit->role }}</td>
+            <td><a href="{{ route('presence.detail', $unit->id) }}">Detail</a></td>
+        </tr>
+        @endforeach
+    </x-table>
+    @elseif (request('filter') === 'per-civitas')
     <x-table :header="['Nama', 'Jabatan', 'Jam Efektif', 'Detail']">
         @foreach ($presences as $presence)
         <tr>

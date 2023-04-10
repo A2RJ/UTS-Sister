@@ -259,17 +259,17 @@ Route::middleware('auth')->group(function () {
         });
         Route::resource("/subject", SubjectController::class);
         Route::resource("/meeting", MeetingController::class);
-        Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-            Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
-            Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
-            Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');
-            Route::get('/all-lecturer', 'allLecturer')->name('presence.all-lecturer');
-            Route::get('/per-civitas', 'subPresenceByCivitas')->name('presence.per-civitas');
-            Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
-            Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
-            Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
-            Route::get('/dsdm-civitas-per-unit', 'dsdmAllCivitasPerUnit')->name('presence.dsdm-civitas-per-unit');
-            Route::get('/dsdm-civitas-per-unit/{structureId}', 'sdmByStructure')->name('presence.dsdm-civitas-per-unit-detail');
+        Route::prefix('presence')->group(function () {
+            Route::controller(PresenceController::class)->group(function () {
+                Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
+                Route::get('/sub', 'subPresence')->name('presence.sub-presence');
+                Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
+            });
+            Route::prefix('dsdm')->controller(PresenceController::class)->group(function () {
+                Route::get('/', 'index')->name('dsdm.all-sdm');
+            });
+            Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
+            });
             Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
                 Route::get('/', 'form')->name('presence.absen');
                 Route::get('/my-absen', 'myPermission')->name('presence.my-absen');
@@ -278,23 +278,10 @@ Route::middleware('auth')->group(function () {
                 Route::post('/{presence}', 'confirm')->name('presence.confirm');
                 Route::delete('/{presence}', 'decline')->name('presence.decline');
             });
-            Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
-                Route::get('/my-presence', 'myPresence')->name('download.my-presence');
-                Route::get('/per-civitas', 'perCivitas')->name('download.per-civitas');
-                Route::get('/civitas-all', 'subPresenceAll')->name('download.civitas-all');
-                Route::get('/detail/{sdm_id}', 'detail')->name('download.detail');
-                Route::get('/sub-lecturer', 'subLecturer')->name('download.sub-lecturer');
-                Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('download.by-lecturer');
-                Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('download.dsdm-civitas');
-                Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('download.dsdm-civitas-all');
-                Route::get('/all-lecturer', 'allLecturer')->name('download.all-lecturer');
-            });
         });
         Route::resource("/presence", PresenceController::class)->except('show');
         Route::prefix('prodi')->group(function () {
             Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
-        });
-        Route::prefix('fakultas')->group(function () {
         });
     });
     Route::prefix("/admin")->group(function () {
@@ -312,9 +299,9 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/today', 'today');
-    Route::get('/type', 'permissionType');
-    Route::get('/total-hour', 'totalHour');
-});
+// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+//     Route::get('/', 'index');
+//     Route::get('/today', 'today');
+//     Route::get('/type', 'permissionType');
+//     Route::get('/total-hour', 'totalHour');
+// });

@@ -4,17 +4,22 @@
 
 -   [x] Laporan mata kuliah
 -   [ ] jika ada attachment maka tampilkan pada tabel presensi
--   [ ] tampilkan tanggal jika telah izin
+-   [x] tampilkan tanggal jika telah izin
 -   [x] jika telat maka wajib isi detail (opsional attachment - ANDROID)
 -   [x] izin 1/2 hari
 -   [x] izin 1 hari
 -   [x] izin tidak masuk dengan alasan
 -   [x] izin sakit
 -   [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
--   [ ] batasai perhitungan jam kerja sampai jam 4
+-   [x] batasai perhitungan jam kerja sampai jam 4
 -   [x] berikan query permission = 1
--   [ ] pada menu civitas berikan detail struktural/posisi tiap civitas
--   [ ] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
+-   [x] pada menu civitas berikan detail struktural/posisi tiap civitas
+-   [x] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
+-   [ ] ubah user menu menjadi absensi menu dan hapus sub divisi menu
+-   [ ] ubah menu absensi kehadiran
+    -   [ ] absensi saya, input izin dan list izin
+    -   [ ] absensi sub divisi - radio button per unit, per civitas, semua absensi, list izin sub divisi
+-   [ ] fixing roles()
 
 ## List testing
 
