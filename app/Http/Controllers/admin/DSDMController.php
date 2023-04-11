@@ -26,7 +26,7 @@ class DSDMController extends Controller
 
     public function sdmPerUnit()
     {
-        return view('presence.civitas.unit.perunit')
+        return view('presence.sub.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
             ->with('units', Presence::sdmPerUnit());
@@ -34,7 +34,7 @@ class DSDMController extends Controller
 
     public function sdmPerUnitByStructure($structureId)
     {
-        return view('presence.civitas.unit.detail')
+        return view('presence.sub.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
             ->with('presences', Presence::sdmPerUnitByStructure($structureId))

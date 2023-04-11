@@ -28,9 +28,15 @@
             @endif
 
             <select class="form-select" name="filter" id="filter">
-                <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
+                <option value="" {{ request('filter') == '' ? 'selected' : '' }}>Pilih filter</option>
                 <option value="per-unit" {{ request('filter') == 'per-unit' ? 'selected' : '' }}>Per unit</option>
                 <option value="per-civitas" {{ request('filter') == 'per-civitas' ? 'selected' : '' }}>Per civitas</option>
+            </select>
+
+            <select class="form-select" name="one-level" id="one-level">
+                <option value="" {{ request('one-level') == '' ? 'selected' : '' }}>Pilih divisi</option>
+                <option value="1" {{ request('one-level') == '1' ? 'selected' : '' }}>Satu level dibawah</option>
+                <option value="all" {{ request('one-level') == 'all' ? 'selected' : '' }}>Semua level dibawah</option>
             </select>
 
             <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
@@ -40,8 +46,10 @@
             @endif
         </div>
     </form>
-
-    @if (request('filter') === 'per-unit')
+    @foreach ($presences as $presence)
+    {{ $presence->sdm_name }} - {{ $presence->roles() }}<br>
+    @endforeach
+    <!-- @if (request('filter') === 'per-unit')
     <x-table :header="['Nama Unit']">
         @foreach ($presences as $unit)
         <tr>
@@ -57,7 +65,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $presence->sdm_name }}</td>
-            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td><a href="{{ route('presence.detail', $presence->id) }}?{{ request()->getQueryString() }}">Detail</a></td>
         </tr>
@@ -69,14 +77,14 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $presence->sdm_name }}</td>
-            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
             <td>{{ $presence->effective_hours }}</td>
         </tr>
         @endforeach
-    </x-table>
+    </x-table> -->
     @endif
     <div class="mt-2 float-right">
         {{ $presences->links() }}

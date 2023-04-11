@@ -12,22 +12,16 @@
      </a>
  </li>
  <li class="nav-item">
-     <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+     <a class="nav-link" data-bs-toggle="collapse" href="#dsdmAbsensi" role="button" aria-expanded="false" aria-controls="dsdmAbsensi">
          <i class="link-icon" data-feather="mail"></i>
          <span class="link-title">Absensi Kehadiran</span>
          <i class="link-arrow" data-feather="chevron-down"></i>
      </a>
+     <div class="collapse" id="dsdmAbsensi">
+         <ul class="nav sub-menu">
+             <li class="nav-item">
+                 <a href="{{ route('presence.my-presence') }}" class="nav-link">Absensi civitas</a>
+             </li>
+         </ul>
+     </div>
  </li>
- <div class="collapse" id="emails">
-     <ul class="nav sub-menu">
-         <li class="nav-item">
-             <a href="{{ route('presence.dsdm-civitas-per-unit') }}" class="nav-link">Per Unit</a>
-         </li>
-         <li class="nav-item">
-             <a href="{{ route('presence.dsdm-civitas') }}" class="nav-link">Per Civitas</a>
-         </li>
-         <li class="nav-item">
-             <a href="{{ route('presence.dsdm-civitas-all') }}" class="nav-link">Semua absensi</a>
-         </li>
-     </ul>
- </div>

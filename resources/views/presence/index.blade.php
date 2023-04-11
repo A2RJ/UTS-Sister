@@ -1,33 +1,42 @@
 @extends('layouts.dashboard')
-
-@section('title', 'Presensi Kehadiran')
+@section('title', 'Presence')
 
 @section('content')
 <div class="container p-5 card">
     <h4 class="mb-4">List Absensi Kehadiran</h4>
-    @if (auth()->user()->isAdmin())
-    <div class="mb-3">
-        <a href="{{ route('presence.create') }}">
-            <button class="btn btn-sm btn-primary">Absensi Kehadiran</button>
-        </a>
+    <div class="mb-4">
+        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
+        <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">List izin</a>
     </div>
-    @endif
+
     <x-success-message />
     <x-error-message />
-    <x-table :header="['Nama', 'Durasi', 'Aksi']">
+
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="font-weight: bolder; color: black;">Total jam</th>
+                    <th style="font-weight: bolder; color: black;">{{ $hours->effective_hours }}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
+    <x-table :header="['Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
         @foreach ($presences as $presence)
         <tr>
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $presence->sdm_name }}</td>
-            <td>{{ $presence->hours }} Jam {{ $presence->minutes }} Menit</td>
-            <td>
-                @if (auth()->user()->isAdmin())
-                <a href="{{ route('presence.edit', $presence->id) }}" class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</a> <br>
-                @endif
-                <a href="{{ route('presence.detail', $presence->id) }}">Detail</a> <br>
-            </td>
+            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
+            <td>{{ $presence->check_in_hour }}</td>
+            <td>{{ $presence->check_out_hour }}</td>
+            <td>{{ $presence->effective_hours }}</td>
         </tr>
         @endforeach
     </x-table>
+    <div class="mt-2 float-right">
+        {{ $presences->links() }}
+    </div>
 </div>
 @endsection

@@ -11,7 +11,7 @@
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $presence->sdm_name }}</td>
-            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td><a href="{{ route('presence.detail', $presence->id) }}">Detail</a></td>
         </tr>

@@ -7,8 +7,6 @@ use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
-use App\Models\Structure;
-use App\Models\Subject;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +21,7 @@ class PresenceController extends Controller
 
     public function myPresence()
     {
-        return view('presence.civitas.index')
+        return view('presence.index')
             ->with('withDate', true)
             ->with('exportUrl', request()->getQueryString())
             ->with('presences', Presence::getAllPresences([Auth::id()]))
@@ -32,7 +30,7 @@ class PresenceController extends Controller
 
     public function subPresence()
     {
-        return view('presence.civitas.unit.detail')
+        return view('presence.sub.index')
             ->with('withDate', true)
             ->with('exportUrl', request()->getQueryString())
             ->with('presences', Presence::subPresence())

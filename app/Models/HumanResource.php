@@ -145,12 +145,22 @@ class HumanResource extends Model
 
     public function roles()
     {
-        return $this->structure
+        $structure = $this->structure;
+
+        if (!$structure) {
+            return '';
+        }
+        return $structure
             ->pluck('role')
             ->reject(function ($role) {
                 return $role === 'admin';
             })
             ->implode(', <br>');
+    }
+
+    public function testRole()
+    {
+        return "test role";
     }
 
     public static function lecturerList()
