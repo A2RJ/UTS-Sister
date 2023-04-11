@@ -20,7 +20,7 @@
      <div class="collapse" id="dsdmAbsensi">
          <ul class="nav sub-menu">
              <li class="nav-item">
-                 <a href="{{ route('presence.my-presence') }}" class="nav-link">Absensi civitas</a>
+                 <a href="{{ route('dsdm.all-sdm') }}" class="nav-link">Absensi civitas</a>
              </li>
          </ul>
      </div>

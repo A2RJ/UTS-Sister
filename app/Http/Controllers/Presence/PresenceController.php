@@ -25,7 +25,7 @@ class PresenceController extends Controller
             ->with('withDate', true)
             ->with('exportUrl', request()->getQueryString())
             ->with('presences', Presence::getAllPresences([Auth::id()]))
-            ->with('hours', Presence::getPresenceHoursUser(Auth::id()));
+            ->with('hours', Presence::getPresenceHours(Auth::id(), true));
     }
 
     public function subPresence()
@@ -34,7 +34,7 @@ class PresenceController extends Controller
             ->with('withDate', true)
             ->with('exportUrl', request()->getQueryString())
             ->with('presences', Presence::subPresence())
-            ->with('hours', Presence::subPresenceHour());
+            ->with('hours', Presence::totalPresenceHour());
     }
 
     public function create()
@@ -75,7 +75,7 @@ class PresenceController extends Controller
 
     public function destroy(Presence $presence)
     {
-        $presence->delete();
+        if (Auth::id() == $presence->sdm_id) $presence->delete();
         return redirect()->route('presence.index')->with('message', "Berhasil hapus presensi kehadiran");
     }
 }

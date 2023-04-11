@@ -7,9 +7,9 @@
     <h4 class="mb-4">List program studi</h4>
 
     <x-table :header="['Program Studi']">
-        @foreach ($study_programs as $study_program)
+        @foreach ($study_programs as $index => $study_program)
         <tr>
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $study_programs->firstItem() }}</td>
             <td>{{ $study_program->role }}</td>
         </tr>
         @endforeach

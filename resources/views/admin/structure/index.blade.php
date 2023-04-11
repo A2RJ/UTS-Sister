@@ -25,9 +25,9 @@
         </div>
     </form>
     <x-table :header="['Nama Civitas', 'Jabatan Struktural', 'Berada dibawah', 'Aksi']">
-        @foreach ($structures as $structure)
+        @foreach ($structures as $index => $structure)
         <tr class="text-capitalize">
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $structures->firstItem() }}</td>
             <td>
                 <ul>
                     @foreach ($structure->humanResource as $civitas)

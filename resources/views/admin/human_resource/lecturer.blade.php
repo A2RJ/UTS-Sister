@@ -6,9 +6,9 @@
 <div class="container p-5 card">
     <h4 class="mb-4">List Civitas</h4>
     <x-table :header="['Nama', 'Email', 'NIDN', 'NIP', 'Tipe SDM', 'Employee Status', 'Sister']">
-        @foreach ($human_resources as $human_resource)
+        @foreach ($human_resources as $index => $human_resource)
         <tr>
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $human_resources->firstItem() }}</td>
             <td>{{ $human_resource->sdm_name }}</td>
             <td>{{ $human_resource->email }}</td>
             <td>{{ $human_resource->nidn }}</td>

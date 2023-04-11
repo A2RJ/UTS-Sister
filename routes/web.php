@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DSDMController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\HumanResourceController;
@@ -263,9 +264,10 @@ Route::middleware('auth')->group(function () {
             Route::controller(PresenceController::class)->group(function () {
                 Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
                 Route::get('/sub', 'subPresence')->name('presence.sub-presence');
-                Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
+                Route::get('/per-civitas/{sdm_id}', 'perCivitas')->name('presence.per-civitas');
+                Route::get('/per-unit/{sdm_id}', 'perUnit')->name('presence.per-unit');
             });
-            Route::prefix('dsdm')->controller(PresenceController::class)->group(function () {
+            Route::prefix('dsdm')->controller(DSDMController::class)->group(function () {
                 Route::get('/', 'index')->name('dsdm.all-sdm');
             });
             Route::prefix('download')->controller(FilePresenceController::class)->group(function () {

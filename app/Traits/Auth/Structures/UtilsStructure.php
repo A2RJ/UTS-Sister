@@ -20,6 +20,7 @@ trait UtilsStructure
         $structures = self::getOwnStructure();
         return collect($structures)->pluck('id');
     }
+
     public static function isMySub($sdmId)
     {
         $sdmIds = Structure::getSdmIdOneLevelUnder();
@@ -71,9 +72,11 @@ trait UtilsStructure
 
     public static function getAllIdsLevelUnder()
     {
-        $structureIds = self::getOwnStructureIds();
-        $structureIds = self::getAllStructure($structureIds);
-        return $structureIds;
+        $structureId = collect(self::getOwnStructureIds())->toArray();
+        $structureIds = self::recursiveAll($structureId);
+        return collect($structureIds)->reject(function ($item) use ($structureId) {
+            return in_array($item, $structureId);
+        })->toArray();
     }
 
     public static function getSdmIdAllLevelUnder()

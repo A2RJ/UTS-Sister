@@ -25,9 +25,9 @@
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
     <x-table :header="['Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
-        @foreach ($presences as $presence)
+        @foreach ($presences as $index => $presence)
         <tr>
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>

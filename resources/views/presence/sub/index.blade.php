@@ -36,7 +36,6 @@
             <select class="form-select" name="one-level" id="one-level">
                 <option value="" {{ request('one-level') == '' ? 'selected' : '' }}>Pilih divisi</option>
                 <option value="1" {{ request('one-level') == '1' ? 'selected' : '' }}>Satu level dibawah</option>
-                <option value="all" {{ request('one-level') == 'all' ? 'selected' : '' }}>Semua level dibawah</option>
             </select>
 
             <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
@@ -46,37 +45,37 @@
             @endif
         </div>
     </form>
-    @foreach ($presences as $presence)
-    {{ $presence->sdm_name }} - {{ $presence->roles() }}<br>
-    @endforeach
-    <!-- @if (request('filter') === 'per-unit')
+
+    @if (request('filter') === 'per-unit')
     <x-table :header="['Nama Unit']">
-        @foreach ($presences as $unit)
+        @foreach ($presences as $index => $unit)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $unit->role }}</td>
-            <td><a href="{{ route('presence.detail', $unit->id) }}">Detail</a></td>
+            <td><a href="{{ route('presence.per-unit', $unit->id) }}">Detail</a></td>
         </tr>
         @endforeach
     </x-table>
     @elseif (request('filter') === 'per-civitas')
-    <x-table :header="['Nama', 'Jabatan', 'Jam Efektif', 'Detail']">
-        @foreach ($presences as $presence)
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Jam Efektif', 'Detail']">
+        @foreach ($presences as $index => $presence)
         <tr>
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
+            <td>{{ $presence->nidn }}</td>
             <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->effective_hours }}</td>
-            <td><a href="{{ route('presence.detail', $presence->id) }}?{{ request()->getQueryString() }}">Detail</a></td>
+            <td><a href="{{ route('presence.per-civitas', $presence->sdm_id) }}?{{ request()->getQueryString() }}">Detail</a></td>
         </tr>
         @endforeach
     </x-table>
     @else
-    <x-table :header="['Nama', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
-        @foreach ($presences as $presence)
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
+        @foreach ($presences as $index => $presence)
         <tr>
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
+            <td>{{ $presence->nidn }}</td>
             <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
@@ -84,7 +83,7 @@
             <td>{{ $presence->effective_hours }}</td>
         </tr>
         @endforeach
-    </x-table> -->
+    </x-table>
     @endif
     <div class="mt-2 float-right">
         {{ $presences->links() }}

@@ -13,7 +13,7 @@
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->roles() }}</td>
             <td>{{ $presence->effective_hours }}</td>
-            <td><a href="{{ route('presence.detail', $presence->id) }}">Detail</a></td>
+            <td><a href="{{ route('presence.per-civitas', $presence->id) }}">Detail</a></td>
         </tr>
         @endforeach
     </x-table>
