@@ -7,6 +7,7 @@ use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
+use App\Models\Structure;
 use App\Traits\Utils\CustomPaginate;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class PresenceController extends Controller
     {
         return view('presence.index')
             ->with('withDate', true)
-            ->with('exportUrl', request()->getQueryString())
+            ->with('exportUrl', route('download.my-presence', request()->getQueryString()))
             ->with('presences', Presence::getAllPresences([Auth::id()]))
             ->with('hours', Presence::getPresenceHours(Auth::id(), true));
     }
@@ -32,9 +33,28 @@ class PresenceController extends Controller
     {
         return view('presence.sub.index')
             ->with('withDate', true)
-            ->with('exportUrl', request()->getQueryString())
+            ->with('exportUrl', route('download.sub-presence', request()->getQueryString()))
             ->with('presences', Presence::subPresence())
             ->with('hours', Presence::totalPresenceHour());
+    }
+
+    public function perCivitas($sdm_id)
+    {
+        return view('presence.index')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.per-civitas-presence', ['sdm_id' => $sdm_id], request()->getQueryString()))
+            ->with('presences', Presence::getAllPresences([$sdm_id]))
+            ->with('hours', Presence::getPresenceHours($sdm_id, true));
+    }
+
+    public function perUnit($structureId)
+    {
+        $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
+        return view('presence.sub.perUnit.index')
+            ->with('withDate', true)
+            ->with('exportUrl', route('download.per-unit-presence', ['structureId' => $structureId], request()->getQueryString()))
+            ->with('presences', Presence::getAllPresences($sdmIds))
+            ->with('hours', Presence::getPresenceHours($sdmIds, true));
     }
 
     public function create()

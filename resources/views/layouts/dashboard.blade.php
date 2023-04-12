@@ -77,12 +77,6 @@
                     @if (auth()->user()->isRektor())
                     @endif
 
-                    <!-- @if (auth()->user()->isAdmin())
-                    @include('partials.admin.sidebar') -->
-                    <!-- <li class="nav-item nav-category">SDM Menu</li>
-                    <x-sidebar-menu></x-sidebar-menu> -->
-                    <!-- @endif -->
-
                     @if (auth()->user()->isLecturer())
                     @include('partials.lecturer.sidebar')
                     @endif

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class Presence extends Model
 {
@@ -195,7 +196,7 @@ class Presence extends Model
         }
     }
 
-    public static function perUnit($structureId = false)
+    public static function perUnit($structureId = false, $paginate = true)
     {
         $search = request('search');
         $result = Structure::whereNot('role', 'admin')
@@ -204,14 +205,14 @@ class Presence extends Model
             })
             ->when($search, function ($query) use ($search) {
                 return $query->where('role', 'LIKE', "%$search%");
-            })
-            ->paginate()
-            ->appends(request()->except('page'));
+            });
 
-        return $result;
+        if (!$paginate) return $result->get();
+        return $result->paginate()
+            ->appends(request()->except('page'));
     }
 
-    public static function perCivitas($sdmIds = false)
+    public static function perCivitas($sdmIds = false, $paginate = true)
     {
         $end = request('end');
         $start = request('start');
@@ -219,7 +220,7 @@ class Presence extends Model
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
-        $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+        $result = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->select(
                 'human_resources.sdm_name',
                 'human_resources.id',
@@ -245,11 +246,12 @@ class Presence extends Model
                 'human_resources.nidn',
             );
 
-        return $query->paginate()
+        if (!$paginate) return $result->get();
+        return $result->paginate()
             ->appends(request()->except('page'));
     }
 
-    public static function getAllPresences($sdmIds = false)
+    public static function getAllPresences($sdmIds = false, $paginate = true)
     {
         $search = request('search');
         $start = request('start');
@@ -258,7 +260,7 @@ class Presence extends Model
         $isSearchROle = Str::contains($search, ':');
         $role = $isSearchROle ? str_replace(':', '', $search) : '';
 
-        $query = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+        $result = HumanResource::join('presences', 'human_resources.id', '=', 'presences.sdm_id')
             ->select(
                 'human_resources.id',
                 'human_resources.sdm_name',
@@ -285,11 +287,12 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_name',
                 'human_resources.nidn',
-                'check_in_time',
-                'check_out_time'
+                'presences.check_in_time',
+                'presences.check_out_time'
             );
 
-        return $query->paginate()
+        if (!$paginate) return $result->get();
+        return $result->paginate()
             ->appends(request()->except('page'));
     }
 

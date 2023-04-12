@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Utils\File\Exel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -156,11 +157,6 @@ class HumanResource extends Model
                 return $role === 'admin';
             })
             ->implode(', <br>');
-    }
-
-    public function testRole()
-    {
-        return "test role";
     }
 
     public static function lecturerList()

@@ -271,6 +271,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', 'index')->name('dsdm.all-sdm');
             });
             Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
+                Route::get('/my', 'myPresence')->name('download.my-presence');
+                Route::get('/sub', 'subPresence')->name('download.sub-presence');
+                Route::get('/dsdm', 'dsdmPresence')->name('download.dsdm-presence');
+                Route::get('/per-unit/{structureId}', 'unit')->name('download.per-unit-presence');
+                Route::get('/per-civitas/{sdm_id}', 'civitas')->name('download.per-civitas-presence');
             });
             Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
                 Route::get('/', 'form')->name('presence.absen');
