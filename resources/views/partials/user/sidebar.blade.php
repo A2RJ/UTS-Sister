@@ -1,11 +1,11 @@
 <li class="nav-item nav-category">Absensi Menu</li>
 <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-        <i class="link-icon" data-feather="mail"></i>
+    <a class="nav-link" data-bs-toggle="collapse" href="#userMenu" role="button" aria-expanded="false" aria-controls="userMenu">
+        <i class="link-icon" data-feather="list"></i>
         <span class="link-title">Absensi Kehadiran</span>
         <i class="link-arrow" data-feather="chevron-down"></i>
     </a>
-    <div class="collapse" id="emails">
+    <div class="collapse" id="userMenu">
         <ul class="nav sub-menu">
             <li class="nav-item">
                 <a href="{{ route('presence.my-presence') }}" class="nav-link">Absensi saya</a>

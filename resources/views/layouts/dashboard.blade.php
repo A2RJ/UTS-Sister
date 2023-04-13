@@ -65,7 +65,7 @@
                     <li class="nav-item nav-category">Main menu</li>
                     <li class="nav-item">
                         <a href="{{ route('presence.index') }}" class="nav-link">
-                            <i class="link-icon" data-feather="box"></i>
+                            <i class="link-icon" data-feather="home"></i>
                             <span class="link-title">Dashboard</span>
                         </a>
                     </li>
@@ -105,14 +105,14 @@
                     <li class="nav-item nav-category">Auth</li>
                     <li class="nav-item">
                         <a href="{{ route('auth.change-password') }}" class="nav-link">
-                            <i class="link-icon" data-feather="message-square"></i>
+                            <i class="link-icon" data-feather="settings"></i>
                             <span class="link-title">Ubah password</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            <i class="link-icon" data-feather="message-square"></i>
+                            <i class="link-icon" data-feather="log-out"></i>
                             <span class="link-title">{{ __('Logout') }}</span>
                         </a>
 
