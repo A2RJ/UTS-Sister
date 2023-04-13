@@ -6,8 +6,8 @@
     <h4 class="mb-4">List Absensi Kehadiran</h4>
     @if (Route::currentRouteName() == 'presence.my-presence')
     <div class="mb-4">
-        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
-        <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">List izin</a>
+        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Tambah izin</a>
+        <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">Daftar izin</a>
     </div>
     @endif
 

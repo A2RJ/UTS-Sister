@@ -50,8 +50,9 @@
 <body>
     <div class="main-wrapper">
         <nav class="sidebar">
-            <div class="sidebar-header">
-                <a href="#" class="sidebar-brand">
+            <div class="sidebar-header" style="height: 100px;">
+                <a href="#" class="sidebar-brand mx-auto">
+                    <img src="{{ asset('/presensi.png') }}" width="50" height="50" class="rounded mx-auto d-block" />
                     {{ env('APP_BRAND1') }}<span>{{ env('APP_BRAND2') }}</span>
                 </a>
                 <div class="sidebar-toggler not-active">

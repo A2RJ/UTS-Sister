@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">List izin kehadiran</h4>
+    <h4 class="mb-4">Daftar izin kehadiran</h4>
 
     <x-success-message />
     <x-error-message />
