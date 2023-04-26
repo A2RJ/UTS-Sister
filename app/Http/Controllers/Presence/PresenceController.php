@@ -50,10 +50,20 @@ class PresenceController extends Controller
     public function perUnit($structureId)
     {
         $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
+        $filter = request('filter');
+
+        if ($filter === 'per-unit') {
+            $structureUnder = array_values(Structure::getAllIdsLevelUnder([$structureId]));
+            $presences = Presence::perUnit($structureUnder);
+        } elseif ($filter === 'per-civitas') {
+            $presences = Presence::perCivitas($sdmIds);
+        } else {
+            $presences = Presence::getAllPresences($sdmIds);
+        }
         return view('presence.sub.perUnit.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.per-unit-presence', ['structureId' => $structureId], request()->getQueryString()))
-            ->with('presences', Presence::getAllPresences($sdmIds))
+            ->with('presences', $presences)
             ->with('hours', Presence::getPresenceHours($sdmIds, true));
     }
 

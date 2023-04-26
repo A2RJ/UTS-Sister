@@ -36,8 +36,19 @@ class FilePresenceController extends Controller
     {
         try {
             $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
-            $result = Presence::getAllPresences($sdmIds, false);
-            return $this->allPresences($result);
+            $filter = request('filter');
+
+            if ($filter === 'per-unit') {
+                $structureUnder = array_values(Structure::getAllIdsLevelUnder([$structureId]));
+                $result = Presence::perUnit($structureUnder, false);
+                return $this->perUnit($result);
+            } elseif ($filter === 'per-civitas') {
+                $result = Presence::perCivitas($sdmIds, false);
+                return $this->perCivitas($result);
+            } else {
+                $result = Presence::getAllPresences($sdmIds, false);
+                return $this->allPresences($result);
+            }
         } catch (Exception $e) {
             return $this->responseError($e);
         }

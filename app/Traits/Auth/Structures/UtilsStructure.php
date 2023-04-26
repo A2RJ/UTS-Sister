@@ -70,9 +70,9 @@ trait UtilsStructure
             ->get();
     }
 
-    public static function getAllIdsLevelUnder()
+    public static function getAllIdsLevelUnder($structureId = false)
     {
-        $structureId = collect(self::getOwnStructureIds())->toArray();
+        if (!$structureId) $structureId = collect(self::getOwnStructureIds())->toArray();
         $structureIds = self::recursiveAll($structureId);
         return collect($structureIds)->reject(function ($item) use ($structureId) {
             return in_array($item, $structureId);

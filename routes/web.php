@@ -265,7 +265,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
                 Route::get('/sub', 'subPresence')->name('presence.sub-presence');
                 Route::get('/per-civitas/{sdm_id}', 'perCivitas')->name('presence.per-civitas');
-                Route::get('/per-unit/{sdm_id}', 'perUnit')->name('presence.per-unit');
+                Route::get('/per-unit/{structureId}', 'perUnit')->name('presence.per-unit');
             });
             Route::prefix('dsdm')->controller(DSDMController::class)->group(function () {
                 Route::get('/', 'index')->name('dsdm.all-sdm');
