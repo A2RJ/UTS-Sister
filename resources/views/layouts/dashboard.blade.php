@@ -26,25 +26,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- End fonts -->
 
-    @vite('resources/js/app.js')
+    @vite(['resources/js/app.js'])
     @livewireStyles
-    <!-- core:css -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.css') }}">
-    <!-- endinject -->
-
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-    <!-- End plugin css for this page -->
-
-    <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/fonts/feather-font/css/iconfont.css') }}">
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
-    <!-- endinject -->
-
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/css/demo1/style.css') }}">
-    <!-- End layout styles -->
-
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
 </head>
 
@@ -142,23 +127,10 @@
         </div>
     </div>
     @livewireScripts
-    <!-- core:js -->
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.js') }}"></script>
-    <!-- endinject -->
-
-    <!-- Plugin js for this page -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
     @yield('plugin_js')
-    <!-- End plugin js for this page -->
-
-    <!-- inject:js -->
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/js/template.') }}js"></script>
-    <!-- endinject -->
-
-    <!-- Custom js -->
     @yield('custom_js')
-    <!-- End custom js for this page -->
-
 </body>
 
 
