@@ -1,9 +1,13 @@
 <?php
 
-use Carbon\Carbon;
+namespace App\Helpers;
 
-if (!function_exists('format_tgl_id')) {
-    function format_tgl_id($date)
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+class DateHelper
+{
+    public static function format_tgl_id($date)
     {
         return Carbon::parse($date)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
     }

@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Wr3\LecturerDetail;
+use App\Models\Wr3\OffCampusActivity;
+use App\Models\Wr3\ResearchProposal;
 use App\Traits\Auth\User\RoleStructure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -97,5 +100,20 @@ class User extends Authenticatable
             return $sub[$field] !== $roleOrType;
         });
         return $sub;
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(LecturerDetail::class, 'sdm_id');
+    }
+
+    public function researchProposal()
+    {
+        return $this->hasMany(ResearchProposal::class, 'sdm_id');
+    }
+
+    public function offCampusActivity()
+    {
+        return $this->hasMany(OffCampusActivity::class, 'sdm_id');
     }
 }

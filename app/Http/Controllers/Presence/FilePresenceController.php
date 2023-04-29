@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Presence;
 use App\Models\Structure;
@@ -141,7 +142,7 @@ class FilePresenceController extends Controller
                     'Nama' => $item->sdm_name,
                     'NIDN' => $item->nidn,
                     'Jabatan' => $item->roles(),
-                    'Tanggal' => format_tgl_id($item->check_in_date),
+                    'Tanggal' => DateHelper::format_tgl_id($item->check_in_date),
                     'Jam Masuk' => $item->check_in_hour,
                     'Jam Pulang' => $item->check_out_hour,
                     'Jam Efektif' => $item->effective_hours

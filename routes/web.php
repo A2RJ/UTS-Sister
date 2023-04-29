@@ -31,6 +31,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Livewire\WR3\Rinov\RisetForm;
 
 /*
 |--------------------------------------------------------------------------
@@ -312,3 +313,5 @@ Route::middleware('auth')->group(function () {
 //     Route::get('/type', 'permissionType');
 //     Route::get('/total-hour', 'totalHour');
 // });
+
+// Route::get('riset-form', RisetForm::class);

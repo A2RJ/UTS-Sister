@@ -26,6 +26,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- End fonts -->
 
+    @vite('resources/js/app.js')
+    @livewireStyles
     <!-- core:css -->
     <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.css') }}">
     <!-- endinject -->
@@ -44,7 +46,6 @@
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
-    @vite('resources/js/app.js')
 </head>
 
 <body>
@@ -140,7 +141,7 @@
             </footer>
         </div>
     </div>
-
+    @livewireScripts
     <!-- core:js -->
     <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->

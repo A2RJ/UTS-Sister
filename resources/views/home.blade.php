@@ -2,7 +2,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -19,6 +18,8 @@
                     <h5 class="mb-3">Nama: {{ Auth::user()->sdm_name }}</h5>
                     <small>Sister ID: {{ session('id_sdm') }}</small>
                     <x-role-dashboard />
+                    <livewire:off-campus-activity-form />
+                    <!-- <livewire:research-proposal-form /> -->
                 </div>
             </div>
         </div>

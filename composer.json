@@ -17,6 +17,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.1",
+        "livewire/livewire": "^2.12",
         "novay/laravel-word-template": "^1.1",
         "orangehill/iseed": "^3.0",
         "phpoffice/phpword": "^1.0",
@@ -41,7 +42,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helper/helpers.php"
+            "app/Helpers/DateHelper.php",
+            "app/Helpers/FileHelper.php"
         ]
     },
     "autoload-dev": {
