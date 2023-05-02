@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Presence\PermissionRequest;
 use App\Http\Requests\Presence\StorePresenceRequestAPI;
 use App\Http\Requests\Presence\UpdatePresenceRequestAPI;
-use App\Models\HumanResource;
 use App\Models\Presence;
 use App\Models\StructuralPosition;
 use App\Models\Structure;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PresenceAPIController extends Controller
 {
@@ -73,9 +73,7 @@ class PresenceAPIController extends Controller
                     'detail' => 'required',
                     'attachment' => 'required|mimes:xls,xlsx,doc,docx,pdf,jpeg,jpg,png|max:4096',
                 ]);
-                $file = $request->file('attachment');
-                $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
-                if (!$file->storeAs('presense/attachments', $filename)) throw new Exception("Gagal menyimpan file.", 422);
+                $filename = FileHelper::upload($request, 'attachment', 'attachments');
                 $presence->attachment()->create([
                     'detail' => $request->detail,
                     'attachment' => $filename

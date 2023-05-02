@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Wr3\OffCampusActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,11 +24,18 @@ class OffCampusActivityForm extends Component
             'Universitas',
             'Instansi Tempat Kerjasama',
             'Kerjasama',
-        ];
+        ],
+        $isFormHide = true;
 
     public function render()
     {
-        return view('livewire.off-campus-activity-form');
+        return view('livewire.off-campus-activity-form')
+            ->with('offCampusActivities', OffCampusActivity::where('sdm_id', Auth::id())->paginate());
+    }
+
+    public function formToggle()
+    {
+        $this->isFormHide = !$this->isFormHide;
     }
 
     public function addStudent()
@@ -65,10 +74,10 @@ class OffCampusActivityForm extends Component
             ];
         })->toJson();
         $validated['students'] = $students;
-        $validated['performance_certificate'] = $this->performance_certificate->store('performance_certificate', 'public');
+        $validated['performance_certificate'] = $this->performance_certificate->store('riset');
 
         $request->user()->offCampusActivity()->create($validated);
-
+        $this->isFormHide = true;
         session()->flash('success', 'Data aktivitas di luar kampus berhasil disimpan!');
     }
 }

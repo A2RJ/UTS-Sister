@@ -31,7 +31,10 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Wr3\RinovController;
+use App\Http\Livewire\LecturerDetailForm;
 use App\Http\Livewire\WR3\Rinov\RisetForm;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +84,7 @@ Route::prefix('auth')->controller(SocialiteController::class)->group(function ()
 Route::prefix('download')->controller(DownloadController::class)->group(function () {
     Route::get('presense/{filename}', 'presense')->name('download.presense');
     Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
+    Route::get('riset/{filename}', 'riset')->name('download.riset');
 });
 
 Route::middleware("auth")->group(function () {
@@ -280,7 +284,7 @@ Route::middleware('auth')->group(function () {
             });
             Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
                 Route::get('/', 'form')->name('presence.absen');
-                Route::get('/my-absen', 'myPermission')->name('presence.my-absen');
+                Route::get('/my-presence-permission', 'myPermission')->name('permission.my-presence');
                 Route::get('/sub', 'subPermission')->name('presence.sub.permission');
                 Route::post('/', 'permission')->name('presence.permission');
                 Route::post('/{presence}', 'confirm')->name('presence.confirm');
@@ -304,6 +308,16 @@ Route::middleware('auth')->group(function () {
         });
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/semester", SemesterController::class)->except('show');
+    });
+
+    Route::prefix('warek-iii')->group(function () {
+        Route::controller(RinovController::class)->group(function () {
+            Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
+            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
+            Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
+            Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
+            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
+        });
     });
 });
 

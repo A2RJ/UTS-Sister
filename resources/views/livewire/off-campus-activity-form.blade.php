@@ -1,12 +1,54 @@
-<div class="container mt-5">
+<div class="container">
     @if(session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
     </div>
     @endif
 
+    @if ($isFormHide == 'false')
+    <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Tambah kegiatan</button>
+    @else
+    <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Batal</button>
+    @endif
+
+    @if ($isFormHide == 'false')
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Judul</th>
+                    <th>Lokasi</th>
+                    <th>SK</th>
+                    <th>Sumber dana</th>
+                    <th>Total dana</th>
+                    <th>Tanggal pelaksanaan</th>
+                    <th>Jumlah mahasiswa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($offCampusActivities as $index => $offCampusActivity)
+                <tr>
+                    <td>{{ $index + $offCampusActivities->firstItem() }}</td>
+                    <td>{{ $offCampusActivity->humanResource->sdm_name }}</td>
+                    <td>{{ $offCampusActivity->title }}</td>
+                    <td>{{ $offCampusActivity->location }}</td>
+                    <td>
+                        <a href="{{ route('download.riset', ['filename' => base64_encode($offCampusActivity->performance_certificate)]) }}">File</a>
+                    </td>
+                    <td>{{ $offCampusActivity->budget_source }}</td>
+                    <td>{{ $offCampusActivity->funding_amount }}</td>
+                    <td>{{ $offCampusActivity->execution_date }}</td>
+                    <td>{{ $offCampusActivity->number_of_students }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @else
     <form wire:submit.prevent="submit">
-        <h3 class="mb-3 mt-4">Informasi kegiatan di luar kampus (sesuai IKU)</h3>
+        <h3 class="mb-3">Informasi kegiatan di luar kampus (sesuai IKU)</h3>
         <div class=" form-group mb-3">
             <label for="title">Nama Kegiatan:</label>
             <input type="text" id="title" wire:model="title" class="form-control">
@@ -82,4 +124,5 @@
             <button type="submit" class="btn btn-primary mt-3 float-end">Submit data</button>
         </div>
     </form>
+    @endif
 </div>

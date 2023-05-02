@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Presence\PermissionRequest;
 use App\Models\Presence;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PresencePermissionController extends Controller
 {
@@ -117,10 +119,7 @@ class PresencePermissionController extends Controller
             }
 
             $request->only(['detail', 'attachment']);
-            $file = $request->file('attachment');
-            $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
-            $file->move(public_path('/presense/attachments'), $filename);
-            if (!File::exists(public_path('/presense/attachments/' . $filename))) throw new Exception('Gagal menyimpan file');
+            $filename = FileHelper::upload($request, 'attachment', 'attachments');
 
             if ($presence->attachment && $presence->attachment->detail)  $detail = $presence->attachment->detail . ", " . Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;
             else $detail = Presence::$jenisIzin[$request->jenis_izin - 1] . " - " . $request->detail;

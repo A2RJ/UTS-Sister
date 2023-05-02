@@ -1,12 +1,82 @@
-<div class="container mt-5">
+<div class="container">
     @if(session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
     </div>
     @endif
 
+    @if ($isFormHide == 'false')
+    <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Tambah proposal</button>
+    @else
+    <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Batal</button>
+    @endif
+
+    @if ($isFormHide == 'false')
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>SDM Name</th>
+                    <th>Proposal Title</th>
+                    <th>Grant Scheme</th>
+                    <th>Target Outcomes</th>
+                    <th>Proposal File</th>
+                    <th>Application Status</th>
+                    <th>Contract Period</th>
+                    <th>Funding Amount</th>
+                    <th>Verification</th>
+                    <th>Assignment Letter Link</th>
+                    <th>Publication Title</th>
+                    <th>Author Status</th>
+                    <th>Journal Name</th>
+                    <th>Publication Year</th>
+                    <th>Volume Number</th>
+                    <th>Publication Date Year</th>
+                    <th>Publisher</th>
+                    <th>Journal Accreditation Status</th>
+                    <th>Journal Publication Link</th>
+                    <th>Journal PDF File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($researches as $index => $research)
+                <tr>
+                    <td>{{ $index + $researches->firstItem() }}</td>
+                    <td>{{ $research->humanResource->sdm_name }}</td>
+                    <td>{{ $research->proposal_title }}</td>
+                    <td>{{ $research->grant_scheme }}</td>
+                    <td>{{ $research->target_outcomes }}</td>
+                    <td>
+                        <a href="{{ route('download.riset', ['filename' => base64_encode($research->proposal_file)]) }}">File</a>
+                    </td>
+                    <td>{{ $research->application_status }}</td>
+                    <td>{{ $research->contract_period }}</td>
+                    <td>{{ $research->funding_amount }}</td>
+                    <td>{{ $research->verification }}</td>
+                    <td>{{ $research->assignment_letter_link }}</td>
+                    <td>{{ $research->publication_title }}</td>
+                    <td>{{ $research->author_status }}</td>
+                    <td>{{ $research->journal_name }}</td>
+                    <td>{{ $research->publication_year }}</td>
+                    <td>{{ $research->volume_number }}</td>
+                    <td>{{ $research->publication_date_year }}</td>
+                    <td>{{ $research->publisher }}</td>
+                    <td>{{ $research->journal_accreditation_status }}</td>
+                    <td>
+                        <a href="{{ $research->journal_publication_link }}">Link</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('download.riset', ['filename' => base64_encode($research->journal_pdf_file)]) }}">File</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @else
     <form wire:submit.prevent="submit">
-        <h3 class="mb-3 mt-4">Informasi Proposal</h3>
+        <h3 class="mb-3">Informasi Proposal</h3>
         <div class="form-group mb-2">
             <label for="proposal_title">Judul Proposal:</label>
             <input type="text" id="proposal_title" wire:model="proposal_title" class="form-control">
@@ -136,4 +206,5 @@
             <button type="submit" class="btn btn-primary mt-3 float-end">Submit data</button>
         </div>
     </form>
+    @endif
 </div>

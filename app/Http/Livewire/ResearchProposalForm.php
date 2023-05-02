@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Http\Requests\Wr3\ResearchProposalRequest;
+use App\Models\Wr3\ResearchProposal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -32,20 +34,28 @@ class ResearchProposalForm extends Component
         $journal_pdf_file,
         $statuses = ['Sedang dalam ajuan', 'Lolos pendanaan'],
         $author_statuses = [1, 2, 3, 'correspondence author'],
-        $journal_accreditation_statuses = ['International', 'Nationally accredited, Internal'];
+        $journal_accreditation_statuses = ['International', 'Nationally accredited', 'Internal'],
+        $isFormHide = true;
 
     public function render()
     {
-        return view('livewire.research-proposal-form');
+        return view('livewire.research-proposal-form')
+            ->with('researches', ResearchProposal::where('sdm_id', Auth::id())->paginate());
+    }
+
+    public function formToggle()
+    {
+        $this->isFormHide = !$this->isFormHide;
     }
 
     public function submit()
     {
         $validated = $this->validate((new ResearchProposalRequest())->rules());
-        $validated['proposal_file'] = $this->proposal_file->store('proposal', 'public');
-        $validated['journal_pdf_file'] = $this->journal_pdf_file->store('proposal', 'public');
+        $validated['proposal_file'] = $this->proposal_file->store('riset');
+        $validated['journal_pdf_file'] = $this->journal_pdf_file->store('riset');
 
         request()->user()->researchProposal()->create($validated);
+        $this->isFormHide = true;
         session()->flash('success', 'Data research proposal berhasil disimpan!');
     }
 }

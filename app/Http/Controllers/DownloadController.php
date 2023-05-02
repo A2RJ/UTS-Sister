@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DownloadController extends Controller
 {
     public function presense($filename)
     {
-        $file_path = public_path('presense/attachments/' . $filename);
+        $file_path = 'attachments/' . $filename;
 
-        if (file_exists($file_path)) {
-            return response()->download($file_path);
+        if (Storage::disk('local')->exists($file_path)) {
+            return Storage::download($file_path);
         } else {
             abort(404);
         }
@@ -19,12 +20,23 @@ class DownloadController extends Controller
 
     public function meeting($filename)
     {
-        $file_path = public_path('presense/meetings/' . $filename);
+        $file_path = 'meetings/' . $filename;
 
-        if (file_exists($file_path)) {
-            return response()->download($file_path);
+        if (Storage::disk('local')->exists($file_path)) {
+            return Storage::download($file_path);
         } else {
             abort(404);
+        }
+    }
+
+    public function riset($filename)
+    {
+        $file_path = base64_decode($filename);
+
+        if (Storage::disk('local')->exists($file_path)) {
+            return Storage::download($file_path);
+        } else {
+            abort(404, "File Riset not found");
         }
     }
 }

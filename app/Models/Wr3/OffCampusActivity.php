@@ -2,6 +2,7 @@
 
 namespace App\Models\Wr3;
 
+use App\Models\HumanResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +24,6 @@ class OffCampusActivity extends Model
 
     public function humanResource()
     {
-        return $this->belongsTo(HumanResource::class);
+        return $this->belongsTo(HumanResource::class, 'sdm_id');
     }
 }

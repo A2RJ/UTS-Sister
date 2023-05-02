@@ -41,8 +41,9 @@ class LecturerDetailForm extends Component
 
     public function render()
     {
+        $user = request()->user();
         return view('livewire.lecturer-detail-form')
-            ->with('user', request()->user())
+            ->with('user', $user)
             ->with('faculties', Faculty::all())
             ->with('study_programs', $this->faculty ? StudyProgram::where('faculty_id', $this->faculty)->get() : []);
     }
@@ -58,7 +59,7 @@ class LecturerDetailForm extends Component
 
     public function submit()
     {
-        $validated = $this->validated((new LecturerDetailRequest())->rules());
+        $validated = $this->validate((new LecturerDetailRequest())->rules());
         request()->user()->detail()->updateOrCreate(
             ['sdm_id' => request()->user()->id],
             [

@@ -2,8 +2,13 @@
 
 namespace App\Models\Wr3;
 
+use App\Models\HumanResource;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class ResearchProposal extends Model
 {
@@ -32,8 +37,15 @@ class ResearchProposal extends Model
         'journal_pdf_file'
     ];
 
-    public function humanResource()
+    public function humanResource(): BelongsTo
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
+    }
+
+    public function verification(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => $value ? 'Terverifikasi' : 'Tidak terverifikasi'
+        );
     }
 }
