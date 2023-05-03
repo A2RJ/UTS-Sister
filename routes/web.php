@@ -309,14 +309,22 @@ Route::middleware('auth')->group(function () {
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/semester", SemesterController::class)->except('show');
     });
+});
 
+Route::middleware('auth')->group(function () {
     Route::prefix('warek-iii')->group(function () {
         Route::controller(RinovController::class)->group(function () {
             Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
             Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
             Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
             Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
+            Route::delete('/proposal-dosen/{proposal}', 'destroyProposal')->name('rinov.proposal.destroy');
             Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
+            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
+            Route::prefix('download')->group(function () {
+                Route::get('/proposal', 'downloadProposal')->name('download.proposal');
+                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
+            });
         });
     });
 });

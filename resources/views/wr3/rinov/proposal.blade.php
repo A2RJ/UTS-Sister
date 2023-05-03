@@ -9,6 +9,15 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
+                    <form method="GET" action="{{ url()->current() }}" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="Search...">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            <a class="btn btn-outline-secondary" href="{{ url()->current(false, false) }}">Cancel</a>
+                            <button class="btn btn-outline-primary">Export</button>
+                        </div>
+                    </form>
+
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -70,6 +79,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $researches->links() }}
                     </div>
                 </div>
             </div>

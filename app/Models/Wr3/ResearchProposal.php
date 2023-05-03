@@ -3,16 +3,16 @@
 namespace App\Models\Wr3;
 
 use App\Models\HumanResource;
+use App\Traits\Model\UtilsFunction;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class ResearchProposal extends Model
 {
-    use HasFactory;
+    use HasFactory, UtilsFunction;
 
     protected $fillable = [
         'sdm_id',

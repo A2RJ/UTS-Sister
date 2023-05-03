@@ -4,6 +4,11 @@
         {{ session()->get('success') }}
     </div>
     @endif
+    @if(session()->has('fail'))
+    <div class="alert alert-danger">
+        {{ session()->get('fail') }}
+    </div>
+    @endif
 
     @if ($isFormHide == 'false')
     <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Tambah proposal</button>
@@ -37,6 +42,7 @@
                     <th>Journal Accreditation Status</th>
                     <th>Journal Publication Link</th>
                     <th>Journal PDF File</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,13 +75,21 @@
                     <td>
                         <a href="{{ route('download.riset', ['filename' => base64_encode($research->journal_pdf_file)]) }}">File</a>
                     </td>
+                    <td>
+                        <button class="btn btn-outline-primary mb-2" wire:click="formToggle({{ $research->id }})">Edit</button>
+                        <form action="{{ route('rinov.proposal.destroy', $research->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus item ini?')">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     @else
-    <form wire:submit.prevent="submit">
+    <form wire:submit.prevent="{{ $updateId ? 'update' : 'submit' }}">
         <h3 class="mb-3">Informasi Proposal</h3>
         <div class="form-group mb-2">
             <label for="proposal_title">Judul Proposal:</label>

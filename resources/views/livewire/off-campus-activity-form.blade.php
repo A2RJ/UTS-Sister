@@ -4,6 +4,11 @@
         {{ session()->get('success') }}
     </div>
     @endif
+    @if(session()->has('fail'))
+    <div class="alert alert-danger">
+        {{ session()->get('fail') }}
+    </div>
+    @endif
 
     @if ($isFormHide == 'false')
     <button class="btn btn-primary mb-3" wire:click="formToggle" wire:model="isFormHide">Tambah kegiatan</button>
@@ -25,6 +30,7 @@
                     <th>Total dana</th>
                     <th>Tanggal pelaksanaan</th>
                     <th>Jumlah mahasiswa</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,13 +47,21 @@
                     <td>{{ $offCampusActivity->funding_amount }}</td>
                     <td>{{ $offCampusActivity->execution_date }}</td>
                     <td>{{ $offCampusActivity->number_of_students }}</td>
+                    <td>
+                        <button class="btn btn-outline-primary mb-2" wire:click="formToggle({{ $offCampusActivity->id }})">Edit</button>
+                        <form action="{{ route('rinov.kegiatan-luar-kampus.destroy', $offCampusActivity->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus item ini?')">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     @else
-    <form wire:submit.prevent="submit">
+    <form wire:submit.prevent="{{ $updateId ? 'update' : 'submit' }}">
         <h3 class="mb-3">Informasi kegiatan di luar kampus (sesuai IKU)</h3>
         <div class=" form-group mb-3">
             <label for="title">Nama Kegiatan:</label>
