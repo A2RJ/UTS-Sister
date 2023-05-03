@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Link;
 use App\Models\Meeting;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -102,7 +103,18 @@ class Controller extends BaseController
     }
     public function responseError(Exception $exception, $statusCode = 500)
     {
-        return response()->json(['error' => $exception->getMessage()], $exception->getCode() ?: $statusCode);
+        if ($exception instanceof QueryException) {
+            $errorCode = $exception->errorInfo[1];
+            if ($errorCode == 1062) { // Duplicate entry error
+                return response()->json(['error' => 'Duplicate entry. ' . $exception->getMessage()], 422);
+            } else if ($errorCode == 1452) { // Foreign key constraint error
+                return response()->json(['error' => 'Foreign key constraint. ' . $exception->getMessage()], 422);
+            } else {
+                return response()->json(['error' => 'Database error. ' . $exception->getMessage()], 500);
+            }
+        } else {
+            return response()->json(['error' => $exception->getMessage()], $exception->getCode() ?: $statusCode);
+        }
     }
 
     public function responseMesData($message, $data, $statusCode = 200)
