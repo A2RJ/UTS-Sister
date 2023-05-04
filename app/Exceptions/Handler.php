@@ -58,10 +58,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof UnauthorizedException) {
-            return response()->json([
-                'message' => 'You do not have the required authorization.',
-                'status'  => 403,
-            ], 403);
+            $this->handleUnauthorizedException($exception);
         } elseif ($exception instanceof QueryException) {
             return $this->handleQueryException($exception);
         } elseif ($exception instanceof AuthenticationException) {
@@ -79,6 +76,12 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    protected function handleUnauthorizedException()
+    {
+        return response()->json([
+            'message' => 'You do not have the required authorization.'
+        ], 403);
+    }
 
     protected function handleQueryException(QueryException $exception)
     {
