@@ -36,7 +36,7 @@ class SanctumAuthController extends Controller
                 ]
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -58,7 +58,7 @@ class SanctumAuthController extends Controller
                 ]
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -71,7 +71,7 @@ class SanctumAuthController extends Controller
             ]);
             return response()->json(true, 204);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -119,7 +119,7 @@ class SanctumAuthController extends Controller
             ]);
             return $this->responseMessage(true, 204);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -163,7 +163,7 @@ class SanctumAuthController extends Controller
                 ]
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -233,7 +233,7 @@ class SanctumAuthController extends Controller
 
             return response()->json(true, 204);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -267,7 +267,7 @@ class SanctumAuthController extends Controller
 
             return response()->json(true, 204);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 }

@@ -18,7 +18,7 @@ class SuperAdminController extends Controller
                 'result' => "Berhasil migrate:fresh --seed"
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -32,7 +32,7 @@ class SuperAdminController extends Controller
                 'result' => "Berhasil migrate:rollback"
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -46,7 +46,7 @@ class SuperAdminController extends Controller
                 'result' => "Berhasil db:seed"
             ]);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 }

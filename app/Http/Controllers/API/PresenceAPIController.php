@@ -84,7 +84,7 @@ class PresenceAPIController extends Controller
             return $this->responseData($presence, 200);
         } catch (Exception $th) {
             DB::rollBack();
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -115,7 +115,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($presence, 200);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -165,7 +165,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($permissions);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -192,7 +192,7 @@ class PresenceAPIController extends Controller
 
             return $this->responseData($permissions);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -278,7 +278,6 @@ class PresenceAPIController extends Controller
                 $presence = Presence::create($presenceForm);
             }
 
-            $validatedData = $request->only(['detail', 'attachment']);
             $file = $request->file('attachment');
             $filename = time() . uniqid() . "." . $file->getClientOriginalExtension();
             $file->move(public_path('/presense/attachments'), $filename);
@@ -299,7 +298,7 @@ class PresenceAPIController extends Controller
             return $this->responseData(true, 200);
         } catch (Exception $th) {
             DB::rollBack();
-            return $this->responseError($th);
+            throw $th;
         }
     }
 
@@ -310,7 +309,7 @@ class PresenceAPIController extends Controller
             $presence->update(['permission' => 1]);
             return $this->responseData(true);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 

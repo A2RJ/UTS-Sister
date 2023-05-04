@@ -18,8 +18,8 @@ class FilePresenceController extends Controller
         try {
             $result = Presence::getAllPresences([Auth::id()], false);
             return $this->allPresences($result);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -28,8 +28,8 @@ class FilePresenceController extends Controller
         try {
             $result = Presence::getAllPresences([$sdmId], false);
             return $this->allPresences($result);
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -50,8 +50,8 @@ class FilePresenceController extends Controller
                 $result = Presence::getAllPresences($sdmIds, false);
                 return $this->allPresences($result);
             }
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -81,8 +81,8 @@ class FilePresenceController extends Controller
                 $result = Presence::getAllPresences($sdmIds, false);
                 return $this->allPresences($result);
             }
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -100,8 +100,8 @@ class FilePresenceController extends Controller
                 $result = Presence::getAllPresences(false, false);
                 return $this->allPresences($result);
             }
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -113,8 +113,8 @@ class FilePresenceController extends Controller
                     'Jabatan' => $item->role
                 ];
             });
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -129,8 +129,8 @@ class FilePresenceController extends Controller
                     'Jam Efektif' => $item->effective_hours
                 ];
             });
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -148,8 +148,8 @@ class FilePresenceController extends Controller
                     'Jam Efektif' => $item->effective_hours
                 ];
             });
-        } catch (Exception $e) {
-            return $this->responseError($e);
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 }

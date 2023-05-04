@@ -14,6 +14,9 @@
             <li class="nav-item">
                 <a href="{{ route('presence.sub-presence') }}" class="nav-link">Absensi Sub divisi</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('presence.sub.permission') }}" class="nav-link">Izin Sub divisi</a>
+            </li>
             @endif
         </ul>
     </div>

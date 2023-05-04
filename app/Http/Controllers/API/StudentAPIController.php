@@ -319,7 +319,7 @@ class StudentAPIController extends Controller
             });
             return response()->json(['message' => 'Berhasil ' . $angkatan], 200);
         } catch (Exception $th) {
-            return $this->responseError($th);
+            throw $th;
         }
     }
 }
