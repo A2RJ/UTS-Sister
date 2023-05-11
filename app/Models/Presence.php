@@ -32,7 +32,8 @@ class Presence extends Model
         'check_out_time',
         'latitude_out',
         'longitude_out',
-        'permission'
+        'permission',
+        'created_at'
     ];
     static $latitude = 80;
     static $longitude = 80;
@@ -469,23 +470,21 @@ class Presence extends Model
             DB::beginTransaction();
 
             $jenisIzin = $request->jenis_izin;
-            $filename = FileHelper::upload($request, 'attachment', 'attachments');
 
             if (in_array($jenisIzin, [1, 2, 3, 4])) {
-                $sdmType = $request->user()->sdm_type;
-                $start = $request->start_date;
-                $end = $request->end_date;
-                $dateRange = collect(self::dateRange($sdmType, $start, $end))->map(function ($date) {
+                $dateRange = self::dateRange($request->user()->sdm_type, $request->start_date, $request->end_date);
+
+                $dates = collect($dateRange)->map(function ($date) {
                     return Carbon::parse($date['in'])->format('Y-m-d');
                 })->toArray();
-
                 $presences = Presence::where('sdm_id', $request->user()->id)
-                    ->whereIn(DB::raw('DATE(created_at)'), $dateRange)
+                    ->whereIn(DB::raw('DATE(created_at)'), $dates)
                     ->get()
                     ->pluck('created_at')
                     ->map(function ($createdAt) {
                         return Carbon::parse($createdAt)->format('d-m-Y');
                     });
+
                 if ($presences->isNotEmpty()) throw new Exception('Anda telah absensi atau izin pada tanggal: ' . $presences->implode(', '));
 
                 if (in_array($jenisIzin, [1, 4])) {
@@ -517,6 +516,8 @@ class Presence extends Model
                     });
                 }
 
+                $filename = FileHelper::upload($request, 'attachment', 'attachments');
+
                 foreach ($forms as $form) {
                     $presence = Presence::create($form);
                     $presence->attachment()->create([
@@ -535,7 +536,8 @@ class Presence extends Model
                     $form = [
                         'sdm_id' => $request->user()->id,
                         'check_in_time' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'permission' => 0
                     ];
 
                     $presence = Presence::create($form);
@@ -544,9 +546,12 @@ class Presence extends Model
                     if ($presence->check_out_time) throw new Exception('Anda sudah mengisi absen pulang hari ini', 422);
 
                     $presence->update([
-                        'check_out_time' => Carbon::now()->format('Y-m-d H:i:s')
+                        'check_out_time' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'permission' => 0
                     ]);
                 }
+
+                $filename = FileHelper::upload($request, 'attachment', 'attachments');
                 $presence->attachment()->updateOrCreate(
                     ['presence_id' => $presence->id],
                     [
