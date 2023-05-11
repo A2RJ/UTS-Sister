@@ -4,34 +4,46 @@ namespace App\Helpers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileHelper
 {
-    public static function upload(Request $request, array|string $files, string $folder = ''): array|string
+    public static function uploadBatch(Request $request, array $files, string $folder = ''): array
     {
         try {
             $data = [];
-            if (is_array($files)) {
-                foreach ($files as $file) {
-                    $uploadedFile = $request->file($file);
-                    if (!$uploadedFile)  throw new \Exception("File {$file} is required", 422);
-                    $filename = $file . '_' . time() . '_' . uniqid() . '.' . $uploadedFile->getClientOriginalExtension();
-                    $uploadedFile->storeAs(($folder ? $folder : $file), $filename);
-                    $data[$file] = $filename;
-                }
-            } elseif (is_string($files)) {
-                $uploadedFile = $request->file($files);
-                if (!$uploadedFile)  throw new \Exception("File {$files} is required", 422);
-                $filename = $files . '_' . time() . '_' . uniqid() . '.' . $uploadedFile->getClientOriginalExtension();
-                $uploadedFile->storeAs(($folder ? $folder : $files), $filename);
-                $data = $filename;
-            } else {
-                throw new \Exception("Invalid type for parameter upload 'files'. Array or string expected.", 422);
+            foreach ($files as $file) {
+                $filename = self::upload($request, $file, $folder);
+                $data[$file] = $filename;
+            }
+            return $data;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public static function upload(Request $request, string $file, string $folder = ''): string
+    {
+        try {
+            $uploadedFile = $request->file($file);
+            if (!$uploadedFile) {
+                throw new \Exception("File {$file} is required", 422);
+            }
+            $filename = $file . '_' . time() . '_' . uniqid() . '.' . $uploadedFile->getClientOriginalExtension();
+            $uploadFolder = $folder ?? $file;
+            $uploadedFile->storeAs($uploadFolder, $filename);
+
+            if (!Storage::disk('local')->exists($uploadFolder . '/' . $filename)) {
+                throw new \Exception("Failed to upload file {$filename}", 500);
             }
 
-            return $data;
-        } catch (Exception $th) {
-            throw $th;
+            if ($uploadedFile->getSize() != Storage::disk('local')->size($uploadFolder . '/' . $filename)) {
+                throw new \Exception("Failed to upload file {$filename}", 500);
+            }
+
+            return $filename;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 }

@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
+use App\Helpers\FileHelper;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use DateTime;
+use Error;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Validation\ValidationException;
+use PHPUnit\Framework\Constraint\Callback;
+
+use function PHPUnit\Framework\callback;
 
 class Presence extends Model
 {
@@ -44,7 +52,7 @@ class Presence extends Model
         'Customer Service' => 55,
     ];
 
-    public static function workHour($sdm_type)
+    public static function workHour($sdmType)
     {
         $workHour = [
             'Dosen' => [
@@ -72,13 +80,28 @@ class Presence extends Model
                 'out' => "17:00",
             ],
         ];
-        if (!array_key_exists(Str::title($sdm_type), $workHour))  throw new Exception('Invalid sdm_type' . $sdm_type);
-        return $workHour[Str::title($sdm_type)];
+        if (!array_key_exists(Str::title($sdmType), $workHour))  throw new Exception('Invalid sdm_type' . $sdmType);
+        return $workHour[Str::title($sdmType)];
     }
 
-    public static function isLate($sdm_type)
+    public static function isLate($sdmType)
     {
-        return Carbon::now()->format('H:i') > Presence::workHour($sdm_type)['in'];
+        return Carbon::now()->format('H:i') > Presence::workHour($sdmType)['in'];
+    }
+
+    public static function isTendik($sdmType)
+    {
+        return $sdmType == 'Tenaga Kependidikan';
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('Y-m-d H:i:s', strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date('Y-m-d H:i:s', strtotime($value));
     }
 
     public function humanResource()
@@ -151,9 +174,9 @@ class Presence extends Model
         echo "Tanggal akhir minggu: " . $end_date->toDateString();
     }
 
-    public static function expectedWorkingHours($sdm_type, $period)
+    public static function expectedWorkingHours($sdmType, $period)
     {
-        $working_hours_per_week = $sdm_type ? self::$workingTime[$sdm_type] : 0;
+        $working_hours_per_week = $sdmType ? self::$workingTime[$sdmType] : 0;
         return $working_hours_per_week * $period * 60;
     }
 
@@ -232,7 +255,7 @@ class Presence extends Model
                 return $query->whereIn('human_resources.id', $sdmIds);
             })
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('presences.check_in_time', [$start, $end]);
+                return $query->whereBetween('presences.created_at', [$start, $end]);
             })
             ->when($search && !$isSearchROle, function ($query) use ($search) {
                 return $query->where('human_resources.sdm_name', 'like', "%$search%");
@@ -275,7 +298,7 @@ class Presence extends Model
                 return $query->whereIn('human_resources.id', $sdmIds);
             })
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('presences.check_in_time', [$start, $end]);
+                return $query->whereBetween('presences.created_at', [$start, $end]);
             })
             ->when($search && !$isSearchROle, function ($query) use ($search) {
                 return $query->where('human_resources.sdm_name', 'like', "%$search%");
@@ -314,7 +337,7 @@ class Presence extends Model
             })
             ->workHours()
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
+                return $query->whereBetween('presences.created_at', [$start, $end]);
             })
             ->first();
     }
@@ -392,7 +415,7 @@ class Presence extends Model
             ->workHours()
             ->where('presences.sdm_id', $sdm_id)
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
+                return $query->whereBetween('presences.created_at', [$start, $end]);
             })
             ->groupBy(
                 'presences.id',
@@ -403,7 +426,6 @@ class Presence extends Model
             ->get();
     }
 
-
     public static function getPresenceHours($sdm_id, $isWeb = false)
     {
         $start = request('start', Carbon::now()->startOfWeek());
@@ -413,7 +435,7 @@ class Presence extends Model
             ->where('human_resources.id', $sdm_id)
             ->workHours()
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('check_in_time', [$start, $end]);
+                return $query->whereBetween('presences.created_at', [$start, $end]);
             });
 
         if ($isWeb) return $query->first();
@@ -427,5 +449,158 @@ class Presence extends Model
                 'human_resources.sdm_type'
             )
             ->first();
+    }
+
+    private static function getDetail($presence, $jenisIzin, $izinDetail)
+    {
+        $detail = "";
+
+        if ($presence->attachment && $presence->attachment->detail) {
+            $detail .= $presence->attachment->detail . ", ";
+        }
+
+        $detail .= Presence::$jenisIzin[$jenisIzin - 1] . " - " . $izinDetail;
+        return $detail;
+    }
+
+    public static function permission($request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $jenisIzin = $request->jenis_izin;
+            $filename = FileHelper::upload($request, 'attachment', 'attachments');
+
+            if (in_array($jenisIzin, [1, 2, 3, 4])) {
+                $sdmType = $request->user()->sdm_type;
+                $start = $request->start_date;
+                $end = $request->end_date;
+                $dateRange = collect(self::dateRange($sdmType, $start, $end))->map(function ($date) {
+                    return Carbon::parse($date['in'])->format('Y-m-d');
+                })->toArray();
+
+                $presences = Presence::where('sdm_id', $request->user()->id)
+                    ->whereIn(DB::raw('DATE(created_at)'), $dateRange)
+                    ->get()
+                    ->pluck('created_at')
+                    ->map(function ($createdAt) {
+                        return Carbon::parse($createdAt)->format('d-m-Y');
+                    });
+                if ($presences->isNotEmpty()) throw new Exception('Anda telah absensi atau izin pada tanggal: ' . $presences->implode(', '));
+
+                if (in_array($jenisIzin, [1, 4])) {
+                    $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
+                        return [
+                            'sdm_id' => $request->user()->id,
+                            'check_in_time' => null,
+                            'created_at' => $value['in']
+                        ];
+                    });
+                } elseif ($jenisIzin == 2) {
+                    $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
+                        return [
+                            'sdm_id' => $request->user()->id,
+                            'check_in_time' => $value['in'],
+                            'permission' => 0,
+                            'created_at' => $value['in']
+                        ];
+                    });
+                } elseif ($jenisIzin == 3) {
+                    $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
+                        return [
+                            'sdm_id' => $request->user()->id,
+                            'check_in_time' => $value['in'],
+                            'check_out_time' => $value['out'],
+                            'permission' => 0,
+                            'created_at' => $value['in']
+                        ];
+                    });
+                }
+
+                foreach ($forms as $form) {
+                    $presence = Presence::create($form);
+                    $presence->attachment()->create([
+                        'attachment' => $filename,
+                        'detail' => self::getDetail($presence, $jenisIzin, $request->detail)
+                    ]);
+                }
+            } elseif (in_array($jenisIzin, [5, 6])) {
+                $presence = Presence::where('sdm_id', $request->user()->id)
+                    ->whereDate(DB::raw('DATE(created_at)'), Carbon::today()->format('Y-m-d'))
+                    ->latest()
+                    ->first();
+
+                if ($jenisIzin == 5) {
+                    if ($presence) throw new Exception('Anda sudah absen masuk hari ini', 422);
+                    $form = [
+                        'sdm_id' => $request->user()->id,
+                        'check_in_time' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+                    $presence = Presence::create($form);
+                } elseif ($jenisIzin == 6) {
+                    if (!$presence) throw new Exception('Anda belum absen masuk hari ini', 422);
+                    if ($presence->check_out_time) throw new Exception('Anda sudah mengisi absen pulang hari ini', 422);
+
+                    $presence->update([
+                        'check_out_time' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+                }
+                $presence->attachment()->updateOrCreate(
+                    ['presence_id' => $presence->id],
+                    [
+                        'attachment' => $filename,
+                        'detail' => self::getDetail($presence, $jenisIzin, $request->detail)
+                    ]
+                );
+            }
+
+            DB::commit();
+            return true;
+        } catch (Exception $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public static function dateRange($sdmType, string $start, string|null $end): array
+    {
+        try {
+            $start = Carbon::parse($start)->startOfDay();
+
+            $in = Presence::workHour($sdmType)['in'];
+            $out = Presence::workHour($sdmType)['out'];
+
+            $dateRange = [];
+            if ($end != null) {
+                $end = Carbon::parse($end)->endOfDay();
+                for ($date = $start; $date->lte($end); $date->addDay()) {
+                    $dateRange[] = [
+                        'in' => Carbon::parse($date->toDateString() . ' ' . $in)->format('Y-m-d H:i:s'),
+                        'out' => Carbon::parse($date->toDateString() . ' ' . $out)->format('Y-m-d H:i:s')
+                    ];
+                }
+            } else {
+                $dateRange[] = [
+                    'in' => Carbon::parse($start->toDateString() . ' ' . $in)->format('Y-m-d H:i:s'),
+                    'out' => Carbon::parse($start->toDateString() . ' ' . $out)->format('Y-m-d H:i:s')
+                ];
+            }
+
+            return $dateRange;
+        } catch (Exception $th) {
+            throw $th;
+        }
+    }
+
+    public static function generatePermissionArrayFromRange(array $dateRange, callable $callback): array
+    {
+        $result = [];
+        foreach ($dateRange as $value) {
+            $result[] = $callback($value);
+        }
+
+        return $result;
     }
 }

@@ -67,6 +67,11 @@ class User extends Authenticatable
         );
     }
 
+    public function presence()
+    {
+        return $this->hasMany(Presence::class, 'sdm_id');
+    }
+
     public static function subDivision()
     {
         return Structure::getSdmOneLevelUnder();

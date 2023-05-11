@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -69,6 +70,10 @@ class Handler extends ExceptionHandler
             return $this->handleAuthorizationException($exception);
         } elseif ($exception instanceof ModelNotFoundException) {
             return $this->handleModelNotFoundException($exception);
+        } elseif ($exception instanceof InvalidArgumentException) {
+            return $this->handleException($exception);
+        } elseif ($exception instanceof Exception) {
+            return $this->handleException($exception);
         } else {
             return $this->handleException($exception);
         }
@@ -86,12 +91,13 @@ class Handler extends ExceptionHandler
     protected function handleQueryException(QueryException $exception)
     {
         $errorCode = $exception->errorInfo[1];
+        $message = env('APP_DEBUG') ? $exception->getMessage() : '';
         if ($errorCode == 1062) {
-            return response()->json(['error' => 'Duplicate entry. ' . $exception->getMessage()], 422);
+            return response()->json(['error' => 'Duplicate entry.' . ' ' . $message], 422);
         } elseif ($errorCode == 1452) {
-            return response()->json(['error' => 'Foreign key constraint. ' . $exception->getMessage()], 422);
+            return response()->json(['error' => 'Foreign key constraint.' . ' ' . $message], 422);
         } else {
-            return response()->json(['error' => 'Database error. ' . $exception->getMessage()], 500);
+            return response()->json(['error' => 'Database error.' . ' ' . $message], 500);
         }
     }
 
@@ -112,10 +118,12 @@ class Handler extends ExceptionHandler
 
     protected function handleModelNotFoundException(ModelNotFoundException $exception)
     {
-        return response()->json(['error' => $exception->getMessage()], 404);
+        $modelName = strtolower(class_basename($exception->getModel()));
+
+        return response()->json(['error' => "Cannot find {$modelName} with specified ID"], 404);
     }
 
-    protected function handleException(Exception $exception, $statusCode = 500)
+    protected function handleException($exception, $statusCode = 500)
     {
         return response()->json(['error' => $exception->getMessage()], $exception->getCode() ?: $statusCode);
     }

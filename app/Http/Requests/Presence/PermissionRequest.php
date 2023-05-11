@@ -23,21 +23,16 @@ class PermissionRequest extends FormRequest
      */
     public function rules()
     {
-        // return [
-        //     'jenis_izin' => 'required',
-        //     'detail' => 'required',
-        //     'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096',
-        // ];
         $rules = [
-            'jenis_izin' => 'required|between:1,6',
+            'jenis_izin' => 'required|between:1,6|numeric',
             'detail' => 'required',
             'attachment' => 'required|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096',
         ];
 
-        // if ($this->input('jenis_izin') == 6) {
-        //     $rules['detail'] = 'nullable';
-        //     $rules['attachment'] = 'nullable|mimes:doc,docx,pdf,jpeg,jpg,png|max:4096';
-        // }
+        if (in_array(request()->input('jenis_izin'), [1, 2, 3, 4])) {
+            $rules['start_date'] = ['required', 'date_format:Y-m-d'];
+            $rules['end_date'] = ['nullable', 'date_format:Y-m-d', 'after_or_equal:start_date'];
+        }
 
         return $rules;
     }

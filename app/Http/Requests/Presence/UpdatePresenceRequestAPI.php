@@ -24,7 +24,6 @@ class UpdatePresenceRequestAPI extends FormRequest
     public function rules()
     {
         return [
-            'check_out_time' => 'required|date',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
         ];

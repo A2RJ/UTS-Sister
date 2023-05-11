@@ -15,11 +15,12 @@
 -   [x] berikan query permission = 1
 -   [x] pada menu civitas berikan detail struktural/posisi tiap civitas
 -   [x] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
--   [ ] ubah user menu menjadi absensi menu dan hapus sub divisi menu
--   [ ] ubah menu absensi kehadiran
+-   [x] ubah user menu menjadi absensi menu dan hapus sub divisi menu
+-   [x] ubah menu absensi kehadiran
     -   [ ] absensi saya, input izin dan list izin
     -   [ ] absensi sub divisi - radio button per unit, per civitas, semua absensi, list izin sub divisi
--   [ ] fixing roles()
+-   [x] fixing roles()
+-   [ ] Ubah pengecekan whereDate atau semua filter date karena check_in_time bisa berisi 2023-12-12, dan ubah carbon menggunakan format dmY saja
 
 ## List testing
 
