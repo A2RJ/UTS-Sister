@@ -38,10 +38,10 @@ class Presence extends Model
     static $latitude = 80;
     static $longitude = 80;
     static $jenisIzin = [
-        'Tidak Masuk',
-        'Izin Berkegiatan Diluar 1/2 Hari',
-        'Izin Berkegiatan Diluar 1 Hari',
+        'Izin Cuti',
         'Izin Sakit',
+        'Izin Berkegiatan Diluar 1/2 Hari',
+        'Izin Berkegiatan Diluar 1 Hari Atau Lebih',
         'Terkendala Absen Masuk',
         'Terkendala Absen Pulang',
     ];
@@ -487,7 +487,17 @@ class Presence extends Model
 
                 if ($presences->isNotEmpty()) throw new Exception('Anda telah absensi atau izin pada tanggal: ' . $presences->implode(', '));
 
-                if (in_array($jenisIzin, [1, 4])) {
+                if ($jenisIzin == 1) {
+                    $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
+                        return [
+                            'sdm_id' => $request->user()->id,
+                            'check_in_time' => $value['in'],
+                            'check_out_time' => $value['out'],
+                            'permission' => 1,
+                            'created_at' => $value['in']
+                        ];
+                    });
+                } elseif ($jenisIzin == 2) {
                     $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
                         return [
                             'sdm_id' => $request->user()->id,
@@ -496,8 +506,8 @@ class Presence extends Model
                             'created_at' => $value['in']
                         ];
                     });
-                } elseif ($jenisIzin == 2) {
-                    $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
+                } elseif ($jenisIzin == 3) {
+                    $forms = self::generatePermissionArrayFromRange([$dateRange[0]], function ($value) use ($request) {
                         return [
                             'sdm_id' => $request->user()->id,
                             'check_in_time' => $value['in'],
@@ -505,7 +515,7 @@ class Presence extends Model
                             'created_at' => $value['in']
                         ];
                     });
-                } elseif ($jenisIzin == 3) {
+                } elseif ($jenisIzin == 4) {
                     $forms = self::generatePermissionArrayFromRange($dateRange, function ($value) use ($request) {
                         return [
                             'sdm_id' => $request->user()->id,

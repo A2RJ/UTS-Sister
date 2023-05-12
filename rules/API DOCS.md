@@ -47,9 +47,48 @@ Body
 
 {
   "email": "johndoe@example.com",
-  "password": "password123"
+  "password": "password123",
+  "mac_address": "contohmac"
 }
 
+```
+
+Error missing form
+
+```
+{
+  "error": {
+    "mac_address": [
+      "The mac address field is required."
+    ],
+    "email": [
+      "The email field is required."
+    ],
+    "password": [
+      "The password field is required."
+    ]
+  }
+}
+```
+
+Error login with different device
+
+```
+
+{
+  "error": "You have logged from a different device."
+}
+```
+
+Error account not registered or invalid cridentals
+
+```
+{
+  "error": "Your account is not registered."
+}
+{
+  "error": "The provided credentials are incorrect."
+}
 ```
 
 Response
@@ -284,57 +323,54 @@ Endpoint
 
 ```
 GET /presence
+Optional GET /presence?start=2023-03-278&end=2023-03-31
 ```
+
+Query Params (Optional)
+
+```
+start = 2023-03-27
+end = 2023-03-31
+```
+
+Description
+
+-   Default: Getting the total working hours for the current week in the calendar
 
 Response
 
 ```
 {
-  "data": [
-    {
-      "id": 3,
-      "sdm_id": 98,
-      "latitude_in": "0",
-      "longitude_in": "0",
-      "latitude_out": null,
-      "longitude_out": null,
-      "check_in_date": "Sunday, 18-12-2022",
-      "check_out_date": "Sunday, 18-12-2022",
-      "check_in_hour": "22:08",
-      "check_out_hour": "22:08",
-      "hours": "0",
-      "minutes": "0"
-    },
-    {
-      "id": 4,
-      "sdm_id": 98,
-      "latitude_in": "80",
-      "longitude_in": "80",
-      "latitude_out": "90",
-      "longitude_out": "90",
-      "check_in_date": "Sunday, 18-12-2022",
-      "check_out_date": "Sunday, 18-12-2022",
-      "check_in_hour": "22:11",
-      "check_out_hour": "22:28",
-      "hours": "0",
-      "minutes": "17"
-    },
-    ...
-    {
-      "id": 6,
-      "sdm_id": 98,
-      "latitude_in": "80",
-      "longitude_in": "80",
-      "latitude_out": null,
-      "longitude_out": null,
-      "check_in_date": "Monday, 19-12-2022",
-      "check_out_date": "Monday, 19-12-2022",
-      "check_in_hour": "08:29",
-      "check_out_hour": "08:29",
-      "hours": "0",
-      "minutes": "0"
+  "data": {
+      "presences": [
+        {
+          "id": 2484,
+          "sdm_id": 12,
+          "check_in_date": "Monday, 27-03-2023",
+          "check_out_date": "Monday, 27-03-2023",
+          "check_in_hour": "09:13",
+          "check_out_hour": "16:45",
+          "effective_hours": "06:46:10",
+          "ineffective_hours": "00:00:00"
+        },
+        {
+          "id": 2643,
+          "sdm_id": 12,
+          "check_in_date": "Tuesday, 28-03-2023",
+          "check_out_date": "Tuesday, 28-03-2023",
+          "check_in_hour": "08:49",
+          "check_out_hour": "15:25",
+          "effective_hours": "06:25:28",
+          "ineffective_hours": "00:00:00"
+        }
+      ],
+    "effective_hours": {
+      "sdm_name": "AHMAD JULIANSYAH",
+      "id": 12,
+      "effective_hours": "13:11:38",
+      "ineffective_hours": "00:00:00"
     }
-  ]
+  }
 }
 ```
 
@@ -396,7 +432,22 @@ Body
 }
 ```
 
-Response No Content (204)
+Response
+
+```
+{
+  "data": {
+    "id": 11,
+    "sdm_id": 98,
+    "latitude_in": "80",
+    "longitude_in": "80",
+    "check_in_time": "2022-12-19 12:13:18",
+    "check_out_time": "2022-12-19 12:13:36",
+    "latitude_out": "80",
+    "longitude_out": "80",
+  }
+}
+```
 
 ### 11. List Absensi Hari Ini
 
@@ -424,7 +475,7 @@ Response
 }
 ```
 
-### 11. Check Apakah Sudah Telat
+### 12. Check Apakah Sudah Telat
 
 Endpoint
 
@@ -441,7 +492,7 @@ Response
 }
 ```
 
-### 12. List Coordinates
+### 13. List Coordinates
 
 Endpoint
 
@@ -487,21 +538,25 @@ Response
 }
 ```
 
-### 13. Get work hours
+### 14. Get work hours
 
 Endpoint
 
 ```
 GET /presence/total-hour
-Ex: GET /presence/total-hour?start=2022-12-18&end=2022-12-18
+Ex: GET /presence/total-hour?start=2023-03-278&end=2023-03-31
 ```
 
 Query Params (Optional)
 
 ```
-start = 2022-12-18
-end = 2022-12-18
+start = 2023-03-27
+end = 2023-03-31
 ```
+
+Description
+
+-   Default: Getting the total working hours for the current week in the calendar
 
 Response
 
@@ -510,20 +565,247 @@ Response
   "data": {
     "sdm_name": "AHMAD JULIANSYAH",
     "id": 12,
-    "effective_hours": "07:00:00",
+    "effective_hours": "13:11:38",
     "ineffective_hours": "00:00:00"
   }
 }
 ```
 
-### Get jenis izin
+### 15. GET permission type
 
-### Get izin saya
+Endpoint
 
-### Get izin sub divisi
+```
+GET /permission/type
+```
 
-### Post ajukan izin
+Description:
+Returns a list of available permission types.
 
-### Post terima izin
+Response
 
-### Delete hapus/tolak izin (hanya pengaju dan atasan)
+```
+{
+  "data": [
+    {
+      "id": 1,
+      "jenis_izin": "Izin Cuti"
+    },
+    {
+      "id": 2,
+      "jenis_izin": "Izin Sakit"
+    },
+    {
+      "id": 3,
+      "jenis_izin": "Izin Berkegiatan Diluar 1/2 Hari"
+    },
+    {
+      "id": 4,
+      "jenis_izin": "Izin Berkegiatan Diluar 1 Hari Atau Lebih"
+    },
+    {
+      "id": 5,
+      "jenis_izin": "Terkendala Absen Masuk"
+    },
+    {
+      "id": 6,
+      "jenis_izin": "Terkendala Absen Pulang"
+    }
+  ]
+}
+```
+
+### 16. GET user permission
+
+Endpoint
+
+```
+GET /permission/me
+```
+
+Description:
+
+-   Returns a list of permissions submitted by the authenticated user.
+-   The base URL for attachment is https://kepegawaian.uts.ac.id/download/presense/{attachment}
+
+Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "sdm_id": 1,
+            "sdm_name": "John Doe",
+            "created_at": "2023-03-29T13:25:00.000000Z",
+            "attachment": {
+                "id": 1,
+                "presence_id": 1,
+                "detail": "contoh detail 1",
+                "attachment": "/storage/attachments/test.jpg"
+            }
+        },
+        {
+            "id": 2,
+            "sdm_id": 1,
+            "sdm_name": "John Doe",
+            "created_at": "2023-03-28T09:30:00.000000Z",
+            "attachment": null
+        }
+    ]
+}
+```
+
+### 17. GET user sub permission
+
+Endpoint
+
+```
+GET /permission/sub
+```
+
+Description:
+
+-   Returns a list of permissions submitted by the sub-division user.
+-   The base URL for attachment is https://kepegawaian.uts.ac.id/download/presense/{attachment}
+
+Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "sdm_id": 1,
+            "sdm_name": "John Doe",
+            "created_at": "2023-03-29T13:25:00.000000Z",
+            "attachment": {
+                "id": 1,
+                "presence_id": 1,
+                "detail": "contoh detail 1",
+                "attachment": "/storage/attachments/test.jpg"
+            }
+        },
+        {
+            "id": 2,
+            "sdm_id": 1,
+            "sdm_name": "John Doe",
+            "created_at": "2023-03-28T09:30:00.000000Z",
+            "attachment": null
+        }
+    ]
+}
+```
+
+### 18. POST new permission
+
+Endpoint
+
+```
+POST /permission
+```
+
+Description:
+Submits a new permission request for the authenticated user.
+
+Body
+
+| field      |     Type      |                         Required |                                                                                                                                                           Description |
+| ---------- | :-----------: | -------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| jenis_izin | integer (1-6) |                         required |                                                                    Specifies the type of permission being requested from<br />the list of available permission types. |
+| detail     |    string     |                         required |                                                                                                                        Provides details about the permission request. |
+| attachment |     file      |                         required |                                                                       Any supporting documentation for the permission request.<br />(mimes:doc,docx,pdf,jpeg,jpg,png) |
+| start_date |    string     | required if jenis_izin is 1 to 4 |                                                                                                                        Start date is the start date of the permission |
+| end_date   |    string     |                         nullable | Start date is the date the permit ends,<br />if this column is filled then the permit will automatically <br />fill in the permit in the range of start and end dates |
+
+Error Response
+
+```
+- Form is missing
+{
+    "errors": {
+        "jenis_izin": [
+            "The jenis izin field is required."
+        ],
+        "detail": [
+            "The detail field is required."
+        ],
+        "attachment": [
+            "The attachment field is required."
+        ],
+        "start_date": [
+            "The start date field is required."
+        ],
+        "end_date": [
+            "The end date field is required."
+        ]
+    }
+}
+
+- For 'jenis_izin' 6 (Terkendala absen pulang), there must be data of attendance in, otherwise an error will occur
+{
+  error: 'Anda belum absen masuk hari ini'
+}
+
+- If user already check in or check out in the same day
+{
+  error: 'Anda sudah mengisi ijin hari ini'
+  or
+  error: 'Anda sudah mengisi absen pulang hari ini'
+}
+```
+
+Response
+
+```
+{
+    "data": true
+}
+```
+
+### 19. POST approve permission
+
+Endpoint
+
+```
+POST /permission/{presence->id}
+```
+
+Description:
+Approve a permission request from sub-division.
+
+Error Response
+
+```
+- Because the person who approved is not their directur/supervisor
+{
+  error: 'Anda tidak dapat memberikan izin'
+}
+```
+
+Response
+
+```
+{
+    "data": true
+}
+```
+
+### 20. DELETE delete permission
+
+Endpoint
+
+```
+DELETE /permission/{presence->id}
+```
+
+Description:
+Delete a permission.
+
+Response
+
+```
+{
+    "data": true
+}
+```
