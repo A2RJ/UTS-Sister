@@ -58,6 +58,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+        if ($request->expectsJson()) return $this->handleApiError($exception);
+        return parent::render($request, $exception);
+    }
+
+    protected function handleApiError(Throwable $exception)
+    {
         if ($exception instanceof UnauthorizedException) {
             $this->handleUnauthorizedException($exception);
         } elseif ($exception instanceof QueryException) {
@@ -77,8 +83,6 @@ class Handler extends ExceptionHandler
         } else {
             return $this->handleException($exception);
         }
-
-        return parent::render($request, $exception);
     }
 
     protected function handleUnauthorizedException()

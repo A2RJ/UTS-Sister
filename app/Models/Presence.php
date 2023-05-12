@@ -492,6 +492,7 @@ class Presence extends Model
                         return [
                             'sdm_id' => $request->user()->id,
                             'check_in_time' => null,
+                            'permission' => 0,
                             'created_at' => $value['in']
                         ];
                     });
