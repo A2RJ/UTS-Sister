@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ddd5cad105e5d609b54706ba2013bc5",
+    "content-hash": "138ac629dacb8c8a17b5f56eedfaa27b",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -3111,16 +3111,16 @@
         },
         {
             "name": "phpoffice/phpword",
-            "version": "1.0.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPWord.git",
-                "reference": "8521612b39edeec9055d3688ad555342a40857dd"
+                "reference": "0af4ca1f6e52be05ac3f87fcb68d21e85a158a98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/8521612b39edeec9055d3688ad555342a40857dd",
-                "reference": "8521612b39edeec9055d3688ad555342a40857dd",
+                "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/0af4ca1f6e52be05ac3f87fcb68d21e85a158a98",
+                "reference": "0af4ca1f6e52be05ac3f87fcb68d21e85a158a98",
                 "shasum": ""
             },
             "require": {
@@ -3136,7 +3136,6 @@
                 "ext-libxml": "*",
                 "ext-zip": "*",
                 "mpdf/mpdf": "^8.1",
-                "php-coveralls/php-coveralls": "^2.5",
                 "phpmd/phpmd": "^2.13",
                 "phpunit/phpunit": ">=7.0",
                 "symfony/process": "^4.4",
@@ -3150,11 +3149,6 @@
                 "ext-zip": "Allows writing OOXML and ODF"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.19-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "PhpOffice\\PhpWord\\": "src/PhpWord"
@@ -3218,9 +3212,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PHPWord/issues",
-                "source": "https://github.com/PHPOffice/PHPWord/tree/1.0.0"
+                "source": "https://github.com/PHPOffice/PHPWord/tree/develop"
             },
-            "time": "2022-11-15T20:24:50+00:00"
+            "time": "2022-11-18T09:42:04+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -9731,7 +9725,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phpoffice/phpword": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

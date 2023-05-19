@@ -20,7 +20,7 @@
         "livewire/livewire": "^2.12",
         "novay/laravel-word-template": "^1.1",
         "orangehill/iseed": "^3.0",
-        "phpoffice/phpword": "^1.0",
+        "phpoffice/phpword": "dev-develop",
         "rap2hpoutre/fast-excel": "^5.0",
         "spatie/laravel-permission": "^5.7"
     },

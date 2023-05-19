@@ -1,5 +1,7 @@
 # APP
 
+-   Sebelum kerjakan fitur tertentu buat saja branch dev-features-name agar dev tetap bersih sehingga gampang kembali ke branch dev features sebelumnya
+
 ## Sedang dikerjakan
 
 -   [x] Laporan mata kuliah

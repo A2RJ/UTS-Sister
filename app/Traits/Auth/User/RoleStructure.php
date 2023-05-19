@@ -2,18 +2,19 @@
 
 namespace App\Traits\Auth\User;
 
+use App\Models\StructuralPosition;
 use App\Models\Structure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 trait RoleStructure
 {
-    public static function checkRoleType($params, $roleOrType = 'role')
+    public static function checkRoleType($params, $column = 'role')
     {
         $roles = Auth::user()->structure;
         if (!$roles) return false;
-        $hasRole = collect($roles)->filter(function ($roleItem) use ($params, $roleOrType) {
-            return Str::lower($roleItem[$roleOrType]) === Str::lower($params);
+        $hasRole = collect($roles)->filter(function ($roleItem) use ($params, $column) {
+            return Str::lower($roleItem[$column]) === Str::lower($params);
         })->count();
         return $hasRole > 0 ? true : false;
     }
@@ -35,7 +36,7 @@ trait RoleStructure
 
     public function isLecturer()
     {
-        return $this->checkRoleType('dosen', 'type');
+        return $this->checkRoleType('dosen', 'type') || $this->checkRoleType('Dosen', 'type');
     }
 
     public function isFaculty()
@@ -66,5 +67,11 @@ trait RoleStructure
     public function isSecurity()
     {
         return $this->checkRoleType('security', 'type');
+    }
+
+    public function rinov()
+    {
+        return $this->checkRoleType('Direktorat Riset & Inovasi', 'role');
+        return StructuralPosition::where('id', 36)->exists();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Utils\File;
+namespace App\Http\Controllers\Utils\File\Experiment;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

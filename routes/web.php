@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
-use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -28,13 +27,12 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
-use App\Http\Livewire\LecturerDetailForm;
-use App\Http\Livewire\WR3\Rinov\RisetForm;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +45,7 @@ use Livewire\Livewire;
 |
 */
 
+Route::get('surat', [SuratRisetController::class, 'index']);
 // Route::get('welcome', function () {
 //     return view('welcome');
 // });
@@ -85,6 +84,82 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
     Route::get('presense/{filename}', 'presense')->name('download.presense');
     Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
     Route::get('riset/{filename}', 'riset')->name('download.riset');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource("/class", ClassController::class)->except('show');
+    Route::prefix('subject')->controller(SubjectController::class)->group(function () {
+        Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
+        Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
+        Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
+        Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('subject.by-lecturer');
+    });
+    Route::resource("/subject", SubjectController::class);
+    Route::resource("/meeting", MeetingController::class);
+    Route::prefix('presence')->group(function () {
+        Route::controller(PresenceController::class)->group(function () {
+            Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
+            Route::get('/sub', 'subPresence')->name('presence.sub-presence');
+            Route::get('/per-civitas/{sdm_id}', 'perCivitas')->name('presence.per-civitas');
+            Route::get('/per-unit/{structureId}', 'perUnit')->name('presence.per-unit');
+        });
+        Route::prefix('dsdm')->controller(DSDMController::class)->group(function () {
+            Route::get('/', 'index')->name('dsdm.all-sdm');
+        });
+        Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
+            Route::get('/my', 'myPresence')->name('download.my-presence');
+            Route::get('/sub', 'subPresence')->name('download.sub-presence');
+            Route::get('/dsdm', 'dsdmPresence')->name('download.dsdm-presence');
+            Route::get('/per-unit/{structureId}', 'unit')->name('download.per-unit-presence');
+            Route::get('/per-civitas/{sdm_id}', 'civitas')->name('download.per-civitas-presence');
+        });
+        Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
+            Route::get('/', 'form')->name('presence.absen');
+            Route::get('/my-presence-permission', 'myPermission')->name('permission.my-presence');
+            Route::get('/sub', 'subPermission')->name('presence.sub.permission');
+            Route::post('/', 'permission')->name('presence.permission');
+            Route::post('/{presence}', 'confirm')->name('presence.confirm');
+            Route::delete('/{presence}', 'decline')->name('presence.decline');
+        });
+    });
+    Route::resource("/presence", PresenceController::class)->except('show');
+    Route::prefix('prodi')->group(function () {
+        Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
+    });
+    Route::prefix("/admin")->group(function () {
+        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
+        Route::prefix('structure')->group(function () {
+            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
+            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
+        });
+        Route::resource("/structure", StructureController::class);
+        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
+            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
+        });
+        Route::resource("/human_resource", HumanResourceController::class);
+        Route::resource("/semester", SemesterController::class)->except('show');
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('warek-iii')->group(function () {
+        Route::controller(RinovController::class)->group(function () {
+            Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
+            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
+            Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
+            Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
+            Route::delete('/proposal-dosen/{proposal}', 'destroyProposal')->name('rinov.proposal.destroy');
+            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
+            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
+            Route::prefix('download')->group(function () {
+                Route::get('/proposal', 'downloadProposal')->name('download.proposal');
+                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
+            });
+        });
+        Route::controller(ResearchAssignmentController::class)->group(function () {
+            Route::get('ajukan-surat-tugas', 'suratTugas')->name('wr3.surat-tugas');
+        });
+    });
 });
 
 Route::middleware("auth")->group(function () {
@@ -249,81 +324,6 @@ Route::middleware("auth")->group(function () {
             Route::prefix('penunjang-lain')->group(function () {
                 Route::get('/', 'penunjangLain')->name('penunjang-lain');
                 Route::get('/{id}', 'detailPenunjangLain')->name('penunjang-lain.detail');
-            });
-        });
-    });
-});
-
-Route::middleware('auth')->group(function () {
-    Route::prefix("/")->group(function () {
-        Route::resource("/class", ClassController::class)->except('show');
-        Route::prefix('subject')->controller(SubjectController::class)->group(function () {
-            Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
-            Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
-            Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
-            Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('subject.by-lecturer');
-        });
-        Route::resource("/subject", SubjectController::class);
-        Route::resource("/meeting", MeetingController::class);
-        Route::prefix('presence')->group(function () {
-            Route::controller(PresenceController::class)->group(function () {
-                Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
-                Route::get('/sub', 'subPresence')->name('presence.sub-presence');
-                Route::get('/per-civitas/{sdm_id}', 'perCivitas')->name('presence.per-civitas');
-                Route::get('/per-unit/{structureId}', 'perUnit')->name('presence.per-unit');
-            });
-            Route::prefix('dsdm')->controller(DSDMController::class)->group(function () {
-                Route::get('/', 'index')->name('dsdm.all-sdm');
-            });
-            Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
-                Route::get('/my', 'myPresence')->name('download.my-presence');
-                Route::get('/sub', 'subPresence')->name('download.sub-presence');
-                Route::get('/dsdm', 'dsdmPresence')->name('download.dsdm-presence');
-                Route::get('/per-unit/{structureId}', 'unit')->name('download.per-unit-presence');
-                Route::get('/per-civitas/{sdm_id}', 'civitas')->name('download.per-civitas-presence');
-            });
-            Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
-                Route::get('/', 'form')->name('presence.absen');
-                Route::get('/my-presence-permission', 'myPermission')->name('permission.my-presence');
-                Route::get('/sub', 'subPermission')->name('presence.sub.permission');
-                Route::post('/', 'permission')->name('presence.permission');
-                Route::post('/{presence}', 'confirm')->name('presence.confirm');
-                Route::delete('/{presence}', 'decline')->name('presence.decline');
-            });
-        });
-        Route::resource("/presence", PresenceController::class)->except('show');
-        Route::prefix('prodi')->group(function () {
-            Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
-        });
-    });
-    Route::prefix("/admin")->group(function () {
-        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
-        Route::prefix('structure')->group(function () {
-            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
-            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
-        });
-        Route::resource("/structure", StructureController::class);
-        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
-            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
-        });
-        Route::resource("/human_resource", HumanResourceController::class);
-        Route::resource("/semester", SemesterController::class)->except('show');
-    });
-});
-
-Route::middleware('auth')->group(function () {
-    Route::prefix('warek-iii')->group(function () {
-        Route::controller(RinovController::class)->group(function () {
-            Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
-            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
-            Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
-            Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
-            Route::delete('/proposal-dosen/{proposal}', 'destroyProposal')->name('rinov.proposal.destroy');
-            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
-            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
-            Route::prefix('download')->group(function () {
-                Route::get('/proposal', 'downloadProposal')->name('download.proposal');
-                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
             });
         });
     });
