@@ -15,7 +15,8 @@ class ResearchAssignment extends Model
         'activity',
         'as',
         'theme',
-        'date',
+        'dateStart',
+        'dateEnd',
         'organizer',
         'location',
         'table',
@@ -43,7 +44,8 @@ class ResearchAssignment extends Model
             ->orWhere('activity', 'like', "%$search%")
             ->orWhere('as', 'like', "%$search%")
             ->orWhere('theme', 'like', "%$search%")
-            ->orWhere('date', 'like', "%$search%")
+            ->orWhere('dateStart', 'like', "%$search%")
+            ->orWhere('dateEnd', 'like', "%$search%")
             ->orWhere('organizer', 'like', "%$search%")
             ->orWhere('location', 'like', "%$search%");
     }

@@ -37,7 +37,8 @@
                                     <th>Aktivitas</th>
                                     <th>Sebagai</th>
                                     <th>Tema</th>
-                                    <th>Tanggal</th>
+                                    <th>Mulai Tanggal</th>
+                                    <th>Selesai Tanggal</th>
                                     <th>Penyelenggara</th>
                                     <th>Lokasi</th>
                                     <th>Dosen Peserta</th>
@@ -62,7 +63,8 @@
                                     <td>{{ $researchAssignment->activity }}</td>
                                     <td>{{ $researchAssignment->as }}</td>
                                     <td>{{ $researchAssignment->theme }}</td>
-                                    <td>{{ $researchAssignment->date }}</td>
+                                    <td>{{ $researchAssignment->dateStart }}</td>
+                                    <td>{{ $researchAssignment->dateEnd }}</td>
                                     <td>{{ $researchAssignment->organizer }}</td>
                                     <td>{{ $researchAssignment->location }}</td>
                                     <td>

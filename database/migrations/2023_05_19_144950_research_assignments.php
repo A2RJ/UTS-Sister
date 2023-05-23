@@ -17,12 +17,13 @@ return new class extends Migration
                 ->nullable()
                 ->constrained("human_resources")
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
             $table->string('role');
             $table->string('activity');
             $table->string('as');
             $table->string('theme');
-            $table->date('date');
+            $table->date('dateStart');
+            $table->date('dateEnd');
             $table->string('organizer');
             $table->string('location');
             $table->json('table');

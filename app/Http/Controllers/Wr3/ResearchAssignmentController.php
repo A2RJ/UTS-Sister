@@ -101,8 +101,20 @@ class ResearchAssignmentController extends Controller
             $table->addCell(3000)->addText($row['studyProgram'], null, ['align' => 'left', 'spaceAfter' => 0]);
         }
 
-        $date = $researchAssignment->date;
-        $formatDate = Carbon::parse($date);
+        $dateStart = $researchAssignment->dateStart;
+        $formatDateStart = Carbon::parse($dateStart);
+        $dateStart = $formatDateStart->locale('id_ID')->isoFormat('dddd, D MMMM YYYY');
+        $dateText = "pada hari $dateStart";
+
+        $dateEnd = $researchAssignment->dateEnd;
+        if ($dateEnd) {
+            $formatDateEnd = Carbon::parse($dateEnd);
+            $dateEnd = $formatDateEnd->locale('id_ID')->isoFormat('dddd, D MMMM YYYY');
+            $dateText = "mulai $dateStart sampai $dateEnd";
+        }
+
+
+
         $values = [
             'number' => $researchAssignment->number,
             'month' => $researchAssignment->month,
@@ -113,7 +125,7 @@ class ResearchAssignmentController extends Controller
             'activity' => $researchAssignment->activity,
             'as' => $researchAssignment->as,
             'theme' => $researchAssignment->theme,
-            'date' => $formatDate->locale('id_ID')->isoFormat('dddd, D MMMM YYYY'),
+            'date' => $dateText,
             'organizer' => $researchAssignment->organizer,
             'location' => $researchAssignment->location,
         ];

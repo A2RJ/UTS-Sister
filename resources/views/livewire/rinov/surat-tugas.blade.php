@@ -41,10 +41,15 @@
          </div>
 
          <div class="form-group mb-3">
-             <label for="date">Tanggal</label>
-             <input type="date" class="form-control @error('date') is-invalid @enderror" wire:model="date" id="date">
-             @error('date') <span class="invalid-feedback">{{ $message }}</span> @enderror
+             <label for="dateStart">Mulai Tanggal</label>
+             <input type="date" class="form-control @error('dateStart') is-invalid @enderror" wire:model="dateStart" id="dateStart">
+             @error('dateStart') <span class="invalid-feedback">{{ $message }}</span> @enderror
+         </div>
 
+         <div class="form-group mb-3">
+             <label for="dateEnd">Selesai Tanggal (Opsional)</label>
+             <input type="date" class="form-control @error('dateEnd') is-invalid @enderror" wire:model="dateEnd" id="dateEnd">
+             @error('dateEnd') <span class="invalid-feedback">{{ $message }}</span> @enderror
          </div>
 
          <div class="form-group mb-3">

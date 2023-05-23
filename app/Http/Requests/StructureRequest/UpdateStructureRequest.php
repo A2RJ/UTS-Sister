@@ -26,7 +26,7 @@ class UpdateStructureRequest extends FormRequest
         return [
             'role' => ['required', 'string'],
             'parent_id' => ['required'],
-            'type' => ['required', 'in:in:struktural,fakultas,prodi,dosen']
+            'type' => ['required', 'in:struktural,fakultas,prodi,dosen']
         ];
     }
 }
