@@ -156,8 +156,13 @@ Route::middleware('auth')->group(function () {
                 Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
             });
         });
-        Route::controller(ResearchAssignmentController::class)->group(function () {
-            Route::get('ajukan-surat-tugas', 'suratTugas')->name('wr3.surat-tugas');
+        Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
+            Route::get('', 'index')->name('wr3.research-assignment');
+            Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
+            Route::get('create', 'create')->name('wr3.research-assignment.create');
+            Route::get('update/{researchAssignment}', 'update')->name('wr3.research-assignment.update');
+            Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
+            Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
         });
     });
 });

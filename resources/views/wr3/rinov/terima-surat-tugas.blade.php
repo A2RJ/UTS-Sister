@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Ajukan Surat Tugas') }}</div>
 
                 <div class="card-body">
-                    <livewire:rinov.surat-tugas />
+                    <livewire:rinov.aksi-surat-tugas data="{{ $researchAssignment }}" />
                 </div>
             </div>
         </div>

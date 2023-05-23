@@ -10,7 +10,12 @@ class AksiSuratTugas extends Component
     public $number,
         $month,
         $year,
-        $status;
+        $data;
+
+    public function mount($data)
+    {
+        $this->data = $data;
+    }
 
     public function render()
     {
@@ -23,12 +28,15 @@ class AksiSuratTugas extends Component
             'number' => 'required',
             'month' => 'required',
             'year' => 'required',
-            'status' => 'required|in:0,1'
         ]);
 
-        ResearchAssignment::create($this->all());
-        $this->reset();
-        session()->flash('success', 'Form submitted successfully.');
-        redirect('/');
+        $research = ResearchAssignment::where('id', $this->data)->first();
+        if ($research) {
+            $research->update($this->all());
+
+            $this->reset();
+            session()->flash('success', 'Form submitted successfully.');
+        }
+        redirect(route('wr3.research-assignment'));
     }
 }

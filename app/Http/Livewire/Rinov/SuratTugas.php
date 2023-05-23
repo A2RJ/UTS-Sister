@@ -44,18 +44,26 @@ class SuratTugas extends Component
 
     public function submit()
     {
-        $this->validate([
-            'role' => 'required',
-            'activity' => 'required',
-            'as' => 'required',
-            'theme' => 'required',
-            'date' => 'required',
-            'organizer' => 'required',
-            'location' => 'required',
-            'table.*.name' => 'required',
-            'table.*.nidn' => 'required|numeric',
-            'table.*.studyProgram' => 'required',
-        ]);
+        $this->validate(
+            [
+                'role' => 'required',
+                'activity' => 'required',
+                'as' => 'required',
+                'theme' => 'required',
+                'date' => 'required',
+                'organizer' => 'required',
+                'location' => 'required',
+                'table.*.name' => 'required',
+                'table.*.nidn' => 'required|numeric',
+                'table.*.studyProgram' => 'required',
+            ],
+            [
+                'table.*.name.required' => 'The table name field is required.',
+                'table.*.nidn.required' => 'The table NIDN field is required.',
+                'table.*.nidn.numeric' => 'The table NIDN field must be numeric.',
+                'table.*.studyProgram.required' => 'The table study program field is required.',
+            ]
+        );
 
 
         ResearchAssignment::create(array_merge([
@@ -63,6 +71,6 @@ class SuratTugas extends Component
         ], $this->all()));
         $this->reset();
         session()->flash('success', 'Form submitted successfully.');
-        redirect('/');
+        redirect(route('wr3.research-assignment.by-user'));
     }
 }

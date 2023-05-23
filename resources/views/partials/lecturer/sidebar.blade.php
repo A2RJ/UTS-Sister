@@ -23,6 +23,9 @@
              <li class="nav-item">
                  <a href="{{ route('rinov.kegiatan-luar-kampus') }}" class="nav-link">Kegiatan di luar kampus</a>
              </li>
+             <li class="nav-item">
+                 <a href="{{ route('wr3.research-assignment.by-user') }}" class="nav-link">Surat tugas</a>
+             </li>
          </ul>
      </div>
  </li>

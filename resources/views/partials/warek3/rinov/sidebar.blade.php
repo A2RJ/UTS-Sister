@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a href="{{ route('rinov.index.kegiatan-luar-kampus') }}" class="nav-link">Kegiatan luar kampus</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('wr3.research-assignment') }}" class="nav-link">Surat tugas</a>
+            </li>
         </ul>
     </div>
 </li>

@@ -18,16 +18,6 @@
             @error('year') <span class="invalid-feedback">{{ $message }}</span> @enderror
         </div>
 
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control @error('status') is-invalid @enderror" wire:model="status" id="status">
-                <option value="">Pilih status</option>
-                <option value="1">Konfirmasi</option>
-                <option value="0">Tolak</option>
-            </select>
-            @error('status') <span class="invalid-feedback">{{ $message }}</span> @enderror
-        </div>
-
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary mt-3 float-end">Submit</button>
         </div>

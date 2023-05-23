@@ -31,8 +31,27 @@ class ResearchAssignment extends Model
         'status' => 'boolean',
     ];
 
-    public function sdm()
+    public function user()
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
+    }
+
+    public function scopeSearch($query)
+    {
+        $search = request('search');
+        return $query->where('role', 'like', "%$search%")
+            ->orWhere('activity', 'like', "%$search%")
+            ->orWhere('as', 'like', "%$search%")
+            ->orWhere('theme', 'like', "%$search%")
+            ->orWhere('date', 'like', "%$search%")
+            ->orWhere('organizer', 'like', "%$search%")
+            ->orWhere('location', 'like', "%$search%");
+    }
+
+    public function isDocumentNumberingFilled()
+    {
+        return $this->number &&
+            $this->month &&
+            $this->year;
     }
 }
