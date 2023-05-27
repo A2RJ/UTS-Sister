@@ -43,6 +43,7 @@
                                 <th>Jabatan</th>
                                 <th>Email</th>
                                 <th>NIDN</th>
+                                <th>Mac Address</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -54,6 +55,7 @@
                                 <td>{{ $sdm->roles() }}</td>
                                 <td>{{ $sdm->email }}</td>
                                 <td>{{ $sdm->nidn }}</td>
+                                <td>{{ $sdm->mac_address }}</td>
                                 <td>
                                     <a href="{{ route('human_resource.show', ['human_resource' => $sdm->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Detail</button>
@@ -72,6 +74,13 @@
                                         </a>
                                         <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $sdm->sdm_id]) }}" />
                                     </div>
+                                    @if ($sdm->mac_address)
+                                    <form action="{{ route('human_resource.reset-mac-address', $sdm->sdm_id) }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit" name="mac_address" class="btn btn-sm btn-outline-warning mt-1">Reset Mac Address</button>
+                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

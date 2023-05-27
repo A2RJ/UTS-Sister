@@ -107,6 +107,14 @@ class HumanResourceController extends Controller
             ->with('success', "Password $humanResource->sdm_name updated successfully.");
     }
 
+    public function resetMacAddress(HumanResource $humanResource)
+    {
+        $humanResource->mac_address = NULL;
+        $humanResource->save();
+        return back()
+            ->with('success', "Mac address $humanResource->sdm_name updated successfully.");
+    }
+
     public function destroy(HumanResource $humanResource)
     {
         $response = "$humanResource->sdm_name deleted";

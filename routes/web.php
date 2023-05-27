@@ -135,6 +135,7 @@ Route::middleware('auth')->group(function () {
         Route::resource("/structure", StructureController::class);
         Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
             Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
+            Route::put('reset-mac-address/{human_resource}', 'resetMacAddress')->name('human_resource.reset-mac-address');
         });
         Route::resource("/human_resource", HumanResourceController::class);
         Route::resource("/semester", SemesterController::class)->except('show');
