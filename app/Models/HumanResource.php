@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\Model\UtilsFunction;
 use App\Traits\Utils\File\Exel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class HumanResource extends Model
 {
-    use HasFactory, Exel;
+    use HasFactory, Exel, UtilsFunction;
 
     protected $fillable = [
         'sdm_id',

@@ -13,7 +13,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $permission->sdm_name }}</td>
-            <td>{{ $permission->roles() }}</td>
+            <td>{!! $presence->roles() !!}</td>
             <td>{{ $permission->created_at }}</td>
             <td>{!! $permission->detail() !!}</td>
             <td>

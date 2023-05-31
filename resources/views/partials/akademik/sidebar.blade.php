@@ -6,7 +6,7 @@
      </a>
  </li>
  <li class="nav-item">
-     <a href="{{ route('presence.all-lecturer') }}" class="nav-link">
+     <a href="" class="nav-link">
          <i class="link-icon" data-feather="message-square"></i>
          <span class="link-title">Absensi Pengajaran</span>
      </a>

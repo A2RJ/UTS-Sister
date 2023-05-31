@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\FileHelper;
+use App\Traits\Model\UtilsFunction;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
@@ -22,7 +23,7 @@ use function PHPUnit\Framework\callback;
 
 class Presence extends Model
 {
-    use HasFactory;
+    use HasFactory, UtilsFunction;
 
     protected $fillable = [
         'sdm_id',
@@ -110,6 +111,11 @@ class Presence extends Model
         return $this->belongsTo(HumanResource::class, 'sdm_id', 'id');
     }
 
+    public function sdm()
+    {
+        return $this->belongsTo(HumanResource::class, 'sdm_id');
+    }
+
     public function attachment()
     {
         return $this->hasOne(PresenceAttachment::class, 'presence_id');
@@ -154,39 +160,6 @@ class Presence extends Model
         }
 
         return $result;
-    }
-
-    public function processWeek(Request $request)
-    {
-        $start_week = $request->input('start');
-        $end_week = $request->input('end');
-        //validate input
-        $validatedData = $request->validate([
-            'start' => 'required|date_format:Y-W|before_or_equal:end',
-            'end' => 'required|date_format:Y-W|after_or_equal:start',
-        ]);
-
-        // Mengubah input menjadi tanggal
-        $start_date = Carbon::parse($start_week)->startOfWeek();
-        $end_date = Carbon::parse($end_week)->endOfWeek();
-
-        // Menampilkan hasil
-        echo "Tanggal awal minggu: " . $start_date->toDateString() . "<br>";
-        echo "Tanggal akhir minggu: " . $end_date->toDateString();
-    }
-
-    public static function expectedWorkingHours($sdmType, $period)
-    {
-        $working_hours_per_week = $sdmType ? self::$workingTime[$sdmType] : 0;
-        return $working_hours_per_week * $period * 60;
-    }
-
-    public static function calculatePeriod($start_date, $end_date)
-    {
-        $start = Carbon::parse($start_date);
-        $end = Carbon::parse($end_date);
-        $days = $start->diffInDays($end);
-        return $days / 7;
     }
 
     public static function subPresence()
@@ -249,7 +222,7 @@ class Presence extends Model
                 'human_resources.sdm_name',
                 'human_resources.id',
                 'human_resources.nidn',
-
+                'human_resources.sdm_type',
             )
             ->workHours()
             ->when($sdmIds, function ($query) use ($sdmIds) {
@@ -268,6 +241,7 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_name',
                 'human_resources.nidn',
+                'human_resources.sdm_type',
             );
 
         if (!$paginate) return $result->get();
@@ -289,6 +263,7 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_name',
                 'human_resources.nidn',
+                'human_resources.sdm_type',
                 DB::raw("DATE_FORMAT(check_in_time, '%W, %d-%m-%Y') AS check_in_date"),
                 DB::raw("DATE_FORMAT(check_out_time, '%W, %d-%m-%Y') AS check_out_date"),
                 DB::raw("DATE_FORMAT(check_in_time, '%H:%i') AS check_in_hour"),
@@ -298,8 +273,16 @@ class Presence extends Model
             ->when($sdmIds, function ($query) use ($sdmIds) {
                 return $query->whereIn('human_resources.id', $sdmIds);
             })
+            // ->when($start && $end, function ($query) use ($start, $end) {
+            //     return $query->whereBetween('presences.created_at', [$start, $end]);
+            // })
             ->when($start && $end, function ($query) use ($start, $end) {
-                return $query->whereBetween('presences.created_at', [$start, $end]);
+                return $query->where(function ($query) use ($start, $end) {
+                    $query->whereDate('presences.check_in_time', $start)
+                        ->orWhereDate('presences.check_out_time', $start)
+                        ->orWhereBetween('presences.check_in_time', [$start, $end])
+                        ->orWhereBetween('presences.check_out_time', [$start, $end]);
+                });
             })
             ->when($search && !$isSearchROle, function ($query) use ($search) {
                 return $query->where('human_resources.sdm_name', 'like', "%$search%");
@@ -311,6 +294,7 @@ class Presence extends Model
                 'human_resources.id',
                 'human_resources.sdm_name',
                 'human_resources.nidn',
+                'human_resources.sdm_type',
                 'presences.check_in_time',
                 'presences.check_out_time'
             );

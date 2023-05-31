@@ -63,7 +63,7 @@
             <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->nidn }}</td>
-            <td>{{ $presence->roles() }}</td>
+            <td>{!! $presence->roles() !!}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td>
         </tr>
@@ -76,7 +76,7 @@
             <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->nidn }}</td>
-            <td>{{ $presence->roles() }}</td>
+            <td>{!! $presence->roles() !!}</td>
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>

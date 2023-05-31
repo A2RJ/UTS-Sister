@@ -41,6 +41,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Jabatan</th>
+                                <th>Status Kepegawaian</th>
                                 <th>Email</th>
                                 <th>NIDN</th>
                                 <th>Mac Address</th>
@@ -52,7 +53,8 @@
                             <tr>
                                 <th>{{ $index + $sdms->firstItem() }}</th>
                                 <td>{{ $sdm->sdm_name }}</td>
-                                <td>{{ $sdm->roles() }}</td>
+                                <td>{!! $sdm->roles() !!}</td>
+                                <td>{{ $sdm->sdm_type }}</td>
                                 <td>{{ $sdm->email }}</td>
                                 <td>{{ $sdm->nidn }}</td>
                                 <td>{{ $sdm->mac_address }}</td>

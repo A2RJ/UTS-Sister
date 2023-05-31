@@ -65,34 +65,40 @@ class AppServiceProvider extends ServiceProvider
             }
             return $collect;
         });
-        Builder::macro('workHours', function () {
-            return $this->addSelect(
-                DB::raw(
-                    'TIME_FORMAT(
-                        GREATEST(0, SEC_TO_TIME(SUM(
-                            CASE  
-                                WHEN sdm_type = "Tenaga Kependidikan" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
-                                    )
-                                WHEN sdm_type = "dosen" THEN
-                                    TIMESTAMPDIFF(
-                                        SECOND, 
-                                        GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
-                                        LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
-                                    )
-                                ELSE 0
-                            END
-                        ))), "%H:%i:%s"
-                    ) as effective_hours'
-                ),
-                DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
-            )
-                ->whereColumn('check_out_time', '>', 'check_in_time')
-                ->where('permission', 1);
-        });
+        // Builder::macro('workHours', function () {
+        //     return $this->addSelect(
+        //         DB::raw(
+        //             'TIME_FORMAT(
+        //                 GREATEST(0, SEC_TO_TIME(SUM(
+        //                     CASE  
+        //                         WHEN sdm_type = "Tenaga Kependidikan" THEN
+        //                             TIMESTAMPDIFF(
+        //                                 SECOND, 
+        //                                 GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
+        //                                 LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
+        //                             )
+        //                         WHEN sdm_type = "Dosen" THEN
+        //                             TIMESTAMPDIFF(
+        //                                 SECOND, 
+        //                                 GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+        //                                 LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+        //                             )
+        //                         WHEN sdm_type = "Dosen DT" THEN
+        //                             TIMESTAMPDIFF(
+        //                                 SECOND, 
+        //                                 GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
+        //                                 LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
+        //                             ) 
+        //                         ELSE 0
+        //                     END
+        //                 ))), "%H:%i:%s"
+        //             ) as effective_hours'
+        //         ),
+        //         DB::raw('TIME_FORMAT(SUM(0 + 0), "%H:%i:%s") as ineffective_hours')
+        //     )
+        //         ->whereColumn('check_out_time', '>', 'check_in_time')
+        //         ->where('permission', 1);
+        // });
     }
 
     public function test()

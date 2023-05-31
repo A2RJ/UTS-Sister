@@ -26,13 +26,14 @@
     </div>
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
-    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
         @foreach ($presences as $index => $presence)
         <tr>
             <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->nidn }}</td>
-            <td>{{ $presence->roles() }}</td>
+            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->sdm_type }}</td>
             <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>

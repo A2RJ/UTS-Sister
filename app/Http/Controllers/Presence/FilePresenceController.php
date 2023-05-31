@@ -121,11 +121,15 @@ class FilePresenceController extends Controller
     public function perCivitas($data)
     {
         try {
+            $end = request('end');
+            $start = request('start');
+
             return (new FastExcel($data))->download('Absensi.xlsx', function ($item) {
                 return [
                     'Nama' => $item->sdm_name,
                     'NIDN' => $item->nidn,
                     'Jabatan' => $item->roles(),
+                    'Status Kepegawaian' => $item->sdm_type,
                     'Jam Efektif' => $item->effective_hours
                 ];
             });
@@ -137,11 +141,14 @@ class FilePresenceController extends Controller
     public function allPresences($data)
     {
         try {
+            $end = request('end');
+            $start = request('start');
             return (new FastExcel($data))->download('Absensi.xlsx', function ($item) {
                 return [
                     'Nama' => $item->sdm_name,
                     'NIDN' => $item->nidn,
                     'Jabatan' => $item->roles(),
+                    'Status Kepegawaian' => $item->sdm_type,
                     'Tanggal' => DateHelper::format_tgl_id($item->check_in_date),
                     'Jam Masuk' => $item->check_in_hour,
                     'Jam Pulang' => $item->check_out_hour,

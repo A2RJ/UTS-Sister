@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
