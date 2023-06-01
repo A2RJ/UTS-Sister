@@ -107,7 +107,7 @@ trait UtilsStructure
             ->get();
     }
 
-    public static function getSdmIdAllLevel($structureIds = false)
+    public static function getSdmIdAllLevel($structureIds = null)
     {
         if (!$structureIds) $structureIds = self::getOwnStructureIds();
         $structureIds = self::recursiveAll($structureIds);

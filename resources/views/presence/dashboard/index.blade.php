@@ -37,7 +37,7 @@
             <td>{{ $loop->iteration}}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{!! $presence->roles() !!}</td>
-            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
+            <td>{{ $presence->checkInDateFormat() }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
             <td>{{ $presence->effective_hours }}</td>

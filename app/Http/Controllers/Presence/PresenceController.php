@@ -50,17 +50,26 @@ class PresenceController extends Controller
 
     public function perUnit($structureId)
     {
-        $sdmIds = Structure::getSdmIdAllLevel([$structureId]);
+        $oneLevelUnder = Structure::recursiveAll([$structureId]);
+        $oneLevelUnder = Structure::whereIn('id', $oneLevelUnder)
+            ->whereNot('role', 'admin')
+            ->get();
+        $childIds = $oneLevelUnder->pluck('id')->flatten()->toArray();
+        $user = Structure::with('humanResource')->whereIn('id', $childIds)->get();
+        $sdmIds = $user->pluck('humanResource.*.id')->flatten()->toArray();
+
+        if (empty($sdmIds)) $sdmIds = [0];
+
         $filter = request('filter');
 
         if ($filter === 'per-unit') {
-            $structureUnder = array_values(Structure::getAllIdsLevelUnder([$structureId]));
-            $presences = Presence::perUnit($structureUnder);
+            $presences = Presence::perUnit($oneLevelUnder);
         } elseif ($filter === 'per-civitas') {
             $presences = Presence::perCivitas($sdmIds);
         } else {
             $presences = Presence::getAllPresences($sdmIds);
         }
+
         return view('presence.sub.perUnit.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.per-unit-presence', ['structureId' => $structureId], request()->getQueryString()))

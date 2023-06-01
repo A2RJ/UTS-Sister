@@ -155,18 +155,46 @@ trait UtilsFunction
         $workSeconds = $remainingSeconds % 60;
 
         $formattedWorkHours = sprintf("%02d:%02d:%02d", $workHours, $workMinutes, $workSeconds);
-        $targetWorkTime = Carbon::createFromFormat('G:i:s', $formattedWorkHours);
-        $effectiveTime = Carbon::createFromFormat('H:i:s', $workhour->effective_hours);
 
-        $difference = $effectiveTime->diff($targetWorkTime);
+        $workTimeParts = explode(':', $formattedWorkHours);
+        $targetHours = (int) $workTimeParts[0];
+        $targetMinutes = (int) $workTimeParts[1];
+        $targetSeconds = (int) $workTimeParts[2];
 
-        $hoursDifference = $difference->h;
-        $minutesDifference = $difference->i;
-        $secondsDifference = $difference->s;
+        $targetWorkTime = [
+            'hours' => $targetHours,
+            'minutes' => $targetMinutes,
+            'seconds' => $targetSeconds
+        ];
+
+        $effectiveTimeParts = explode(':', $workhour->effective_hours);
+        $effectiveHours = (int) $effectiveTimeParts[0];
+        $effectiveMinutes = (int) $effectiveTimeParts[1];
+        $effectiveSeconds = (int) $effectiveTimeParts[2];
+
+        $effectiveWorkTime = [
+            'hours' => $effectiveHours,
+            'minutes' => $effectiveMinutes,
+            'seconds' => $effectiveSeconds
+        ];
+
+        $hoursDifference = $targetWorkTime['hours'] - $effectiveWorkTime['hours'];
+        $minutesDifference = $targetWorkTime['minutes'] - $effectiveWorkTime['minutes'];
+        $secondsDifference = $targetWorkTime['seconds'] - $effectiveWorkTime['seconds'];
+
+        // Handle negative differences
+        if ($secondsDifference < 0) {
+            $minutesDifference--;
+            $secondsDifference += 60;
+        }
+        if ($minutesDifference < 0) {
+            $hoursDifference--;
+            $minutesDifference += 60;
+        }
 
         $status = '';
 
-        if ($effectiveTime->greaterThanOrEqualTo($targetWorkTime)) {
+        if ($hoursDifference >= 0 && $minutesDifference >= 0 && $secondsDifference >= 0) {
             $status = "Dosen telah mencapai atau melebihi target bekerja dalam range waktu.";
         } else {
             $status = "Dosen tidak mencukupi jam kerja. Selisih antara target bekerja dan jam kerja dosen adalah $hoursDifference jam, $minutesDifference menit, $secondsDifference detik.";
@@ -175,10 +203,16 @@ trait UtilsFunction
         $over = '';
         $less = '';
 
-        if ($effectiveTime->greaterThan($targetWorkTime)) {
-            $over = $effectiveTime->diff($targetWorkTime)->format('%H:%I:%S');
-        } elseif ($effectiveTime->lessThan($targetWorkTime)) {
-            $less = $targetWorkTime->diff($effectiveTime)->format('%H:%I:%S');
+        if ($hoursDifference < 0 || $minutesDifference < 0 || $secondsDifference < 0) {
+            $overHours = abs($hoursDifference);
+            $overMinutes = abs($minutesDifference);
+            $overSeconds = abs($secondsDifference);
+            $over = sprintf("%02d:%02d:%02d", $overHours, $overMinutes, $overSeconds);
+        } elseif ($hoursDifference > 0 || $minutesDifference > 0 || $secondsDifference > 0) {
+            $lessHours = abs($hoursDifference);
+            $lessMinutes = abs($minutesDifference);
+            $lessSeconds = abs($secondsDifference);
+            $less = sprintf("%02d:%02d:%02d", $lessHours, $lessMinutes, $lessSeconds);
         }
 
         return [
