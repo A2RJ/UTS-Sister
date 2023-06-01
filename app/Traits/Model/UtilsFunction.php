@@ -2,6 +2,7 @@
 
 namespace App\Traits\Model;
 
+use App\Helpers\DateHelper;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Builder;
@@ -95,62 +96,37 @@ trait UtilsFunction
             ->where('permission', 1);
     }
 
-    // public function compareWorkHours($start, $end, $role, $workhour)
-    // {
-    //     $startDate = Carbon::parse($start);
-    //     $endDate = Carbon::parse($end)->addDay();
-
-    //     $totalWorkingDays = $startDate->diffInDaysFiltered(function ($date) {
-    //         return !$date->isWeekend();
-    //     }, $endDate);
-
-    //     switch ($role) {
-    //         case 'Dosen':
-    //             $dailyHours = 3.6;
-    //             break;
-    //         case 'Dosen DT':
-    //             $dailyHours = 6;
-    //             break;
-    //         case 'Tenaga Kependidikan':
-    //             $dailyHours = 7;
-    //             break;
-    //         default:
-    //             $dailyHours = 0;
-    //             break;
-    //     }
-
-    //     $totalWorkSeconds = $dailyHours * 3600 * $totalWorkingDays;
-
-    //     $workHours = floor($totalWorkSeconds / 3600);
-    //     $workMinutes = floor(($totalWorkSeconds % 3600) / 60);
-    //     $workSeconds = $totalWorkSeconds % 60;
-
-    //     $formattedWorkHours = sprintf("%02d:%02d:%02d", $workHours, $workMinutes, $workSeconds);
-
-    //     $targetWorkTime = Carbon::createFromFormat('H:i:s', $formattedWorkHours);
-    //     $effectiveTime = Carbon::createFromFormat('H:i:s', $workhour);
-
-    //     $difference = $effectiveTime->diff($targetWorkTime)->format('%H:%I:%S');
-
-    //     $status = '';
-
-    //     if ($effectiveTime->greaterThanOrEqualTo($targetWorkTime)) {
-    //         $status = "Dosen telah mencapai atau melebihi target bekerja dalam range waktu.";
-    //     } else {
-    //         $status = "Dosen tidak mencukupi jam kerja. Selisih antara target bekerja dan jam kerja dosen adalah $difference.";
-    //     }
-
-    //     return [
-    //         'targetWorkHours' => $formattedWorkHours,
-    //         'workhour' => $workhour,
-    //         'status' => $status
-    //     ];
-    // }
+    public function checkInDateFormat()
+    {
+        if ($this->check_in_date) {
+            return DateHelper::format_tgl_id($this->check_in_date);
+        }
+        return;
+    }
 
     public function compareWorkHours($start, $end, $role, $workhour)
     {
-        $startDate = Carbon::parse($start);
-        $endDate = Carbon::parse($end)->addDay();
+        $startDate = false;
+        $endDate = false;
+
+        if ($start || $end) {
+            $startDate = Carbon::parse($start);
+            $endDate = Carbon::parse($end)->addDay();
+        }
+        if ($workhour->check_in_date || $workhour->check_out_date) {
+            $startDate = Carbon::parse($workhour->check_in_date);
+            $endDate = Carbon::parse($workhour->check_out_date)->addDay();
+        }
+
+        if (!$startDate || !$endDate) {
+            return [
+                'targetWorkHours' => 'Pilih range tanggal',
+                'workhour' => 'Pilih range tanggal',
+                'over' => 'Pilih range tanggal',
+                'less' => 'Pilih range tanggal',
+                'status' => 'Pilih range tanggal'
+            ];
+        }
 
         $totalWorkingDays = $startDate->diffInDaysFiltered(function ($date) {
             return !$date->isWeekend();
@@ -171,16 +147,16 @@ trait UtilsFunction
                 break;
         }
 
-        $totalWorkSeconds = $dailyHours * 3600 * $totalWorkingDays;
+        $totalWorkSeconds = ($dailyHours * 3600) * $totalWorkingDays;
 
         $workHours = floor($totalWorkSeconds / 3600);
-        $workMinutes = floor(($totalWorkSeconds % 3600) / 60);
-        $workSeconds = $totalWorkSeconds % 60;
+        $remainingSeconds = $totalWorkSeconds % 3600;
+        $workMinutes = floor($remainingSeconds / 60);
+        $workSeconds = $remainingSeconds % 60;
 
         $formattedWorkHours = sprintf("%02d:%02d:%02d", $workHours, $workMinutes, $workSeconds);
-
-        $targetWorkTime = Carbon::createFromFormat('H:i:s', $formattedWorkHours);
-        $effectiveTime = Carbon::createFromFormat('H:i:s', $workhour);
+        $targetWorkTime = Carbon::createFromFormat('G:i:s', $formattedWorkHours);
+        $effectiveTime = Carbon::createFromFormat('H:i:s', $workhour->effective_hours);
 
         $difference = $effectiveTime->diff($targetWorkTime);
 
@@ -196,20 +172,20 @@ trait UtilsFunction
             $status = "Dosen tidak mencukupi jam kerja. Selisih antara target bekerja dan jam kerja dosen adalah $hoursDifference jam, $minutesDifference menit, $secondsDifference detik.";
         }
 
-        $lebih = '';
-        $kurang = '';
+        $over = '';
+        $less = '';
 
         if ($effectiveTime->greaterThan($targetWorkTime)) {
-            $lebih = $effectiveTime->diff($targetWorkTime)->format('%H:%I:%S');
+            $over = $effectiveTime->diff($targetWorkTime)->format('%H:%I:%S');
         } elseif ($effectiveTime->lessThan($targetWorkTime)) {
-            $kurang = $targetWorkTime->diff($effectiveTime)->format('%H:%I:%S');
+            $less = $targetWorkTime->diff($effectiveTime)->format('%H:%I:%S');
         }
 
         return [
             'targetWorkHours' => $formattedWorkHours,
-            'workhour' => $workhour,
-            'lebih' => $lebih,
-            'kurang' => $kurang,
+            'workhour' => $workhour->effective_hours,
+            'over' => $over,
+            'less' => $less,
             'status' => $status
         ];
     }

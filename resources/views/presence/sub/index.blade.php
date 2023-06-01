@@ -57,44 +57,44 @@
         @endforeach
     </x-table>
     @elseif (request('filter') === 'per-civitas')
-    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jam Efektif', 'Detail']">
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Jumlah lebih jam', 'Aksi']">
         @foreach ($presences as $index => $presence)
+        @php
+        $detail = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence)
+        @endphp
         <tr>
             <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->nidn }}</td>
             <td>{!! $presence->roles() !!}</td>
             <td>{{ $presence->sdm_type }}</td>
+            <td>{{ $detail['targetWorkHours'] }}</td>
             <td>{{ $presence->effective_hours }}</td>
-            <td>
-                @php
-                $workHours = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence->effective_hours);
-                var_dump($workHours)
-                @endphp
-            </td>
+            <td>{{ $detail['less'] }}</td>
+            <td>{{ $detail['over'] }}</td>
             <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td>
         </tr>
         @endforeach
     </x-table>
     @else
-    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif', 'Detail']">
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Jumlah lebih jam']">
         @foreach ($presences as $index => $presence)
+        @php
+        $detail = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence)
+        @endphp
         <tr>
             <td>{{ $index + $presences->firstItem() }}</td>
             <td>{{ $presence->sdm_name }}</td>
             <td>{{ $presence->nidn }}</td>
             <td>{!! $presence->roles() !!}</td>
             <td>{{ $presence->sdm_type }}</td>
-            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
+            <td>{{ $presence->checkInDateFormat() }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
+            <td>{{ $detail['targetWorkHours'] }}</td>
             <td>{{ $presence->effective_hours }}</td>
-            <td>
-                @php
-                $workHours = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence->effective_hours);
-                var_dump($workHours)
-                @endphp
-            </td>
+            <td>{{ $detail['less'] }}</td>
+            <td>{{ $detail['over'] }}</td>
         </tr>
         @endforeach
     </x-table>

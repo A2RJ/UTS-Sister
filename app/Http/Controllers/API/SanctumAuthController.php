@@ -48,7 +48,7 @@ class SanctumAuthController extends Controller
             if (!Hash::check($request->password, $user->password)) throw new Exception('The provided credentials are incorrect.', 401);
 
             $macAddress = $request->mac_address;
-            if ($user->mac_address && $user->mac_address !== $macAddress) throw new Exception('You have logged from a different device.', 401);
+            if ($user->mac_address && $user->mac_address !== $macAddress) throw new Exception('You have logged from a different device.', 200);
 
             $user->mac_address = $macAddress;
             $user->save();
