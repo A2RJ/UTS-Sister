@@ -144,17 +144,17 @@ class SanctumAuthController extends Controller
         return false;
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         try {
             $userInfo = $this->findUserOrStudent($request->username);
             if (!$userInfo) throw new Exception('Your account is not registered.', 404);
             if (!Hash::check($request->password, $userInfo->user->password)) throw new Exception('The provided credentials are incorrect.', 401);
-            if ($userInfo->user->mac_address && $userInfo->user->mac_address !== $request->mac_address) throw new Exception('You have logged from a different device.', 422);
+            // if ($userInfo->user->mac_address && $userInfo->user->mac_address !== $request->mac_address) throw new Exception('You have logged from a different device.', 422);
 
-            if (in_array($userInfo->role, ['dosen', 'tendik'])) {
-                User::where('id', $userInfo->user->id)->update(['mac_address' => $request->mac_address]);
-            }
+            // if (in_array($userInfo->role, ['dosen', 'tendik'])) {
+            //     User::where('id', $userInfo->user->id)->update(['mac_address' => $request->mac_address]);
+            // }
 
             return response([
                 'data' => [
