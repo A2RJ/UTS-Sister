@@ -21,6 +21,47 @@ use PHPUnit\Framework\Constraint\Callback;
 
 use function PHPUnit\Framework\callback;
 
+/**
+ * App\Models\Presence
+ *
+ * @property int $id
+ * @property int|null $sdm_id
+ * @property string $latitude_in
+ * @property string $longitude_in
+ * @property string|null $check_in_time
+ * @property string|null $check_out_time
+ * @property string|null $latitude_out
+ * @property string|null $longitude_out
+ * @property int $permission
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Models\PresenceAttachment|null $attachment
+ * @property-read \App\Models\HumanResource|null $humanResource
+ * @property-read \App\Models\HumanResource|null $sdm
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read int|null $structure_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence export(?array $columns = null)
+ * @method static \Database\Factories\PresenceFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence search(?string $keyword, array $columns = [], array $relations = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence searchManual(?string $keyword)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereCheckInTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereCheckOutTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereLatitudeIn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereLatitudeOut($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereLongitudeIn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereLongitudeOut($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence wherePermission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereSdmId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @mixin \Eloquent
+ */
 class Presence extends Model
 {
     use HasFactory, UtilsFunction;

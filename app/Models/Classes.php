@@ -5,6 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Classes
+ *
+ * @property int $id
+ * @property int|null $structure_id
+ * @property string $class
+ * @property-read \App\Models\Structure|null $structure
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes whereClass($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Classes whereStructureId($value)
+ * @mixin \Eloquent
+ */
 class Classes extends Model
 {
     use HasFactory;

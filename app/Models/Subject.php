@@ -7,6 +7,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Subject
+ *
+ * @property int $id
+ * @property string $subject
+ * @property int $sks
+ * @property int $number_of_meetings
+ * @property int|null $class_id
+ * @property int|null $semester_id
+ * @property int|null $sdm_id
+ * @property-read \App\Models\Classes|null $class
+ * @property-read \App\Models\HumanResource|null $human_resource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read int|null $meetings_count
+ * @property-read \App\Models\Semester|null $semester
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereClassId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereNumberOfMeetings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSdmId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSemesterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSubject($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @mixin \Eloquent
+ */
 class Subject extends Model
 {
     use HasFactory;

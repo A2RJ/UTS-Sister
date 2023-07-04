@@ -5,6 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\StructuralPosition
+ *
+ * @property int $id
+ * @property int|null $sdm_id
+ * @property int|null $structure_id
+ * @property-read \App\Models\HumanResource|null $humanReource
+ * @property-read \App\Models\Structure|null $structure
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition query()
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition whereSdmId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StructuralPosition whereStructureId($value)
+ * @mixin \Eloquent
+ */
 class StructuralPosition extends Model
 {
     /**

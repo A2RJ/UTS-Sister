@@ -9,6 +9,63 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\HumanResource
+ *
+ * @property int $id
+ * @property string|null $sdm_id
+ * @property string|null $sdm_name
+ * @property string $email
+ * @property string|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property string|null $nidn
+ * @property string|null $nip
+ * @property string|null $active_status_name
+ * @property string|null $employee_status
+ * @property string|null $sdm_type
+ * @property int|null $is_sister_exist
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property int|null $program_studi_id
+ * @property int|null $sdm_type_id
+ * @property string|null $mac_address
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
+ * @property-read int|null $presence_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read int|null $structure_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
+ * @property-read int|null $subjects_count
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource export(?array $columns = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource query()
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource search(?string $keyword, array $columns = [], array $relations = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource searchManual(?string $keyword)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereActiveStatusName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereEmployeeStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereIsSisterExist($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereMacAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereNidn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereNip($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereProgramStudiId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HumanResource workHours()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
+ * @mixin \Eloquent
+ */
 class HumanResource extends Model
 {
     use HasFactory, Exel, UtilsFunction;

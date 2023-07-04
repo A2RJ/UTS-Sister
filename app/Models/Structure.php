@@ -7,6 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Auth\Structures\StructureTrait;
 use App\Traits\Auth\Structures\UtilsStructure;
 
+/**
+ * App\Models\Structure
+ *
+ * @property int $id
+ * @property string $role
+ * @property string $parent_id
+ * @property string $child_id
+ * @property string $type
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read int|null $children_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read int|null $human_resource_count
+ * @property-read Structure|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure whereChildId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Structure whereType($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @mixin \Eloquent
+ */
 class Structure extends Model
 {
     use HasFactory, StructureTrait, UtilsStructure;
