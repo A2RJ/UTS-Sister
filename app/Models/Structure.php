@@ -30,6 +30,8 @@ use App\Traits\Auth\Structures\UtilsStructure;
  * @method static \Illuminate\Database\Eloquent\Builder|Structure whereType($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
  * @mixin \Eloquent
  */
 class Structure extends Model

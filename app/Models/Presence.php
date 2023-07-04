@@ -4,20 +4,13 @@ namespace App\Models;
 
 use App\Helpers\FileHelper;
 use App\Traits\Model\UtilsFunction;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use DateTime;
-use Error;
+use Carbon\Carbon; 
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use PHPUnit\Framework\Constraint\Callback;
 
 use function PHPUnit\Framework\callback;
 
@@ -59,6 +52,7 @@ use function PHPUnit\Framework\callback;
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereSdmId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @mixin \Eloquent
  */

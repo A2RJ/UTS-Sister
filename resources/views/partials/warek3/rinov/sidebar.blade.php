@@ -1,4 +1,4 @@
-<li class="nav-item nav-category">Warek III</li>
+<li class="nav-item nav-category">Riset Inovasi</li>
 <li class="nav-item">
     <a class="nav-link" data-bs-toggle="collapse" href="#rinov" role="button" aria-expanded="false" aria-controls="rinov">
         <i class="link-icon" data-feather="list"></i>

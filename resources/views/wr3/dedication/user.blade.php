@@ -9,6 +9,9 @@
                 <div class="card-header">Pengabdian</div>
 
                 <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{{ route('dedication.create') }}" class="btn btn-primary">Tambah Pengabdian</a>
+                    </div>
                     <form action="{{ route('dedication.index') }}" method="GET">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ $search }}">

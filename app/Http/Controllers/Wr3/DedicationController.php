@@ -37,8 +37,27 @@ class DedicationController extends Controller
 
     public function byUser()
     {
-        $dedications = Dedication::where('sdm_id', Auth::id())->paginate();
-        return view('wr3.dedication.index', compact('dedications'));
+        $search = request('search');
+        $dedications = Dedication::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('funding_source', 'like', '%' . $search . '%')
+                        ->orWhere('activity_schedule', 'like', '%' . $search . '%')
+                        ->orWhere('location', 'like', '%' . $search . '%')
+                        ->orWhere('participants', 'like', '%' . $search . '%')
+                        ->orWhere('target_activity_outputs', 'like', '%' . $search . '%')
+                        ->orWhere('public_media_publications', 'like', '%' . $search . '%')
+                        ->orWhere('scientific_publications', 'like', '%' . $search . '%')
+                        ->orWhere('members', 'like', '%' . $search . '%')
+                        ->orWhereHas('humanResource', function ($query) use ($search) {
+                            $query->where('sdm_name', 'like', '%' . $search . '%');
+                        });
+                });
+            })
+            ->whereSdmId(Auth::id())
+            ->paginate(10);
+        return view('wr3.dedication.user', compact('dedications'));
     }
 
     public function create()

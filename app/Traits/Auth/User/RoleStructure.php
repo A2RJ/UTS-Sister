@@ -74,4 +74,10 @@ trait RoleStructure
         return $this->checkRoleType('Direktorat Riset & Inovasi', 'role');
         return StructuralPosition::where('id', 36)->exists();
     }
+
+    public function pengabdian()
+    {
+        return $this->checkRoleType('Direktorat Pengabdian Kepada Masyarakat', 'role') ||
+        $this->checkRoleType('Staf Direktorat Pengabdian Kepada Masyarakat', 'role');
+    }
 }

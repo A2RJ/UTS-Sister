@@ -88,6 +88,10 @@
                     @include('partials.warek3.rinov.sidebar')
                     @endif
 
+                    @if (auth()->user()->pengabdian())
+                    @include('partials.warek3.pengabdian.sidebar')
+                    @endif
+
                     @if (auth()->user()->isDSDM() || auth()->user()->isRektor() || auth()->user()->isAdmin())
                     @include('partials.dsdm.sidebar')
                     @endif

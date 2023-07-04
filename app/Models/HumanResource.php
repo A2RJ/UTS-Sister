@@ -64,6 +64,9 @@ use Illuminate\Support\Facades\DB;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
  * @mixin \Eloquent
  */
 class HumanResource extends Model
