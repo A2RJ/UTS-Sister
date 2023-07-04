@@ -39,4 +39,15 @@ class DownloadController extends Controller
             abort(404, "File Riset not found");
         }
     }
+
+    public function pengabdian($filename)
+    {
+        $file_path = '/proposal_file/' . base64_decode($filename);
+
+        if (Storage::disk('local')->exists($file_path)) {
+            return Storage::download($file_path);
+        } else {
+            abort(404, "File Riset not found");
+        }
+    }
 }

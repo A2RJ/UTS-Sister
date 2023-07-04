@@ -71,14 +71,13 @@ class ResearchProposalForm extends Component
             $this->journal_publication_link = $research->journal_publication_link;
         }
         $this->isFormHide = !$this->isFormHide;
+        $this->application_status = false;
     }
 
     public function submit()
     {
         $validated = $this->validate((new ResearchProposalRequest())->rules());
         $validated['proposal_file'] = $this->proposal_file->store('riset');
-        $validated['journal_pdf_file'] = $this->journal_pdf_file->store('riset');
-
         request()->user()->researchProposal()->create($validated);
         $this->isFormHide = true;
         $this->reset();

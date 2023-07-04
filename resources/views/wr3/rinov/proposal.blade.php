@@ -73,7 +73,9 @@
                                         <a href="{{ $research->journal_publication_link }}">Link</a>
                                     </td>
                                     <td>
+                                        @if ($research->journal_pdf_file)
                                         <a href="{{ route('download.riset', ['filename' => base64_encode($research->journal_pdf_file)]) }}">File</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

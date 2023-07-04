@@ -30,17 +30,17 @@ class ResearchProposalRequest extends FormRequest
             'contract_period' => $this->statusAjuan() ? 'required' : 'nullable',
             'funding_amount' => $this->statusAjuan() ? 'required' : 'nullable',
             'assignment_letter_link' => $this->statusAjuan() ? 'required|url' : 'nullable',
-            'publication_title' => 'required|max:255',
-            'author_status' => 'required|in:1,2,3,correspondence author',
-            'journal_name' => 'required|max:255',
-            'publication_year' => 'required|date_format:Y',
-            'volume_number' => 'required',
-            'publication_date_year' => 'required|date',
-            'publisher' => 'required',
-            'journal_accreditation_status' => 'required|in:International,Nationally accredited,Internal',
-            'journal_publication_link' => 'required|url',
-            'journal_pdf_file' => 'required|mimes:pdf,doc,docx|max:10240'
-        ];
+            'publication_title' => $this->statusAjuan() ? 'required|max:255' : 'nullable|max:255',
+            'author_status' => $this->statusAjuan() ? 'required|in:1,2,3,correspondence author' : 'nullable|in:1,2,3,correspondence author',
+            'journal_name' => $this->statusAjuan() ? 'required|max:255' : 'nullable|max:255',
+            'publication_year' => $this->statusAjuan() ? 'required|date_format:Y' : 'nullable|date_format:Y',
+            'volume_number' => $this->statusAjuan() ? 'required' : 'nullable',
+            'publication_date_year' => $this->statusAjuan() ? 'required|date' : 'nullable|date',
+            'publisher' => $this->statusAjuan() ? 'required' : 'nullable',
+            'journal_accreditation_status' => $this->statusAjuan() ? 'required|in:International,Nationally accredited,Internal' : 'nullable|in:International,Nationally accredited,Internal',
+            'journal_publication_link' => $this->statusAjuan() ? 'required|url' : 'nullable|url',
+            'journal_pdf_file' => $this->statusAjuan() ? 'required|mimes:pdf,doc,docx|max:10240' : 'nullable|mimes:pdf,doc,docx|max:10240'
+        ]; 
     }
 
     public function statusAjuan()

@@ -31,6 +31,7 @@ use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
 
@@ -84,6 +85,7 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
     Route::get('presense/{filename}', 'presense')->name('download.presense');
     Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
     Route::get('riset/{filename}', 'riset')->name('download.riset');
+    Route::get('pengabdian/{filename}', 'pengabdian')->name('download.pengabdian');
 });
 
 Route::middleware('auth')->group(function () {
@@ -165,6 +167,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
             Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
         });
+        Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
+        Route::resource('dedication', DedicationController::class)->except('show');
     });
 });
 
