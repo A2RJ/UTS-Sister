@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Wr3;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Wr3\LecturerDetailRequest;
+use App\Models\Faculty;
+use App\Models\Wr3\LecturerDetail;
 use App\Models\Wr3\OffCampusActivity;
 use App\Models\Wr3\ResearchProposal;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RinovController extends Controller
@@ -46,7 +48,36 @@ class RinovController extends Controller
 
     public function dataDosen()
     {
-        return view('wr3.dosen');
+        return view('wr3.dosen')
+        ->with('user', Auth::user())
+            ->with('detail', LecturerDetail::whereSdmId(Auth::id())->first())
+            ->with('faculties', Faculty::all())
+            ->with('themes', [
+                'Green economy',
+                'Blue economy',
+                'Social science',
+                'Humaniora',
+                'Engineering',
+                'Lain-lain'
+            ]);
+    }
+
+    public function postDataDosen(LecturerDetailRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['faculty_id'] = $validated['faculty'];
+        $validated['study_program_id'] = $validated['study_program'];
+
+        // if ($validated['theme'] == 'Lain-lain') {
+        //     unset($validated['theme']);
+        // } 
+
+        $request->user()->detail()->updateOrCreate(
+            ['sdm_id' => Auth::id()],
+            $validated
+        );
+
+        return back();
     }
 
     public function proposal()

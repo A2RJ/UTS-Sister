@@ -34,6 +34,8 @@ use App\Http\Controllers\Presence\PresencePermissionController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
+use App\Models\Faculty;
+use App\Models\StudyProgram;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,10 +148,20 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('warek-iii')->group(function () {
+        Route::get('/study-program/{faculty}', function ($faculty) {
+            $studyProgram = StudyProgram::whereFacultyId($faculty)->get();
+            return response($studyProgram);
+        });
+        Route::get('/study-program/{id}/first', function ($id) {
+            $studyProgram = StudyProgram::whereId($id)->first();
+            return response($studyProgram);
+        });
+
         Route::controller(RinovController::class)->group(function () {
             Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
             Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
             Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
+            Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
             Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
             Route::delete('/proposal-dosen/{proposal}', 'destroyProposal')->name('rinov.proposal.destroy');
             Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
@@ -161,9 +173,11 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
             Route::get('', 'index')->name('wr3.research-assignment');
+            Route::post('', 'store')->name('wr3.research-assignment.store');
             Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
             Route::get('create', 'create')->name('wr3.research-assignment.create');
-            Route::get('update/{researchAssignment}', 'update')->name('wr3.research-assignment.update');
+            Route::get('{researchAssignment}', 'edit')->name('wr3.research-assignment.edit');
+            Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
             Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
             Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
         });

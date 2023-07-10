@@ -28,7 +28,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('expertise');
             $table->string('theme');
-            $table->string('other_theme');
+            $table->string('other_theme')->nullable();
             $table->timestamps();
         });
     }

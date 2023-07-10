@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('as');
             $table->string('theme');
             $table->date('dateStart');
-            $table->date('dateEnd');
+            $table->date('dateEnd')->nullable();
             $table->string('organizer');
             $table->string('location');
             $table->json('table');

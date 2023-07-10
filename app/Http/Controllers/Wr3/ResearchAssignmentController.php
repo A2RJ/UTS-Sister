@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Wr3;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Wr3\ResearchAssignment as ResearchAssignmentRequest;
 use App\Models\ResearchAssignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -42,18 +42,54 @@ class ResearchAssignmentController extends Controller
         return view('wr3.rinov.ajukan-surat-tugas');
     }
 
-    public function update($researchAssignment)
+    public function store(ResearchAssignmentRequest $request)
     {
-        if (auth()->user()->rinov()) {
+        $validated = $request->validated();
+        $validated['sdm_id'] = Auth::id();
+
+        ResearchAssignment::create($validated);
+        return redirect()->route('wr3.research-assignment.by-user')->with('message', 'Berhasil input surat tugas');
+    }
+
+    public function edit(ResearchAssignment $researchAssignment)
+    {
+        if (Auth::user()->rinov()) {
             return view('wr3.rinov.terima-surat-tugas')
                 ->with('researchAssignment', $researchAssignment);
         }
         return back();
     }
 
+    public function update(Request $request, ResearchAssignment $researchAssignment)
+    {
+        if (Auth::user()->rinov()) {
+            $validatedData = $request->validate([
+                'number' => 'required|numeric',
+                'month' => 'required|integer|min:1|max:12',
+                'year' => 'required|numeric|digits:4',
+            ], [
+                'number.required' => 'Nomor harus diisi.',
+                'number.numeric' => 'Nomor harus berupa angka.',
+                'month.required' => 'Bulan harus diisi.',
+                'month.integer' => 'Bulan harus berupa angka bulat.',
+                'month.min' => 'Bulan harus di antara 1 dan 12.',
+                'month.max' => 'Bulan harus di antara 1 dan 12.',
+                'year.required' => 'Tahun harus diisi.',
+                'year.numeric' => 'Tahun harus berupa angka.',
+                'year.digits' => 'Tahun harus memiliki format empat angka, misalnya 2023.',
+            ]);
+
+
+            $researchAssignment->update($validatedData);
+            return redirect()->route('wr3.research-assignment')->with('message', 'Berhasil menerima surat tugas');
+        }
+
+        return back();
+    }
+
     public function changeStatus(ResearchAssignment $researchAssignment)
     {
-        if (auth()->user()->rinov()) {
+        if (Auth::user()->rinov()) {
             $researchAssignment->status = !$researchAssignment->status;
             $researchAssignment->save();
             $researchAssignment->refresh();
@@ -142,7 +178,7 @@ class ResearchAssignmentController extends Controller
             $template->setValue($key, $value);
         }
 
-        $outputPath = Storage::path('surat/' . 'test.docx');
+        $outputPath = Storage::path('surat/' . $researchAssignment->user->sdm_name . '.docx');
         $template->saveAs($outputPath);
 
         return response()->download($outputPath)->deleteFileAfterSend();

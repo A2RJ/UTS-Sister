@@ -57,7 +57,7 @@ class DedicationController extends Controller
             })
             ->whereSdmId(Auth::id())
             ->paginate(10);
-        return view('wr3.dedication.user', compact('dedications'));
+        return view('wr3.dedication.user', compact('dedications', 'search'));
     }
 
     public function create()

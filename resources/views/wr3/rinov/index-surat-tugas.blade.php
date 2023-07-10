@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Research Assignments') }}</div>
+                <div class="card-header">{{ __('Surat tugas') }}</div>
 
                 <div class="card-body">
 
@@ -76,7 +76,7 @@
                                     <td>{{ $researchAssignment->year }}</td>
                                     <td>
                                         @if (auth()->user()->rinov())
-                                        <a href="{{ route('wr3.research-assignment.update', ['researchAssignment' => $researchAssignment->id]) }}">
+                                        <a href="{{ route('wr3.research-assignment.edit', ['researchAssignment' => $researchAssignment->id]) }}">
                                             <button class="btn btn-sm btn-primary my-1">Penomoran surat</button>
                                         </a>
                                         @if ($researchAssignment->isDocumentNumberingFilled())
@@ -93,7 +93,7 @@
                                             @endif
                                         </form>
                                         @endif
-                                        @else
+                                        @endif
                                         @if ($researchAssignment->status)
                                         <form action="{{ route('wr3.research-assignment.print', ['researchAssignment' => $researchAssignment->id]) }}" method="post">
                                             @csrf
@@ -105,7 +105,6 @@
                                         <button class="btn btn-sm btn-danger" disabled>
                                             Belum diterima
                                         </button>
-                                        @endif
                                         @endif
                                     </td>
                                 </tr>

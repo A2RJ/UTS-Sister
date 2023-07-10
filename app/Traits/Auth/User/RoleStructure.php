@@ -71,7 +71,7 @@ trait RoleStructure
 
     public function rinov()
     {
-        return $this->checkRoleType('Direktorat Riset & Inovasi', 'role');
+        return $this->checkRoleType('Direktorat Riset & Inovasi', 'role') || $this->checkRoleType('Staf Direktorat Riset & Inovasi', 'role');
         return StructuralPosition::where('id', 36)->exists();
     }
 

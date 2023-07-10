@@ -23,27 +23,27 @@
                         <table class="table ">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Title</th>
-                                    <th>Funding Source</th>
-                                    <th>Funding Amount</th>
-                                    <th>Proposal File</th>
-                                    <th>Activity Time</th>
-                                    <th>Location</th>
-                                    <th>Participants</th>
-                                    <th>Activity Outcome</th>
-                                    <th>Media Publication Outcome</th>
-                                    <th>Scientific Publication Outcome</th>
-                                    <th>Members</th>
-                                    <th>Assignment Letter Link</th>
-                                    <th>Actions</th>
+                                    <th>No.</th>
+                                    <th>Nama</th>
+                                    <th>Judul</th>
+                                    <th>Sumber Pendanaan</th>
+                                    <th>Jumlah Pendanaan</th>
+                                    <th>File Proposal</th>
+                                    <th>Waktu Kegiatan</th>
+                                    <th>Lokasi</th>
+                                    <th>Peserta</th>
+                                    <th>Hasil Kegiatan</th>
+                                    <th>Hasil Publikasi Media</th>
+                                    <th>Hasil Publikasi Ilmiah</th>
+                                    <th>Anggota</th>
+                                    <th>Tautan Surat Tugas</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($dedications as $dedication)
                                 <tr>
-                                    <td>{{ $dedication->id }}</td>
+                                    <td>{{ $dedications->firstItem() + $loop->index }}</td>
                                     <td>{{ $dedication->humanResource->sdm_name }}</td>
                                     <td>{{ $dedication->title }}</td>
                                     <td>{{ $dedication->funding_source }}</td>

@@ -21,13 +21,13 @@
         </ul>
     </div>
 </li>
-<li class="nav-item nav-category">Dosen Menu</li>
+<!-- <li class="nav-item nav-category">Dosen Menu</li>
 <li class="nav-item">
     <a href="{{ route('subject.my-subject') }}" class="nav-link">
         <i class="link-icon" data-feather="message-square"></i>
         <span class="link-title">Pengajaran</span>
     </a>
-</li>
+</li> -->
 <li class="nav-item nav-category">Warek III</li>
 <li class="nav-item">
     <a href="{{ route('wr3.research-assignment.by-user') }}" class="nav-link">

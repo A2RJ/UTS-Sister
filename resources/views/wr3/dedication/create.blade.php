@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Create pengabdian</div>
+                <div class="card-header">Tambah pengabdian</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('dedication.store') }}" enctype="multipart/form-data">
