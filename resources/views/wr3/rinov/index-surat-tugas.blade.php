@@ -51,14 +51,7 @@
                             <tbody>
                                 @foreach($researchAssignments as $researchAssignment)
                                 <tr>
-                                    <td @if ($researchAssignment->status)
-                                        class="text-primary"
-                                        @else
-                                        class="text-danger"
-                                        @endif
-                                        >
-                                        {{ $researchAssignment->user->sdm_name }}
-                                    </td>
+                                    <td>{{ $researchAssignment->user->sdm_name }}</td>
                                     <td>{{ $researchAssignment->role }}</td>
                                     <td>{{ $researchAssignment->activity }}</td>
                                     <td>{{ $researchAssignment->as }}</td>
