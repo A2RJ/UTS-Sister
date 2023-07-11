@@ -16,18 +16,21 @@ class ResearchAssignmentController extends Controller
 {
     public function index()
     {
-        return view('wr3.rinov.index-surat-tugas')
+        if (Auth::user()->rinov()) {
+            return view('wr3.surat-tugas.index')
             ->with(
                 'researchAssignments',
                 ResearchAssignment::search()
                     ->with('user')
                     ->paginate()
             );
+        }
+        return back();
     }
 
     public function byUser()
     {
-        return view('wr3.rinov.index-surat-tugas')
+        return view('wr3.surat-tugas.index')
             ->with(
                 'researchAssignments',
                 ResearchAssignment::search()
@@ -39,7 +42,7 @@ class ResearchAssignmentController extends Controller
 
     public function create()
     {
-        return view('wr3.rinov.ajukan-surat-tugas');
+        return view('wr3.surat-tugas.create');
     }
 
     public function store(ResearchAssignmentRequest $request)
@@ -54,7 +57,7 @@ class ResearchAssignmentController extends Controller
     public function edit(ResearchAssignment $researchAssignment)
     {
         if (Auth::user()->rinov()) {
-            return view('wr3.rinov.terima-surat-tugas')
+            return view('wr3.surat-tugas.edit')
                 ->with('researchAssignment', $researchAssignment);
         }
         return back();
@@ -93,7 +96,7 @@ class ResearchAssignmentController extends Controller
             $researchAssignment->status = !$researchAssignment->status;
             $researchAssignment->save();
             $researchAssignment->refresh();
-            return back()->with('success', 'Berhasil terima tolak surat ' . $researchAssignment->user->sdm_name);
+            return back()->with('success', 'Berhasil terima atau tolak surat ' . $researchAssignment->user->sdm_name);
         }
         return back();
     }

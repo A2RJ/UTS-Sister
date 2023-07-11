@@ -55,9 +55,9 @@
             <li class="nav-item">
                 <a href="{{ route('proposal.dosen') }}" class="nav-link">Proposal</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="{{ route('rinov.kegiatan-luar-kampus') }}" class="nav-link">Kegiatan di luar kampus</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </li>

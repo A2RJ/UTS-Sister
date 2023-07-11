@@ -70,7 +70,7 @@ class RinovController extends Controller
 
     public function kegiatanLuarKampus()
     {
-        return view('wr3.aktivitas');
+        return view('wr3.off-campus-activity.aktivitas');
     }
 
     public function destroyActivity(OffCampusActivity $activity)
