@@ -84,7 +84,9 @@
                                     <td>{{ $research->publisher }}</td>
                                     <td>{{ $research->journal_accreditation_status }}</td>
                                     <td>
+                                        @if ($research->journal_publication_link)
                                         <a href="{{ $research->journal_publication_link }}">Link</a>
+                                        @endif
                                     </td>
                                     <td>
                                         @if ($research->journal_pdf_file)

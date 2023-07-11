@@ -153,7 +153,7 @@
         radio.addEventListener('change', function() {
             if (this.value === 'Lain-lain') {
                 otherThemeInput.removeAttribute('disabled');
-                otherThemeInput.value = '{{ $detail->other_theme }}';
+                otherThemeInput.value = '{{ $detail?->other_theme }}';
             } else {
                 otherThemeInput.setAttribute('disabled', 'disabled');
                 otherThemeInput.value = '';
@@ -165,7 +165,7 @@
     themeRadios.forEach(function(radio) {
         if (radio.checked && radio.value === 'Lain-lain') {
             otherThemeInput.removeAttribute('disabled');
-            otherThemeInput.value = '{{ $detail->other_theme }}';
+            otherThemeInput.value = '{{ $detail?->other_theme }}';
         } else {
             otherThemeInput.setAttribute('disabled', 'disabled');
             otherThemeInput.value = '';

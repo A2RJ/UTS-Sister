@@ -149,13 +149,15 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('warek-iii')->group(function () {
-        Route::get('/study-program/{faculty}', function ($faculty) {
-            $studyProgram = StudyProgram::whereFacultyId($faculty)->get();
-            return response($studyProgram);
-        });
-        Route::get('/study-program/{id}/first', function ($id) {
-            $studyProgram = StudyProgram::whereId($id)->first();
-            return response($studyProgram);
+        Route::prefix('study-program')->group(function () {
+            Route::get('/{faculty}', function ($faculty) {
+                $studyProgram = StudyProgram::whereFacultyId($faculty)->get();
+                return response($studyProgram);
+            });
+            Route::get('/{id}/first', function ($id) {
+                $studyProgram = StudyProgram::whereId($id)->first();
+                return response($studyProgram);
+            });
         });
 
         Route::controller(ProposalController::class)->group(function () {

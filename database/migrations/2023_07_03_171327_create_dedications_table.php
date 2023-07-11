@@ -13,7 +13,7 @@ class CreateDedicationsTable extends Migration
             $table->unsignedBigInteger('sdm_id');
             $table->string('title');
             $table->string('funding_source');
-            $table->decimal('funding_amount', 10, 2);
+            $table->string('funding_amount');
             $table->string('proposal_file');
             $table->date('activity_schedule');
             $table->string('location');
