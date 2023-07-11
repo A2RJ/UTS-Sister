@@ -79,7 +79,7 @@
                     </td>
                     <td>
                         <button class="btn btn-outline-primary mb-2" wire:click="formToggle({{ $research->id }})">Edit</button>
-                        <form action="{{ route('rinov.proposal.destroy', $research->id) }}" method="POST">
+                        <form action="{{ route('proposal.destroy', $research->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus item ini?')">Delete</button>

@@ -32,6 +32,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
 use App\Http\Controllers\Wr3\DedicationController;
+use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
 use App\Models\Faculty;
@@ -157,17 +158,20 @@ Route::middleware('auth')->group(function () {
             return response($studyProgram);
         });
 
+        Route::controller(ProposalController::class)->group(function () {
+            Route::get('/proposal-dosen', 'dosen')->name('proposal.dosen');
+            Route::get('/action/{proposal}', 'verifyAction')->name('proposal.verifyAction');
+            Route::get('/proposal/download', 'downloadProposal')->name('download.proposal');
+            Route::resource('/proposal', ProposalController::class);
+        });
+
         Route::controller(RinovController::class)->group(function () {
-            Route::get('/proposal', 'researchProposal')->name('rinov.index.proposal');
             Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
             Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
             Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
-            Route::get('/proposal-dosen', 'proposal')->name('rinov.proposal');
-            Route::delete('/proposal-dosen/{proposal}', 'destroyProposal')->name('rinov.proposal.destroy');
             Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
             Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
             Route::prefix('download')->group(function () {
-                Route::get('/proposal', 'downloadProposal')->name('download.proposal');
                 Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
             });
         });

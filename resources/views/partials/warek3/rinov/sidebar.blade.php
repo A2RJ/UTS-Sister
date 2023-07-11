@@ -8,7 +8,7 @@
     <div class="collapse" id="rinov">
         <ul class="nav sub-menu">
             <li class="nav-item">
-                <a href="{{ route('rinov.index.proposal') }}" class="nav-link">Proposal</a>
+                <a href="{{ route('proposal.index') }}" class="nav-link">Proposal</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('rinov.index.kegiatan-luar-kampus') }}" class="nav-link">Kegiatan luar kampus</a>

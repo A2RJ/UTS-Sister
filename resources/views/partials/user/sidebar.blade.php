@@ -53,7 +53,7 @@
                 <a href="{{ route('rinov.data-dosen') }}" class="nav-link">Data dosen</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('rinov.proposal') }}" class="nav-link">Proposal</a>
+                <a href="{{ route('proposal.dosen') }}" class="nav-link">Proposal</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('rinov.kegiatan-luar-kampus') }}" class="nav-link">Kegiatan di luar kampus</a>

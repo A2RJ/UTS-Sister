@@ -12,25 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RinovController extends Controller
 {
-    public function researchProposal()
-    {
-        $keyword = request('keyword');
-        $researches = ResearchProposal::search(
-            $keyword,
-            ['proposal_title', 'grant_scheme', 'target_outcomes', 'application_status', 'publication_title', 'author_status', 'journal_name'],
-            [
-                'humanResource' => function ($query) use ($keyword) {
-                    $query->where('sdm_name', 'LIKE', '%' . $keyword . '%');
-                }
-            ]
-        )
-            ->paginate();
-
-        return view('wr3.rinov.proposal')
-            ->with('researches', $researches)
-            ->with('exportUrl', route('download.proposal', request()->getQueryString()));
-    }
-
     public function offCampusActivity()
     {
         $keyword = request('keyword');
@@ -48,7 +29,7 @@ class RinovController extends Controller
 
     public function dataDosen()
     {
-        return view('wr3.dosen')
+        return view('wr3.profile-dosen')
         ->with('user', Auth::user())
             ->with('detail', LecturerDetail::whereSdmId(Auth::id())->first())
             ->with('faculties', Faculty::all())
@@ -68,10 +49,6 @@ class RinovController extends Controller
         $validated['faculty_id'] = $validated['faculty'];
         $validated['study_program_id'] = $validated['study_program'];
 
-        // if ($validated['theme'] == 'Lain-lain') {
-        //     unset($validated['theme']);
-        // } 
-
         $request->user()->detail()->updateOrCreate(
             ['sdm_id' => Auth::id()],
             $validated
@@ -80,9 +57,8 @@ class RinovController extends Controller
         return back();
     }
 
-    public function proposal()
+    public function tambahProposal()
     {
-        return view('wr3.proposal');
     }
 
     public function destroyProposal(ResearchProposal $proposal)
@@ -102,20 +78,6 @@ class RinovController extends Controller
         if ($activity->sdm_id != Auth::id()) return back()->with('fail', 'Unauthorized!');
         $activity->delete();
         return back()->with('success', 'Data aktivitas di luar kampus berhasil didelete!');
-    }
-
-    public function downloadProposal()
-    {
-        $keyword = request('keyword');
-        return ResearchProposal::search(
-            $keyword,
-            ['proposal_title', 'grant_scheme', 'target_outcomes', 'application_status', 'publication_title', 'author_status', 'journal_name'],
-            [
-                'humanResource' => function ($query) use ($keyword) {
-                    $query->where('sdm_name', 'LIKE', '%' . $keyword . '%');
-                }
-            ]
-        )->export();
     }
 
     public function downloadKegiatanLuarKampus()
