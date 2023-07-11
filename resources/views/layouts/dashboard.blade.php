@@ -26,32 +26,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- End fonts -->
 
-    <!-- core:css -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.css') }}">
-    <!-- endinject -->
-
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-    <!-- End plugin css for this page -->
-
-    <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/fonts/feather-font/css/iconfont.css') }}">
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
-    <!-- endinject -->
-
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{{ asset('/themeforest/NobleUI/template/assets/css/demo1/style.css') }}">
-    <!-- End layout styles -->
-
+    @vite(['resources/js/app.js'])
+    @livewireStyles
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
-    @vite('resources/js/app.js')
 </head>
 
 <body>
     <div class="main-wrapper">
         <nav class="sidebar">
-            <div class="sidebar-header">
-                <a href="#" class="sidebar-brand">
+            <div class="sidebar-header" style="height: 100px;">
+                <a href="#" class="sidebar-brand mx-auto">
+                    <img src="{{ asset('/presensi.png') }}" width="50" height="50" class="rounded mx-auto d-block" />
                     {{ env('APP_BRAND1') }}<span>{{ env('APP_BRAND2') }}</span>
                 </a>
                 <div class="sidebar-toggler not-active">
@@ -65,7 +52,7 @@
                     <li class="nav-item nav-category">Main menu</li>
                     <li class="nav-item">
                         <a href="{{ route('presence.index') }}" class="nav-link">
-                            <i class="link-icon" data-feather="box"></i>
+                            <i class="link-icon" data-feather="home"></i>
                             <span class="link-title">Dashboard</span>
                         </a>
                     </li>
@@ -75,12 +62,6 @@
                     @endif
 
                     @if (auth()->user()->isRektor())
-                    @endif
-
-                    @if (auth()->user()->isAdmin())
-                    @include('partials.admin.sidebar')
-                    <!-- <li class="nav-item nav-category">SDM Menu</li>
-                    <x-sidebar-menu></x-sidebar-menu> -->
                     @endif
 
                     @if (auth()->user()->isLecturer())
@@ -99,15 +80,20 @@
                     @include('partials.akademik.sidebar')
                     @endif
 
-                    @if (auth()->user()->isDSDM())
-                    @include('partials.dsdm.sidebar')
-
-                    <!-- <li class="nav-item nav-category">SDM Menu</li>
-                    <x-sidebar-menu></x-sidebar-menu> -->
+                    @if (auth()->user()->isDirAkademik())
+                    @include('partials.akademik.sidebar')
                     @endif
 
-                    @if (auth()->user()->hasSub())
-                    @include('partials.sub-division.sidebar')
+                    @if (auth()->user()->rinov())
+                    @include('partials.warek3.rinov.sidebar')
+                    @endif
+
+                    @if (auth()->user()->pengabdian())
+                    @include('partials.warek3.pengabdian.sidebar')
+                    @endif
+
+                    @if (auth()->user()->isDSDM() || auth()->user()->isRektor() || auth()->user()->isAdmin())
+                    @include('partials.dsdm.sidebar')
                     @endif
 
                     @if (auth()->user()->is_sister_exist)
@@ -118,14 +104,14 @@
                     <li class="nav-item nav-category">Auth</li>
                     <li class="nav-item">
                         <a href="{{ route('auth.change-password') }}" class="nav-link">
-                            <i class="link-icon" data-feather="message-square"></i>
+                            <i class="link-icon" data-feather="settings"></i>
                             <span class="link-title">Ubah password</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            <i class="link-icon" data-feather="message-square"></i>
+                            <i class="link-icon" data-feather="log-out"></i>
                             <span class="link-title">{{ __('Logout') }}</span>
                         </a>
 
@@ -152,24 +138,11 @@
             </footer>
         </div>
     </div>
-
-    <!-- core:js -->
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/core/core.js') }}"></script>
-    <!-- endinject -->
-
-    <!-- Plugin js for this page -->
+    @livewireScripts
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
     @yield('plugin_js')
-    <!-- End plugin js for this page -->
-
-    <!-- inject:js -->
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/vendors/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('/themeforest/NobleUI/template/assets/js/template.') }}js"></script>
-    <!-- endinject -->
-
-    <!-- Custom js -->
     @yield('custom_js')
-    <!-- End custom js for this page -->
-
 </body>
 
 

@@ -3,18 +3,19 @@
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">List izin kehadiran</h4>
+    <h4 class="mb-4">Daftar izin kehadiran</h4>
 
     <x-success-message />
     <x-error-message />
 
-    <x-table :header="['Nama', 'Tanggal', 'Detail', 'File', 'Aksi']">
+    <x-table :header="['Nama', 'Jabatan', 'Tanggal', 'Detail', 'File', 'Aksi']">
         @foreach ($permissions as $permission)
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $permission->sdm_name }}</td>
+            <td>{!! $presence->roles() !!}</td>
             <td>{{ $permission->created_at }}</td>
-            <td>{{ $permission->attachment->detail }}</td>
+            <td>{!! $permission->detail() !!}</td>
             <td>
                 @if ($permission->attachment->attachment)
                 <a href="{{ route('download.presense', ['filename' => $permission->attachment->attachment]) }}">File</a>
@@ -26,18 +27,22 @@
                     @csrf
                     <button type="submit" class="btn btn-primary btn-block">Terima</button>
                 </form>
-                @endif
-                <form method="POST" action="{{ route('presence.delete', ['presence' => $permission->id]) }}" onsubmit="return confirm('@if ($permission->sdm_id != auth()->user()->id) Apakah Anda yakin ingin menolak permintaan ini? @else Apakah Anda yakin ingin menghapus permintaan ini? @endif')">
+                <form method="POST" action="{{ route('presence.decline', ['presence' => $permission->id]) }}" onsubmit="return confirm('Apakah Anda yakin ingin menolak permintaan ini?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-block">
-                        @if ($permission->sdm_id != auth()->user()->id)
                         Tolak
-                        @else
-                        Hapus
-                        @endif
                     </button>
                 </form>
+                @else
+                <form method="POST" action="{{ route('presence.destroy', ['presence' => $permission->id]) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus permintaan ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-block">
+                        Hapus
+                    </button>
+                </form>
+                @endif
             </td>
         </tr>
         @endforeach

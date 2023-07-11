@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Presence\StorePresenceRequest;
 use App\Http\Requests\Presence\UpdatePresenceRequest;
 use App\Models\Presence;
 use App\Models\HumanResource;
-use App\Models\Subject;
+use App\Models\Structure;
 use App\Traits\Utils\CustomPaginate;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PresenceController extends Controller
@@ -18,62 +18,63 @@ class PresenceController extends Controller
 
     public function index()
     {
-        return view('home');
+        return view('dashboard');
     }
 
     public function myPresence()
     {
-        return view('presence.dashboard.index')
+        return view('presence.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.my-presence', request()->getQueryString()))
-            ->with('presences', Presence::getPresences([Auth::id()]))
-            ->with('hours', Presence::getPresenceHours(Auth::id()));
+            ->with('presences', Presence::getAllPresences([Auth::id()]))
+            ->with('hours', Presence::getPresenceHours(Auth::id(), true));
     }
 
-    public function subPresenceByCivitas()
+    public function subPresence()
     {
-        return view('presence.dashboard.structural')
+        return view('presence.sub.index')
             ->with('withDate', true)
-            ->with('exportUrl', route('download.per-civitas', request()->getQueryString()))
-            ->with('presences', Presence::subPresenceByCivitas());
+            ->with('exportUrl', route('download.sub-presence', request()->getQueryString()))
+            ->with('presences', Presence::subPresence())
+            ->with('hours', Presence::totalPresenceHour());
     }
 
-    public function subPresenceAll()
+    public function perCivitas($sdm_id)
     {
-        return view('presence.dashboard.index')
+        return view('presence.index')
             ->with('withDate', true)
-            ->with('exportUrl', route('download.civitas-all', request()->getQueryString()))
-            ->with('presences', Presence::subPresenceAll());
+            ->with('exportUrl', route('download.per-civitas-presence', ['sdm_id' => $sdm_id], request()->getQueryString()))
+            ->with('presences', Presence::getAllPresences([$sdm_id]))
+            ->with('hours', Presence::getPresenceHours($sdm_id, true));
     }
 
-    public function subLecturer()
+    public function perUnit($structureId)
     {
-        return view('presence.dashboard.lecturer')
-            ->with('exportUrl', route('download.sub-lecturer', request()->getQueryString()))
-            ->with('lecturers', Subject::subLecturer());
-    }
+        $oneLevelUnder = Structure::recursiveAll([$structureId]);
+        $oneLevelUnder = Structure::whereIn('id', $oneLevelUnder)
+            ->whereNot('role', 'admin')
+            ->get();
+        $childIds = $oneLevelUnder->pluck('id')->flatten()->toArray();
+        $user = Structure::with('humanResource')->whereIn('id', $childIds)->get();
+        $sdmIds = $user->pluck('humanResource.*.id')->flatten()->toArray();
 
-    public function allLecturer()
-    {
-        return view('presence.dashboard.lecturer')
-            ->with('exportUrl', route('download.all-lecturer', request()->getQueryString()))
-            ->with('lecturers', Subject::allLecturer());
-    }
+        if (empty($sdmIds)) $sdmIds = [0];
 
-    public function dsdmByCivitas()
-    {
-        return view('presence.dashboard.structural')
-            ->with('exportUrl', route('download.dsdm-civitas', request()->getQueryString()))
+        $filter = request('filter');
+
+        if ($filter === 'per-unit') {
+            $presences = Presence::perUnit($oneLevelUnder);
+        } elseif ($filter === 'per-civitas') {
+            $presences = Presence::perCivitas($sdmIds);
+        } else {
+            $presences = Presence::getAllPresences($sdmIds);
+        }
+
+        return view('presence.sub.perUnit.index')
             ->with('withDate', true)
-            ->with('presences', Presence::dsdmByCivitas());
-    }
-
-    public function dsdmAllCivitas()
-    {
-        return view('presence.dashboard.index')
-            ->with('withDate', true)
-            ->with('exportUrl', route('download.dsdm-civitas-all', request()->getQueryString()))
-            ->with('presences', Presence::dsdmAllCivitas());
+            ->with('exportUrl', route('download.per-unit-presence', ['structureId' => $structureId], request()->getQueryString()))
+            ->with('presences', $presences)
+            ->with('hours', Presence::getPresenceHours($sdmIds, true));
     }
 
     public function create()
@@ -92,9 +93,10 @@ class PresenceController extends Controller
     public function detail($sdm_id)
     {
         return view('presence.dashboard.index')
+            ->with('withDate', true)
             ->with('sdm', HumanResource::where('id', $sdm_id)->first())
-            ->with('exportUrl', route('download.detail', ['sdm_id' => $sdm_id]))
-            ->with('presences', Presence::getPresences([$sdm_id]));
+            ->with('exportUrl', '')
+            ->with('presences', Presence::getAllPresences([$sdm_id]));
     }
 
     public function edit(Presence $presence)
@@ -113,7 +115,7 @@ class PresenceController extends Controller
 
     public function destroy(Presence $presence)
     {
-        $presence->delete();
+        if (Auth::id() == $presence->sdm_id) $presence->delete();
         return redirect()->route('presence.index')->with('message', "Berhasil hapus presensi kehadiran");
     }
 }

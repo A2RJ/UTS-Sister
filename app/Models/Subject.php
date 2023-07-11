@@ -7,6 +7,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Subject
+ *
+ * @property int $id
+ * @property string $subject
+ * @property int $sks
+ * @property int $number_of_meetings
+ * @property int|null $class_id
+ * @property int|null $semester_id
+ * @property int|null $sdm_id
+ * @property-read \App\Models\Classes|null $class
+ * @property-read \App\Models\HumanResource|null $human_resource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read int|null $meetings_count
+ * @property-read \App\Models\Semester|null $semester
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereClassId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereNumberOfMeetings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSdmId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSemesterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSubject($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @mixin \Eloquent
+ */
 class Subject extends Model
 {
     use HasFactory;
@@ -117,7 +146,8 @@ class Subject extends Model
                 'subjects.sdm_id',
                 'human_resources.sdm_name'
             )
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function bySdmId($sdm_id, $semester_id = false)
@@ -193,13 +223,14 @@ class Subject extends Model
             });
         }
 
-        return $result->paginate();
+        return $result->paginate()
+            ->appends(request()->except('page'));
     }
 
     public static function subLecturer()
     {
         $search = request('search');
-        $sdm_id = User::justChildSDMId();
+        $sdm_id = Structure::getSdmIdOneLevelUnder();
         $data = Subject::join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('meetings', 'subjects.id', '=', 'meetings.subject_id')
             ->join('semesters', 'subjects.semester_id', 'semesters.id')
@@ -212,7 +243,9 @@ class Subject extends Model
             })
             ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
             ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
+
         return $data;
     }
 
@@ -228,7 +261,9 @@ class Subject extends Model
             })
             ->select('human_resources.id', 'semester_id', 'semester', 'sdm_name', DB::raw('ROUND((SUM(CASE WHEN meetings.file IS NOT NULL OR meetings.meeting_start IS NOT NULL THEN 1 ELSE 0 END) / SUM(number_of_meetings)) * SUM(sks), 2) AS total_sks'))
             ->groupBy('human_resources.id', 'human_resources.sdm_name', 'semester_id', 'semester')
-            ->paginate();
+            ->paginate()
+            ->appends(request()->except('page'));
+
         return $data;
     }
 

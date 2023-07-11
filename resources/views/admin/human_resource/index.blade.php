@@ -41,44 +41,55 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Jabatan</th>
+                                <th>Status Kepegawaian</th>
                                 <th>Email</th>
                                 <th>NIDN</th>
+                                <th>Mac Address</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sdm as $item)
+                            @foreach ($sdms as $index => $sdm)
                             <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <td>{{ $item->sdm_name }}</td>
-                                <td>{{ $item->structure_id ? $item->structure->role : '' }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->nidn }}</td>
+                                <th>{{ $index + $sdms->firstItem() }}</th>
+                                <td>{{ $sdm->sdm_name }}</td>
+                                <td>{!! $sdm->roles() !!}</td>
+                                <td>{{ $sdm->sdm_type }}</td>
+                                <td>{{ $sdm->email }}</td>
+                                <td>{{ $sdm->nidn }}</td>
+                                <td>{{ $sdm->mac_address }}</td>
                                 <td>
-                                    <a href="{{ route('human_resource.show', ['human_resource' => $item->sdm_id]) }}">
+                                    <a href="{{ route('human_resource.show', ['human_resource' => $sdm->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Detail</button>
                                     </a>
-                                    @if ($item->is_sister_exist)
-                                    <a href="{{ route('sdm.set-sdm', ['sdm_id' => $item->sdm_id, 'sdm_name' => $item->sdm_name]) }}">
+                                    @if ($sdm->is_sister_exist)
+                                    <a href="{{ route('sdm.set-sdm', ['sdm_id' => $sdm->sdm_id, 'sdm_name' => $sdm->sdm_name]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Set SDM</button>
                                     </a>
                                     @endif
-                                    <a href="{{ route('human_resource.edit', ['human_resource' => $item->sdm_id]) }}">
+                                    <a href="{{ route('human_resource.edit', ['human_resource' => $sdm->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</button>
                                     </a>
                                     <div class="d-flex gap-1">
-                                        <a href="{{ route('human_resource.resetPassword', ['human_resource' => $item->sdm_id]) }}" onclick="return confirm('Yakin reset password (NIDN - {{ $item->nidn }}) untuk {{ $item->sdm_name }}?')">
+                                        <a href="{{ route('human_resource.resetPassword', ['human_resource' => $sdm->sdm_id]) }}" onclick="return confirm('Yakin reset password (NIDN - {{ $sdm->nidn }}) untuk {{ $sdm->sdm_name }}?')">
                                             <button class="btn btn-sm btn-outline-danger">Reset password</button>
                                         </a>
-                                        <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $item->sdm_id]) }}" />
+                                        <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $sdm->sdm_id]) }}" />
                                     </div>
+                                    @if ($sdm->mac_address)
+                                    <form action="{{ route('human_resource.reset-mac-address', $sdm->sdm_id) }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit" name="mac_address" class="btn btn-sm btn-outline-warning mt-1">Reset Mac Address</button>
+                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <div class="mt-2 float-right">
-                        {{ $sdm->links() }}
+                        {{ $sdms->links() }}
                     </div>
                 </div>
             </div>

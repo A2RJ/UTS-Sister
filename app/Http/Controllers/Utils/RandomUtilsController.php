@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Utils;
 
 use App\Http\Controllers\Controller;
 use App\Models\HumanResource;
+use App\Models\Presence;
+use App\Models\Structure;
 use App\Models\Student;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -138,5 +141,34 @@ class RandomUtilsController extends Controller
             DB::rollBack();
             return response($th->getMessage());
         }
+    }
+
+    public function getPerUnitData()
+    {
+        return response(
+            Structure::where('role', '!=', 'admin')
+                ->with(['humanResource' => function ($query) {
+                    return $query->join('presences', 'human_resources.id', '=', 'presences.sdm_id')
+                        ->select(
+                            'human_resources.sdm_name',
+                            'human_resources.id',
+                            'human_resources.sdm_type',
+
+                        )
+                        ->workHours()
+                        ->groupBy(
+                            'human_resources.id',
+                            'human_resources.sdm_name',
+                            'human_resources.sdm_type',
+                            'structural_positions.structure_id'
+                        );
+                }])->get()
+        );
+    }
+
+    public function getChild()
+    {
+        $structure = Structure::getAllStructure(5);
+        return response($structure);
     }
 }

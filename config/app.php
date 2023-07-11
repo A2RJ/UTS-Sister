@@ -203,6 +203,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
     ],
 
     /*

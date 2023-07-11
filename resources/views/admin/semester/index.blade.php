@@ -14,9 +14,9 @@
     <x-success-message />
     <x-error-message />
     <x-table :header="['Semester', 'Aksi']">
-        @foreach ($semesters as $semester)
+        @foreach ($semesters as $index => $semester)
         <tr class="text-capitalize">
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $semesters->firstItem() }}</td>
             <td>{{ $semester->semester }}</td>
             <td>
                 @if (auth()->user()->isAdmin())

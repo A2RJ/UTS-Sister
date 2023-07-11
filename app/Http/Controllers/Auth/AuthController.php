@@ -9,6 +9,7 @@ use App\Services\Sister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            Sister::authorize();
+            // Sister::authorize();
             $user = Auth::user();
             session(['id_sdm' => $user->sdm_id, 'sdm_name' => $user->sdm_name]);
             return redirect()->route('home');
@@ -60,7 +61,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        session()->flush();
+        Session::flush();
         return redirect('/login');
     }
 }

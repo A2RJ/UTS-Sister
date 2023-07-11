@@ -8,9 +8,9 @@
 
     <x-search-subject />
     <x-table :header="['Dosen', 'Mata Kuliah', 'Nama', 'NIM', 'Komentar']">
-        @foreach ($comments as $semester)
+        @foreach ($comments as $index => $semester)
         <tr class="text-capitalize">
-            <td>{{ $loop->iteration}}</td>
+            <td>{{ $index + $comments->firstItem() }}</td>
             <td>{{ $semester->sdm_name }}</td>
             <td>{{ $semester->subject }}</td>
             <td>{{ $semester->nama }}</td>

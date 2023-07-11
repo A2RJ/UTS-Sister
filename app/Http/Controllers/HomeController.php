@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Structure;
+
 class HomeController extends Controller
 {
     /**
@@ -21,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('dashboard');
     }
 
     public function api()

@@ -28,23 +28,21 @@ use App\Models\Presence;
 */
 
 Route::get('/', [HomeController::class, 'api']);
-Route::prefix('/auth')
-    ->controller(SanctumAuthController::class)
-    ->group(function () {
-        Route::post('/', 'login');
-        Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
-            Route::get('/user', 'user');
-            Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
-            Route::post('change-password', 'changePasswordSDM');
-            Route::post('/admin/change-password', 'changePassword');
-            Route::post('/admin/reset-password', 'resetPassword');
-        });
-        Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
-            Route::get('/', 'student');
-            Route::post('/', 'studentAuth')->withoutMiddleware(['auth:sanctum,students', 'checkRole:student']);
-            Route::post('change-password', 'changePasswordStudent');
-        });
+Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
+    Route::post('/', 'login');
+    Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
+        Route::get('/user', 'user');
+        Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
+        Route::post('change-password', 'changePasswordSDM');
+        Route::post('/admin/change-password', 'changePassword');
+        Route::post('/admin/reset-password', 'resetPassword');
     });
+    Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
+        Route::get('/', 'student');
+        Route::post('/', 'studentAuth')->withoutMiddleware(['auth:sanctum,students', 'checkRole:student']);
+        Route::post('change-password', 'changePasswordStudent');
+    });
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('subject')->group(function () {
@@ -63,9 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/today', 'today');
         Route::get('/total-hour', 'totalHour');
         Route::get('/is-late', 'isLate');
+        Route::get('/{presence}', 'show');
         Route::post('/check-in', 'store');
         Route::post('/check-out', 'update');
-        Route::get('/{presence}', 'show');
     });
     Route::prefix('permission')->controller(PresenceAPIController::class)->group(function () {
         Route::get('/type', 'permissionType');
@@ -101,23 +99,21 @@ Route::middleware('auth:sanctum')->group(function () {
 //     ->middleware(['auth:sanctum,users', 'admin'])
 //     ->controller(SuperAdminController::class)
 //     ->group(function () {
-        // define('STDIN', fopen("php://stdin", "r"));
-        // Route::get('migrate', 'migrate');
-        // Route::get('rollback', 'rollback');
-        // Route::get('seed', 'seed');
-        // Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
-    // });
-
-// Route::prefix('utils')->group(function () {
-//     Route::controller(RandomUtilsController::class)->group(function () {
-//         Route::prefix('import')->group(function () {
-//             Route::post('dosen', 'importDosen');
-//             Route::post('tendik', 'importTendik');
-//             Route::post('change-email', 'changeAllEmail');
-//         });
+//         define('STDIN', fopen("php://stdin", "r"));
+//         Route::get('migrate', 'migrate');
+//         Route::get('rollback', 'rollback');
+//         Route::get('seed', 'seed');
+//         Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
 //     });
-// });
 
-// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-//     Route::get('/total-hour', 'totalHour');
-// });
+Route::prefix('utils')->group(function () {
+    Route::controller(RandomUtilsController::class)->group(function () {
+        Route::get('per-unit', 'getPerUnitData');
+        Route::get('get-child', 'getChild');
+        //         Route::prefix('import')->group(function () {
+        //             Route::post('dosen', 'importDosen');
+        //             Route::post('tendik', 'importTendik');
+        //             Route::post('change-email', 'changeAllEmail');
+        //         });
+    });
+});

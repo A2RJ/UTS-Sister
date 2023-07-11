@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\Artisan;
 
 class SuperAdminController extends Controller
@@ -16,8 +17,8 @@ class SuperAdminController extends Controller
             return response()->json([
                 'result' => "Berhasil migrate:fresh --seed"
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage());
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -30,8 +31,8 @@ class SuperAdminController extends Controller
             return response()->json([
                 'result' => "Berhasil migrate:rollback"
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage());
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 
@@ -44,8 +45,8 @@ class SuperAdminController extends Controller
             return response()->json([
                 'result' => "Berhasil db:seed"
             ]);
-        } catch (\Throwable $th) {
-            return $this->responseError($th->getMessage());
+        } catch (Exception $th) {
+            throw $th;
         }
     }
 }

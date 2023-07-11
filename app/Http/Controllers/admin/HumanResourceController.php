@@ -18,7 +18,7 @@ class HumanResourceController extends Controller
     public function index()
     {
         return view('admin.human_resource.index')
-            ->with('sdm', HumanResource::searchSDM());
+            ->with('sdms', HumanResource::searchSDM());
     }
 
     public function create()
@@ -107,6 +107,14 @@ class HumanResourceController extends Controller
             ->with('success', "Password $humanResource->sdm_name updated successfully.");
     }
 
+    public function resetMacAddress(HumanResource $humanResource)
+    {
+        $humanResource->mac_address = NULL;
+        $humanResource->save();
+        return back()
+            ->with('success', "Mac address $humanResource->sdm_name updated successfully.");
+    }
+
     public function destroy(HumanResource $humanResource)
     {
         $response = "$humanResource->sdm_name deleted";
@@ -114,13 +122,9 @@ class HumanResourceController extends Controller
         return $this->responseRedirect($response);
     }
 
-    public function subdivisi($child_id)
+    public function subdivisi($id)
     {
-        $children = Structure::childrens($child_id);
-        $ids = collect($children)->map(function ($item) {
-            return $item['id'];
-        })->toArray();
-
+        $ids = Structure::getStructureIdsRecursive($id);
         $results = Subject::select(
             'subjects.id',
             'subject',
@@ -138,8 +142,8 @@ class HumanResourceController extends Controller
             ->whereIn('subjects.sdm_id', function ($query) use ($ids) {
                 $query->select('id')
                     ->from('human_resources');
-                // ->whereIn('structure_id', $ids);
             })
+            ->whereIn('structure_id', $ids)
             ->groupBy(
                 'subjects.id',
                 'subject',
@@ -148,7 +152,9 @@ class HumanResourceController extends Controller
                 'structure_id',
                 'sdm_id'
             )
-            ->paginate();
+            ->paginate()
+            ->appends(request()
+                ->except('page'));
 
         return response($results);
     }

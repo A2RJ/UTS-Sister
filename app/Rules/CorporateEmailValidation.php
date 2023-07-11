@@ -40,6 +40,6 @@ class CorporateEmailValidation implements Rule
      */
     public function message()
     {
-        return 'Invalid email corporate.';
+        return 'Invalid email corporate @uts.ac.id.';
     }
 }

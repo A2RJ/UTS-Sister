@@ -6,6 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 
+/**
+ * App\Models\Meeting
+ *
+ * @property int $id
+ * @property int|null $subject_id
+ * @property string $meeting_name
+ * @property string|null $date
+ * @property string|null $meeting_start
+ * @property string|null $file
+ * @property-read \App\Models\Subject|null $subject
+ * @property-read \App\Models\Link|null $url
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereMeetingName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereMeetingStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Meeting whereSubjectId($value)
+ * @mixin \Eloquent
+ */
 class Meeting extends Model
 {
     use HasFactory;
@@ -22,11 +44,6 @@ class Meeting extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class);
-    }
-
-    public function subjectClass()
-    {
-        return $this->belongsTo(SubjectClass::class);
     }
 
     public static function bulkCreateMeetings($subject_id, $numberOfMeetings)

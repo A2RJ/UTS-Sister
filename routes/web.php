@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DSDMController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\HumanResourceController;
@@ -7,7 +8,6 @@ use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
 use App\Http\Controllers\Akademik\ProdiController;
 use App\Http\Controllers\Akademik\SemesterController;
-use App\Http\Controllers\API\PresenceAPIController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -27,9 +27,16 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Wr3\DedicationController;
+use App\Http\Controllers\Wr3\ProposalController;
+use App\Http\Controllers\Wr3\ResearchAssignmentController;
+use App\Http\Controllers\Wr3\RinovController;
+use App\Models\Faculty;
+use App\Models\StudyProgram;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +48,11 @@ use App\Http\Controllers\Presence\PresencePermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('surat', [SuratRisetController::class, 'index']);
+// Route::get('welcome', function () {
+//     return view('welcome');
+// });
 
 Route::prefix('/')->group(function () {
     Route::controller(Controller::class)->group(function () {
@@ -75,6 +87,110 @@ Route::prefix('auth')->controller(SocialiteController::class)->group(function ()
 Route::prefix('download')->controller(DownloadController::class)->group(function () {
     Route::get('presense/{filename}', 'presense')->name('download.presense');
     Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
+    Route::get('riset/{filename}', 'riset')->name('download.riset');
+    Route::get('pengabdian/{filename}', 'pengabdian')->name('download.pengabdian');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource("/class", ClassController::class)->except('show');
+    Route::prefix('subject')->controller(SubjectController::class)->group(function () {
+        Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
+        Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
+        Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
+        Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('subject.by-lecturer');
+    });
+    Route::resource("/subject", SubjectController::class);
+    Route::resource("/meeting", MeetingController::class);
+    Route::prefix('presence')->group(function () {
+        Route::controller(PresenceController::class)->group(function () {
+            Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
+            Route::get('/sub', 'subPresence')->name('presence.sub-presence');
+            Route::get('/per-civitas/{sdm_id}', 'perCivitas')->name('presence.per-civitas');
+            Route::get('/per-unit/{structureId}', 'perUnit')->name('presence.per-unit');
+        });
+        Route::prefix('dsdm')->controller(DSDMController::class)->group(function () {
+            Route::get('/', 'index')->name('dsdm.all-sdm');
+        });
+        Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
+            Route::get('/my', 'myPresence')->name('download.my-presence');
+            Route::get('/sub', 'subPresence')->name('download.sub-presence');
+            Route::get('/dsdm', 'dsdmPresence')->name('download.dsdm-presence');
+            Route::get('/per-unit/{structureId}', 'unit')->name('download.per-unit-presence');
+            Route::get('/per-civitas/{sdm_id}', 'civitas')->name('download.per-civitas-presence');
+        });
+        Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
+            Route::get('/', 'form')->name('presence.absen');
+            Route::get('/my-presence-permission', 'myPermission')->name('permission.my-presence');
+            Route::get('/sub', 'subPermission')->name('presence.sub.permission');
+            Route::post('/', 'permission')->name('presence.permission');
+            Route::post('/{presence}', 'confirm')->name('presence.confirm');
+            Route::delete('/{presence}', 'decline')->name('presence.decline');
+        });
+    });
+    Route::resource("/presence", PresenceController::class)->except('show');
+    Route::prefix('prodi')->group(function () {
+        Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
+    });
+    Route::prefix("/admin")->group(function () {
+        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
+        Route::prefix('structure')->group(function () {
+            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
+            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
+        });
+        Route::resource("/structure", StructureController::class);
+        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
+            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
+            Route::put('reset-mac-address/{human_resource}', 'resetMacAddress')->name('human_resource.reset-mac-address');
+        });
+        Route::resource("/human_resource", HumanResourceController::class);
+        Route::resource("/semester", SemesterController::class)->except('show');
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('warek-iii')->group(function () {
+        Route::prefix('study-program')->group(function () {
+            Route::get('/{faculty}', function ($faculty) {
+                $studyProgram = StudyProgram::whereFacultyId($faculty)->get();
+                return response($studyProgram);
+            });
+            Route::get('/{id}/first', function ($id) {
+                $studyProgram = StudyProgram::whereId($id)->first();
+                return response($studyProgram);
+            });
+        });
+
+        Route::controller(ProposalController::class)->group(function () {
+            Route::get('/proposal-dosen', 'dosen')->name('proposal.dosen');
+            Route::get('/action/{proposal}', 'verifyAction')->name('proposal.verifyAction');
+            Route::get('/proposal/download', 'downloadProposal')->name('download.proposal');
+            Route::resource('/proposal', ProposalController::class);
+        });
+
+        Route::controller(RinovController::class)->group(function () {
+            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
+            Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
+            Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
+            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
+            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
+            Route::prefix('download')->group(function () {
+                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
+            });
+        });
+        Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
+            Route::get('', 'index')->name('wr3.research-assignment');
+            Route::post('', 'store')->name('wr3.research-assignment.store');
+            Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
+            Route::get('create', 'create')->name('wr3.research-assignment.create');
+            Route::get('{researchAssignment}', 'edit')->name('wr3.research-assignment.edit');
+            Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
+            Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
+            Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
+            Route::delete('/{researchAssignment}/destroy', 'destroy')->name('wr3.research-assignment.destroy');
+        });
+        Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
+        Route::resource('dedication', DedicationController::class)->except('show');
+    });
 });
 
 Route::middleware("auth")->group(function () {
@@ -244,64 +360,11 @@ Route::middleware("auth")->group(function () {
     });
 });
 
-Route::middleware('auth')->group(function () {
-    Route::prefix("/")->group(function () {
-        Route::resource("/class", ClassController::class)->except('show');
-        Route::prefix('subject')->controller(SubjectController::class)->group(function () {
-            Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
-            Route::get('/by-subdivision', 'subDivision')->name('subject.by-subdivision');
-            Route::get('/lecturer-list', 'lecturerList')->name('subject.lecturer-list');
-            Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('subject.by-lecturer');
-        });
-        Route::resource("/subject", SubjectController::class);
-        Route::resource("/meeting", MeetingController::class);
-        Route::prefix('presence')->controller(PresenceController::class)->group(function () {
-            Route::get('/my-presence', 'myPresence')->name('presence.my-presence');
-            Route::get('/detail/{sdm_id}', 'detail')->name('presence.detail');
-            Route::get('/sub-lecturer', 'subLecturer')->name('presence.sub-lecturer');
-            Route::get('/all-lecturer', 'allLecturer')->name('presence.all-lecturer');
-            Route::get('/per-civitas', 'subPresenceByCivitas')->name('presence.per-civitas');
-            Route::get('/civitas-all', 'subPresenceAll')->name('presence.civitas-all');
-            Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('presence.dsdm-civitas');
-            Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('presence.dsdm-civitas-all');
-            Route::prefix('permission')->controller(PresencePermissionController::class)->group(function () {
-                Route::get('/', 'form')->name('presence.absen');
-                Route::get('/my-absen', 'myPermission')->name('presence.my-absen');
-                Route::get('/sub', 'subPermission')->name('presence.sub.permission');
-                Route::post('/', 'permission')->name('presence.permission');
-                Route::post('/{presence}', 'confirm')->name('presence.confirm');
-                Route::delete('/{presence}', 'delete')->name('presence.delete');
-            });
-            Route::prefix('download')->controller(FilePresenceController::class)->group(function () {
-                Route::get('/my-presence', 'myPresence')->name('download.my-presence');
-                Route::get('/per-civitas', 'perCivitas')->name('download.per-civitas');
-                Route::get('/civitas-all', 'subPresenceAll')->name('download.civitas-all');
-                Route::get('/detail/{sdm_id}', 'detail')->name('download.detail');
-                Route::get('/sub-lecturer', 'subLecturer')->name('download.sub-lecturer');
-                Route::get('/{sdm_id}/by-lecturer/{semester_id?}', 'byLecturer')->name('download.by-lecturer');
-                Route::get('/dsdm-civitas', 'dsdmByCivitas')->name('download.dsdm-civitas');
-                Route::get('/dsdm-civitas-all', 'dsdmAllCivitas')->name('download.dsdm-civitas-all');
-                Route::get('/all-lecturer', 'allLecturer')->name('download.all-lecturer');
-            });
-        });
-        Route::resource("/presence", PresenceController::class)->except('show');
-        Route::prefix('prodi')->group(function () {
-            Route::get('/', [ProdiController::class, 'index'])->name('prodi.list');
-        });
-        Route::prefix('fakultas')->group(function () {
-        });
-    });
-    Route::prefix("/admin")->group(function () {
-        Route::get('comments', [Controller::class, 'allComments'])->name('comments');
-        Route::prefix('structure')->group(function () {
-            Route::delete('delete/{sdm_id}/{structural_id}', [StructuralPositionController::class, 'removeStructuralPosition'])->name('structure.delete');
-            Route::resource("/assign", StructuralPositionController::class)->except(['index', 'show']);
-        });
-        Route::resource("/structure", StructureController::class);
-        Route::prefix('human_resource')->controller(HumanResourceController::class)->group(function () {
-            Route::get('reset-password/{human_resource}', 'resetPassword')->name('human_resource.resetPassword');
-        });
-        Route::resource("/human_resource", HumanResourceController::class);
-        Route::resource("/semester", SemesterController::class)->except('show');
-    });
-});
+// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
+//     Route::get('/', 'index');
+//     Route::get('/today', 'today');
+//     Route::get('/type', 'permissionType');
+//     Route::get('/total-hour', 'totalHour');
+// });
+
+// Route::get('riset-form', RisetForm::class);

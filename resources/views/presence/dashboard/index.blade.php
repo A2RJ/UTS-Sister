@@ -6,8 +6,8 @@
     <h4 class="mb-4">List Absensi Kehadiran</h4>
     @if (Route::currentRouteName() == 'presence.my-presence')
     <div class="mb-4">
-        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Input izin</a>
-        <a href="{{ route('presence.my-absen') }}" class="btn btn-primary btn-block">List izin</a>
+        <a href="{{ route('presence.absen') }}" class="btn btn-primary btn-block">Tambah izin</a>
+        <a href="{{ route('permission.my-presence') }}" class="btn btn-primary btn-block">Daftar izin</a>
     </div>
     @endif
 
@@ -31,12 +31,13 @@
     @endif
 
     <x-search-presence withDate="{{ $withDate ?? false }}" exportUrl="{{ $exportUrl ?? false }}" />
-    <x-table :header="['Nama', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
+    <x-table :header="['Nama', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jam Efektif']">
         @foreach ($presences as $presence)
         <tr>
             <td>{{ $loop->iteration}}</td>
-            <td>{{ $presence->human_resource->sdm_name }}</td>
-            <td>{{ $presence->check_in_date != NULL ? $presence->check_in_date : Carbon\Carbon::parse($presence->created_at)->locale('id')->dayName }}</td>
+            <td>{{ $presence->sdm_name }}</td>
+            <td>{!! $presence->roles() !!}</td>
+            <td>{{ $presence->checkInDateFormat() }}</td>
             <td>{{ $presence->check_in_hour }}</td>
             <td>{{ $presence->check_out_hour }}</td>
             <td>{{ $presence->effective_hours }}</td>

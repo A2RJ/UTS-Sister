@@ -7,6 +7,10 @@ use App\Models\Comment;
 use App\Models\Link;
 use App\Models\Meeting;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -14,6 +18,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class Controller extends BaseController
 {
@@ -82,7 +87,9 @@ class Controller extends BaseController
                     ->orWhere('nim', 'like', '%' . $search . '%')
                     ->orWhere('komentar', 'like', '%' . $search . '%');
             })
-            ->paginate();
+            ->paginate()
+            ->appends(request()
+                ->except('page'));
 
 
         return view('admin.comment.index')
@@ -97,10 +104,6 @@ class Controller extends BaseController
     public function responseMessage($message, $statusCode = 200)
     {
         return response()->json(['message' => $message], $statusCode);
-    }
-    public function responseError(Exception $exception, $statusCode = 500)
-    {
-        return response()->json(['error' => $exception->getMessage()], $exception->getCode() ?: $statusCode);
     }
 
     public function responseMesData($message, $data, $statusCode = 200)

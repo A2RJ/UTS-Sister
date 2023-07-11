@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class HumanResourcesTableSeeder extends Seeder
 {
@@ -16,9 +17,9 @@ class HumanResourcesTableSeeder extends Seeder
     {
 
 
-        \DB::table('human_resources')->delete();
+        DB::table('human_resources')->delete();
 
-        \DB::table('human_resources')->insert(array(
+        DB::table('human_resources')->insert(array(
             0 =>
             array(
                 'id' => 1,
@@ -4520,6 +4521,25 @@ class HumanResourcesTableSeeder extends Seeder
                 'is_sister_exist' => 0,
                 'created_at' => '2022-12-12 01:02:33',
                 'updated_at' => '2022-12-12 01:02:33',
+                'program_studi_id' => NULL,
+            ),
+            400 =>
+            array(
+                'id' => 400,
+                'sdm_id' => '3656456-df9d-46456-aefdgrg71-376454568',
+                'sdm_name' => 'AKUN PSDM',
+                'email' => 'psdm@uts.ac.id',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$S3tUqeZT3PzahmM4W7rseutvw1WNo6ewi6mZIYQQ2V.msI8ol3Qdq',
+                'remember_token' => NULL,
+                'nidn' => '16011998',
+                'nip' => '0',
+                'active_status_name' => 'Aktif',
+                'employee_status' => 'NON PNS',
+                'sdm_type' => 'Tenaga Kependidikan',
+                'is_sister_exist' => 1,
+                'created_at' => '2022-12-10 20:45:41',
+                'updated_at' => '2022-12-11 14:10:53',
                 'program_studi_id' => NULL,
             ),
         ));
