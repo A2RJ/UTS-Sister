@@ -186,6 +186,7 @@ Route::middleware('auth')->group(function () {
             Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
             Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
             Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
+            Route::delete('/{researchAssignment}/destroy', 'destroy')->name('wr3.research-assignment.destroy');
         });
         Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
         Route::resource('dedication', DedicationController::class)->except('show');

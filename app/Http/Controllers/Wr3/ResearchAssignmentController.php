@@ -100,7 +100,7 @@ class ResearchAssignmentController extends Controller
         }
         return back();
     }
-
+    
     public function print(ResearchAssignment $researchAssignment)
     {
         $researchAssignment = $researchAssignment->where('sdm_id', Auth::id())->first();
@@ -108,6 +108,15 @@ class ResearchAssignmentController extends Controller
             return $this->suratTugas($researchAssignment);
         }
         return back();
+    }
+
+    public function destroy(ResearchAssignment $researchAssignment)
+    {
+        if ($researchAssignment->sdm_id == Auth::id()) {
+            $researchAssignment->delete();
+            return back()->with('success', 'Berhasil hapus surat');
+        }
+        return back()->with('success', 'Tidak dapat menghapus surat');
     }
 
     public function suratTugas($researchAssignment)

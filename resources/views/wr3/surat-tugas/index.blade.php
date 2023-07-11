@@ -106,6 +106,16 @@
                                             Belum diterima
                                         </button>
                                         @endif
+
+                                        @if ($researchAssignment->sdm_id == auth()->user()->id)
+                                        <form action="{{ route('wr3.research-assignment.destroy', ['researchAssignment' => $researchAssignment->id]) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this data?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
