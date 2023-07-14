@@ -32,7 +32,6 @@
                                     <th>Status Ajuan</th>
                                     <th>Periode Kontrak</th>
                                     <th>Jumlah Pendanaan</th>
-                                    <th>Link Surat Tugas</th>
                                     <th>Judul Publikasi</th>
                                     <th>Status Penulis</th>
                                     <th>Nama Jurnal</th>
@@ -61,7 +60,6 @@
                                     <td>{{ $research->application_status }}</td>
                                     <td>{{ $research->contract_period }}</td>
                                     <td>{{ $research->funding_amount }}</td>
-                                    <td>{{ $research->assignment_letter_link }}</td>
                                     <td>{{ $research->publication_title }}</td>
                                     <td>{{ $research->author_status }}</td>
                                     <td>{{ $research->journal_name }}</td>

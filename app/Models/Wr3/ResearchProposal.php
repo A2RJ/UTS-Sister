@@ -22,8 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string $application_status
  * @property string|null $contract_period
  * @property string|null $funding_amount
- * @property int $verification
- * @property string|null $assignment_letter_link
+ * @property int $verification 
  * @property string|null $publication_title
  * @property string|null $author_status
  * @property string|null $journal_name
@@ -83,8 +82,7 @@ class ResearchProposal extends Model
         'application_status',
         'contract_period',
         'funding_amount',
-        'verification',
-        'assignment_letter_link',
+        'verification', 
         'publication_title',
         'author_status',
         'journal_name',

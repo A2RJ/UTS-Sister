@@ -11,7 +11,7 @@ use Auth;
 
 class ProposalController extends Controller
 {
-    public  $statuses = ['Sedang dalam ajuan', 'Lolos pendanaan'],
+    public  $statuses = ['Lolos pendanaan', 'Selesai penelitian'],
         $author_statuses = [1, 2, 3, 'correspondence author'],
         $journal_accreditation_statuses = ['International', 'Nationally accredited', 'Internal'];
 
@@ -69,7 +69,7 @@ class ProposalController extends Controller
             $validated['journal_pdf_file'] = FileHelper::upload($request, 'journal_pdf_file', 'journal_pdf_file');
         }
         $research = Auth::user()->researchProposal()->create($validated);
-        return redirect()->route('proposal.dosen')->with('message', 'Berhasil tambah proposal');
+        return redirect()->route('proposal.by-user')->with('message', 'Berhasil tambah proposal');
     }
 
     public function edit(ResearchProposal $proposal)
@@ -92,7 +92,7 @@ class ProposalController extends Controller
                 $validated['journal_pdf_file'] = FileHelper::upload($request, 'journal_pdf_file', 'journal_pdf_file');
             }
             $proposal->update($validated);
-            return redirect()->route('proposal.dosen')->with('message', 'Berhasil tambah proposal');
+            return redirect()->route('proposal.by-user')->with('message', 'Berhasil tambah proposal');
         }
         return back();
     }

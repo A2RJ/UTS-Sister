@@ -12,7 +12,7 @@
                     <form method="POST" action="{{ route('proposal.update', ['proposal' => $proposal->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <h3 class="mb-3">Informasi Proposal</h3>
+                        <h3 class="mb-3">Edit Proposal</h3>
                         <div class="form-group mb-2">
                             <label for="proposal_title">Judul Proposal:</label>
                             <input type="text" id="proposal_title" name="proposal_title" class="form-control" value="{{ old('proposal_title', $proposal->proposal_title ?? '') }}">
@@ -38,6 +38,18 @@
                         </div>
 
                         <div class="form-group mb-2">
+                            <label for="contract_period">Periode Kontrak:</label>
+                            <input type="text" id="contract_period" name="contract_period" class="form-control" value="{{ old('contract_period', $proposal->contract_period ?? '') }}">
+                            @error('contract_period') <span class="error text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="funding_amount">Jumlah Pendanaan:</label>
+                            <input type="text" id="funding_amount" name="funding_amount" class="form-control" value="{{ old('funding_amount', $proposal->funding_amount ?? '') }}">
+                            @error('funding_amount') <span class="error text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
                             <label for="application_status">Status Ajuan:</label>
                             <select id="application_status" name="application_status" class="form-control">
                                 <option value="">-- Pilih Status Ajuan --</option>
@@ -53,24 +65,6 @@
                         </div>
 
                         <div id="additionalFields" style="display: none">
-                            <div class="form-group mb-2">
-                                <label for="contract_period">Periode Kontrak:</label>
-                                <input type="text" id="contract_period" name="contract_period" class="form-control" value="{{ old('contract_period', $proposal->contract_period ?? '') }}">
-                                @error('contract_period') <span class="error text-danger">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div class="form-group mb-2">
-                                <label for="funding_amount">Jumlah Pendanaan:</label>
-                                <input type="text" id="funding_amount" name="funding_amount" class="form-control" value="{{ old('funding_amount', $proposal->funding_amount ?? '') }}">
-                                @error('funding_amount') <span class="error text-danger">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div class="form-group mb-2">
-                                <label for="assignment_letter_link">Pengajuan Surat Tugas (Link):</label>
-                                <input type="text" id="assignment_letter_link" name="assignment_letter_link" class="form-control" value="{{ old('assignment_letter_link', $proposal->assignment_letter_link ?? '') }}">
-                                @error('assignment_letter_link') <span class="error text-danger">{{ $message }}</span> @enderror
-                            </div>
-
                             <div class="form-group mb-2">
                                 <label for="publication_title">Judul Publikasi:</label>
                                 <input type="text" id="publication_title" name="publication_title" class="form-control" value="{{ old('publication_title', $proposal->publication_title ?? '') }}">
@@ -157,7 +151,7 @@
         var additionalFields = document.getElementById('additionalFields');
 
         // Atur tampilan awal berdasarkan nilai old
-        if (applicationStatus.value === 'Lolos pendanaan') {
+        if (applicationStatus.value === 'Selesai penelitian') {
             additionalFields.style.display = 'block';
         } else {
             additionalFields.style.display = 'none';
@@ -166,7 +160,7 @@
         applicationStatus.addEventListener('change', function() {
             var selectedStatus = applicationStatus.value;
 
-            if (selectedStatus === 'Lolos pendanaan') {
+            if (selectedStatus === 'Selesai penelitian') {
                 additionalFields.style.display = 'block';
             } else {
                 additionalFields.style.display = 'none';

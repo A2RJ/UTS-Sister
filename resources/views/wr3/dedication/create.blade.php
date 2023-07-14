@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="form-group mb-2">
-                            <label for="title">Title:</label>
+                            <label for="title">Judul pengabdian:</label>
                             <input type="text" id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}">
                             @if ($errors->has('title'))
                             <span class="invalid-feedback" role="alert">
@@ -118,16 +118,6 @@
                             @if ($errors->has('members'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('members') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group mb-2">
-                            <label for="assignment_letter_link">Link Surat Tugas:</label>
-                            <input type="text" id="assignment_letter_link" class="form-control{{ $errors->has('assignment_letter_link') ? ' is-invalid' : '' }}" name="assignment_letter_link" value="{{ old('assignment_letter_link') }}">
-                            @if ($errors->has('assignment_letter_link'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('assignment_letter_link') }}</strong>
                             </span>
                             @endif
                         </div>

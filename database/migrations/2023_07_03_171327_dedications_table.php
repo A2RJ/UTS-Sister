@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDedicationsTable extends Migration
+class DedicationsTable extends Migration
 {
     public function up()
     {
@@ -22,7 +22,6 @@ class CreateDedicationsTable extends Migration
             $table->text('public_media_publications');
             $table->text('scientific_publications');
             $table->text('members');
-            $table->string('assignment_letter_link');
             $table->timestamps();
 
             $table->foreign('sdm_id')->references('id')->on('human_resources')->onDelete('cascade');

@@ -124,16 +124,6 @@
                         </div>
 
                         <div class="form-group mb-2">
-                            <label for="assignment_letter_link">Assignment Letter Link:</label>
-                            <input type="text" id="assignment_letter_link" class="form-control{{ $errors->has('assignment_letter_link') ? ' is-invalid' : '' }}" name="assignment_letter_link" value="{{ old('assignment_letter_link', $dedication->assignment_letter_link) }}" required>
-                            @if ($errors->has('assignment_letter_link'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('assignment_letter_link') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group mb-2">
                             <button type="submit" class="btn btn-primary">Update Dedication</button>
                         </div>
                     </form>

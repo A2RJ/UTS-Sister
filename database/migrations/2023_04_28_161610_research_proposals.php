@@ -21,15 +21,14 @@ return new class extends Migration
             $table->string('grant_scheme');
             $table->string('target_outcomes');
             $table->string('proposal_file');
-            $table->enum('application_status', ['Sedang dalam ajuan', 'Lolos pendanaan']);
+            $table->enum('application_status', ['Selesai penelitian', 'Lolos pendanaan']);
             $table->string('contract_period')->nullable();
             $table->string('funding_amount')->nullable();
-            $table->boolean('verification')->default(false);
-            $table->string('assignment_letter_link')->nullable();
+            $table->boolean('verification')->default(false); 
             $table->string('publication_title')->nullable();
             $table->enum('author_status', [1, 2, 3, 'correspondence author'])->nullable();
             $table->string('journal_name')->nullable();
-            $table->year('publication_year')->nullable();
+            $table->string('publication_year')->nullable();
             $table->string('volume_number')->nullable();
             $table->string('publication_date_year')->nullable();
             $table->string('publisher')->nullable();

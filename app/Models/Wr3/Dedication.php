@@ -21,8 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $target_activity_outputs
  * @property string $public_media_publications
  * @property string $scientific_publications
- * @property string $members
- * @property string $assignment_letter_link
+ * @property string $members 
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource $humanResource
@@ -64,8 +63,7 @@ class Dedication extends Model
         'target_activity_outputs',
         'public_media_publications',
         'scientific_publications',
-        'members',
-        'assignment_letter_link',
+        'members', 
     ];
 
     public function humanResource()

@@ -36,7 +36,6 @@
                                     <th>Hasil Publikasi Media</th>
                                     <th>Hasil Publikasi Ilmiah</th>
                                     <th>Anggota</th>
-                                    <th>Tautan Surat Tugas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -58,9 +57,6 @@
                                     <td>{{ $dedication->public_media_publications }}</td>
                                     <td>{{ $dedication->scientific_publications }}</td>
                                     <td>{{ $dedication->members }}</td>
-                                    <td>
-                                        <a href="{{ $dedication->assignment_letter_link }}">Link</a>
-                                    </td>
                                     <td>
                                         <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-primary">Edit</a>
                                         <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST" class="d-inline">

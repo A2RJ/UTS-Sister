@@ -24,8 +24,7 @@ class DedicationsRequest extends FormRequest
             'target_activity_outputs' => 'required',
             'public_media_publications' => 'required',
             'scientific_publications' => 'required',
-            'members' => 'required',
-            'assignment_letter_link' => 'required|url',
+            'members' => 'required', 
         ];
     }
 
@@ -45,9 +44,7 @@ class DedicationsRequest extends FormRequest
             'target_activity_outputs.required' => 'Hasil Kegiatan harus diisi.',
             'public_media_publications.required' => 'Publikasi Media harus diisi.',
             'scientific_publications.required' => 'Publikasi Ilmiah harus diisi.',
-            'members.required' => 'Anggota harus diisi.',
-            'assignment_letter_link.required' => 'Tautan Surat Tugas harus diisi.',
-            'assignment_letter_link.url' => 'Tautan Surat Tugas harus berupa URL yang valid.',
+            'members.required' => 'Anggota harus diisi.', 
         ];
     }
 }
