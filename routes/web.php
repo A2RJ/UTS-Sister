@@ -37,6 +37,7 @@ use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
 use App\Models\Faculty;
 use App\Models\StudyProgram;
+use App\Models\Wr3\Dedication;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,36 +161,54 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        Route::controller(ProposalController::class)->group(function () {
-            Route::get('/proposal-dosen', 'dosen')->name('proposal.dosen');
-            Route::get('/action/{proposal}', 'verifyAction')->name('proposal.verifyAction');
-            Route::get('/proposal/download', 'downloadProposal')->name('download.proposal');
-            Route::resource('/proposal', ProposalController::class);
+        /**
+         * Proposal
+         * - dosen (daftar, tambah, ubah, hapus, print pdf)
+         * - admin (set nomor surat, print pdf, export excel)
+         */
+        Route::prefix('proposal')->group(function () {
         });
+        Route::resource('proposal', ProposalController::class);
 
-        Route::controller(RinovController::class)->group(function () {
-            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
-            Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
-            Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
-            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
-            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
-            Route::prefix('download')->group(function () {
-                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
-            });
+        /**
+         * Pengabdian
+         * - dosen (daftar, tambah, ubah, hapus, print pdf)
+         * - admin (set nomor surat, print pdf, export excel)
+         */
+        Route::prefix('pengabdian')->group(function () {
         });
-        Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
-            Route::get('', 'index')->name('wr3.research-assignment');
-            Route::post('', 'store')->name('wr3.research-assignment.store');
-            Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
-            Route::get('create', 'create')->name('wr3.research-assignment.create');
-            Route::get('{researchAssignment}', 'edit')->name('wr3.research-assignment.edit');
-            Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
-            Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
-            Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
-            Route::delete('/{researchAssignment}/destroy', 'destroy')->name('wr3.research-assignment.destroy');
-        });
-        Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
-        Route::resource('dedication', DedicationController::class)->except('show');
+        Route::resource('pengabdian', Dedication::class);
+
+        // Route::controller(ProposalController::class)->group(function () {
+        //     Route::get('/proposal-dosen', 'dosen')->name('proposal.dosen');
+        //     Route::get('/action/{proposal}', 'verifyAction')->name('proposal.verifyAction');
+        //     Route::get('/proposal/download', 'downloadProposal')->name('download.proposal');
+        //     Route::resource('/proposal', ProposalController::class);
+        // });
+
+        // Route::controller(RinovController::class)->group(function () {
+        //     Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
+        //     Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
+        //     Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
+        //     Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
+        //     Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
+        //     Route::prefix('download')->group(function () {
+        //         Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
+        //     });
+        // });
+        // Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
+        //     Route::get('', 'index')->name('wr3.research-assignment');
+        //     Route::post('', 'store')->name('wr3.research-assignment.store');
+        //     Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
+        //     Route::get('create', 'create')->name('wr3.research-assignment.create');
+        //     Route::get('{researchAssignment}', 'edit')->name('wr3.research-assignment.edit');
+        //     Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
+        //     Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
+        //     Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
+        //     Route::delete('/{researchAssignment}/destroy', 'destroy')->name('wr3.research-assignment.destroy');
+        // });
+        // Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
+        // Route::resource('dedication', DedicationController::class)->except('show');
     });
 });
 
