@@ -54,6 +54,14 @@ use function PHPUnit\Framework\callback;
  * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @mixin \Eloquent
  */
 class Presence extends Model

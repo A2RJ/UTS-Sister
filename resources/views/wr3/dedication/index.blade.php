@@ -22,17 +22,16 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
+                                    <th>Nomor Surat</th>
                                     <th>Judul</th>
                                     <th>Sumber Pendanaan</th>
                                     <th>Jumlah Pendanaan</th>
                                     <th>File Proposal</th>
                                     <th>Waktu Kegiatan</th>
                                     <th>Lokasi</th>
-                                    <th>Peserta</th>
                                     <th>Hasil Kegiatan</th>
                                     <th>Hasil Publikasi Media</th>
                                     <th>Hasil Publikasi Ilmiah</th>
-                                    <th>Anggota</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -41,6 +40,7 @@
                                 <tr>
                                     <td>{{ $dedications->firstItem() + $loop->index }}</td>
                                     <td>{{ $dedication->humanResource->sdm_name }}</td>
+                                    <td>{{ $dedication->letterNumber->number }}/{{ $dedication->letterNumber->month }}/{{ $dedication->letterNumber->year }}</td>
                                     <td>{{ $dedication->title }}</td>
                                     <td>{{ $dedication->funding_source }}</td>
                                     <td>{{ $dedication->funding_amount }}</td>
@@ -49,18 +49,11 @@
                                     </td>
                                     <td>{{ $dedication->activity_schedule }}</td>
                                     <td>{{ $dedication->location }}</td>
-                                    <td>{{ $dedication->participants }}</td>
                                     <td>{{ $dedication->target_activity_outputs }}</td>
                                     <td>{{ $dedication->public_media_publications }}</td>
                                     <td>{{ $dedication->scientific_publications }}</td>
-                                    <td>{{ $dedication->members }}</td>
                                     <td>
-                                        <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dedication?')">Delete</button>
-                                        </form>
+                                        <a href="{{ route('dedication.formNumbering', $dedication->id) }}" class="btn btn-warning">Edit nomor surat</a>
                                     </td>
                                 </tr>
                                 @endforeach

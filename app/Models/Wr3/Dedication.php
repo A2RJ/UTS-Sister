@@ -11,38 +11,41 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $sdm_id
+ * @property string $role
+ * @property string $as
+ * @property string $theme
  * @property string $title
  * @property string $funding_source
  * @property string $funding_amount
  * @property string $proposal_file
  * @property string $activity_schedule
  * @property string $location
- * @property string $participants
+ * @property mixed $participants
  * @property string $target_activity_outputs
  * @property string $public_media_publications
  * @property string $scientific_publications
- * @property string $members 
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource $humanResource
+ * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication query()
- * @method static \Illuminate\Database\Eloquent\Builder|Dedication users()
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereActivitySchedule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereAssignmentLetterLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereAs($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereFundingAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereFundingSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereMembers($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereParticipants($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereProposalFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication wherePublicMediaPublications($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereScientificPublications($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereSdmId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTargetActivityOutputs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -52,6 +55,9 @@ class Dedication extends Model
     use HasFactory;
 
     protected $fillable = [
+        'role',
+        'as',
+        'theme',
         'sdm_id',
         'title',
         'funding_source',
@@ -63,11 +69,15 @@ class Dedication extends Model
         'target_activity_outputs',
         'public_media_publications',
         'scientific_publications',
-        'members', 
     ];
 
     public function humanResource()
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
+    }
+
+    public function letterNumber()
+    {
+        return $this->hasOne(LetterNumber::class);
     }
 }

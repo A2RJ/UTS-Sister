@@ -34,6 +34,14 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSubject($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
  * @mixin \Eloquent
  */
 class Subject extends Model

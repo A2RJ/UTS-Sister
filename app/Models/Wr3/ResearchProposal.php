@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string $application_status
  * @property string|null $contract_period
  * @property string|null $funding_amount
- * @property int $verification 
+ * @property int $verification
  * @property string|null $publication_title
  * @property string|null $author_status
  * @property string|null $journal_name
@@ -67,6 +67,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal whereVerification($value)
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
+ * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @mixin \Eloquent
  */
 class ResearchProposal extends Model
@@ -105,5 +106,10 @@ class ResearchProposal extends Model
         return Attribute::make(
             get: fn (string $value) => $value ? 'Terverifikasi' : 'Tidak terverifikasi'
         );
+    }
+
+    public function letterNumber()
+    {
+        return $this->hasOne(LetterNumber::class);
     }
 }

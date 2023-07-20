@@ -58,12 +58,15 @@
                                     <td>{{ $dedication->scientific_publications }}</td>
                                     <td>{{ $dedication->members }}</td>
                                     <td>
-                                        <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-warning">Edit</a>
                                         <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dedication?')">Delete</button>
                                         </form>
+                                        @if ($dedication->letterNumber->number | $dedication->letterNumber->month | $dedication->letterNumber->year)
+                                        <a href="{{ route('dedication.generateLetter', $dedication->id) }}" class="btn btn-primary">Download surat</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

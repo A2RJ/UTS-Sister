@@ -173,9 +173,12 @@ Route::middleware('auth')->group(function () {
          */
         Route::prefix('proposal')->controller(ProposalController::class)->group(function () {
             Route::get('dosen', 'dosen')->name('proposal.by-user');
+            Route::get('penomoran-surat/{proposal}', 'formNumbering')->name('proposal.formNumbering');
+            Route::put('penomoran-surat/{proposal}', 'letterNumbering')->name('proposal.letterNumbering');
+            Route::get('generate-letter/{dedication}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
-
+        
         /**
          * Pengabdian
          * - dosen (daftar, tambah, ubah, hapus, print pdf)
@@ -183,8 +186,11 @@ Route::middleware('auth')->group(function () {
          */
         Route::prefix('dedication')->controller(DedicationController::class)->group(function () {
             Route::get('dedication-by-user', 'byUser')->name('dedication.by-user');
+            Route::get('penomoran-surat/{dedication}', 'formNumbering')->name('dedication.formNumbering');
+            Route::put('penomoran-surat/{dedication}', 'letterNumbering')->name('dedication.letterNumbering');
+            Route::get('generate-letter/{dedication}', 'generateLetter')->name('dedication.generateLetter');
         });
-        Route::resource('dedication', DedicationController::class); 
+        Route::resource('dedication', DedicationController::class);
     });
 });
 

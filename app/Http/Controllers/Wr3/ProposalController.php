@@ -130,4 +130,17 @@ class ProposalController extends Controller
             ]
         )->export();
     }
+
+    public function formNumbering($proposal)
+    {
+        return view('wr3.letter-number')->with('route', route('proposal.letterNumbering', $proposal));
+    }
+
+    public function letterNumbering()
+    {
+    }
+
+    public function generateLetter()
+    {
+    }
 }

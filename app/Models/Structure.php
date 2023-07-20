@@ -32,6 +32,22 @@ use App\Traits\Auth\Structures\UtilsStructure;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
  * @mixin \Eloquent
  */
 class Structure extends Model

@@ -147,6 +147,38 @@ class StructuresTableSeeder extends Seeder
                 'child_id' => '639eb2d054fd7DirektoratAkademik',
                 'type' => 'struktural',
             ),
+            16 => 
+            array (
+                'id' => 30,
+                'role' => 'Direktorat Pengabdian Kepada Masyarakat',
+                'parent_id' => 'wr3',
+                'child_id' => '64b897a6a1df4DirektoratPengabdianKepadaMasyarakat',
+                'type' => 'struktural',
+            ),
+            17 => 
+            array (
+                'id' => 31,
+                'role' => 'Staf Direktorat Pengabdian Kepada Masyarakat',
+                'parent_id' => 'wr3',
+                'child_id' => '64b897b2500a2StafDirektoratPengabdianKepadaMasyarakat',
+                'type' => 'struktural',
+            ),
+            18 => 
+            array (
+                'id' => 32,
+                'role' => 'Direktorat Riset & Inovasi',
+                'parent_id' => 'wr3',
+                'child_id' => '64b897bfab64eDirektoratRiset&Inovasi',
+                'type' => 'struktural',
+            ),
+            19 => 
+            array (
+                'id' => 33,
+                'role' => 'Staf Direktorat Riset & Inovasi',
+                'parent_id' => 'wr3',
+                'child_id' => '64b897cbdd2b8StafDirektoratRiset&Inovasi',
+                'type' => 'struktural',
+            ),
         ));
         
         
