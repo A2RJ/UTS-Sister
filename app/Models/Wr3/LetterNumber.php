@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Wr3\LetterNumber
  *
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber query()
  * @property int $id
  * @property int|null $proposal_id
  * @property int|null $dedication_id
@@ -19,6 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $year
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber query()
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereDedicationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereId($value)

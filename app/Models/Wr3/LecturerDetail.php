@@ -17,9 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $study_program_id
  * @property string $expertise
  * @property string $theme
- * @property string $other_theme
+ * @property string|null $other_theme
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Faculty $faculty
+ * @property-read HumanResource|null $humanResource
+ * @property-read StudyProgram $studyProgram
  * @method static \Database\Factories\Wr3\LecturerDetailFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail newQuery()
@@ -33,9 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereStudyProgramId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereUpdatedAt($value)
- * @property-read Faculty $faculty
- * @property-read HumanResource|null $humanResource
- * @property-read StudyProgram $studyProgram
  * @mixin \Eloquent
  */
 class LecturerDetail extends Model

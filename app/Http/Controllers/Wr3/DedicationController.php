@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wr3;
 
+use App\Helpers\DateHelper;
 use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wr3\DedicationsRequest;
@@ -10,6 +11,8 @@ use App\Http\Requests\Wr3\LetterNumeringRequest;
 use App\Models\Wr3\Dedication;
 use PhpOffice\PhpWord\PhpWord;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Storage;
 
 class DedicationController extends Controller
 {
@@ -74,12 +77,13 @@ class DedicationController extends Controller
     public function store(DedicationsRequest $request)
     {
         $proposal_file = FileHelper::upload($request, 'proposal_file', 'proposal_file');
-        $request = $request->validated();
-        $request['sdm_id'] = Auth::id();
-        $request['proposal_file'] = $proposal_file;
-        Dedication::create($request);
+        $validatedData = $request->validated();
+        $validatedData['proposal_file'] = $proposal_file;
+        $participants = $validatedData['participants'] ?? [];
+        $validatedData['participants'] = json_encode($participants);
+        Auth::user()->dedication()->create($validatedData);
 
-        return redirect()->route('dedication.index')
+        return redirect()->route('dedication.by-user')
             ->with('success', 'Dedication created successfully.');
     }
 
@@ -114,7 +118,7 @@ class DedicationController extends Controller
     public function formNumbering(Dedication $dedication)
     {
         return view('wr3.letter-number')
-        ->with('route', route('dedication.letterNumbering', $dedication->id))
+            ->with('route', route('dedication.letterNumbering', $dedication->id))
             ->with('letterNumber', $dedication->letterNumber);
     }
 
@@ -126,78 +130,91 @@ class DedicationController extends Controller
 
     public function generateLetter(Dedication $dedication)
     {
-        $word = new PhpWord();
-        $section = $word->addSection(array());
-        $sectionStyle = $section->getStyle();
-        $sectionStyle->setOrientation($sectionStyle::ORIENTATION_LANDSCAPE);
+        $domPdfPath = base_path('vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
 
-        // $table = $section->addTable(array());
-        // $tableStyle = $table->getStyle();
-        // $tableStyle->setStyleByArray(array(
+        //Load word file
+        $templatePath = Storage::path('../file/template/surat-pengabdian.docx');
+        $template = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        // $template->setValue('role', $dedication->role);
+        $outputPath = Storage::path('surat/' . date('Y') . '.docx');
+        $template->saveAs($outputPath);
+
+        $temp = \PhpOffice\PhpWord\IOFactory::load($outputPath);
+        $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($temp, 'PDF');
+        $PDFWriter->save(public_path('new-result.pdf'));
+        echo 'File has been successfully converted';
+        return response()->download($outputPath);
+        // $template = new TemplateProcessor($templatePath);
+
+        // $word = new PhpWord();
+        // $section = $word->addSection(array('width' => 100));
+        // $sectionStyle = $section->getStyle();
+        // $sectionStyle->setOrientation($sectionStyle::ORIENTATION_LANDSCAPE);
+
+        // $table = $section->addTable(array('width' => 100, 'indentation' => array('left' => 0, 'right' => 0)));
+        // $table->getStyle()->setStyleByArray(array(
         //     'borderColor' => '000000',
         //     'borderSize'  => 6,
         //     'cellMargin'  => 50,
+        //     'marginLeft'  => 0
         // ));
-        // $tableStyle->setWidth($sectionStyle->getPageSizeW() - $sectionStyle->getMarginLeft() - $sectionStyle->getMarginRight());
-
-        // $table->addRow();
-        // $table->addCell(500)->addText('No.', ['bold' => true, 'fontSize' => 12], ['align' => 'center', 'spaceAfter' => 0]);
-        // $table->addCell(3000)->addText('NAMA', ['bold' => true, 'fontSize' => 12], ['align' => 'center', 'spaceAfter' => 0]);
-        // $table->addCell(3000)->addText('NIDN', ['bold' => true, 'fontSize' => 12], ['align' => 'center', 'spaceAfter' => 0]);
-        // $table->addCell(4000)->addText('PROGRAM STUDI', ['bold' => true, 'fontSize' => 12], ['align' => 'center', 'spaceAfter' => 0]);
-
-        // foreach ($researchAssignment->table as $index => $row) {
-        //     $table->addRow();
-        //     $table->addCell(500)->addText($index + 1, null, ['align' => 'left', 'spaceAfter' => 0]);
-        //     $table->addCell(500)->addText($row['name'], null, ['align' => 'left', 'spaceAfter' => 0]);
-        //     $table->addCell(3000)->addText($row['nidn'], null, ['align' => 'left', 'spaceAfter' => 0]);
-        //     $table->addCell(3000)->addText($row['studyProgram'], null, ['align' => 'left', 'spaceAfter' => 0]);
-        // }
-
-        // $dateStart = $researchAssignment->dateStart;
-        // $formatDateStart = Carbon::parse($dateStart);
-        // $dateStart = $formatDateStart->locale('id_ID')->isoFormat('dddd, D MMMM YYYY');
-        // $dateText = "pada hari $dateStart";
-
-        // $dateEnd = $researchAssignment->dateEnd;
-        // if ($dateEnd) {
-        //     $formatDateEnd = Carbon::parse($dateEnd);
-        //     $dateEnd = $formatDateEnd->locale('id_ID')->isoFormat('dddd, D MMMM YYYY');
-        //     $dateText = "mulai $dateStart sampai $dateEnd";
-        // }
-
-        // $values = [
-        //     'number' => $researchAssignment->number,
-        //     'month' => $researchAssignment->month,
-        //     'year' => $researchAssignment->year,
-        //     'name' => $researchAssignment->user->sdm_name,
-        //     'nidn' => $researchAssignment->user->nidn,
-        //     'roles' => $researchAssignment->role,
-        //     'activity' => $researchAssignment->activity,
-        //     'as' => $researchAssignment->as,
-        //     'theme' => $researchAssignment->theme,
-        //     'date' => $dateText,
-        //     'organizer' => $researchAssignment->organizer,
-        //     'location' => $researchAssignment->location,
-        // ];
-
-        // $templatePath = Storage::path('../file/template.docx');
-        // $template = new TemplateProcessor($templatePath);
-
-        // $table->getStyle()->setStyleByArray($tableStyle);
         // $table->getStyle()->setAuto(false);
         // $table->getStyle()->setWidth(100);
+
+        // $fStyle = ['bold' => true, 'fontSize' => 12];
+        // $pStyle = ['align' => 'center', 'spaceAfter' => 0];
+
+        // $table->addRow();
+        // $table->addCell(700)->addText('No.', $fStyle, $pStyle);
+        // $table->addCell(2500)->addText('NAMA', $fStyle, $pStyle);
+        // $table->addCell(2000)->addText('NIDN', $fStyle, $pStyle);
+        // $table->addCell(2000)->addText('PROGRAM STUDI', $fStyle, $pStyle);
+        // $table->addCell(2500)->addText('KETERANGAN', $fStyle, $pStyle);
+
+        // $pStyle = ['align' => 'left', 'spaceAfter' => 0];
+
+        // foreach (json_decode($dedication->participants) as $index => $row) {
+        //     $table->addRow();
+        //     $table->addCell(800)->addText($index + 1 . '.', null, $pStyle);
+        //     $table->addCell(2500)->addText($row->name, null, $pStyle);
+        //     $table->addCell(2000)->addText($row->nidn, null, $pStyle);
+        //     $table->addCell(2000)->addText($row->studyProgram, null, $pStyle);
+        //     $table->addCell(2500)->addText($row->studyProgram, null, $pStyle);
+        // }
+
         // $template->setComplexBlock('TABLE_BLOCK', $table);
+
+        // $values = [
+        //     'number'     => $dedication->letterNumber->number,
+        //     'month'      => $dedication->letterNumber->month,
+        //     'year'       => $dedication->letterNumber->year,
+        //     'name'       => $dedication->humanResource->sdm_name,
+        //     'nidn'       => $dedication->humanResource->nidn,
+        //     'role'       => $dedication->role,
+        //     'as'         => $dedication->as,
+        //     'activity'   => $dedication->activity,
+        //     'theme'      => $dedication->theme,
+        //     'date'       => DateHelper::format_tgl_id($dedication->activity_schedule, true),
+        //     'location'   => $dedication->location,
+        //     'updated_at' => DateHelper::format_tgl_id($dedication->letterNumber->updated_at, false)
+        // ];
 
         // foreach ($values as $key => $value) {
         //     $template->setValue($key, $value);
         // }
 
-        // $outputPath = Storage::path('surat/' . $researchAssignment->user->sdm_name . '.docx');
+        // $outputPath = Storage::path('surat/' . date('Y') . '.docx');
         // $template->saveAs($outputPath);
-
-        // return response()->download($outputPath)->deleteFileAfterSend();
-
-        $values = [];
+        // $domPdfPath = base_path('vendor/dompdf/dompdf');
+        // \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+        // \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+        // $Content = \PhpOffice\PhpWord\IOFactory::load($outputPath);
+        // $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content, 'PDF');
+        // // $PDFWriter->save(public_path('new.pdf'));
+        // $PDFWriter->save(public_path('new.pdf'));
+        // echo 'File has been successfully converted';
+        // return response()->download($PDFWriter)->deleteFileAfterSend();
     }
 }

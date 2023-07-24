@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'Tambah Pengabdian')
 
 @section('content')
 <div class="container">
@@ -65,7 +65,7 @@
 
                         <div class="form-group mb-2">
                             <label for="activity_schedule">Waktu Kegiatan:</label>
-                            <input type="text" id="activity_schedule" class="form-control{{ $errors->has('activity_schedule') ? ' is-invalid' : '' }}" name="activity_schedule" value="{{ old('activity_schedule') }}">
+                            <input type="date" id="activity_schedule" class="form-control{{ $errors->has('activity_schedule') ? ' is-invalid' : '' }}" name="activity_schedule" value="{{ old('activity_schedule') }}">
                             @error('activity_schedule') <span class="invalid-feedback">{{ $message }}</span> @enderror
                         </div>
 
@@ -78,7 +78,7 @@
                         <div class="form-group mb-3">
                             <label for="participants">Daftar Anggota</label>
                             <div id="lecturers-container">
-                                @foreach(old('participants', [['name' => '', 'nidn' => '', 'studyProgram' => '']]) as $index => $row)
+                                @foreach(old('participants', [['name' => '', 'nidn' => '', 'studyProgram' => '', 'detail' => '']]) as $index => $row)
                                 <div class="row mb-1 participants-<?= $index ?>">
                                     <div class="col">
                                         <input type="text" class="form-control @error('participants.'.$index.'.name') is-invalid @enderror" name="participants[{{ $index }}][name]" placeholder="Name" value="{{ $row['name'] }}">
@@ -91,6 +91,10 @@
                                     <div class="col">
                                         <input type="text" class="form-control @error('participants.'.$index.'.studyProgram') is-invalid @enderror" name="participants[{{ $index }}][studyProgram]" placeholder="Program Studi" value="{{ $row['studyProgram'] }}">
                                         @error('participants.'.$index.'.studyProgram') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.detail') is-invalid @enderror" name="participants[{{ $index }}][detail]" placeholder="Detail" value="{{ $row['detail'] }}">
+                                        @error('participants.'.$index.'.detail') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col">
                                         @if($index == 0)
@@ -150,6 +154,9 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" class="form-control" name="participants[${lecturerIndex}][studyProgram]" placeholder="Program Studi">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="participants[${lecturerIndex}][detail]" placeholder="Detail">
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-danger" type="button" onclick="removeLecturerClient(${lecturerIndex})">Remove</button>

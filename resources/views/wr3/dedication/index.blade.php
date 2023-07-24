@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'Daftar Pengabdian')
 
 @section('content')
 <div class="container">
@@ -24,14 +24,9 @@
                                     <th>Nama</th>
                                     <th>Nomor Surat</th>
                                     <th>Judul</th>
-                                    <th>Sumber Pendanaan</th>
-                                    <th>Jumlah Pendanaan</th>
                                     <th>File Proposal</th>
                                     <th>Waktu Kegiatan</th>
                                     <th>Lokasi</th>
-                                    <th>Hasil Kegiatan</th>
-                                    <th>Hasil Publikasi Media</th>
-                                    <th>Hasil Publikasi Ilmiah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -40,18 +35,17 @@
                                 <tr>
                                     <td>{{ $dedications->firstItem() + $loop->index }}</td>
                                     <td>{{ $dedication->humanResource->sdm_name }}</td>
-                                    <td>{{ $dedication->letterNumber->number }}/{{ $dedication->letterNumber->month }}/{{ $dedication->letterNumber->year }}</td>
+                                    <td>
+                                        @if ($dedication->letterNumber?->number | $dedication->letterNumber?->month | $dedication->letterNumber?->year)
+                                        {{ $dedication->letterNumber?->number }}/{{ $dedication->letterNumber?->month }}/{{ $dedication->letterNumber?->year }}
+                                        @endif
+                                    </td>
                                     <td>{{ $dedication->title }}</td>
-                                    <td>{{ $dedication->funding_source }}</td>
-                                    <td>{{ $dedication->funding_amount }}</td>
                                     <td>
                                         <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->proposal_file)]) }}">File</a>
                                     </td>
                                     <td>{{ $dedication->activity_schedule }}</td>
                                     <td>{{ $dedication->location }}</td>
-                                    <td>{{ $dedication->target_activity_outputs }}</td>
-                                    <td>{{ $dedication->public_media_publications }}</td>
-                                    <td>{{ $dedication->scientific_publications }}</td>
                                     <td>
                                         <a href="{{ route('dedication.formNumbering', $dedication->id) }}" class="btn btn-warning">Edit nomor surat</a>
                                     </td>

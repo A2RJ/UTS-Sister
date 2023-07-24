@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-use function PHPUnit\Framework\callback;
-
 /**
  * App\Models\Presence
  *
@@ -52,16 +50,6 @@ use function PHPUnit\Framework\callback;
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereSdmId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @mixin \Eloquent
  */
 class Presence extends Model

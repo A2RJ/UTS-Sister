@@ -146,33 +146,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource workHours()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
@@ -269,15 +242,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereSdmId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  */
@@ -309,45 +273,11 @@ namespace App\Models{
 /**
  * App\Models\ResearchAssignment
  *
- * @property int $id
- * @property int|null $sdm_id
- * @property string $role
- * @property string $activity
- * @property string $as
- * @property string $theme
- * @property string $dateStart
- * @property string $dateEnd
- * @property string $organizer
- * @property string $location
- * @property array $table
- * @property int|null $number
- * @property string|null $month
- * @property int|null $year
- * @property bool $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\HumanResource|null $user
+ * @property-read \App\Models\HumanResource $user
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment query()
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment search()
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereActivity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereAs($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereDateEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereDateStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereMonth($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereOrganizer($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereRole($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereSdmId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereTable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereTheme($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereYear($value)
  * @mixin \Eloquent
  */
 	class ResearchAssignment extends \Eloquent {}
@@ -411,24 +341,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Structure whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Structure whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Structure whereType($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Structure> $children
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\HumanResource> $humanResource
@@ -576,42 +488,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereTanggalMeninggalIbu($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereTempatTanggalLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereUpdatedAt($value)
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @mixin \Eloquent
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
@@ -794,15 +670,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSemesterId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSks($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subject whereSubject($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meeting> $meetings
  */
@@ -834,7 +701,6 @@ namespace App\Models{
  * @property-read LecturerDetail|null $detail
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read int|null $off_campus_activity_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
@@ -871,63 +737,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wr3\Dedication> $dedication
+ * @property-read int|null $dedication_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
@@ -960,7 +772,7 @@ namespace App\Models\Wr3{
  * @property string $scientific_publications
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\HumanResource $humanResource
+ * @property-read HumanResource $humanResource
  * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication newQuery()
@@ -982,6 +794,7 @@ namespace App\Models\Wr3{
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Dedication extends \Eloquent {}
 }
@@ -996,9 +809,12 @@ namespace App\Models\Wr3{
  * @property int $study_program_id
  * @property string $expertise
  * @property string $theme
- * @property string $other_theme
+ * @property string|null $other_theme
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Faculty $faculty
+ * @property-read HumanResource|null $humanResource
+ * @property-read StudyProgram $studyProgram
  * @method static \Database\Factories\Wr3\LecturerDetailFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail newQuery()
@@ -1012,9 +828,6 @@ namespace App\Models\Wr3{
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereStudyProgramId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LecturerDetail whereUpdatedAt($value)
- * @property-read Faculty $faculty
- * @property-read HumanResource|null $humanResource
- * @property-read StudyProgram $studyProgram
  * @mixin \Eloquent
  */
 	class LecturerDetail extends \Eloquent {}
@@ -1024,9 +837,6 @@ namespace App\Models\Wr3{
 /**
  * App\Models\Wr3\LetterNumber
  *
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber query()
  * @property int $id
  * @property int|null $proposal_id
  * @property int|null $dedication_id
@@ -1035,6 +845,9 @@ namespace App\Models\Wr3{
  * @property string|null $year
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber query()
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereDedicationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereId($value)
@@ -1075,6 +888,7 @@ namespace App\Models\Wr3{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource|null $humanResource
+ * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @method static Builder|ResearchProposal export(?array $columns = null)
  * @method static \Database\Factories\Wr3\ResearchProposalFactory factory($count = null, $state = [])
  * @method static Builder|ResearchProposal newModelQuery()
@@ -1083,7 +897,6 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal search(?string $keyword, array $columns = [], array $relations = [])
  * @method static Builder|ResearchProposal searchManual(?string $keyword)
  * @method static Builder|ResearchProposal whereApplicationStatus($value)
- * @method static Builder|ResearchProposal whereAssignmentLetterLink($value)
  * @method static Builder|ResearchProposal whereAuthorStatus($value)
  * @method static Builder|ResearchProposal whereContractPeriod($value)
  * @method static Builder|ResearchProposal whereCreatedAt($value)
@@ -1106,7 +919,6 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal whereVerification($value)
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
- * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @mixin \Eloquent
  */
 	class ResearchProposal extends \Eloquent {}

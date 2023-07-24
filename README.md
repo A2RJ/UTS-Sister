@@ -2,6 +2,9 @@
 
 - Sebelum kerjakan fitur tertentu buat saja branch dev-features-name agar dev tetap bersih sehingga gampang kembali ke branch dev features sebelumnya
 
+## Dump autoload 
+- php artisan ide-helper:meta
+
 ## Sedang dikerjakan
 
 - [X] Laporan mata kuliah

@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource|null $humanResource
+ * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @method static Builder|ResearchProposal export(?array $columns = null)
  * @method static \Database\Factories\Wr3\ResearchProposalFactory factory($count = null, $state = [])
  * @method static Builder|ResearchProposal newModelQuery()
@@ -44,7 +45,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal search(?string $keyword, array $columns = [], array $relations = [])
  * @method static Builder|ResearchProposal searchManual(?string $keyword)
  * @method static Builder|ResearchProposal whereApplicationStatus($value)
- * @method static Builder|ResearchProposal whereAssignmentLetterLink($value)
  * @method static Builder|ResearchProposal whereAuthorStatus($value)
  * @method static Builder|ResearchProposal whereContractPeriod($value)
  * @method static Builder|ResearchProposal whereCreatedAt($value)
@@ -67,7 +67,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal whereVerification($value)
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
- * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @mixin \Eloquent
  */
 class ResearchProposal extends Model

@@ -27,6 +27,7 @@ class DedicationsRequest extends FormRequest
             'participants.*.name' => 'required',
             'participants.*.nidn' => 'required|numeric',
             'participants.*.studyProgram' => 'required',
+            'participants.*.detail' => 'required',
             'target_activity_outputs' => 'required',
             'public_media_publications' => 'required',
             'scientific_publications' => 'required' 
@@ -52,6 +53,7 @@ class DedicationsRequest extends FormRequest
             'participants.*.nidn.required' => 'NIDN harus diisi.',
             'participants.*.nidn.numeric' => 'NIDN harus angka',
             'participants.*.studyProgram.required' => 'Program study harus diisi.',
+            'participants.*.detail.required' => 'detail harus diisi.',
             'target_activity_outputs.required' => 'Hasil Kegiatan harus diisi.',
             'public_media_publications.required' => 'Publikasi Media harus diisi.',
             'scientific_publications.required' => 'Publikasi Ilmiah harus diisi.', 

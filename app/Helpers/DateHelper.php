@@ -3,12 +3,15 @@
 namespace App\Helpers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class DateHelper
 {
-    public static function format_tgl_id($date)
+    public static function format_tgl_id($date, $withDay)
     {
-        return Carbon::parse($date)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
+        $format = "DD MMMM YYYY";
+        if ($withDay) {
+            $format = "dddd, " . $format;
+        }
+        return Carbon::parse($date)->locale('id')->isoFormat($format);
     }
 }
