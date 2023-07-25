@@ -9,6 +9,7 @@ use App\Http\Requests\Wr3\DedicationsRequest;
 use App\Http\Requests\Wr3\DedicationsUpdateRequest;
 use App\Http\Requests\Wr3\LetterNumeringRequest;
 use App\Models\Wr3\Dedication;
+use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpWord\PhpWord;
 use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -130,91 +131,22 @@ class DedicationController extends Controller
 
     public function generateLetter(Dedication $dedication)
     {
-        $domPdfPath = base_path('vendor/dompdf/dompdf');
-        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
-        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+        $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
 
-        //Load word file
-        $templatePath = Storage::path('../file/template/surat-pengabdian.docx');
-        $template = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
-        // $template->setValue('role', $dedication->role);
-        $outputPath = Storage::path('surat/' . date('Y') . '.docx');
-        $template->saveAs($outputPath);
+        $values = [
+            'number'     => $dedication->letterNumber->number,
+            'month'      => $dedication->letterNumber->month,
+            'year'       => $dedication->letterNumber->year,
+            'activity'   => $dedication->activity,
+            'participants'   => json_decode($dedication->participants),
+            'as'         => $dedication->as,
+            'theme'      => $dedication->theme,
+            'date'       => DateHelper::format_tgl_id($dedication->activity_schedule, true),
+            'location'   => $dedication->location,
+            'updated_at' => DateHelper::format_tgl_id($dedication->letterNumber->updated_at, false)
+        ];
 
-        $temp = \PhpOffice\PhpWord\IOFactory::load($outputPath);
-        $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($temp, 'PDF');
-        $PDFWriter->save(public_path('new-result.pdf'));
-        echo 'File has been successfully converted';
-        return response()->download($outputPath);
-        // $template = new TemplateProcessor($templatePath);
-
-        // $word = new PhpWord();
-        // $section = $word->addSection(array('width' => 100));
-        // $sectionStyle = $section->getStyle();
-        // $sectionStyle->setOrientation($sectionStyle::ORIENTATION_LANDSCAPE);
-
-        // $table = $section->addTable(array('width' => 100, 'indentation' => array('left' => 0, 'right' => 0)));
-        // $table->getStyle()->setStyleByArray(array(
-        //     'borderColor' => '000000',
-        //     'borderSize'  => 6,
-        //     'cellMargin'  => 50,
-        //     'marginLeft'  => 0
-        // ));
-        // $table->getStyle()->setAuto(false);
-        // $table->getStyle()->setWidth(100);
-
-        // $fStyle = ['bold' => true, 'fontSize' => 12];
-        // $pStyle = ['align' => 'center', 'spaceAfter' => 0];
-
-        // $table->addRow();
-        // $table->addCell(700)->addText('No.', $fStyle, $pStyle);
-        // $table->addCell(2500)->addText('NAMA', $fStyle, $pStyle);
-        // $table->addCell(2000)->addText('NIDN', $fStyle, $pStyle);
-        // $table->addCell(2000)->addText('PROGRAM STUDI', $fStyle, $pStyle);
-        // $table->addCell(2500)->addText('KETERANGAN', $fStyle, $pStyle);
-
-        // $pStyle = ['align' => 'left', 'spaceAfter' => 0];
-
-        // foreach (json_decode($dedication->participants) as $index => $row) {
-        //     $table->addRow();
-        //     $table->addCell(800)->addText($index + 1 . '.', null, $pStyle);
-        //     $table->addCell(2500)->addText($row->name, null, $pStyle);
-        //     $table->addCell(2000)->addText($row->nidn, null, $pStyle);
-        //     $table->addCell(2000)->addText($row->studyProgram, null, $pStyle);
-        //     $table->addCell(2500)->addText($row->studyProgram, null, $pStyle);
-        // }
-
-        // $template->setComplexBlock('TABLE_BLOCK', $table);
-
-        // $values = [
-        //     'number'     => $dedication->letterNumber->number,
-        //     'month'      => $dedication->letterNumber->month,
-        //     'year'       => $dedication->letterNumber->year,
-        //     'name'       => $dedication->humanResource->sdm_name,
-        //     'nidn'       => $dedication->humanResource->nidn,
-        //     'role'       => $dedication->role,
-        //     'as'         => $dedication->as,
-        //     'activity'   => $dedication->activity,
-        //     'theme'      => $dedication->theme,
-        //     'date'       => DateHelper::format_tgl_id($dedication->activity_schedule, true),
-        //     'location'   => $dedication->location,
-        //     'updated_at' => DateHelper::format_tgl_id($dedication->letterNumber->updated_at, false)
-        // ];
-
-        // foreach ($values as $key => $value) {
-        //     $template->setValue($key, $value);
-        // }
-
-        // $outputPath = Storage::path('surat/' . date('Y') . '.docx');
-        // $template->saveAs($outputPath);
-        // $domPdfPath = base_path('vendor/dompdf/dompdf');
-        // \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
-        // \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
-        // $Content = \PhpOffice\PhpWord\IOFactory::load($outputPath);
-        // $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content, 'PDF');
-        // // $PDFWriter->save(public_path('new.pdf'));
-        // $PDFWriter->save(public_path('new.pdf'));
-        // echo 'File has been successfully converted';
-        // return response()->download($PDFWriter)->deleteFileAfterSend();
+        $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'values'));
+        return $pdf->download('test.pdf');
     }
 }

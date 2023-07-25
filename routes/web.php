@@ -54,8 +54,25 @@ use Dompdf\Options;
 
 Route::get('surat', function () {
     $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
-    $mengetahui = FileHelper::toBase64(public_path('kop-surat/ttd-pengabdian.png')); 
-    $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'mengetahui'));
+    $mengetahui = FileHelper::toBase64(public_path('kop-surat/ttd-pengabdian.png'));
+    $values = [
+        'number'     => ' $dedication->letterNumber->number',
+        'month'      => ' $dedication->letterNumber->month',
+        'year'       => ' $dedication->letterNumber->year',
+        'activity'   => ' $dedication->activity',
+        'participants'   => ' json_decode($dedication->participants)',
+        'as'         => ' $dedication->as',
+        'theme'      => ' $dedication->theme',
+        'date'       => ' DateHelper::format_tgl_id($dedication->activity_schedule, true)',
+        'location'   => ' $dedication->location',
+        'updated_at' => '17 Juli 2023'
+    ];
+    return view(
+        'surat.surat-pengabdian',
+        compact('kop', 'mengetahui', 'values')
+    );
+    $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'mengetahui', 'values'));
+    $pdf->setOption(['isHtml5ParserEnabled', true]);
     return $pdf->download('test.pdf');
 }); 
 

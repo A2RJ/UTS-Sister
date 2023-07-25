@@ -73,6 +73,16 @@
         .line-height-6 {
             line-height: .6;
         }
+
+        .signature-container {
+            display: flex;
+            justify-content: end;
+        }
+
+        .signature {
+            width: 40%;
+            background-color: salmon;
+        }
     </style>
 </head>
 
@@ -80,7 +90,8 @@
     <img class="header-img" src="{{ $kop }}" alt="kop surat">
 
     <p class="line-height-6">No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-        156/UTS.WRIII/TU/VI/2023</p>
+        {{ $values['number'] }}/UTS.WRIII/TU/{{ $values['month'] }}/{{ $values['year'] }}
+    </p>
     <p class="line-height-6">Perihal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Surat Tugas Pengabdian</p>
     <p class="line-height-6">Lampiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;-</p>
 
@@ -140,10 +151,25 @@
         </tr>
     </table>
 
-    <p style="text-align: justify;">Untuk melaksanakan Kegiatan Pengabdian kepada Masyarakat sebagai Narasumber dan Moderator dalam kegiatan Bimbingan Teknis dan Sosialisasi Daring/Webinar PROPAKTANI dengan tema “Saatnya Beralih ke Organik Sebagai Upaya Mitigasi Efek Gas Rumah Kaca dari Aktivitas Pertanian“. Yang akan dilaksanakan pada tanggal 26 Juni 2023, melalui media Zoom Meeting.</p>
-    <p style="text-align: justify;">Setelah selesai melaksanakan tugas, harap saudara menyampaikan laporan kegiatan secara tertulis, Demikian surat tugas ini dibuat untuk dilaksanakan dan dipergunakan sebagaimana mestinya.</p>
+    <p style="text-align: justify;">
+        Untuk melaksanakan Kegiatan Pengabdian kepada Masyarakat sebagai {{ $values['as'] }}
+        dalam kegiatan {{ $values['activity'] }}
+        dengan tema “{{ $values['theme'] }}“.
+        Yang akan dilaksanakan pada {{ $values['date'] }}, {{ $values['location'] }}.</p>
+    <p style="text-align: justify;">Setelah selesai melaksanakan tugas,
+        harap saudara menyampaikan laporan kegiatan secara tertulis,
+        Demikian surat tugas ini dibuat untuk dilaksanakan dan dipergunakan sebagaimana mestinya.
+    </p>
 
-    <img class="signature-img" src="{{ $mengetahui }}" alt="Tanda tangan">
+    <div class="signature-container">
+        <div class="signature">
+            <p>Sumbawa, {{ $values['updated_at'] }}</p>
+            <p>Wakil Rektor III</p>
+            <p style="margin-top: -10px;">Bidang Riset dan Inovasi</p>
+            <p style="font-weight: bold; margin-top: 100px; text-decoration: underline;">Dwi Ariyanti, Ph.D</p>
+            <p style="margin-top: -10px;">NIDN. 0804018003</p>
+        </div>
+    </div>
 </body>
 
 </html>
