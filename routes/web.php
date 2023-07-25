@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\FileHelper;
 use App\Http\Controllers\Admin\DSDMController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,11 +34,10 @@ use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
-use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
-use App\Models\Faculty;
 use App\Models\StudyProgram;
-use App\Models\Wr3\Dedication;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Options;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,10 +50,14 @@ use App\Models\Wr3\Dedication;
 |
 */
 
-Route::get('surat', [SuratRisetController::class, 'index']);
-// Route::get('welcome', function () {
-//     return view('welcome');
-// });
+
+
+Route::get('surat', function () {
+    $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+    $mengetahui = FileHelper::toBase64(public_path('kop-surat/ttd-pengabdian.png')); 
+    $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'mengetahui'));
+    return $pdf->download('test.pdf');
+}); 
 
 Route::prefix('/')->group(function () {
     Route::controller(Controller::class)->group(function () {
@@ -178,7 +182,7 @@ Route::middleware('auth')->group(function () {
             Route::get('generate-letter/{dedication}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
-        
+
         /**
          * Pengabdian
          * - dosen (daftar, tambah, ubah, hapus, print pdf)
