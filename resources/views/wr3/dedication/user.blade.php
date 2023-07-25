@@ -2,6 +2,13 @@
 @section('title', 'Daftar Pengabdian')
 
 @section('content')
+
+<style>
+    .gap>* {
+        margin: 5px;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -49,15 +56,18 @@
                                     </td>
                                     <td>{{ $dedication->activity_schedule }}</td>
                                     <td>{{ $dedication->location }}</td>
-                                    <td>
+                                    <td class="gap">
                                         <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dedication?')">Delete</button>
                                         </form>
                                         @if ($dedication->letterNumber?->number | $dedication->letterNumber?->month | $dedication->letterNumber?->year)
-                                        <a href="{{ route('dedication.generateLetter', $dedication->id) }}" class="btn btn-primary">Download surat</a>
+                                        <form action="{{ route('dedication.generateLetter', $dedication->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Download surat</button>
+                                        </form>
                                         @endif
                                     </td>
                                 </tr>

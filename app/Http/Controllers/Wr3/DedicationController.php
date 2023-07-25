@@ -141,12 +141,12 @@ class DedicationController extends Controller
             'participants'   => json_decode($dedication->participants),
             'as'         => $dedication->as,
             'theme'      => $dedication->theme,
-            'date'       => DateHelper::format_tgl_id($dedication->activity_schedule, true),
+            'date'       => DateHelper::formatTglId($dedication->activity_schedule, true),
             'location'   => $dedication->location,
-            'updated_at' => DateHelper::format_tgl_id($dedication->letterNumber->updated_at, false)
+            'updated_at' => DateHelper::formatTglId($dedication->letterNumber->updated_at, false)
         ];
 
         $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'values'));
-        return $pdf->download('test.pdf');
+        return $pdf->download(Auth::user()->sdm_name . '.pdf');
     }
 }

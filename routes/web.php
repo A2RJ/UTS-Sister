@@ -63,7 +63,7 @@ Route::get('surat', function () {
         'participants'   => ' json_decode($dedication->participants)',
         'as'         => ' $dedication->as',
         'theme'      => ' $dedication->theme',
-        'date'       => ' DateHelper::format_tgl_id($dedication->activity_schedule, true)',
+        'date'       => ' DateHelper::formatTglIddedication->activity_schedule, true)',
         'location'   => ' $dedication->location',
         'updated_at' => '17 Juli 2023'
     ];
@@ -187,29 +187,19 @@ Route::middleware('auth')->group(function () {
             Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
         });
 
-        /**
-         * Proposal
-         * - dosen (daftar, tambah, ubah, hapus, print pdf)
-         * - admin (set nomor surat, print pdf, export excel)
-         */
         Route::prefix('proposal')->controller(ProposalController::class)->group(function () {
             Route::get('dosen', 'dosen')->name('proposal.by-user');
             Route::get('penomoran-surat/{proposal}', 'formNumbering')->name('proposal.formNumbering');
             Route::put('penomoran-surat/{proposal}', 'letterNumbering')->name('proposal.letterNumbering');
-            Route::get('generate-letter/{dedication}', 'generateLetter')->name('proposal.generateLetter');
+            Route::post('generate-letter/{dedication}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
 
-        /**
-         * Pengabdian
-         * - dosen (daftar, tambah, ubah, hapus, print pdf)
-         * - admin (set nomor surat, print pdf, export excel)
-         */
         Route::prefix('dedication')->controller(DedicationController::class)->group(function () {
             Route::get('dedication-by-user', 'byUser')->name('dedication.by-user');
             Route::get('penomoran-surat/{dedication}', 'formNumbering')->name('dedication.formNumbering');
             Route::put('penomoran-surat/{dedication}', 'letterNumbering')->name('dedication.letterNumbering');
-            Route::get('generate-letter/{dedication}', 'generateLetter')->name('dedication.generateLetter');
+            Route::post('generate-letter/{dedication}', 'generateLetter')->name('dedication.generateLetter');
         });
         Route::resource('dedication', DedicationController::class);
     });

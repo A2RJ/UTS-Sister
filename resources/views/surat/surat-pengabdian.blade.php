@@ -57,14 +57,6 @@
             height: 91.8px;
         }
 
-        .signature-img {
-            width: 321.13px;
-            height: 283px;
-            float: right;
-            transform: rotate(0rad) translateZ(0px);
-            -webkit-transform: rotate(0rad) translateZ(0px);
-        }
-
         .no-border th,
         .no-border td {
             border: none;
@@ -80,8 +72,8 @@
         }
 
         .signature {
-            width: 40%;
-            background-color: salmon;
+            width: 33%;
+            float: right;
         }
     </style>
 </head>
@@ -92,8 +84,8 @@
     <p class="line-height-6">No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
         {{ $values['number'] }}/UTS.WRIII/TU/{{ $values['month'] }}/{{ $values['year'] }}
     </p>
-    <p class="line-height-6">Perihal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Surat Tugas Pengabdian</p>
-    <p class="line-height-6">Lampiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;-</p>
+    <p class="line-height-6">Perihal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Surat Tugas Pengabdian</p>
+    <p class="line-height-6">Lampiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: -</p>
 
     <p>Yang bertanda tangan dibawah ini :</p>
     <table class="no-border column">
@@ -114,41 +106,32 @@
     <p>Menugaskan Dosen Universitas Teknologi Sumbawa;</p>
 
     <table class="max-width-table column">
-        <tr>
-            <th>NO.</th>
-            <th>NAMA</th>
-            <th>NIDN</th>
-            <th>PROGRAM STUDI</th>
-            <th>KETERANGAN</th>
-        </tr>
-        <tr>
-            <td>1.</td>
-            <td>Nurul Amri Komarudin, S.Si., M.Si.</td>
-            <td>0813099302</td>
-            <td>Teknik Lingkungan</td>
-            <td>Narasumber</td>
-        </tr>
-        <tr>
-            <td>2.</td>
-            <td>Chairul Anam Afgani, S.TP., M.P.</td>
-            <td>0805039301</td>
-            <td>Teknologi Hasil Pertanian</td>
-            <td>Narasumber</td>
-        </tr>
-        <tr>
-            <td>3.</td>
-            <td>Ihlana Nairfana, S.TP., M.Si.</td>
-            <td>0805049102</td>
-            <td>Teknologi Hasil Pertanian</td>
-            <td>Narasumber</td>
-        </tr>
-        <tr>
-            <td>4.</td>
-            <td>Ratna Nurmalita Sari, S.T.P., M.Sc.</td>
-            <td>0805019402</td>
-            <td>Teknologi Hasil Pertanian</td>
-            <td>Moderator</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>NO.</th>
+                <th>NAMA</th>
+                <th>NIDN</th>
+                <th>PROGRAM STUDI</th>
+                <th>KETERANGAN</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            $index = 1;
+            @endphp
+            @foreach ($values['participants'] as $value)
+            <tr>
+                <td>{{ $index }}</td>
+                <td>{{ $value->name }}</td>
+                <td>{{ $value->nidn }}</td>
+                <td>{{ $value->studyProgram }}</td>
+                <td>{{ $value->detail }}</td>
+            </tr>
+            @php
+            $index++;
+            @endphp
+            @endforeach
+        </tbody>
     </table>
 
     <p style="text-align: justify;">
