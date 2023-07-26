@@ -77,12 +77,15 @@ class ResearchProposal extends Model
         'sdm_id',
         'proposal_title',
         'grant_scheme',
+        'start',
+        'end',
+        'location',
+        'participants',
         'target_outcomes',
         'proposal_file',
         'application_status',
         'contract_period',
         'funding_amount',
-        'verification', 
         'publication_title',
         'author_status',
         'journal_name',
@@ -98,17 +101,10 @@ class ResearchProposal extends Model
     public function humanResource(): BelongsTo
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
-    }
-
-    public function verification(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $value ? 'Terverifikasi' : 'Tidak terverifikasi'
-        );
-    }
+    } 
 
     public function letterNumber()
     {
-        return $this->hasOne(LetterNumber::class);
+        return $this->hasOne(LetterNumber::class, 'proposal_id');
     }
 }

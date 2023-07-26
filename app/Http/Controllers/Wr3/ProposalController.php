@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Wr3;
 
+use App\Helpers\DateHelper;
 use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Wr3\LetterNumeringRequest;
 use App\Http\Requests\Wr3\ResearchProposalRequest;
 use App\Http\Requests\Wr3\ResearchProposalUpdateRequest;
 use App\Models\Wr3\ResearchProposal;
 use Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class ProposalController extends Controller
 {
@@ -50,7 +54,7 @@ class ProposalController extends Controller
 
         return view('wr3.proposal.index')
             ->with('researches', $researches)
-            ->with('exportUrl', route('download.proposal', request()->getQueryString()));
+            ->with('exportUrl', ''); // route('download.proposal', request()->getQueryString())
     }
 
     public function create()
@@ -64,6 +68,7 @@ class ProposalController extends Controller
     public function store(ResearchProposalRequest $request)
     {
         $validated = $request->validated();
+        $validated['participants'] = json_encode($request->participants);
         $validated['proposal_file'] = FileHelper::upload($request, 'proposal_file', 'proposal_file');
         if ($request->hasFile('journal_pdf_file')) {
             $validated['journal_pdf_file'] = FileHelper::upload($request, 'journal_pdf_file', 'journal_pdf_file');
@@ -104,18 +109,7 @@ class ProposalController extends Controller
             return back()->with('success', 'Berhasil dihapus');
         }
         return back()->with('failed', 'Anda tidak dapat menghapus data proposal');
-    }
-
-    public function verifyAction(ResearchProposal $proposal)
-    {
-        if (Auth::user()->rinov()) {
-            $proposal->update([
-                'verification' => $proposal->verification == 'Terverifikasi' ? false : true
-            ]);
-            return back()->with('success', 'Berhasil verifikasi');
-        }
-        return back()->with('failed', 'Anda tidak dapat memverifikasi data proposal');
-    }
+    } 
 
     public function downloadProposal()
     {
@@ -131,16 +125,51 @@ class ProposalController extends Controller
         )->export();
     }
 
-    public function formNumbering($proposal)
+    public function formNumbering(ResearchProposal $proposal)
     {
-        return view('wr3.letter-number')->with('route', route('proposal.letterNumbering', $proposal));
+        return view('wr3.letter-number')
+        ->with('route', route('proposal.letterNumbering', $proposal->id))
+            ->with('letterNumber', $proposal->letterNumber);
     }
 
-    public function letterNumbering()
+    public function letterNumbering(LetterNumeringRequest $request, ResearchProposal $proposal)
     {
+        $proposal->letterNumber()->updateOrCreate(['proposal_id' => $proposal->id], $request->validated());
+        return redirect()->route('proposal.index')->with('success', 'Berhasil set nomor surat');
     }
 
-    public function generateLetter()
+    public function generateLetter(ResearchProposal $proposal)
     {
+        $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+
+        $activityStartDate = Carbon::parse($proposal->start);
+        $activityEndDate = Carbon::parse($proposal->end)->addMonth(); // Tambahkan 1 bulan ke akhir tanggal
+
+        $startMonth = DateHelper::formatBulanTahunId($activityStartDate);
+        $endMonth = DateHelper::formatBulanTahunId($activityEndDate);
+
+        $detail = '';
+        if ($activityStartDate->diffInMonths($activityEndDate) == 1) {
+            $detail = "selama 1 bulan terhitung sejak $startMonth";
+        } else {
+            $detail = "selama " . $activityStartDate->diffInMonths($activityEndDate) . " bulan terhitung sejak $startMonth - $endMonth";
+        }
+
+        $values = [
+            'number'      => $proposal->letterNumber->number,
+            'month'       => DateHelper::bulanToRomawi($proposal->letterNumber->month),
+            'year'        => $proposal->letterNumber->year,
+            'title'       => $proposal->proposal_title,
+            'participants' => json_decode($proposal->participants),
+            'start'       => $startMonth,
+            'end'         => $endMonth,
+            'location'    => $proposal->location,
+            'detail'      => $detail,
+            'updated_at'  => DateHelper::formatTglId($proposal->letterNumber->updated_at, false)
+        ];
+
+        $pdf = Pdf::loadView('surat/surat-penelitian', compact('kop', 'values'));
+        return $pdf->download(Auth::user()->sdm_name . '.pdf');
     }
+
 }

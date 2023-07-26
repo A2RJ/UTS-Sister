@@ -49,6 +49,7 @@ class DedicationsRequest extends FormRequest
             'activity_schedule.required' => 'Jadwal Kegiatan harus diisi.',
             'activity_schedule.date' => 'Jadwal Kegiatan harus dalam format tanggal yang valid.',
             'location.required' => 'Lokasi harus diisi.',
+            'participants.min.required' => 'Anggota setidaknya :min orang.',
             'participants.*.name.required' => 'Nama harus diisi.',
             'participants.*.nidn.required' => 'NIDN harus diisi.',
             'participants.*.nidn.numeric' => 'NIDN harus angka',

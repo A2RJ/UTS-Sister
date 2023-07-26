@@ -19,12 +19,15 @@ return new class extends Migration
             ->cascadeOnUpdate();
             $table->string('proposal_title');
             $table->string('grant_scheme');
+            $table->string('start');
+            $table->string('end');
+            $table->string('location');
+            $table->json('participants');
             $table->string('target_outcomes');
             $table->string('proposal_file');
             $table->enum('application_status', ['Selesai penelitian', 'Lolos pendanaan']);
             $table->string('contract_period')->nullable();
             $table->string('funding_amount')->nullable();
-            $table->boolean('verification')->default(false); 
             $table->string('publication_title')->nullable();
             $table->enum('author_status', [1, 2, 3, 'correspondence author'])->nullable();
             $table->string('journal_name')->nullable();

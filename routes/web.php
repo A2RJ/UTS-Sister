@@ -191,7 +191,7 @@ Route::middleware('auth')->group(function () {
             Route::get('dosen', 'dosen')->name('proposal.by-user');
             Route::get('penomoran-surat/{proposal}', 'formNumbering')->name('proposal.formNumbering');
             Route::put('penomoran-surat/{proposal}', 'letterNumbering')->name('proposal.letterNumbering');
-            Route::post('generate-letter/{dedication}', 'generateLetter')->name('proposal.generateLetter');
+            Route::post('generate-letter/{proposal}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
 

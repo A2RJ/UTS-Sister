@@ -26,6 +26,60 @@
                         </div>
 
                         <div class="form-group mb-2">
+                            <label for="start">Terhitung Mulai:</label>
+                            <input type="month" id="start" name="start" class="form-control" value="{{ old('start', $proposal->start) }}">
+                            @error('start') <span class="error text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="end">Sampai Dengan:</label>
+                            <input type="month" id="end" name="end" class="form-control" value="{{ old('end', $proposal->end) }}">
+                            @error('end') <span class="error text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="location">Lokasi:</label>
+                            <input type="text" id="location" name="location" class="form-control" value="{{ old('location', $proposal->location) }}">
+                            @error('location') <span class="error text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="participants">Daftar Anggota</label>
+                            <div id="lecturers-container">
+                                @foreach(old('participants', json_decode($proposal->participants, true), [['name' => '', 'nidn' => '', 'studyProgram' => '', 'detail' => '']]) as $index => $row)
+                                <div class="row mb-1 participants-<?= $index ?>">
+                                    <div class="col">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.name') is-invalid @enderror" name="participants[{{ $index }}][name]" placeholder="Name" value="{{ $row['name'] }}">
+                                        @error('participants.'.$index.'.name') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.nidn') is-invalid @enderror" name="participants[{{ $index }}][nidn]" placeholder="NIDN" value="{{ $row['nidn'] }}">
+                                        @error('participants.'.$index.'.nidn') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.studyProgram') is-invalid @enderror" name="participants[{{ $index }}][studyProgram]" placeholder="Program Studi" value="{{ $row['studyProgram'] }}">
+                                        @error('participants.'.$index.'.studyProgram') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.detail') is-invalid @enderror" name="participants[{{ $index }}][detail]" placeholder="Detail" value="{{ $row['detail'] }}">
+                                        @error('participants.'.$index.'.detail') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col">
+                                        @if($index == 0)
+                                        <button class="btn btn-danger" type="button" disabled>Remove</button>
+                                        @else
+                                        <button class="btn btn-danger" type="button" onclick="removeLecturer(<?= $index ?>)">Remove</button>
+                                        @endif
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="mt-2 mb-3">
+                                <button class="btn btn-primary" type="button" onclick="addLecturer()">Tambah dosen</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
                             <label for="target_outcomes">Target Luaran:</label>
                             <textarea id="target_outcomes" name="target_outcomes" class="form-control">{{ old('target_outcomes', $proposal->target_outcomes ?? '') }}</textarea>
                             @error('target_outcomes') <span class="error text-danger">{{ $message }}</span> @enderror
@@ -167,5 +221,46 @@
             }
         });
     });
+
+
+    let lecturerIndex = 1;
+
+    function addLecturer() {
+        const container = document.getElementById('lecturers-container');
+        const newRow = document.createElement('div');
+        newRow.className = `row mb-1 participants-client-${lecturerIndex}`;
+        newRow.innerHTML = `
+                                <div class="col">
+                                    <input type="text" class="form-control" name="participants[${lecturerIndex}][name]" placeholder="Name">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="participants[${lecturerIndex}][nidn]" placeholder="NIDN">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="participants[${lecturerIndex}][studyProgram]" placeholder="Program Studi">
+                                </div>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="participants[${lecturerIndex}][detail]" placeholder="Detail">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger" type="button" onclick="removeLecturerClient(${lecturerIndex})">Remove</button>
+                                </div>
+                            `;
+        container.appendChild(newRow);
+        lecturerIndex++;
+    }
+
+    function removeLecturer(index) {
+        const container = document.getElementById('lecturers-container');
+        const row = document.querySelector(`.participants-${index}`);
+        container.removeChild(row);
+    }
+
+    function removeLecturerClient(lecturerIndex) {
+        const container = document.getElementById('lecturers-container');
+        const row = document.querySelector(`.participants-client-${lecturerIndex}`);
+        container.removeChild(row);
+    }
 </script>
 @endsection

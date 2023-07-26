@@ -14,7 +14,7 @@
                         @method('PUT')
                         <div class="form-group mb-2">
                             <label for="number">Number:</label>
-                            <input type="text" id="number" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="number" value="{{ old('number', $letterNumber->number ?? '') }}">
+                            <input type="number" id="number" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="number" value="{{ old('number', $letterNumber->number ?? '') }}">
                             @if ($errors->has('number'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('number') }}</strong>
@@ -24,7 +24,7 @@
 
                         <div class="form-group mb-2">
                             <label for="month">Month:</label>
-                            <input type="text" id="month" class="form-control{{ $errors->has('month') ? ' is-invalid' : '' }}" name="month" value="{{ old('month', $letterNumber->month ?? '') }}">
+                            <input type="number" id="month" class="form-control{{ $errors->has('month') ? ' is-invalid' : '' }}" name="month" value="{{ old('month', $letterNumber->month ?? '') }}">
                             @if ($errors->has('month'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('month') }}</strong>
