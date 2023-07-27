@@ -47,6 +47,7 @@
                                     <td>{{ $dedication->activity_schedule }}</td>
                                     <td>{{ $dedication->location }}</td>
                                     <td>
+                                        <a href="{{ route('dedication.detail', $dedication->id) }}" class="btn btn-primary">Detail</a>
                                         <a href="{{ route('dedication.formNumbering', $dedication->id) }}" class="btn btn-warning">Edit nomor surat</a>
                                     </td>
                                 </tr>

@@ -77,6 +77,15 @@ class ProposalController extends Controller
         return redirect()->route('proposal.by-user')->with('message', 'Berhasil tambah proposal');
     }
 
+    public function show(ResearchProposal $proposal)
+    {
+        return view('wr3.proposal.detail')
+        ->with('statuses', $this->statuses)
+            ->with('author_statuses', $this->author_statuses)
+            ->with('journal_accreditation_statuses', $this->journal_accreditation_statuses)
+            ->with('proposal', $proposal);
+    }
+
     public function edit(ResearchProposal $proposal)
     {
         return view('wr3.proposal.edit')
@@ -109,7 +118,7 @@ class ProposalController extends Controller
             return back()->with('success', 'Berhasil dihapus');
         }
         return back()->with('failed', 'Anda tidak dapat menghapus data proposal');
-    } 
+    }
 
     public function downloadProposal()
     {
@@ -128,7 +137,7 @@ class ProposalController extends Controller
     public function formNumbering(ResearchProposal $proposal)
     {
         return view('wr3.letter-number')
-        ->with('route', route('proposal.letterNumbering', $proposal->id))
+            ->with('route', route('proposal.letterNumbering', $proposal->id))
             ->with('letterNumber', $proposal->letterNumber);
     }
 
@@ -171,5 +180,4 @@ class ProposalController extends Controller
         $pdf = Pdf::loadView('surat/surat-penelitian', compact('kop', 'values'));
         return $pdf->download(Auth::user()->sdm_name . '.pdf');
     }
-
 }

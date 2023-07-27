@@ -50,32 +50,6 @@ use Dompdf\Options;
 |
 */
 
-
-
-Route::get('surat', function () {
-    $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
-    $mengetahui = FileHelper::toBase64(public_path('kop-surat/ttd-pengabdian.png'));
-    $values = [
-        'number'     => ' $dedication->letterNumber->number',
-        'month'      => ' $dedication->letterNumber->month',
-        'year'       => ' $dedication->letterNumber->year',
-        'activity'   => ' $dedication->activity',
-        'participants'   => ' json_decode($dedication->participants)',
-        'as'         => ' $dedication->as',
-        'theme'      => ' $dedication->theme',
-        'date'       => ' DateHelper::formatTglIddedication->activity_schedule, true)',
-        'location'   => ' $dedication->location',
-        'updated_at' => '17 Juli 2023'
-    ];
-    return view(
-        'surat.surat-pengabdian',
-        compact('kop', 'mengetahui', 'values')
-    );
-    $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'mengetahui', 'values'));
-    $pdf->setOption(['isHtml5ParserEnabled', true]);
-    return $pdf->download('test.pdf');
-}); 
-
 Route::prefix('/')->group(function () {
     Route::controller(Controller::class)->group(function () {
         Route::get('', 'index')->name('index');
@@ -189,14 +163,16 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('proposal')->controller(ProposalController::class)->group(function () {
             Route::get('dosen', 'dosen')->name('proposal.by-user');
+            Route::get('detail/{proposal}', 'show')->name('proposal.detail');
             Route::get('penomoran-surat/{proposal}', 'formNumbering')->name('proposal.formNumbering');
             Route::put('penomoran-surat/{proposal}', 'letterNumbering')->name('proposal.letterNumbering');
             Route::post('generate-letter/{proposal}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
-
+        
         Route::prefix('dedication')->controller(DedicationController::class)->group(function () {
             Route::get('dedication-by-user', 'byUser')->name('dedication.by-user');
+            Route::get('detail/{dedication}', 'show')->name('dedication.detail');
             Route::get('penomoran-surat/{dedication}', 'formNumbering')->name('dedication.formNumbering');
             Route::put('penomoran-surat/{dedication}', 'letterNumbering')->name('dedication.letterNumbering');
             Route::post('generate-letter/{dedication}', 'generateLetter')->name('dedication.generateLetter');

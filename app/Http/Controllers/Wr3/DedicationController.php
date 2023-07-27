@@ -88,6 +88,12 @@ class DedicationController extends Controller
             ->with('success', 'Dedication created successfully.');
     }
 
+    public function show(Dedication $dedication)
+    {
+        return view('wr3.dedication.detail')
+        ->with('dedication', $dedication);
+    }
+
     public function edit(Dedication $dedication)
     {
         return view('wr3.dedication.edit', compact('dedication'));
@@ -104,7 +110,7 @@ class DedicationController extends Controller
         }
         $dedication->update($updateForm);
 
-        return redirect()->route('dedication.index')
+        return redirect()->route('dedication.by-user')
             ->with('success', 'Dedication updated successfully.');
     }
 

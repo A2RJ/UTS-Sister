@@ -43,6 +43,7 @@
                                     <td>{{ $research->proposal_title }}</td>
                                     <td>{{ $research->grant_scheme }}</td>
                                     <td>
+                                        <a href="{{ route('proposal.detail', $research->id) }}" class="btn btn-primary">Detail</a>
                                         <a href="{{ route('proposal.formNumbering', $research->id) }}" class="btn btn-warning">Edit nomor surat</a>
                                     </td>
                                 </tr>

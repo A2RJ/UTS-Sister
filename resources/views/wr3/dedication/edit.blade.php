@@ -7,11 +7,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">Edit pengabdian</div>
-
-                @php
-                var_dump($errors)
-                @endphp
-
                 <div class="card-body">
                     <form action="{{ route('dedication.update', $dedication->id) }}" method="POST">
                         @csrf
