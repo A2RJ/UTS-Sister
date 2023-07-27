@@ -12,15 +12,13 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "kalnoy/nestedset": "^6.0",
+        "lacodix/laravel-model-filter": "^1.9",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.1",
-        "livewire/livewire": "^2.12",
-        "ncjoes/office-converter": "^1.0",
         "novay/laravel-word-template": "^1.1",
-        "orangehill/iseed": "^3.0",
         "phpoffice/phpword": "dev-develop",
         "rap2hpoutre/fast-excel": "^5.0",
         "spatie/laravel-permission": "^5.7"
@@ -34,6 +32,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "orangehill/iseed": "^3.0",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -59,9 +58,7 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan ide-helper:generate",
-            "php artisan ide-helper:models"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

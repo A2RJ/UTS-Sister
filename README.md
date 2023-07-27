@@ -4,29 +4,11 @@
 
 ## Dump autoload 
 - php artisan ide-helper:meta
+- php artisan ide-helper:generate,
+- php artisan ide-helper:models
 
 ## Sedang dikerjakan
-
-- [X] Laporan mata kuliah
-- [ ] jika ada attachment maka tampilkan pada tabel presensi
-- [X] tampilkan tanggal jika telah izin
-- [X] jika telat maka wajib isi detail (opsional attachment - ANDROID)
-- [X] izin 1/2 hari
-- [X] izin 1 hari
-- [X] izin tidak masuk dengan alasan
-- [X] izin sakit
-- [ ] rekap tidak masuk (sakit, ijin keagamaan dan lain-lain)
-- [X] batasai perhitungan jam kerja sampai jam 4
-- [X] berikan query permission = 1
-- [X] pada menu civitas berikan detail struktural/posisi tiap civitas
-- [X] berikan detail struktural per akun saat login (misal ka.prodi sipil dll)
-- [X] ubah user menu menjadi absensi menu dan hapus sub divisi menu
-- [X] ubah menu absensi kehadiran
-  - [ ] absensi saya, input izin dan list izin
-  - [ ] absensi sub divisi - radio button per unit, per civitas, semua absensi, list izin sub divisi
-- [X] fixing roles()
-- [ ] Ubah pengecekan whereDate atau semua filter date karena check_in_time bisa berisi 2023-12-12, dan ubah carbon menggunakan format dmY saja
-
+ 
 ## List testing
 
 - User

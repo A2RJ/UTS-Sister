@@ -28,7 +28,6 @@
     <!-- End fonts -->
 
     @vite(['resources/js/app.js'])
-    @livewireStyles
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
@@ -139,7 +138,6 @@
             </footer>
         </div>
     </div>
-    @livewireScripts
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('plugin_js')

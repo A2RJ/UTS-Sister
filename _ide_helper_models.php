@@ -920,6 +920,14 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
  * @mixin \Eloquent
+ * @property string $start
+ * @property string $end
+ * @property string $location
+ * @property mixed $participants
+ * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereParticipants($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereStart($value)
  */
 	class ResearchProposal extends \Eloquent {}
 }
