@@ -24,7 +24,7 @@
 
                         <div class="form-group mb-2">
                             <label for="month">Month:</label>
-                            <input type="number" id="month" class="form-control{{ $errors->has('month') ? ' is-invalid' : '' }}" name="month" value="{{ old('month', $letterNumber->month ?? '') }}">
+                            <input type="number" id="month" min="0" max="12" class="form-control{{ $errors->has('month') ? ' is-invalid' : '' }}" name="month" value="{{ old('month', $letterNumber->month ?? '') }}">
                             @if ($errors->has('month'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('month') }}</strong>
@@ -41,7 +41,15 @@
                             </span>
                             @endif
                         </div>
-
+                        <div class="form-group mb-2">
+                            <label for="accepted_date">Accepted Date: {{ $letterNumber?->accepted_date }}</label>
+                            <input type="date" id="accepted_date" class="form-control{{ $errors->has('accepted_date') ? ' is-invalid' : '' }}" name="accepted_date" value="{{ old('accepted_date', $letterNumber->accepted_date ?? '') }}">
+                            @if ($errors->has('accepted_date'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('accepted_date') }}</strong>
+                            </span>
+                            @endif
+                        </div>
                         <div class="form-group mb-2">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

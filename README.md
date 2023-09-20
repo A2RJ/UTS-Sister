@@ -73,7 +73,7 @@ password: 7700013494
 
 - [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
   http://forum.centos-webpanel.com/index.php?topic=10177.0
-
+- [insyall imagick](https://mlocati.github.io/articles/php-windows-imagick.html)
 STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
 - https://blog.devgenius.io/how-to-upgrade-from-laravel-9-x-to-laravel-10-x-926b826b454f

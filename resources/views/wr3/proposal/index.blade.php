@@ -27,6 +27,7 @@
                                     <th>Nomor Surat</th>
                                     <th>Judul Proposal</th>
                                     <th>Skema Hibah</th>
+                                    <th>Diterima Pada</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -42,6 +43,7 @@
                                     </td>
                                     <td>{{ $research->proposal_title }}</td>
                                     <td>{{ $research->grant_scheme }}</td>
+                                    <td>{{ $research->letterNumber?->accepted_date }}</td>
                                     <td>
                                         <a href="{{ route('proposal.detail', $research->id) }}" class="btn btn-primary">Detail</a>
                                         <a href="{{ route('proposal.formNumbering', $research->id) }}" class="btn btn-warning">Edit nomor surat</a>

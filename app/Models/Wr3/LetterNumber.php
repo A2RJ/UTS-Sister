@@ -33,5 +33,5 @@ class LetterNumber extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['proposal_id', 'dedication_id', 'number', 'month', 'year'];
+    protected $fillable = ['proposal_id', 'dedication_id', 'number', 'month', 'year', 'accepted_date'];
 }

@@ -44,6 +44,6 @@
 <li class="nav-item">
     <a href="{{ route('proposal.by-user') }}" class="nav-link">
         <i class="link-icon" data-feather="message-square"></i>
-        <span class="link-title">Proposal</span>
+        <span class="link-title">Proposal Riset</span>
     </a>
 </li>

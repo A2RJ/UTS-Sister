@@ -32,6 +32,7 @@ use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\RinovController;
@@ -51,6 +52,7 @@ use Dompdf\Options;
 */
 
 Route::prefix('/')->group(function () {
+    Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
     Route::controller(Controller::class)->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('verify', 'verify');

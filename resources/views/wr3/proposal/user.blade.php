@@ -46,6 +46,7 @@
                                     <th>Nomor Surat</th>
                                     <th>Judul Proposal</th>
                                     <th>Skema Hibah</th>
+                                    <th>Diterima Pada</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -61,6 +62,7 @@
                                     </td>
                                     <td>{{ $research->proposal_title }}</td>
                                     <td>{{ $research->grant_scheme }}</td>
+                                    <td>{{ $research->accepted_date }}</td>
                                     <td class="gap">
                                         <a href="{{ route('proposal.edit', ['proposal' => $research->id]) }}" class="btn btn-outline-primary">Edit </a>
                                         <form action="{{ route('proposal.destroy', ['proposal' => $research->id]) }}" method="POST">

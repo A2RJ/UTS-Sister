@@ -10,8 +10,10 @@ use App\Http\Requests\Wr3\ResearchProposalRequest;
 use App\Http\Requests\Wr3\ResearchProposalUpdateRequest;
 use App\Models\Wr3\ResearchProposal;
 use Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
+// use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Crypt;
+use URL;
 
 class ProposalController extends Controller
 {
@@ -80,7 +82,7 @@ class ProposalController extends Controller
     public function show(ResearchProposal $proposal)
     {
         return view('wr3.proposal.detail')
-        ->with('statuses', $this->statuses)
+            ->with('statuses', $this->statuses)
             ->with('author_statuses', $this->author_statuses)
             ->with('journal_accreditation_statuses', $this->journal_accreditation_statuses)
             ->with('proposal', $proposal);
@@ -164,20 +166,27 @@ class ProposalController extends Controller
             $detail = "selama " . $activityStartDate->diffInMonths($activityEndDate) . " bulan terhitung sejak $startMonth - $endMonth";
         }
 
-        $values = [
-            'number'      => $proposal->letterNumber->number,
-            'month'       => DateHelper::bulanToRomawi($proposal->letterNumber->month),
-            'year'        => $proposal->letterNumber->year,
-            'title'       => $proposal->proposal_title,
-            'participants' => json_decode($proposal->participants),
-            'start'       => $startMonth,
-            'end'         => $endMonth,
-            'location'    => $proposal->location,
-            'detail'      => $detail,
-            'updated_at'  => DateHelper::formatTglId($proposal->letterNumber->updated_at, false)
-        ];
+        $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
 
-        $pdf = Pdf::loadView('surat/surat-penelitian', compact('kop', 'values'));
-        return $pdf->download(Auth::user()->sdm_name . '.pdf');
+        $values = [
+            'token'        => "$url/v/rinov/$proposal->id",
+            'number'       => $proposal->letterNumber->number,
+            'month'        => DateHelper::bulanToRomawi($proposal->letterNumber->month),
+            'year'         => $proposal->letterNumber->year,
+            'title'        => $proposal->proposal_title,
+            'participants' => json_decode($proposal->participants),
+            'start'        => $startMonth,
+            'end'          => $endMonth,
+            'location'     => $proposal->location,
+            'detail'       => $detail,
+            'accepted_date' => DateHelper::formatTglId($proposal->letterNumber->accepted_date, false),
+        ];
+        return view('surat.surat-penelitian', compact('kop', 'values'));
+        // $pdf = \PDF::loadView('surat/surat-penelitian', compact('kop', 'values'));
+        // $pdf->setOption('enable-javascript', true);
+        // $pdf->setOption('javascript-delay', 5000);
+        // $pdf->setOption('enable-smart-shrinking', true);
+        // $pdf->setOption('no-stop-slow-scripts', true);
+        // return $pdf->stream(Auth::user()->sdm_name . '.pdf');
     }
 }

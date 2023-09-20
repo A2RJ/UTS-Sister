@@ -61,7 +61,7 @@
                                         @error('participants.'.$index.'.studyProgram') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control @error('participants.'.$index.'.detail') is-invalid @enderror" name="participants[{{ $index }}][detail]" placeholder="Detail" value="{{ $row['detail'] }}">
+                                        <input type="text" class="form-control @error('participants.'.$index.'.detail') is-invalid @enderror" name="participants[{{ $index }}][detail]" placeholder="Peran" value="{{ $row['detail'] }}">
                                         @error('participants.'.$index.'.detail') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="col">
