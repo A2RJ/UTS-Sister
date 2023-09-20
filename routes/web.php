@@ -1,6 +1,5 @@
 <?php
 
-use App\Helpers\FileHelper;
 use App\Http\Controllers\Admin\DSDMController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +27,6 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
-use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
@@ -37,8 +35,6 @@ use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\RinovController;
 use App\Models\StudyProgram;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Options;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,7 +167,7 @@ Route::middleware('auth')->group(function () {
             Route::post('generate-letter/{proposal}', 'generateLetter')->name('proposal.generateLetter');
         });
         Route::resource('proposal', ProposalController::class);
-        
+
         Route::prefix('dedication')->controller(DedicationController::class)->group(function () {
             Route::get('dedication-by-user', 'byUser')->name('dedication.by-user');
             Route::get('detail/{dedication}', 'show')->name('dedication.detail');
