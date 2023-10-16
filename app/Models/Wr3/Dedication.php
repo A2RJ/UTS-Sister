@@ -18,7 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $funding_source
  * @property string $funding_amount
  * @property string $proposal_file
- * @property string $activity_schedule
+ * @property string $start_date
+ * @property string $end_date
  * @property string $location
  * @property mixed $participants
  * @property string $target_activity_outputs
@@ -63,7 +64,9 @@ class Dedication extends Model
         'funding_source',
         'funding_amount',
         'proposal_file',
-        'activity_schedule',
+        'report_file',
+        'start_date',
+        'end_date',
         'location',
         'participants',
         'target_activity_outputs',

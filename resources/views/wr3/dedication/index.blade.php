@@ -25,6 +25,7 @@
                                     <th>Nomor Surat</th>
                                     <th>Judul</th>
                                     <th>File Proposal</th>
+                                    <th>File Laporan</th>
                                     <th>Waktu Kegiatan</th>
                                     <th>Lokasi</th>
                                     <th>Aksi</th>
@@ -44,7 +45,10 @@
                                     <td>
                                         <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->proposal_file)]) }}">File</a>
                                     </td>
-                                    <td>{{ $dedication->activity_schedule }}</td>
+                                    <td>
+                                        <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->report_file)]) }}">File</a>
+                                    </td>
+                                    <td>{{ $dedication->start_date }} {{ $dedication->end_date }}</td>
                                     <td>{{ $dedication->location }}</td>
                                     <td>
                                         <a href="{{ route('dedication.detail', $dedication->id) }}" class="btn btn-primary">Detail</a>

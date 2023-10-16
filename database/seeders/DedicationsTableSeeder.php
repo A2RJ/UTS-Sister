@@ -21,7 +21,8 @@ class DedicationsTableSeeder extends Seeder
         \DB::table('dedications')->insert(array (
             0 => 
             array (
-                'activity_schedule' => '2023-07-21',
+                'start_date' => '2023-07-21',
+                'end_date' => null,
                 'as' => 'asdasdsd',
                 'created_at' => '2023-07-21 11:11:24',
                 'funding_amount' => '12312312',

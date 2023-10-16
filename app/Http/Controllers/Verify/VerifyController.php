@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Verify;
 use App\Helpers\DateHelper;
 use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Wr3\Dedication;
 use App\Models\Wr3\ResearchProposal;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 
 class VerifyController extends Controller
 {
@@ -48,6 +48,31 @@ class VerifyController extends Controller
                     'accepted_date' => DateHelper::formatTglId($proposal->letterNumber->accepted_date, false),
                 ];
                 return view('verify.rinov', compact('values', 'kop'));
+            } elseif ($surat == "peng") {
+                $dedication = Dedication::whereId($id)->firstOrFail();
+                $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+                $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
+
+                $start = DateHelper::formatTglId($dedication->start_date, true);
+                $end = DateHelper::formatTglId($dedication->end_date, true);
+                $date = $end ? "$start sampai $end" : $start;
+
+                $values = [
+                    'token'        => "$url/v/peng/$dedication->id",
+                    'number'     => $dedication->letterNumber->number,
+                    'month'      => $dedication->letterNumber->month,
+                    'year'       => $dedication->letterNumber->year,
+                    'activity'   => $dedication->activity,
+                    'participants'   => json_decode($dedication->participants),
+                    'as'         => $dedication->as,
+                    'theme'      => $dedication->theme,
+                    'date'       => $date,
+                    'location'   => $dedication->location,
+                    'updated_at' => DateHelper::formatTglId($dedication->letterNumber->updated_at, false),
+                    'accepted_date' => DateHelper::formatTglId($dedication->letterNumber->accepted_date, false),
+                ];
+
+                return view('verify.pengabdian', compact('kop', 'values'));
             }
         } catch (Exception $e) {
             throw $e;

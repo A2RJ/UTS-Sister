@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Tugas Pengabdian</title>
+    <title>Surat Tugas Riset Inovasi</title>
     <style>
         @page {
             size: auto;
@@ -158,12 +158,28 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.key === 'p') {
-                event.preventDefault();
-            }
-        });
+   <script src="{{ asset('js/qr.js') }}"></script>
+
+    <script type="text/javascript">
+        try {
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey && event.key === 'p') {
+                    event.preventDefault();
+                }
+            });
+            window.addEventListener("load", function() {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: "{{ $values['token'] }}",
+                    width: 128,
+                    height: 128,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            });
+        } catch (error) {
+            alert("Error while generate this page, please contact administrator")
+        }
     </script>
 </body>
 
