@@ -56,7 +56,9 @@
                                         <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->proposal_file)]) }}">File</a>
                                     </td>
                                     <td>
+                                        @if ($dedication->report_file)
                                         <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->report_file)]) }}">File</a>
+                                        @endif
                                     </td>
                                     <td>{{ $dedication->start_date }} {{ $dedication->end_date }}</td>
                                     <td>{{ $dedication->location }}</td>

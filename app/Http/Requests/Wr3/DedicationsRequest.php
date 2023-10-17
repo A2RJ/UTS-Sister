@@ -21,7 +21,7 @@ class DedicationsRequest extends FormRequest
             'funding_source' => 'required',
             'funding_amount' => 'required|numeric',
             'proposal_file' => 'required|file',
-            'report_file' => 'required|file',
+            'report_file' => 'nullable|file',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'location' => 'required',

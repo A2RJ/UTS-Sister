@@ -75,8 +75,14 @@ class DedicationController extends Controller
         $validatedData = $request->validated();
         $proposal_file = FileHelper::upload($request, 'proposal_file', 'proposal_file');
         $validatedData['proposal_file'] = $proposal_file;
-        $report_file = FileHelper::upload($request, 'report_file', 'proposal_file');
-        $validatedData['report_file'] = $report_file;
+
+        if ($request->hasFile('report_file')) {
+            $report_file = FileHelper::upload($request, 'report_file', 'proposal_file');
+            $validatedData['report_file'] = $report_file;
+        } else {
+            unset($validatedData['report_file']);
+        }
+
         $participants = $validatedData['participants'] ?? [];
         $validatedData['participants'] = json_encode($participants);
         Auth::user()->dedication()->create($validatedData);
