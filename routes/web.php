@@ -34,6 +34,7 @@ use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\RinovController;
+use App\Models\Presence;
 use App\Models\StudyProgram;
 
 /*
@@ -46,6 +47,46 @@ use App\Models\StudyProgram;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/map', function () {
+    $data = DB::table('presences')
+        ->select('latitude_in', 'longitude_in', 'latitude_out', 'longitude_out')
+        ->whereRaw('(latitude_in IS NOT NULL OR longitude_in IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
+        ->limit(1000)
+        ->get();
+
+    $geojson = [
+        'type' => 'FeatureCollection',
+        'features' => []
+    ];
+
+    foreach ($data as $presence) {
+        $coordinates = [];
+        if (!is_null($presence->latitude_in) && !is_null($presence->longitude_in)) {
+            $coordinates = [$presence->longitude_in, $presence->latitude_in];
+        } else {
+            $coordinates = [$presence->longitude_out, $presence->latitude_out];
+        }
+
+        $feature = [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => $coordinates
+            ],
+            'properties' => [
+                'title' => 'Mapbox',
+                'description' => 'Location Description' // Ganti ini dengan deskripsi yang sesuai
+            ]
+        ];
+
+        $geojson['features'][] = $feature;
+    }
+
+    return view('map')->with('geojson', $geojson);
+});
+
+
 
 Route::prefix('/')->group(function () {
     Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
