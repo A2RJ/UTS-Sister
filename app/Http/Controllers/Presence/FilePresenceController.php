@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Presence;
 
-use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Presence;
 use App\Models\Structure;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use OpenSpout\Common\Entity\Style\Style;
