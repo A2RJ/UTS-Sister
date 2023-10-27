@@ -18,7 +18,9 @@ class DedicationsTable extends Migration
             $table->string('funding_source');
             $table->string('funding_amount');
             $table->string('proposal_file');
-            $table->string('activity_schedule');
+            $table->string('report_file');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->string('location');
             $table->json('participants');
             $table->text('target_activity_outputs');

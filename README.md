@@ -1,17 +1,18 @@
 # APP
 
-- Sebelum kerjakan fitur tertentu buat saja branch dev-features-name agar dev tetap bersih sehingga gampang kembali ke branch dev features sebelumnya
+-   Sebelum kerjakan fitur tertentu buat saja branch dev-features-name agar dev tetap bersih sehingga gampang kembali ke branch dev features sebelumnya
 
-## Dump autoload 
-- php artisan ide-helper:meta
-- php artisan ide-helper:generate,
-- php artisan ide-helper:models
+## Dump autoload
+
+-   php artisan ide-helper:meta
+-   php artisan ide-helper:generate,
+-   php artisan ide-helper:models
 
 ## Sedang dikerjakan
- 
+
 ## List testing
 
-- User
+-   User
 
 1. Staff
 
@@ -60,28 +61,41 @@ password: 7700013494
 
 ## Databases
 
-- php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
-- iseed before migrate:rollback
-- php artisan optimize:clear
-- php artisan config:clear
+-   php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
+-   iseed before migrate:rollback
+-   php artisan optimize:clear
+-   php artisan config:clear
 
 ## Tools
 
-- [Bootstrap form builder](https://startbootstrap.com/sb-form-builder)
+-   [Bootstrap form builder](https://startbootstrap.com/sb-form-builder)
 
 ## Tutorial
 
-- [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
-  http://forum.centos-webpanel.com/index.php?topic=10177.0
-- [insyall imagick](https://mlocati.github.io/articles/php-windows-imagick.html)
-STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+-   [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
+    http://forum.centos-webpanel.com/index.php?topic=10177.0
+-   Print partial page
 
-- https://blog.devgenius.io/how-to-upgrade-from-laravel-9-x-to-laravel-10-x-926b826b454f
+```
+@media print {
+      body {
+        visibility: hidden;
+      }
+      #div-yang-ingin-dicetak {
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+```
 
 ## TIPS
 
-- // https://kepegawaian.uts.ac.id/presence/per-unit/54?search=&start=&end=&filter=per-unit
-- Validasi valid URL from server (bukan ketikan)
+-   // https://kepegawaian.uts.ac.id/presence/per-unit/54?search=&start=&end=&filter=per-unit
+-   Validasi valid URL from server (bukan ketikan)
 
 ```
 return URL::temporarySignedRoute(

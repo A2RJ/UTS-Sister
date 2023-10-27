@@ -136,9 +136,8 @@
 
     <p style="text-align: justify;">
         Untuk melaksanakan Kegiatan Pengabdian kepada Masyarakat sebagai {{ $values['as'] }}
-        dalam kegiatan {{ $values['activity'] }}
-        dengan tema “{{ $values['theme'] }}“.
-        Yang akan dilaksanakan pada {{ $values['date'] }}, {{ $values['location'] }}.</p>
+        dalam kegiatan {{ $values['activity'] }} “{{ $values['theme'] }}“.
+        Kegiatan ini dilaksanakan pada {{ $values['date'] }}, {{ $values['location'] }}.</p>
     <p style="text-align: justify;">Setelah selesai melaksanakan tugas,
         harap saudara menyampaikan laporan kegiatan secara tertulis,
         Demikian surat tugas ini dibuat untuk dilaksanakan dan dipergunakan sebagaimana mestinya.
@@ -146,13 +145,39 @@
 
     <div class="signature-container">
         <div class="signature">
-            <p>Sumbawa, {{ $values['updated_at'] }}</p>
+            <p>Sumbawa, {{ $values['accepted_date'] }}</p>
             <p>Wakil Rektor III</p>
             <p style="margin-top: -10px;">Bidang Riset dan Inovasi</p>
-            <p style="font-weight: bold; margin-top: 100px; text-decoration: underline;">Dwi Ariyanti, Ph.D</p>
+            <div id="qrcode"></div>
+            <p style="font-weight: bold; text-decoration: underline;">Dwi Ariyanti, Ph.D</p>
             <p style="margin-top: -10px;">NIDN. 0804018003</p>
         </div>
     </div>
+
+    <script src="{{ asset('js/qr.js') }}"></script>
+
+    <script type="text/javascript">
+        try {
+            window.addEventListener("load", function() {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: "{{ $values['token'] }}",
+                    width: 128,
+                    height: 128,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            });
+
+            window.onload = window.print
+            window.addEventListener("afterprint", function() {
+                var bodyElement = document.getElementsByTagName('body')[0];
+                bodyElement.parentNode.removeChild(bodyElement);
+            });
+        } catch (error) {
+            alert("Error while generate this page, please contact administrator")
+        }
+    </script>
 </body>
 
 </html>

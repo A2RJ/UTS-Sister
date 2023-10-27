@@ -62,9 +62,21 @@
                         </div>
 
                         <div class="form-group mb-2">
-                            <label for="activity_schedule">Waktu Kegiatan:</label>
-                            <input type="date" id="activity_schedule" class="form-control{{ $errors->has('activity_schedule') ? ' is-invalid' : '' }}" name="activity_schedule" value="{{ old('activity_schedule', $dedication->activity_schedule) }}">
-                            @error('activity_schedule') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                            <label for="report_file">Laporan Pengabdian (Opsional: Diisi jika pengabdian telah selesai):</label>
+                            <input type="file" id="report_file" class="form-control{{ $errors->has('report_file') ? ' is-invalid' : '' }}" name="report_file">
+                            @error('report_file') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="start_date">Tanggal Mulai:</label>
+                            <input type="date" id="start_date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" name="start_date" value="{{ old('start_date', $dedication->start_date) }}">
+                            @error('start_date') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="end_date">Tanggal Selesai (Opsional):</label>
+                            <input type="date" id="end_date" class="form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}" name="end_date" value="{{ old('end_date', $dedication->end_date) }}">
+                            @error('end_date') <span class="invalid-feedback">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group mb-2">

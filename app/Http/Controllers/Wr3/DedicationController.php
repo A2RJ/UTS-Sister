@@ -10,10 +10,7 @@ use App\Http\Requests\Wr3\DedicationsUpdateRequest;
 use App\Http\Requests\Wr3\LetterNumeringRequest;
 use App\Models\Wr3\Dedication;
 use Barryvdh\DomPDF\Facade\Pdf;
-use PhpOffice\PhpWord\PhpWord;
 use Illuminate\Support\Facades\Auth;
-use PhpOffice\PhpWord\TemplateProcessor;
-use Storage;
 
 class DedicationController extends Controller
 {
@@ -25,8 +22,7 @@ class DedicationController extends Controller
                 ->when($search, function ($query) use ($search) {
                     $query->where(function ($query) use ($search) {
                         $query->where('title', 'like', '%' . $search . '%')
-                            ->orWhere('funding_source', 'like', '%' . $search . '%')
-                            ->orWhere('activity_schedule', 'like', '%' . $search . '%')
+                    ->orWhere('funding_source', 'like', '%' . $search . '%')
                             ->orWhere('location', 'like', '%' . $search . '%')
                             ->orWhere('participants', 'like', '%' . $search . '%')
                             ->orWhere('target_activity_outputs', 'like', '%' . $search . '%')
@@ -52,8 +48,7 @@ class DedicationController extends Controller
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('title', 'like', '%' . $search . '%')
-                        ->orWhere('funding_source', 'like', '%' . $search . '%')
-                        ->orWhere('activity_schedule', 'like', '%' . $search . '%')
+                    ->orWhere('funding_source', 'like', '%' . $search . '%')
                         ->orWhere('location', 'like', '%' . $search . '%')
                         ->orWhere('participants', 'like', '%' . $search . '%')
                         ->orWhere('target_activity_outputs', 'like', '%' . $search . '%')
@@ -77,9 +72,17 @@ class DedicationController extends Controller
 
     public function store(DedicationsRequest $request)
     {
-        $proposal_file = FileHelper::upload($request, 'proposal_file', 'proposal_file');
         $validatedData = $request->validated();
+        $proposal_file = FileHelper::upload($request, 'proposal_file', 'proposal_file');
         $validatedData['proposal_file'] = $proposal_file;
+
+        if ($request->hasFile('report_file')) {
+            $report_file = FileHelper::upload($request, 'report_file', 'proposal_file');
+            $validatedData['report_file'] = $report_file;
+        } else {
+            unset($validatedData['report_file']);
+        }
+
         $participants = $validatedData['participants'] ?? [];
         $validatedData['participants'] = json_encode($participants);
         Auth::user()->dedication()->create($validatedData);
@@ -107,6 +110,12 @@ class DedicationController extends Controller
             $updateForm['proposal_file'] = $proposal_file;
         } else {
             unset($updateForm['proposal_file']);
+        }
+        if ($request->hasFile('report_file')) {
+            $report_file = FileHelper::upload($request, 'report_file', 'proposal_file');
+            $updateForm['report_file'] = $report_file;
+        } else {
+            unset($updateForm['report_file']);
         }
         $dedication->update($updateForm);
 
@@ -138,8 +147,15 @@ class DedicationController extends Controller
     public function generateLetter(Dedication $dedication)
     {
         $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+        $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
+
+        $start = DateHelper::formatTglId($dedication->start_date, true);
+        $end = DateHelper::formatTglId($dedication->end_date, true);
+        $date = $end ? "$start sampai $end" : $start;
+
 
         $values = [
+            'token'        => "$url/v/peng/$dedication->id",
             'number'     => $dedication->letterNumber->number,
             'month'      => $dedication->letterNumber->month,
             'year'       => $dedication->letterNumber->year,
@@ -147,10 +163,13 @@ class DedicationController extends Controller
             'participants'   => json_decode($dedication->participants),
             'as'         => $dedication->as,
             'theme'      => $dedication->theme,
-            'date'       => DateHelper::formatTglId($dedication->activity_schedule, true),
+            'date'       => $date,
             'location'   => $dedication->location,
-            'updated_at' => DateHelper::formatTglId($dedication->letterNumber->updated_at, false)
+            'updated_at' => DateHelper::formatTglId($dedication->letterNumber->updated_at, false),
+            'accepted_date' => DateHelper::formatTglId($dedication->letterNumber->accepted_date, false),
         ];
+
+        return view('surat.surat-pengabdian', compact('kop', 'values'));
 
         $pdf = Pdf::loadView('surat/surat-pengabdian', compact('kop', 'values'));
         return $pdf->download(Auth::user()->sdm_name . '.pdf');
