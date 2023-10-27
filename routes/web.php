@@ -346,11 +346,123 @@ Route::middleware("auth")->group(function () {
     });
 });
 
-// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-//     Route::get('/', 'index');
-//     Route::get('/today', 'today');
-//     Route::get('/type', 'permissionType');
-//     Route::get('/total-hour', 'totalHour');
-// });
+function calculateDistance($coord1, $coord2)
+{
+    $lat1 = $coord1->lat;
+    $lon1 = $coord1->lon;
+    $lat2 = $coord2->lat;
+    $lon2 = $coord2->lon;
 
-// Route::get('riset-form', RisetForm::class);
+    // Radius bumi dalam meter
+    $earthRadius = 6371000;
+
+    // Konversi sudut lintang dan bujur dari derajat ke radian
+    $lat1 = deg2rad($lat1);
+    $lon1 = deg2rad($lon1);
+    $lat2 = deg2rad($lat2);
+    $lon2 = deg2rad($lon2);
+
+    // Perbedaan sudut lintang dan bujur
+    $latDiff = $lat2 - $lat1;
+    $lonDiff = $lon2 - $lon1;
+
+    // Menggunakan rumus Haversine
+    $a = sin($latDiff / 2) ** 2 + cos($lat1) * cos($lat2) * sin($lonDiff / 2) ** 2;
+    $c = 2 * asin(sqrt($a));
+    $distance = $earthRadius * $c;
+
+    return $distance;
+}
+
+function generateFeature($lat, $lon, $sdm_name, $dbh = 0)
+{
+    $feature = [
+        "type" => "Feature",
+        "properties" => [
+            "dbh" => $dbh,
+            "user" => $sdm_name
+        ],
+        "geometry" => [
+            "type" => "Point",
+            "coordinates" => [
+                $lon,
+                $lat,
+            ],
+        ],
+    ];
+
+    return $feature;
+}
+
+Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
+    // Route::get('/', function () {
+    //     $absensiCoords = DB::table('presences')
+    //         ->select('latitude_in as lat', 'longitude_in as lon')
+    //         ->whereRaw('(latitude_in IS NOT NULL OR longitude_in IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
+    //         ->whereRaw('(latitude_in != "0" OR longitude_in != "0" OR latitude_out != "0" OR longitude_out != "0")')
+    //         // ->whereRaw('MONTH(created_at) IN (8, 9, 10)')
+    //         // ->limit(1000)
+    //         ->get();
+    //     $centerCoords = DB::table('coordinates')
+    //         ->select('latitude as lat', 'longitude as lon')
+    //         ->get();
+
+    //     // Radius dalam meter
+    //     $radius = 100;
+
+    //     // Koordinat yang tidak ada dalam radius
+    //     $koordinatTidakAda = [];
+
+    //     foreach ($centerCoords as $centerCoord) {
+    //         foreach ($absensiCoords as $coord) {
+    //             $distance = calculateDistance($centerCoord, $coord);
+    //             if ($distance > $radius) {
+    //                 $lon = $coord->lon;
+    //                 $lat = $coord->lat;
+    //                 $coord->link = "https://www.google.com/maps/@$lat,$lon,17z?entry=ttu";
+    //                 $koordinatTidakAda[] = $coord;
+    //             }
+    //         }
+    //     }
+
+    //     return response()->json($koordinatTidakAda);
+    // });
+    Route::get('/heat-map', function () {
+        $absensiCoordsIn = DB::table('presences')
+            ->select('latitude_in as lat', 'longitude_in as lon', 'sdm_name')
+            ->whereRaw('(latitude_in IS NOT NULL OR longitude_in IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
+            ->whereRaw('(latitude_in != "0" OR longitude_in != "0" OR latitude_out != "0" OR longitude_out != "0")')
+            ->whereRaw("MONTH(presences.created_at) IN (8)")
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->get();
+
+        for ($i = 0; $i < count($absensiCoordsIn); $i++) {
+            $feature = generateFeature($absensiCoordsIn[$i]->lat, $absensiCoordsIn[$i]->lon, $absensiCoordsIn[$i]->sdm_name, 12);
+            $features[] = $feature;
+        }
+
+        $absensiCoordsOut = DB::table('presences')
+            ->select('latitude_out as lat', 'longitude_out as lon', 'sdm_name')
+            ->whereRaw('(latitude_out IS NOT NULL OR longitude_out IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
+            ->whereRaw('(latitude_out != "0" OR longitude_out != "0" OR latitude_out != "0" OR longitude_out != "0")')
+            ->whereRaw('MONTH(presences.created_at) IN (8)')
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->get();
+
+        for ($i = 0; $i < count($absensiCoordsOut); $i++) {
+            $feature = generateFeature($absensiCoordsOut[$i]->lat, $absensiCoordsOut[$i]->lon, $absensiCoordsOut[$i]->sdm_name, 12);
+            $features[] = $feature;
+        }
+
+        $featureCollection = [
+            "type" => "FeatureCollection",
+            "features" => $features,
+        ];
+
+        $centerCoords = DB::table('coordinates')
+            ->select('latitude as lat', 'longitude as lon')
+            ->get();
+
+        return view('heat-map', compact('featureCollection', 'centerCoords'));
+    });
+});
