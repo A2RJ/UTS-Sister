@@ -78,90 +78,121 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiYTJyaiIsImEiOiJja2g3OW11N3MwNmh1MzBsbDQ4NGVrYWNtIn0.uvhpm1k_6EIRZXyOhHq7QQ';
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/satellite-streets-v11',
+            // style: 'mapbox://styles/mapbox/satellite-streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [117.419130, -8.497193],
             zoom: 11
         });
         map.on('load', () => {
-            for (const feature of @json($centerCoords)) {
-                // create a HTML element for each feature
-                const el = document.createElement('div');
-                el.className = 'marker';
+            map.loadImage(
+                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+                    // Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': @json($featureCollection)
+                    });
 
-                // make a marker for each feature and add to the map
-                new mapboxgl.Marker(el).setLngLat([feature['lon'], feature['lat']]).addTo(map);
-            }
-            for (const feature of @json($featureCollection['features'])) {
-                // create a HTML element for each feature
-                const el = document.createElement('div');
-                el.className = 'blue-circle';
-
-                // make a marker for each feature and add to the map
-                new mapboxgl.Marker(el).setLngLat([feature.geometry.coordinates['0'], feature.geometry.coordinates['1']]).addTo(map);
-            }
-
-            map.addSource('trees', {
-                'type': 'geojson',
-                'data': @json($featureCollection)
-            });
-
-            map.addLayer({
-                    'id': 'trees-heat',
-                    'type': 'heatmap',
-                    'source': 'trees',
-                    'maxzoom': 15,
-                    'paint': {
-                        // increase weight as diameter breast height increases
-                        'heatmap-weight': {
-                            'property': 'dbh',
-                            'type': 'exponential',
-                            'stops': [
-                                [1, 0],
-                                [62, 1]
-                            ]
-                        },
-                        // increase intensity as zoom level increases
-                        'heatmap-intensity': {
-                            'stops': [
-                                [11, 1],
-                                [15, 3]
-                            ]
-                        },
-                        // use sequential color palette to use exponentially as the weight increases
-                        'heatmap-color': [
-                            'interpolate',
-                            ['linear'],
-                            ['heatmap-density'],
-                            0,
-                            'rgba(236,222,239,0)',
-                            0.2,
-                            'rgb(208,209,230)',
-                            0.4,
-                            'rgb(166,189,219)',
-                            0.6,
-                            'rgb(103,169,207)',
-                            0.8,
-                            'rgb(28,144,153)'
-                        ],
-                        // increase radius as zoom increases
-                        'heatmap-radius': {
-                            'stops': [
-                                [11, 15],
-                                [15, 20]
-                            ]
-                        },
-                        // decrease opacity to transition into the circle layer
-                        'heatmap-opacity': {
-                            'default': 1,
-                            'stops': [
-                                [14, 1],
-                                [15, 0]
-                            ]
+                    // Add a symbol layer
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': 'custom-marker',
+                            // get the title name from the source's "title" property
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
                         }
-                    }
-                },
-                'waterway-label'
+                    });
+                }
             );
+            // for (const feature of @json($centerCoords)) {
+            //     // create a HTML element for each feature
+            //     const el = document.createElement('div');
+            //     el.className = 'marker';
+
+            //     // make a marker for each feature and add to the map
+            //     new mapboxgl.Marker(el).setLngLat([feature['lon'], feature['lat']]).addTo(map);
+            // }
+            // for (const feature of @json($featureCollection['features'])) {
+            //     // create a HTML element for each feature
+            //     const el = document.createElement('div');
+            //     el.className = 'blue-circle';
+
+            //     // make a marker for each feature and add to the map
+            //     new mapboxgl.Marker(el).setLngLat([feature.geometry.coordinates['0'], feature.geometry.coordinates['1']]).addTo(map);
+            // }
+
+            // map.addSource('trees', {
+            //     'type': 'geojson',
+            //     'data': @json($featureCollection)
+            // });
+
+            // map.addLayer({
+            //         'id': 'trees-heat',
+            //         'type': 'heatmap',
+            //         'source': 'trees',
+            //         'maxzoom': 15,
+            //         'paint': {
+            //             // increase weight as diameter breast height increases
+            //             'heatmap-weight': {
+            //                 'property': 'dbh',
+            //                 'type': 'exponential',
+            //                 'stops': [
+            //                     [1, 0],
+            //                     [62, 1]
+            //                 ]
+            //             },
+            //             // increase intensity as zoom level increases
+            //             'heatmap-intensity': {
+            //                 'stops': [
+            //                     [11, 1],
+            //                     [15, 3]
+            //                 ]
+            //             },
+            //             // use sequential color palette to use exponentially as the weight increases
+            //             'heatmap-color': [
+            //                 'interpolate',
+            //                 ['linear'],
+            //                 ['heatmap-density'],
+            //                 0,
+            //                 'rgba(236,222,239,0)',
+            //                 0.2,
+            //                 'rgb(208,209,230)',
+            //                 0.4,
+            //                 'rgb(166,189,219)',
+            //                 0.6,
+            //                 'rgb(103,169,207)',
+            //                 0.8,
+            //                 'rgb(28,144,153)'
+            //             ],
+            //             // increase radius as zoom increases
+            //             'heatmap-radius': {
+            //                 'stops': [
+            //                     [11, 15],
+            //                     [15, 20]
+            //                 ]
+            //             },
+            //             // decrease opacity to transition into the circle layer
+            //             'heatmap-opacity': {
+            //                 'default': 1,
+            //                 'stops': [
+            //                     [14, 1],
+            //                     [15, 0]
+            //                 ]
+            //             }
+            //         }
+            //     },
+            //     'waterway-label'
+            // );
 
             // map.addLayer({
             //         'id': 'trees-point',
@@ -220,19 +251,19 @@
         });
 
         // click on tree to view dbh in a popup
-        const list = document.querySelector(".overflow ul");
-        map.on('click', 'trees-point', (event) => { // Get the user property from the clicked feature
-            const userValue = event.features[0].properties.user;
+        // const list = document.querySelector(".overflow ul");
+        // map.on('click', 'trees-point', (event) => { // Get the user property from the clicked feature
+        //     const userValue = event.features[0].properties.user;
 
-            const listItem = document.createElement("li");
-            listItem.textContent = userValue;
-            list.appendChild(listItem);
+        //     const listItem = document.createElement("li");
+        //     listItem.textContent = userValue;
+        //     list.appendChild(listItem);
 
-            new mapboxgl.Popup()
-                .setLngLat(event.features[0].geometry.coordinates)
-                .setHTML(`<strong>DBH:</strong> ${userValue}`)
-                .addTo(map);
-        });
+        //     new mapboxgl.Popup()
+        //         .setLngLat(event.features[0].geometry.coordinates)
+        //         .setHTML(`<strong>DBH:</strong> ${userValue}`)
+        //         .addTo(map);
+        // });
 
         function deleteLayer() {
             // map.removeLayer('trees-point')
