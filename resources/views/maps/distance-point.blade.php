@@ -57,6 +57,9 @@
 <body>
     <div id='map'></div>
     <div id='map-overlay'>
+        <small>Validasi lokasi map terlebih dahulu sebelum export.</small>
+        <br>
+        <a href="#" onclick="downloadData()">Export data</a>
         <p>List SDM:</p>
         <ol></ol>
     </div>
@@ -78,6 +81,7 @@
 
         var kerato = [117.41307181217832, -8.498422747467906]
         var kantorBupati = [117.419752, -8.489655]
+
 
         var greenMarker = new mapboxgl.Marker({
                 color: 'purple'
@@ -119,17 +123,75 @@
             }
         }
 
+        const markers = [];
         const olElement = document.querySelector('#map-overlay ol');
         data.forEach(item => {
             const liElement = document.createElement('li');
-            liElement.textContent = `Name: ${item.sdm_name}`;
+            liElement.textContent = `Name: ${item.sdm_name} - [${item.lat},${item.lon}]`;
             const googleMapsLink = document.createElement('a');
             googleMapsLink.href = `https://www.google.com/maps?q=${item.lat},${item.lon}`;
             googleMapsLink.target = "_blank";
-            googleMapsLink.textContent = "View on Google Maps";
+            googleMapsLink.textContent = `View on Google Maps`;
             liElement.appendChild(googleMapsLink);
             olElement.appendChild(liElement);
+
+            liElement.addEventListener('click', () => {
+                markers.forEach(m => m.remove());
+                var marker = new mapboxgl.Marker({
+                        color: 'red'
+                    })
+                    .setLngLat([item.lon, item.lat])
+                    .addTo(map);
+                markers.push(marker)
+                map.flyTo({
+                    center: [item.lon, item.lat],
+                    zoom: 20,
+                });
+            });
         });
+
+        function downloadData() {
+            const ids = data.map((item) => item.id);
+            const idString = JSON.stringify(ids);
+
+            fetch("{{ route('map.download') }}", {
+                    method: "POST",
+                    body: idString,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": @json(csrf_token()),
+                    },
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        // Response yang berhasil
+                        return response.blob();
+                    } else {
+                        // Tangani kesalahan jika ada
+                        throw new Error("Gagal mengirim data");
+                    }
+                })
+                .then((blob) => {
+                    // Membuat URL objek dari blob
+                    const url = window.URL.createObjectURL(blob);
+
+                    // Membuat elemen anchor untuk mengunduh file
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'data.xlsx'; // Nama file yang ingin Anda berikan pada unduhan
+                    document.body.appendChild(a);
+
+                    // Klik elemen anchor untuk memulai unduhan
+                    a.click();
+
+                    // Hapus elemen anchor setelah unduhan selesai
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     </script>
 </body>
 

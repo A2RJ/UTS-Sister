@@ -34,7 +34,13 @@ use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\RinovController;
+use App\Models\HumanResource;
+use App\Models\Presence;
 use App\Models\StudyProgram;
+use Rap2hpoutre\FastExcel\FastExcel;
+
+use Rap2hpoutre\FastExcel\SheetCollection;
+use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +52,7 @@ use App\Models\StudyProgram;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::prefix('/')->group(function () {
     Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
     Route::controller(Controller::class)->group(function () {
@@ -348,23 +355,94 @@ Route::middleware("auth")->group(function () {
 Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
     Route::get('/heat-map', function () {
         $absensiCoordsIn = DB::table('presences')
-            ->select('latitude_in as lat', 'longitude_in as lon', 'sdm_name', 'presences.id', 'presences.sdm_id', 'check_in_time', 'check_out_time')
-            ->whereRaw('(latitude_in IS NOT NULL OR longitude_in IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
-            ->whereRaw('(latitude_in != "0" OR longitude_in != "0" OR latitude_out != "0" OR longitude_out != "0")')
-            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+        ->whereNotNull('latitude_in')
+        ->whereNotNull('longitude_in')
+        ->where('latitude_in', '!=', 0)
+            ->where('longitude_in', '!=', 0)
+            ->where('latitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 90)
+            ->where('longitude_in', '!=', 90)
             ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+            ->selectRaw('latitude_in as lat, longitude_in as lon, presences.id, presences.sdm_id, check_in_time as time, human_resources.sdm_name')
             ->get();
 
         $absensiCoordsOut = DB::table('presences')
-            ->select('latitude_out as lat', 'longitude_out as lon', 'sdm_name', 'presences.id', 'presences.sdm_id', 'check_in_time', 'check_out_time')
-            ->whereRaw('(latitude_out IS NOT NULL OR longitude_out IS NOT NULL OR latitude_out IS NOT NULL OR longitude_out IS NOT NULL)')
-            ->whereRaw('(latitude_out != "0" OR longitude_out != "0" OR latitude_out != "0" OR longitude_out != "0")')
-            ->whereRaw('MONTH(presences.created_at) IN (8, 9, 10)')
+        ->whereNotNull('latitude_out')
+        ->whereNotNull('longitude_out')
+        ->where('latitude_out', '!=', 0)
+            ->where('longitude_out', '!=', 0)
+            ->where('latitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 90)
+            ->where('longitude_out', '!=', 90)
             ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
-            ->get();
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+        ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
+        ->get();
+
 
         $mergeCoords = array_merge($absensiCoordsIn->toArray(), $absensiCoordsOut->toArray());
 
-        return view('distance-point', compact('mergeCoords'));
+        return view('maps.distance-point', compact('mergeCoords'));
     });
+    Route::post('/download', function () {
+        $ids = request()->all();
+
+        $absensiCoordsIn = DB::table('presences')
+        ->whereIn('presences.id', $ids)
+            ->whereNotNull('latitude_in')
+            ->whereNotNull('longitude_in')
+            ->where('latitude_in', '!=', 0)
+            ->where('longitude_in', '!=', 0)
+            ->where('latitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 90)
+            ->where('longitude_in', '!=', 90)
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+            ->selectRaw('latitude_in as lat, longitude_in as lon, presences.id, presences.sdm_id, check_in_time as time, human_resources.sdm_name')
+            ->get();
+
+        $absensiCoordsOut = DB::table('presences')
+            ->whereIn('presences.id', $ids)
+            ->whereNotNull('latitude_out')
+            ->whereNotNull('longitude_out')
+            ->where('latitude_out', '!=', 0)
+            ->where('longitude_out', '!=', 0)
+            ->where('latitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 90)
+            ->where('longitude_out', '!=', 90)
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+            ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
+            ->get();
+
+
+        $mergeCoords = collect(array_merge($absensiCoordsIn->toArray(), $absensiCoordsOut->toArray()))->map(function ($item) {
+            return [
+                'sdm_id' => "$item->sdm_id",
+                'Absen ID' => "$item->id",
+                'Name' => strtoupper($item->sdm_name),
+                'Time' => $item->time,
+                'Link' => "https://www.google.com/maps?q=$item->lat,$item->lon",
+            ];
+        });
+
+        $userId = $mergeCoords->pluck('sdm_id')->unique();
+        $users = HumanResource::query()->whereIn('id', $userId)->get(['id', 'sdm_name']);
+        $absensiCount = collect();
+        foreach ($users as $user) {
+            $count = $mergeCoords->where('sdm_id', $user->id)->count();
+            $absensiCount->push(['Nama' => $user->sdm_name, 'Jumlah absen datang/pulang diluar kampus' => $count]);
+        }
+
+        $sheets = new SheetCollection([
+            'Presensi' => $mergeCoords,
+            'User' => $absensiCount
+        ]);
+        return (new FastExcel($sheets))->download('data absensi dan lokasi maps.xlsx');
+    })->name('map.download');
 });
