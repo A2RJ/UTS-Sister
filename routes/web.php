@@ -388,46 +388,19 @@ Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
         return view('maps.distance-point', compact('mergeCoords'));
     });
     Route::post('/download', function () {
-        $ids = request()->all();
-
-        $absensiCoordsIn = DB::table('presences')
-        ->whereIn('presences.id', $ids)
-            ->whereNotNull('latitude_in')
-            ->whereNotNull('longitude_in')
-            ->where('latitude_in', '!=', 0)
-            ->where('longitude_in', '!=', 0)
-            ->where('latitude_in', '!=', 80)
-            ->where('longitude_in', '!=', 80)
-            ->where('longitude_in', '!=', 90)
-            ->where('longitude_in', '!=', 90)
-            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
-            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
-            ->selectRaw('latitude_in as lat, longitude_in as lon, presences.id, presences.sdm_id, check_in_time as time, human_resources.sdm_name')
-            ->get();
-
-        $absensiCoordsOut = DB::table('presences')
-            ->whereIn('presences.id', $ids)
-            ->whereNotNull('latitude_out')
-            ->whereNotNull('longitude_out')
-            ->where('latitude_out', '!=', 0)
-            ->where('longitude_out', '!=', 0)
-            ->where('latitude_out', '!=', 80)
-            ->where('longitude_out', '!=', 80)
-            ->where('longitude_out', '!=', 90)
-            ->where('longitude_out', '!=', 90)
-            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
-            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
-            ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
-            ->get();
-
-
-        $mergeCoords = collect(array_merge($absensiCoordsIn->toArray(), $absensiCoordsOut->toArray()))->map(function ($item) {
+        $data = request()->all();
+        $mergeCoords = collect($data)->map(function ($item) {
+            $sdmId = $item['sdm_id'];
+            $id = $item['id'];
+            $nama = strtoupper($item['sdm_name']);
+            $tanggal = $item['time'];
+            $link = "https://www.google.com/maps?q=" . $item['lat'] . ',' . $item['lon'];
             return [
-                'sdm_id' => "$item->sdm_id",
-                'Absen ID' => "$item->id",
-                'Name' => strtoupper($item->sdm_name),
-                'Time' => $item->time,
-                'Link' => "https://www.google.com/maps?q=$item->lat,$item->lon",
+                'sdm_id' => "$sdmId",
+                'Absen ID' => "$id",
+                'Nama' => strtoupper($nama),
+                'Tanggal' => $tanggal,
+                'Link' => $link,
             ];
         });
 

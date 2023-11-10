@@ -151,12 +151,9 @@
         });
 
         function downloadData() {
-            const ids = data.map((item) => item.id);
-            const idString = JSON.stringify(ids);
-
             fetch("{{ route('map.download') }}", {
                     method: "POST",
-                    body: idString,
+                    body: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRF-TOKEN": @json(csrf_token()),
@@ -172,6 +169,7 @@
                     }
                 })
                 .then((blob) => {
+                    // console.log(blob);
                     // Membuat URL objek dari blob
                     const url = window.URL.createObjectURL(blob);
 
@@ -179,7 +177,7 @@
                     const a = document.createElement('a');
                     a.style.display = 'none';
                     a.href = url;
-                    a.download = 'data.xlsx'; // Nama file yang ingin Anda berikan pada unduhan
+                    a.download = 'data absensi dan lokasi maps.xlsx'; // Nama file yang ingin Anda berikan pada unduhan
                     document.body.appendChild(a);
 
                     // Klik elemen anchor untuk memulai unduhan
