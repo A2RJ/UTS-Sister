@@ -33,7 +33,7 @@ class ResearchProposalRequest extends FormRequest
             'participants.*.studyProgram' => 'required',
             'participants.*.detail' => 'required',
             'target_outcomes' => 'required',
-            'proposal_file' => 'required|file',
+            'proposal_file' => 'required|file|mimes:doc,docx,pdf|max:20048',
             'application_status' => 'required|in:Lolos pendanaan,Selesai penelitian',
             'contract_period' => 'required|max:255',
             'funding_amount' => 'required|max:255',
@@ -46,7 +46,7 @@ class ResearchProposalRequest extends FormRequest
             'publisher' => $this->statusAjuan() ? 'required' : 'nullable',
             'journal_accreditation_status' => $this->statusAjuan() ? 'required|in:International,Nationally accredited,Internal' : 'nullable',
             'journal_publication_link' => $this->statusAjuan() ? 'required|url' : 'nullable',
-            'journal_pdf_file' => $this->statusAjuan() ? 'required|file' : 'nullable'
+            'journal_pdf_file' => $this->statusAjuan() ? 'required|file|mimes:doc,docx,pdf|max:20048' : 'nullable'
         ];
     }
 
