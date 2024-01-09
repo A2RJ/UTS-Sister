@@ -27,16 +27,20 @@ use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DownloadController;
-use App\Http\Controllers\File\SuratRisetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
-use App\Http\Controllers\Wr3\ResearchAssignmentController;
 use App\Http\Controllers\Wr3\RinovController;
-use App\Models\Faculty;
+use App\Models\HumanResource;
+use App\Models\Presence;
 use App\Models\StudyProgram;
+use Rap2hpoutre\FastExcel\FastExcel;
+
+use Rap2hpoutre\FastExcel\SheetCollection;
+use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,12 +53,8 @@ use App\Models\StudyProgram;
 |
 */
 
-Route::get('surat', [SuratRisetController::class, 'index']);
-// Route::get('welcome', function () {
-//     return view('welcome');
-// });
-
 Route::prefix('/')->group(function () {
+    Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
     Route::controller(Controller::class)->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('verify', 'verify');
@@ -160,36 +160,28 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        Route::controller(ProposalController::class)->group(function () {
-            Route::get('/proposal-dosen', 'dosen')->name('proposal.dosen');
-            Route::get('/action/{proposal}', 'verifyAction')->name('proposal.verifyAction');
-            Route::get('/proposal/download', 'downloadProposal')->name('download.proposal');
-            Route::resource('/proposal', ProposalController::class);
-        });
-
         Route::controller(RinovController::class)->group(function () {
-            Route::get('/kegiatan-luar-kampus', 'offCampusActivity')->name('rinov.index.kegiatan-luar-kampus');
             Route::get('/data-dosen', 'dataDosen')->name('rinov.data-dosen');
             Route::post('/data-dosen', 'postDataDosen')->name('rinov.post-data-dosen');
-            Route::get('/kegiatan-luar-kampus-dosen', 'kegiatanLuarKampus')->name('rinov.kegiatan-luar-kampus');
-            Route::delete('/kegiatan-luar-kampus-dosen/{activity}', 'destroyActivity')->name('rinov.kegiatan-luar-kampus.destroy');
-            Route::prefix('download')->group(function () {
-                Route::get('/kegiatan-luar-kampus', 'downloadKegiatanLuarKampus')->name('download.kegiatan-luar-kampus');
-            });
         });
-        Route::prefix('research-assignment')->controller(ResearchAssignmentController::class)->group(function () {
-            Route::get('', 'index')->name('wr3.research-assignment');
-            Route::post('', 'store')->name('wr3.research-assignment.store');
-            Route::get('by-user', 'byUser')->name('wr3.research-assignment.by-user');
-            Route::get('create', 'create')->name('wr3.research-assignment.create');
-            Route::get('{researchAssignment}', 'edit')->name('wr3.research-assignment.edit');
-            Route::put('{researchAssignment}', 'update')->name('wr3.research-assignment.update');
-            Route::post('/{researchAssignment}', 'changeStatus')->name('wr3.research-assignment.change-status');
-            Route::post('/{researchAssignment}/print', 'print')->name('wr3.research-assignment.print');
-            Route::delete('/{researchAssignment}/destroy', 'destroy')->name('wr3.research-assignment.destroy');
+
+        Route::prefix('proposal')->controller(ProposalController::class)->group(function () {
+            Route::get('dosen', 'dosen')->name('proposal.by-user');
+            Route::get('detail/{proposal}', 'show')->name('proposal.detail');
+            Route::get('penomoran-surat/{proposal}', 'formNumbering')->name('proposal.formNumbering');
+            Route::put('penomoran-surat/{proposal}', 'letterNumbering')->name('proposal.letterNumbering');
+            Route::post('generate-letter/{proposal}', 'generateLetter')->name('proposal.generateLetter');
         });
-        Route::get('dedication-by-user', [DedicationController::class, 'byUser'])->name('dedication.by-user');
-        Route::resource('dedication', DedicationController::class)->except('show');
+        Route::resource('proposal', ProposalController::class);
+
+        Route::prefix('dedication')->controller(DedicationController::class)->group(function () {
+            Route::get('dedication-by-user', 'byUser')->name('dedication.by-user');
+            Route::get('detail/{dedication}', 'show')->name('dedication.detail');
+            Route::get('penomoran-surat/{dedication}', 'formNumbering')->name('dedication.formNumbering');
+            Route::put('penomoran-surat/{dedication}', 'letterNumbering')->name('dedication.letterNumbering');
+            Route::post('generate-letter/{dedication}', 'generateLetter')->name('dedication.generateLetter');
+        });
+        Route::resource('dedication', DedicationController::class);
     });
 });
 
@@ -360,11 +352,70 @@ Route::middleware("auth")->group(function () {
     });
 });
 
-// Route::prefix('test')->controller(PresenceAPIController::class)->group(function () {
-//     Route::get('/', 'index');
-//     Route::get('/today', 'today');
-//     Route::get('/type', 'permissionType');
-//     Route::get('/total-hour', 'totalHour');
-// });
+Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
+    Route::get('/heat-map', function () {
+        $absensiCoordsIn = DB::table('presences')
+        ->whereNotNull('latitude_in')
+        ->whereNotNull('longitude_in')
+        ->where('latitude_in', '!=', 0)
+            ->where('longitude_in', '!=', 0)
+            ->where('latitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 80)
+            ->where('longitude_in', '!=', 90)
+            ->where('longitude_in', '!=', 90)
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+            ->selectRaw('latitude_in as lat, longitude_in as lon, presences.id, presences.sdm_id, check_in_time as time, human_resources.sdm_name')
+            ->get();
 
-// Route::get('riset-form', RisetForm::class);
+        $absensiCoordsOut = DB::table('presences')
+        ->whereNotNull('latitude_out')
+        ->whereNotNull('longitude_out')
+        ->where('latitude_out', '!=', 0)
+            ->where('longitude_out', '!=', 0)
+            ->where('latitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 80)
+            ->where('longitude_out', '!=', 90)
+            ->where('longitude_out', '!=', 90)
+            ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
+            ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
+        ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
+        ->get();
+
+
+        $mergeCoords = array_merge($absensiCoordsIn->toArray(), $absensiCoordsOut->toArray());
+
+        return view('maps.distance-point', compact('mergeCoords'));
+    });
+    Route::post('/download', function () {
+        $data = request()->all();
+        $mergeCoords = collect($data)->map(function ($item) {
+            $sdmId = $item['sdm_id'];
+            $id = $item['id'];
+            $nama = strtoupper($item['sdm_name']);
+            $tanggal = $item['time'];
+            $link = "https://www.google.com/maps?q=" . $item['lat'] . ',' . $item['lon'];
+            return [
+                'sdm_id' => "$sdmId",
+                'Absen ID' => "$id",
+                'Nama' => strtoupper($nama),
+                'Tanggal' => $tanggal,
+                'Link' => $link,
+            ];
+        });
+
+        $userId = $mergeCoords->pluck('sdm_id')->unique();
+        $users = HumanResource::query()->whereIn('id', $userId)->get(['id', 'sdm_name']);
+        $absensiCount = collect();
+        foreach ($users as $user) {
+            $count = $mergeCoords->where('sdm_id', $user->id)->count();
+            $absensiCount->push(['Nama' => $user->sdm_name, 'Jumlah absen datang/pulang diluar kampus' => $count]);
+        }
+
+        $sheets = new SheetCollection([
+            'Presensi' => $mergeCoords,
+            'User' => $absensiCount
+        ]);
+        return (new FastExcel($sheets))->download('data absensi dan lokasi maps.xlsx');
+    })->name('map.download');
+});

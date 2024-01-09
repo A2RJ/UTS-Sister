@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers\Wr3;
 
+use App\Helpers\DateHelper;
 use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Wr3\LetterNumeringRequest;
 use App\Http\Requests\Wr3\ResearchProposalRequest;
 use App\Http\Requests\Wr3\ResearchProposalUpdateRequest;
 use App\Models\Wr3\ResearchProposal;
 use Auth;
+// use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Crypt;
+use URL;
 
 class ProposalController extends Controller
 {
-    public  $statuses = ['Sedang dalam ajuan', 'Lolos pendanaan'],
+    public  $statuses = ['Lolos pendanaan', 'Selesai penelitian'],
         $author_statuses = [1, 2, 3, 'correspondence author'],
         $journal_accreditation_statuses = ['International', 'Nationally accredited', 'Internal'];
 
@@ -50,7 +56,7 @@ class ProposalController extends Controller
 
         return view('wr3.proposal.index')
             ->with('researches', $researches)
-            ->with('exportUrl', route('download.proposal', request()->getQueryString()));
+            ->with('exportUrl', ''); // route('download.proposal', request()->getQueryString())
     }
 
     public function create()
@@ -64,12 +70,22 @@ class ProposalController extends Controller
     public function store(ResearchProposalRequest $request)
     {
         $validated = $request->validated();
+        $validated['participants'] = json_encode($request->participants);
         $validated['proposal_file'] = FileHelper::upload($request, 'proposal_file', 'proposal_file');
         if ($request->hasFile('journal_pdf_file')) {
             $validated['journal_pdf_file'] = FileHelper::upload($request, 'journal_pdf_file', 'journal_pdf_file');
         }
         $research = Auth::user()->researchProposal()->create($validated);
-        return redirect()->route('proposal.dosen')->with('message', 'Berhasil tambah proposal');
+        return redirect()->route('proposal.by-user')->with('message', 'Berhasil tambah proposal');
+    }
+
+    public function show(ResearchProposal $proposal)
+    {
+        return view('wr3.proposal.detail')
+            ->with('statuses', $this->statuses)
+            ->with('author_statuses', $this->author_statuses)
+            ->with('journal_accreditation_statuses', $this->journal_accreditation_statuses)
+            ->with('proposal', $proposal);
     }
 
     public function edit(ResearchProposal $proposal)
@@ -92,7 +108,7 @@ class ProposalController extends Controller
                 $validated['journal_pdf_file'] = FileHelper::upload($request, 'journal_pdf_file', 'journal_pdf_file');
             }
             $proposal->update($validated);
-            return redirect()->route('proposal.dosen')->with('message', 'Berhasil tambah proposal');
+            return redirect()->route('proposal.by-user')->with('message', 'Berhasil tambah proposal');
         }
         return back();
     }
@@ -104,17 +120,6 @@ class ProposalController extends Controller
             return back()->with('success', 'Berhasil dihapus');
         }
         return back()->with('failed', 'Anda tidak dapat menghapus data proposal');
-    }
-
-    public function verifyAction(ResearchProposal $proposal)
-    {
-        if (Auth::user()->rinov()) {
-            $proposal->update([
-                'verification' => $proposal->verification == 'Terverifikasi' ? false : true
-            ]);
-            return back()->with('success', 'Berhasil verifikasi');
-        }
-        return back()->with('failed', 'Anda tidak dapat memverifikasi data proposal');
     }
 
     public function downloadProposal()
@@ -129,5 +134,59 @@ class ProposalController extends Controller
                 }
             ]
         )->export();
+    }
+
+    public function formNumbering(ResearchProposal $proposal)
+    {
+        return view('wr3.letter-number')
+            ->with('route', route('proposal.letterNumbering', $proposal->id))
+            ->with('letterNumber', $proposal->letterNumber);
+    }
+
+    public function letterNumbering(LetterNumeringRequest $request, ResearchProposal $proposal)
+    {
+        $proposal->letterNumber()->updateOrCreate(['proposal_id' => $proposal->id], $request->validated());
+        return redirect()->route('proposal.index')->with('success', 'Berhasil set nomor surat');
+    }
+
+    public function generateLetter(ResearchProposal $proposal)
+    {
+        $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+
+        $activityStartDate = Carbon::parse($proposal->start);
+        $activityEndDate = Carbon::parse($proposal->end)->addMonth(); // Tambahkan 1 bulan ke akhir tanggal
+
+        $startMonth = DateHelper::formatBulanTahunId($activityStartDate);
+        $endMonth = DateHelper::formatBulanTahunId($activityEndDate);
+
+        $detail = '';
+        if ($activityStartDate->diffInMonths($activityEndDate) == 1) {
+            $detail = "selama 1 bulan terhitung sejak $startMonth";
+        } else {
+            $detail = "selama " . $activityStartDate->diffInMonths($activityEndDate) . " bulan terhitung sejak $startMonth - $endMonth";
+        }
+
+        $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
+
+        $values = [
+            'token'        => "$url/v/rinov/$proposal->id",
+            'number'       => $proposal->letterNumber->number,
+            'month'        => DateHelper::bulanToRomawi($proposal->letterNumber->month),
+            'year'         => $proposal->letterNumber->year,
+            'title'        => $proposal->proposal_title,
+            'participants' => json_decode($proposal->participants),
+            'start'        => $startMonth,
+            'end'          => $endMonth,
+            'location'     => $proposal->location,
+            'detail'       => $detail,
+            'accepted_date' => DateHelper::formatTglId($proposal->letterNumber->accepted_date, false),
+        ];
+        return view('surat.surat-penelitian', compact('kop', 'values'));
+        // $pdf = \PDF::loadView('surat/surat-penelitian', compact('kop', 'values'));
+        // $pdf->setOption('enable-javascript', true);
+        // $pdf->setOption('javascript-delay', 5000);
+        // $pdf->setOption('enable-smart-shrinking', true);
+        // $pdf->setOption('no-stop-slow-scripts', true);
+        // return $pdf->stream(Auth::user()->sdm_name . '.pdf');
     }
 }

@@ -10,10 +10,8 @@ use App\Http\Controllers\API\SanctumAuthController;
 use App\Http\Controllers\API\StudentAPIController;
 use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
-use App\Http\Controllers\Admin\SuperAdminController;
 use App\Http\Controllers\API\CoordinateController;
 use App\Http\Controllers\Utils\RandomUtilsController;
-use App\Models\Presence;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,25 +93,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-// Route::prefix('super-admin')
-//     ->middleware(['auth:sanctum,users', 'admin'])
-//     ->controller(SuperAdminController::class)
-//     ->group(function () {
-//         define('STDIN', fopen("php://stdin", "r"));
-//         Route::get('migrate', 'migrate');
-//         Route::get('rollback', 'rollback');
-//         Route::get('seed', 'seed');
-//         Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
-//     });
-
-Route::prefix('utils')->group(function () {
-    Route::controller(RandomUtilsController::class)->group(function () {
-        Route::get('per-unit', 'getPerUnitData');
-        Route::get('get-child', 'getChild');
+// Route::prefix('utils')->group(function () {
+//     Route::controller(RandomUtilsController::class)->group(function () {
+//         Route::get('per-unit', 'getPerUnitData');
+//         Route::get('get-child', 'getChild');
         //         Route::prefix('import')->group(function () {
         //             Route::post('dosen', 'importDosen');
         //             Route::post('tendik', 'importTendik');
         //             Route::post('change-email', 'changeAllEmail');
         //         });
-    });
-});
+//     });
+// });

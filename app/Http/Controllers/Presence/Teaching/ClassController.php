@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Presence\Teaching;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Class\StoreClassRequest;
-use App\Http\Requests\Class\UpdateClassRequest;
+use App\Http\Requests\ClassRequest\StoreClassRequest;
+use App\Http\Requests\ClassRequest\UpdateClassRequest;
 use App\Models\Classes;
-use App\Models\Structure;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class ClassController extends Controller
 {

@@ -19,6 +19,7 @@
     <meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <title>@yield('title') - {{ env('APP_NAME') }}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +28,6 @@
     <!-- End fonts -->
 
     @vite(['resources/js/app.js'])
-    @livewireStyles
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <link rel="shortcut icon" href="{{ asset('/themeforest/NobleUI/template/assets/images/favicon.png') }}" />
@@ -138,7 +138,6 @@
             </footer>
         </div>
     </div>
-    @livewireScripts
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('plugin_js')

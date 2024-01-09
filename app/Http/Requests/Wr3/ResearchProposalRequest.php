@@ -24,12 +24,19 @@ class ResearchProposalRequest extends FormRequest
         return [
             'proposal_title' => 'required|max:255',
             'grant_scheme' => 'required|max:255',
-            'target_outcomes' => 'required|max:255',
-            'proposal_file' => 'required|mimes:pdf,doc,docx|max:10240',
-            'application_status' => 'required|in:Sedang dalam ajuan,Lolos pendanaan',
-            'contract_period' => $this->statusAjuan() ? 'required' : 'nullable',
-            'funding_amount' => $this->statusAjuan() ? 'required' : 'nullable',
-            'assignment_letter_link' => $this->statusAjuan() ? 'required|url' : 'nullable',
+            'start' => 'required|max:255',
+            'end' => 'required|max:255',
+            'location' => 'required|max:255',
+            'participants' => 'required|array|min:1',
+            'participants.*.name' => 'required',
+            'participants.*.nidn' => 'required|numeric',
+            'participants.*.studyProgram' => 'required',
+            'participants.*.detail' => 'required',
+            'target_outcomes' => 'required',
+            'proposal_file' => 'required|file',
+            'application_status' => 'required|in:Lolos pendanaan,Selesai penelitian',
+            'contract_period' => 'required|max:255',
+            'funding_amount' => 'required|max:255',
             'publication_title' => $this->statusAjuan() ? 'required|max:255' : 'nullable',
             'author_status' => $this->statusAjuan() ? 'required|in:1,2,3,correspondence author' : 'nullable',
             'journal_name' => $this->statusAjuan() ? 'required|max:255' : 'nullable',
@@ -39,13 +46,13 @@ class ResearchProposalRequest extends FormRequest
             'publisher' => $this->statusAjuan() ? 'required' : 'nullable',
             'journal_accreditation_status' => $this->statusAjuan() ? 'required|in:International,Nationally accredited,Internal' : 'nullable',
             'journal_publication_link' => $this->statusAjuan() ? 'required|url' : 'nullable',
-            'journal_pdf_file' => $this->statusAjuan() ? 'required|mimes:pdf,doc,docx|max:10240' : 'nullable0'
-        ]; 
+            'journal_pdf_file' => $this->statusAjuan() ? 'required|file' : 'nullable'
+        ];
     }
 
     public function statusAjuan(): bool
     {
-        if ($this->application_status == 'Lolos pendanaan') return true;
+        if ($this->application_status == 'Selesai penelitian') return true;
         return false;
     }
 
@@ -57,6 +64,15 @@ class ResearchProposalRequest extends FormRequest
             'proposal_title.unique' => 'Judul Proposal sudah ada dalam database.',
             'grant_scheme.required' => 'Skema Hibah wajib diisi.',
             'grant_scheme.max' => 'Skema Hibah tidak boleh lebih dari :max karakter.',
+            'start.required' => 'Terhitung Mulai wajib diisi.',
+            'end.required' => 'Waktu Selesai wajib diisi.',
+            'location.required' => 'Lokasi penelitian wajib diisi.',
+            'participants.min.required' => 'Anggota setidaknya :min orang.',
+            'participants.*.name.required' => 'Nama harus diisi.',
+            'participants.*.nidn.required' => 'NIDN harus diisi.',
+            'participants.*.nidn.numeric' => 'NIDN harus angka',
+            'participants.*.studyProgram.required' => 'Program study harus diisi.',
+            'participants.*.detail.required' => 'detail harus diisi.',
             'target_outcomes.required' => 'Target Luaran wajib diisi.',
             'target_outcomes.max' => 'Target Luaran tidak boleh lebih dari :max karakter.',
             'proposal_file.required' => 'Proposal wajib diisi.',
@@ -65,10 +81,7 @@ class ResearchProposalRequest extends FormRequest
             'application_status.required' => 'Status Ajuan wajib diisi.',
             'application_status.in' => 'Status Ajuan harus salah satu dari: Sedang dalam ajuan, Lolos pendanaan.',
             'contract_period.required' => 'Periode Kontrak wajib diisi.',
-            'funding_amount.required' => 'Jumlah Pendanaan wajib diisi.',
-            'assignment_letter_link.required' => 'Pengajuan Surat Tugas (Link) wajib diisi.',
-            'assignment_letter_link.url' => 'Pengajuan Surat Tugas (Link) harus berupa URL yang valid.',
-            'publication_title.required' => 'Judul Publikasi wajib diisi.',
+            'funding_amount.required' => 'Jumlah Pendanaan wajib diisi.', 'publication_title.required' => 'Judul Publikasi wajib diisi.',
             'publication_title.max' => 'Judul Publikasi tidak boleh lebih dari :max karakter.',
             'author_status.required' => 'Status Penulis wajib diisi.',
             'author_status.in' => 'Status Penulis harus salah satu dari: 1, 2, 3, correspondence author.',

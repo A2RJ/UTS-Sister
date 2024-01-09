@@ -1,7 +1,14 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'Daftar Pengabdian')
 
 @section('content')
+
+<style>
+    .gap>* {
+        margin: 5px;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -25,18 +32,12 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
+                                    <th>Nomor Surat</th>
                                     <th>Judul</th>
-                                    <th>Sumber Pendanaan</th>
-                                    <th>Jumlah Pendanaan</th>
                                     <th>File Proposal</th>
+                                    <th>File Laporan</th>
                                     <th>Waktu Kegiatan</th>
                                     <th>Lokasi</th>
-                                    <th>Peserta</th>
-                                    <th>Hasil Kegiatan</th>
-                                    <th>Hasil Publikasi Media</th>
-                                    <th>Hasil Publikasi Ilmiah</th>
-                                    <th>Anggota</th>
-                                    <th>Tautan Surat Tugas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -45,29 +46,35 @@
                                 <tr>
                                     <td>{{ $dedications->firstItem() + $loop->index }}</td>
                                     <td>{{ $dedication->humanResource->sdm_name }}</td>
+                                    <td>
+                                        @if ($dedication->letterNumber?->number | $dedication->letterNumber?->month | $dedication->letterNumber?->year)
+                                        {{ $dedication->letterNumber?->number }}/{{ $dedication->letterNumber?->month }}/{{ $dedication->letterNumber?->year }}
+                                        @endif
+                                    </td>
                                     <td>{{ $dedication->title }}</td>
-                                    <td>{{ $dedication->funding_source }}</td>
-                                    <td>{{ $dedication->funding_amount }}</td>
                                     <td>
                                         <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->proposal_file)]) }}">File</a>
                                     </td>
-                                    <td>{{ $dedication->activity_schedule }}</td>
-                                    <td>{{ $dedication->location }}</td>
-                                    <td>{{ $dedication->participants }}</td>
-                                    <td>{{ $dedication->target_activity_outputs }}</td>
-                                    <td>{{ $dedication->public_media_publications }}</td>
-                                    <td>{{ $dedication->scientific_publications }}</td>
-                                    <td>{{ $dedication->members }}</td>
                                     <td>
-                                        <a href="{{ $dedication->assignment_letter_link }}">Link</a>
+                                        @if ($dedication->report_file)
+                                        <a href="{{ route('download.pengabdian', ['filename' => base64_encode($dedication->report_file)]) }}">File</a>
+                                        @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST" class="d-inline">
+                                    <td>{{ $dedication->start_date }} {{ $dedication->end_date }}</td>
+                                    <td>{{ $dedication->location }}</td>
+                                    <td class="gap">
+                                        <a href="{{ route('dedication.edit', $dedication->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('dedication.destroy', $dedication->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dedication?')">Delete</button>
                                         </form>
+                                        @if ($dedication->letterNumber?->number | $dedication->letterNumber?->month | $dedication->letterNumber?->year)
+                                        <form action="{{ route('dedication.generateLetter', $dedication->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Download surat</button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

@@ -4,10 +4,8 @@ namespace App\Models;
 
 use App\Traits\Model\UtilsFunction;
 use App\Traits\Utils\File\Exel;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\HumanResource
@@ -61,12 +59,6 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource workHours()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subjects
  * @mixin \Eloquent
  */
 class HumanResource extends Model

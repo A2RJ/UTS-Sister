@@ -1,7 +1,13 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'Daftar Proposal')
 
 @section('content')
+
+<style>
+    .gap>* {
+        margin: 5px;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -37,25 +43,10 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Dosen</th>
+                                    <th>Nomor Surat</th>
                                     <th>Judul Proposal</th>
                                     <th>Skema Hibah</th>
-                                    <th>Target Luaran</th>
-                                    <th>File Proposal</th>
-                                    <th>Status Ajuan</th>
-                                    <th>Periode Kontrak</th>
-                                    <th>Jumlah Pendanaan</th>
-                                    <th>Verifikasi</th>
-                                    <th>Link Surat Tugas</th>
-                                    <th>Judul Publikasi</th>
-                                    <th>Status Penulis</th>
-                                    <th>Nama Jurnal</th>
-                                    <th>Tahun Terbit</th>
-                                    <th>Nomor Volume</th>
-                                    <th>Tanggal dan Tahun Terbit</th>
-                                    <th>Penerbit</th>
-                                    <th>Status Akreditasi Jurnal</th>
-                                    <th>Link Publikasi Jurnal</th>
-                                    <th>File PDF Jurnal</th>
+                                    <th>Diterima Pada</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -64,44 +55,27 @@
                                 <tr>
                                     <td>{{ $index + $researches->firstItem() }}</td>
                                     <td>{{ $research->humanResource->sdm_name }}</td>
+                                    <td>
+                                        @if ($research->letterNumber?->number | $research->letterNumber?->month | $research->letterNumber?->year)
+                                        {{ $research->letterNumber?->number }}/{{ $research->letterNumber?->month }}/{{ $research->letterNumber?->year }}
+                                        @endif
+                                    </td>
                                     <td>{{ $research->proposal_title }}</td>
                                     <td>{{ $research->grant_scheme }}</td>
-                                    <td>{{ $research->target_outcomes }}</td>
-                                    <td>
-                                        <a href="{{ route('download.riset', ['filename' => base64_encode($research->proposal_file)]) }}">File</a>
-                                    </td>
-                                    <td>{{ $research->application_status }}</td>
-                                    <td>{{ $research->contract_period }}</td>
-                                    <td>{{ $research->funding_amount }}</td>
-                                    <td>{{ $research->verification }}</td>
-                                    <td>{{ $research->assignment_letter_link }}</td>
-                                    <td>{{ $research->publication_title }}</td>
-                                    <td>{{ $research->author_status }}</td>
-                                    <td>{{ $research->journal_name }}</td>
-                                    <td>{{ $research->publication_year }}</td>
-                                    <td>{{ $research->volume_number }}</td>
-                                    <td>{{ $research->publication_date_year }}</td>
-                                    <td>{{ $research->publisher }}</td>
-                                    <td>{{ $research->journal_accreditation_status }}</td>
-                                    <td>
-                                        @if ($research->journal_publication_link)
-                                        <a href="{{ $research->journal_publication_link }}">Link</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($research->journal_pdf_file)
-                                        <a href="{{ route('download.riset', ['filename' => base64_encode($research->journal_pdf_file)]) }}">File</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('proposal.edit', ['proposal' => $research->id]) }}">
-                                            <button class="btn btn-outline-primary mb-2">Edit</button>
-                                        </a>
+                                    <td>{{ $research->accepted_date }}</td>
+                                    <td class="gap">
+                                        <a href="{{ route('proposal.edit', ['proposal' => $research->id]) }}" class="btn btn-outline-primary">Edit </a>
                                         <form action="{{ route('proposal.destroy', ['proposal' => $research->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus item ini?')">Delete</button>
                                         </form>
+                                        @if ($research->letterNumber?->number | $research->letterNumber?->month | $research->letterNumber?->year)
+                                        <form action="{{ route('proposal.generateLetter', $research->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Download surat</button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

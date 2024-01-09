@@ -4,15 +4,13 @@ namespace App\Models;
 
 use App\Helpers\FileHelper;
 use App\Traits\Model\UtilsFunction;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
-use function PHPUnit\Framework\callback;
 
 /**
  * App\Models\Presence
@@ -52,8 +50,6 @@ use function PHPUnit\Framework\callback;
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereSdmId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Presence workHours()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @mixin \Eloquent
  */
 class Presence extends Model
@@ -312,6 +308,7 @@ class Presence extends Model
             //     return $query->whereBetween('presences.created_at', [$start, $end]);
             // })
             ->when($start && $end, function ($query) use ($start, $end) {
+            $end = date('Y-m-d', strtotime($end . ' +1 day'));
                 return $query->where(function ($query) use ($start, $end) {
                     $query->whereDate('presences.check_in_time', $start)
                         ->orWhereDate('presences.check_out_time', $start)

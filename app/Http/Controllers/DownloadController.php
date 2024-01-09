@@ -31,7 +31,7 @@ class DownloadController extends Controller
 
     public function riset($filename)
     {
-        $file_path = base64_decode($filename);
+        $file_path = '/journal_pdf_file/' . base64_decode($filename);
 
         if (Storage::disk('local')->exists($file_path)) {
             return Storage::download($file_path);

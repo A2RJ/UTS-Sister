@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Presence')
+@section('title', 'Daftar Ijin')
 
 @section('content')
 <div class="container p-5 card">
@@ -13,7 +13,7 @@
         <tr>
             <td>{{ $loop->iteration}}</td>
             <td>{{ $permission->sdm_name }}</td>
-            <td>{!! $presence->roles() !!}</td>
+            <td>{!! $permission->roles() !!}</td>
             <td>{{ $permission->created_at }}</td>
             <td>{!! $permission->detail() !!}</td>
             <td>

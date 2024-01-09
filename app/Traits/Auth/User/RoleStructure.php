@@ -71,8 +71,8 @@ trait RoleStructure
 
     public function rinov()
     {
-        return $this->checkRoleType('Direktorat Riset & Inovasi', 'role') || $this->checkRoleType('Staf Direktorat Riset & Inovasi', 'role');
-        return StructuralPosition::where('id', 36)->exists();
+        return $this->checkRoleType('63fda20accbfeDirektoratRiset&Inovasi', 'child_id') || $this->checkRoleType('652ddf859467aSubDirektoratRisetdanInovasi', 'child_id');
+        // return StructuralPosition::where('id', 36)->exists() || StructuralPosition::where('id', 223)->exists();
     }
 
     public function pengabdian()

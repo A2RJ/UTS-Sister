@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use Carbon\Carbon;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Pagination\Paginator;
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
+        App::setLocale('id');
         date_default_timezone_set('Asia/Makassar');
 
         Paginator::useBootstrap();

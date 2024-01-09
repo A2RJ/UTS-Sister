@@ -99,7 +99,7 @@ trait UtilsFunction
     public function checkInDateFormat()
     {
         if ($this->check_in_date) {
-            return DateHelper::format_tgl_id($this->check_in_date);
+            return DateHelper::formatTglId($this->check_in_date, false);
         }
         return;
     }

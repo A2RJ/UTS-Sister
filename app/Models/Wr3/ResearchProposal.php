@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string|null $contract_period
  * @property string|null $funding_amount
  * @property int $verification
- * @property string|null $assignment_letter_link
  * @property string|null $publication_title
  * @property string|null $author_status
  * @property string|null $journal_name
@@ -37,6 +36,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource|null $humanResource
+ * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
  * @method static Builder|ResearchProposal export(?array $columns = null)
  * @method static \Database\Factories\Wr3\ResearchProposalFactory factory($count = null, $state = [])
  * @method static Builder|ResearchProposal newModelQuery()
@@ -45,7 +45,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal search(?string $keyword, array $columns = [], array $relations = [])
  * @method static Builder|ResearchProposal searchManual(?string $keyword)
  * @method static Builder|ResearchProposal whereApplicationStatus($value)
- * @method static Builder|ResearchProposal whereAssignmentLetterLink($value)
  * @method static Builder|ResearchProposal whereAuthorStatus($value)
  * @method static Builder|ResearchProposal whereContractPeriod($value)
  * @method static Builder|ResearchProposal whereCreatedAt($value)
@@ -78,13 +77,15 @@ class ResearchProposal extends Model
         'sdm_id',
         'proposal_title',
         'grant_scheme',
+        'start',
+        'end',
+        'location',
+        'participants',
         'target_outcomes',
         'proposal_file',
         'application_status',
         'contract_period',
         'funding_amount',
-        'verification',
-        'assignment_letter_link',
         'publication_title',
         'author_status',
         'journal_name',
@@ -100,12 +101,10 @@ class ResearchProposal extends Model
     public function humanResource(): BelongsTo
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
-    }
+    } 
 
-    public function verification(): Attribute
+    public function letterNumber()
     {
-        return Attribute::make(
-            get: fn (string $value) => $value ? 'Terverifikasi' : 'Tidak terverifikasi'
-        );
+        return $this->hasOne(LetterNumber::class, 'proposal_id');
     }
 }
