@@ -149,12 +149,74 @@ class ProposalController extends Controller
         return redirect()->route('proposal.index')->with('success', 'Berhasil set nomor surat');
     }
 
+    public function isDateString($string)
+    {
+        // Coba parse string sebagai timestamp
+        $timestamp = strtotime($string);
+
+        // Periksa apakah konversi berhasil dan apakah tanggalnya sama dengan string input
+        return $timestamp !== false && date('Y-m-d', $timestamp) == $string;
+    }
+
     public function generateLetter(ResearchProposal $proposal)
     {
         $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
 
         $activityStartDate = Carbon::parse($proposal->start);
-        $activityEndDate = Carbon::parse($proposal->end)->addMonth(); // Tambahkan 1 bulan ke akhir tanggal
+        $activityEndDate = '';
+        if ($this->isDateString($proposal->end)) {
+            $activityEndDate = Carbon::parse($proposal->end)->addMonths(1);
+        } else {
+            $parts = explode(" ", $proposal->end);
+
+            // Konversi bulan ke angka menggunakan switch
+            $bulan_angka = 0;
+            switch (strtolower($parts[1])) {
+                case "januari":
+                    $bulan_angka = 1;
+                    break;
+                case "februari":
+                    $bulan_angka = 2;
+                    break;
+                case "maret":
+                    $bulan_angka = 3;
+                    break;
+                case "april":
+                    $bulan_angka = 4;
+                    break;
+                case "mei":
+                    $bulan_angka = 5;
+                    break;
+                case "juni":
+                    $bulan_angka = 6;
+                    break;
+                case "juli":
+                    $bulan_angka = 7;
+                    break;
+                case "agustus":
+                    $bulan_angka = 8;
+                    break;
+                case "september":
+                    $bulan_angka = 9;
+                    break;
+                case "oktober":
+                    $bulan_angka = 10;
+                    break;
+                case "november":
+                    $bulan_angka = 11;
+                    break;
+                case "desember":
+                    $bulan_angka = 12;
+                    break;
+            }
+
+            // Format tanggal dalam format "YYYY-MM"
+            $tanggal_format = $parts[2] . "-" . str_pad($bulan_angka, 2, "0", STR_PAD_LEFT);
+
+            // Menampilkan hasil
+
+            $activityEndDate = Carbon::parse($tanggal_format)->addMonths(1);
+        }
 
         $startMonth = DateHelper::formatBulanTahunId($activityStartDate);
         $endMonth = DateHelper::formatBulanTahunId($activityEndDate);
