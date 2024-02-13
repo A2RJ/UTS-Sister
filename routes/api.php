@@ -26,6 +26,7 @@ use App\Http\Controllers\Utils\RandomUtilsController;
 */
 
 Route::get('/', [HomeController::class, 'api']);
+// Route::post('/import-user', [StudentAPIController::class, 'import']);
 Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
     Route::post('/', 'login');
     Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
