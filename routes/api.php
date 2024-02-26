@@ -31,7 +31,7 @@ Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function
     Route::post('/', 'login');
     Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm', 'admin'])->group(function () {
         Route::get('/user', 'user');
-        Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
+        Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm', 'admin']);
         Route::post('change-password', 'changePasswordSDM');
         Route::post('/admin/change-password', 'changePassword');
         Route::post('/admin/reset-password', 'resetPassword');

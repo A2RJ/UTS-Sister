@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ChangePasswordSDM;
 use App\Http\Requests\Auth\ChangePasswordStudent;
-use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RequestToken;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\StudentRequest;
@@ -14,9 +13,7 @@ use App\Models\HumanResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use App\Models\User;
-use Error;
 use Exception;
 use stdClass;
 
