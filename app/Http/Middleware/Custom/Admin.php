@@ -16,7 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->email === 'ardiansyah.putra@uts.ac.id') return $next($request);
+        if ($request->user()->email === 'ardiansyah.putra@uts.ac.id' || $request->user()->email === 'erwin.mardinata@uts.ac.id') return $next($request);
         return abort('Unauthoriuzed', 401);
     }
 }

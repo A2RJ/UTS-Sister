@@ -29,7 +29,7 @@ Route::get('/', [HomeController::class, 'api']);
 // Route::post('/import-user', [StudentAPIController::class, 'import']);
 Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
     Route::post('/', 'login');
-    Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
+    Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm', 'admin'])->group(function () {
         Route::get('/user', 'user');
         Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
         Route::post('change-password', 'changePasswordSDM');
