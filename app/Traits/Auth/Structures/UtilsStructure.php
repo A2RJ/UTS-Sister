@@ -3,6 +3,7 @@
 namespace App\Traits\Auth\Structures;
 
 use App\Models\Structure;
+use App\Models\User;
 use App\Traits\Auth\Structures\Recursive;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,13 +19,23 @@ trait UtilsStructure
     public static function getOwnStructureIds()
     {
         $structures = self::getOwnStructure();
-        return collect($structures)->pluck('id');
+        return collect($structures)->pluck('id')->filter(fn ($item) => $item != 1)->values()->toArray();
     }
 
     public static function isMySub($sdmId)
     {
         $sdmIds = Structure::getSdmIdOneLevelUnder();
         return in_array($sdmId, $sdmIds);
+    }
+
+    public static function structureBySdmId($sdmId = false)
+    {
+        $sdmId = $sdmId ?? parent::sdm_id;
+        $sdm = User::query()
+            ->where('sdm_id', $sdmId)
+            ->first();
+        $sdmIds = $sdm->structure->where('id', '!=', '1')->pluck('id')->toArray();
+        return $sdmIds;
     }
 
     public static function getAllStructure($structureIds = false)
@@ -94,16 +105,15 @@ trait UtilsStructure
             ->toArray();
     }
 
-    public static function getSdmAllLevelUnder()
+    public static function getSdmAllLevelUnder($structureIds = false)
     {
-        $structureIds = self::getOwnStructureIds();
+        $structureIds = $structureIds ?? self::getOwnStructureIds();
         $structureIds = self::recursiveAll($structureIds);
         return Structure::join('structural_positions', 'structures.id', '=', 'structural_positions.structure_id')
             ->join('human_resources', 'structural_positions.sdm_id', '=', 'human_resources.id')
             ->whereIn('structures.id', $structureIds)
             ->whereNot('role', 'admin')
             ->distinct()
-            ->whereNot('human_resources.id', Auth::id())
             ->get();
     }
 

@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">List Absensi Kehadiran</h4>
+    <h4 class="mb-4">Daftar Absensi Kehadiran</h4>
 
     <div class="table-responsive mb-4">
         <small>Total jam secara default 1 minggu kalender, pilih range sesuai kebutuhan</small>

@@ -50,8 +50,8 @@
             <tbody>
                 @foreach (auth()->user()->structure as $item)
                 <tr>
-                    <td>{{ $item->role }}</td>
-                    <td>{{ $item->type }}</td>
+                    <td>{{ ucwords($item->role) }}</td>
+                    <td>{{ ucwords($item->type) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -59,21 +59,23 @@
     </div>
 
     <div class="mb-3">
-        <h5 class="mb-2"> <b>Anda mempunyai Sub divisi</b> </h5>
+        <h5 class="mb-2"> <b>Anda mempunyai sub unit</b> </h5>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Nama Subdivisi</th>
                     <th>Peran</th>
-                    <th>Tipe</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (auth()->user()->subDivision() as $item)
                 <tr>
-                    <td>{{ $item->sdm_name }}</td>
-                    <td>{{ $item->role }}</td>
-                    <td>{{ $item->type }}</td>
+                    <td>{{ ucwords($item->sdm_name) }}</td>
+                    <td>{{ ucwords($item->role) }}</td>
+                    <td>
+                        <a href="{{ route('sub.sdm', $item->sdm_id) }}" class="btn btn-sm btn-primary">Detail</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

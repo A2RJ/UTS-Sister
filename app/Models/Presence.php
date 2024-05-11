@@ -196,7 +196,7 @@ class Presence extends Model
     public static function subPresence()
     {
         $filter = request('filter');
-        $oneLevelUnder = request('one-level');
+        $oneLevelUnder = request('one-level', false);
         if ($oneLevelUnder) $sdmIds = Structure::getSdmIdOneLevelUnder();
         else $sdmIds = Structure::getSdmIdAllLevelUnder();
 
@@ -308,7 +308,7 @@ class Presence extends Model
             //     return $query->whereBetween('presences.created_at', [$start, $end]);
             // })
             ->when($start && $end, function ($query) use ($start, $end) {
-            $end = date('Y-m-d', strtotime($end . ' +1 day'));
+                $end = date('Y-m-d', strtotime($end . ' +1 day'));
                 return $query->where(function ($query) use ($start, $end) {
                     $query->whereDate('presences.check_in_time', $start)
                         ->orWhereDate('presences.check_out_time', $start)

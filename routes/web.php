@@ -30,12 +30,12 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Presence\FilePresenceController;
 use App\Http\Controllers\Presence\PresencePermissionController;
+use App\Http\Controllers\Sub\SubController;
 use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
 use App\Http\Controllers\Wr3\ProposalController;
 use App\Http\Controllers\Wr3\RinovController;
 use App\Models\HumanResource;
-use App\Models\Presence;
 use App\Models\StudyProgram;
 use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -92,6 +92,13 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::prefix('sub')->controller(SubController::class)->group(function () {
+        Route::get('/sub-unit', 'sub')->name('sub.sub');
+        Route::get('/{sdm}', 'sdm')->name('sub.sdm');
+        Route::get('profile/{sdm}', 'profile')->name('sub.profile');
+    });
+
     Route::resource("/class", ClassController::class)->except('show');
     Route::prefix('subject')->controller(SubjectController::class)->group(function () {
         Route::get('/my-subject', 'mySubject')->name('subject.my-subject');
@@ -355,9 +362,9 @@ Route::middleware("auth")->group(function () {
 Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
     Route::get('/heat-map', function () {
         $absensiCoordsIn = DB::table('presences')
-        ->whereNotNull('latitude_in')
-        ->whereNotNull('longitude_in')
-        ->where('latitude_in', '!=', 0)
+            ->whereNotNull('latitude_in')
+            ->whereNotNull('longitude_in')
+            ->where('latitude_in', '!=', 0)
             ->where('longitude_in', '!=', 0)
             ->where('latitude_in', '!=', 80)
             ->where('longitude_in', '!=', 80)
@@ -369,9 +376,9 @@ Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
             ->get();
 
         $absensiCoordsOut = DB::table('presences')
-        ->whereNotNull('latitude_out')
-        ->whereNotNull('longitude_out')
-        ->where('latitude_out', '!=', 0)
+            ->whereNotNull('latitude_out')
+            ->whereNotNull('longitude_out')
+            ->where('latitude_out', '!=', 0)
             ->where('longitude_out', '!=', 0)
             ->where('latitude_out', '!=', 80)
             ->where('longitude_out', '!=', 80)
@@ -379,8 +386,8 @@ Route::prefix('nd8erjsdfjoir8wurfsf')->group(function () {
             ->where('longitude_out', '!=', 90)
             ->join('human_resources', 'presences.sdm_id', '=', 'human_resources.id')
             ->whereRaw("MONTH(presences.created_at) IN (8, 9, 10)")
-        ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
-        ->get();
+            ->selectRaw('latitude_out as lat, longitude_out as lon, presences.id, presences.sdm_id, check_out_time as time, human_resources.sdm_name')
+            ->get();
 
 
         $mergeCoords = array_merge($absensiCoordsIn->toArray(), $absensiCoordsOut->toArray());

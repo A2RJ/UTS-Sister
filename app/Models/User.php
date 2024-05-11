@@ -7,10 +7,11 @@ namespace App\Models;
 use App\Models\Wr3\Dedication;
 use App\Models\Wr3\LecturerDetail;
 use App\Models\Wr3\ResearchProposal;
+use App\Traits\Auth\Structures\UtilsStructure;
 use App\Traits\Auth\User\RoleStructure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable; 
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -78,7 +79,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleStructure;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleStructure, UtilsStructure;
 
     public $table = 'human_resources';
     protected $fillable = [
@@ -125,6 +126,21 @@ class User extends Authenticatable
             'id', // Local key on users table...
             'structure_id' // Local key on struktural table...
         );
+    }
+
+    public function sdmRole()
+    {
+        $structure = $this->structure;
+
+        if (!$structure) {
+            return '';
+        }
+        return $structure
+            ->pluck('role')
+            ->reject(function ($role) {
+                return $role === 'admin';
+            })
+            ->implode(', <br>');
     }
 
     public function presence()

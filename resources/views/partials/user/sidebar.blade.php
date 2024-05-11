@@ -1,4 +1,4 @@
-<li class="nav-item nav-category">Absensi Menu</li>
+<li class="nav-item nav-category">Main Menu</li>
 <li class="nav-item">
     <a class="nav-link" data-bs-toggle="collapse" href="#userMenu" role="button" aria-expanded="false" aria-controls="userMenu">
         <i class="link-icon" data-feather="list"></i>
@@ -20,6 +20,12 @@
             @endif
         </ul>
     </div>
+</li>
+<li class="nav-item">
+    <a href="{{ route('sub.sub') }}" class="nav-link">
+        <i class="link-icon" data-feather="list"></i>
+        <span class="link-title">SDM</span>
+    </a>
 </li>
 <!-- <li class="nav-item nav-category">Dosen Menu</li>
 <li class="nav-item">

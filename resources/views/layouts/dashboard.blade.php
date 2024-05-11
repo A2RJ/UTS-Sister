@@ -49,7 +49,7 @@
             </div>
             <div class="sidebar-body">
                 <ul class="nav">
-                    <li class="nav-item nav-category">Main menu</li>
+                    <li class="nav-item nav-category">Dashboard</li>
                     <li class="nav-item">
                         <a href="{{ route('presence.index') }}" class="nav-link">
                             <i class="link-icon" data-feather="home"></i>

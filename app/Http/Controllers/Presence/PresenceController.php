@@ -31,6 +31,7 @@ class PresenceController extends Controller
 
     public function subPresence()
     {
+        // return Presence::subPresence();
         return view('presence.sub.index')
             ->with('withDate', true)
             ->with('exportUrl', route('download.sub-presence', request()->getQueryString()))

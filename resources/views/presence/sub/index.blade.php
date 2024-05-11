@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container p-5 card">
-    <h4 class="mb-4">List Absensi Kehadiran</h4>
+    <h4 class="mb-4">Daftar Absensi Kehadiran</h4>
 
     <div class="table-responsive mb-4">
         <small>Total jam secara default 1 minggu kalender, pilih range sesuai kebutuhan</small>
@@ -57,7 +57,7 @@
         @endforeach
     </x-table>
     @elseif (request('filter') === 'per-civitas')
-    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Jumlah lebih jam', 'Aksi']">
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Denda', 'Jumlah lebih jam', 'Aksi']">
         @foreach ($presences as $index => $presence)
         @php
         $detail = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence)
@@ -71,13 +71,14 @@
             <td>{{ $detail['targetWorkHours'] }}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td>{{ $detail['less'] }}</td>
+            <td>{{ money($detail['penalty'], 'IDR', true) }}</td>
             <td>{{ $detail['over'] }}</td>
             <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td>
         </tr>
         @endforeach
     </x-table>
     @else
-    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Jumlah lebih jam']">
+    <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Tanggal', 'Jam Masuk', 'Jam Pulang', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Denda', 'Jumlah lebih jam']">
         @foreach ($presences as $index => $presence)
         @php
         $detail = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence)
@@ -94,6 +95,7 @@
             <td>{{ $detail['targetWorkHours'] }}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td>{{ $detail['less'] }}</td>
+            <td>{{ money($detail['penalty'], 'IDR', true) }}</td>
             <td>{{ $detail['over'] }}</td>
         </tr>
         @endforeach

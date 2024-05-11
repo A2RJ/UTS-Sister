@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Log;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -132,18 +133,23 @@ trait UtilsFunction
             return !$date->isWeekend();
         }, $endDate);
 
+        $totalPenalty = 0;
         switch ($role) {
             case 'Dosen':
                 $dailyHours = 3.6;
+                $penalty = 83.33; // 5k
                 break;
             case 'Dosen DT':
                 $dailyHours = 6;
+                $penalty = 83.33; // 5k
                 break;
             case 'Tenaga Kependidikan':
                 $dailyHours = 7;
+                $penalty = 83.33; // 5k
                 break;
             default:
                 $dailyHours = 0;
+                $penalty = 0; // 5k
                 break;
         }
 
@@ -213,6 +219,11 @@ trait UtilsFunction
             $lessMinutes = abs($minutesDifference);
             $lessSeconds = abs($secondsDifference);
             $less = sprintf("%02d:%02d:%02d", $lessHours, $lessMinutes, $lessSeconds);
+            $penaltyHour = ($lessHours * 60) * $penalty;
+            $penaltyMinute = $lessMinutes * $penalty;
+            // Log::info($less);
+            // Log::info($penaltyHour + $penaltyMinute);
+            $totalPenalty = $penaltyHour + $penaltyMinute;
         }
 
         return [
@@ -220,6 +231,7 @@ trait UtilsFunction
             'workhour' => $workhour->effective_hours,
             'over' => $over,
             'less' => $less,
+            'penalty' => $totalPenalty,
             'status' => $status
         ];
     }

@@ -317,7 +317,7 @@ Response
 }
 ```
 
-### 8. List Absensi Kehadiran
+### 8. Daftar Absensi Kehadiran
 
 Endpoint
 
