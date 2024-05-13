@@ -19,6 +19,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.1",
+        "laravelcollective/html": "^6.4",
         "novay/laravel-word-template": "^1.1",
         "phpoffice/phpword": "dev-develop",
         "rap2hpoutre/fast-excel": "^5.0",

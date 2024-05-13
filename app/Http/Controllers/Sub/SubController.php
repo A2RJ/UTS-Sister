@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Sub;
 
 use App\Http\Controllers\Controller;
 use App\Models\HumanResource;
-use App\Models\Presence;
-use App\Models\Structure;
 use App\Models\User;
 use Auth;
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\BKD\BkdController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
@@ -92,6 +93,7 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
 });
 
 Route::middleware('auth')->group(function () {
+    Route::resource('/bkds', BkdController::class);
 
     Route::prefix('sub')->controller(SubController::class)->group(function () {
         Route::get('/sub-unit', 'sub')->name('sub.sub');
