@@ -62,20 +62,14 @@
                                     <a href="{{ route('human_resource.show', ['human_resource' => $sdm->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Detail</button>
                                     </a>
-                                    @if ($sdm->is_sister_exist)
+                                    <!-- @if ($sdm->is_sister_exist)
                                     <a href="{{ route('sdm.set-sdm', ['sdm_id' => $sdm->sdm_id, 'sdm_name' => $sdm->sdm_name]) }}">
                                         <button class="btn btn-sm btn-outline-primary">Set SDM</button>
                                     </a>
-                                    @endif
+                                    @endif -->
                                     <a href="{{ route('human_resource.edit', ['human_resource' => $sdm->sdm_id]) }}">
                                         <button class="btn btn-sm btn-outline-warning mr-1 mb-1">Edit</button>
                                     </a>
-                                    <div class="d-flex gap-1">
-                                        <a href="{{ route('human_resource.resetPassword', ['human_resource' => $sdm->sdm_id]) }}" onclick="return confirm('Yakin reset password (NIDN - {{ $sdm->nidn }}) untuk {{ $sdm->sdm_name }}?')">
-                                            <button class="btn btn-sm btn-outline-danger">Reset password</button>
-                                        </a>
-                                        <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $sdm->sdm_id]) }}" />
-                                    </div>
                                     @if ($sdm->mac_address)
                                     <form action="{{ route('human_resource.reset-mac-address', $sdm->sdm_id) }}" method="POST">
                                         @method('PUT')
@@ -83,6 +77,12 @@
                                         <button type="submit" name="mac_address" class="btn btn-sm btn-outline-warning mt-1">Reset Mac Address</button>
                                     </form>
                                     @endif
+                                    <div class="d-flex gap-1 mt-1">
+                                        <a href="{{ route('human_resource.resetPassword', ['human_resource' => $sdm->sdm_id]) }}" onclick="return confirm('Yakin reset password (NIDN - {{ $sdm->nidn }}) untuk {{ $sdm->sdm_name }}?')">
+                                            <button class="btn btn-sm btn-outline-warning">Reset password</button>
+                                        </a>
+                                        <x-delete action="{{ route('human_resource.destroy', ['human_resource' => $sdm->sdm_id]) }}" />
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

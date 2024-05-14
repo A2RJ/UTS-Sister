@@ -9,7 +9,7 @@
         "laravel": "php artisan serve",
         "dev": "concurrently \"npm run vite\" \"npm run laravel\"",
         "watch": "vite watch",
-        "mix": "npx mix --dev",
+        "mix": "npx mix",
         "mix:prod": "npx mix --production"
     },
     "devDependencies": {

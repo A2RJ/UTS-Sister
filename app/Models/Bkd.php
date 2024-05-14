@@ -28,9 +28,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Bkd extends Model
 {
-    
-    static $rules = [
+
+	static $rules = [
 		'nidn' => 'required',
+		'period' => 'required',
 		'lecture_name' => 'required',
 		'study_program' => 'required',
 		'status' => 'required',
@@ -42,17 +43,14 @@ class Bkd extends Model
 		'total' => 'required',
 		'summary' => 'required',
 		'description' => 'required',
-    ];
+	];
 
-    protected $perPage = 20;
+	protected $perPage = 20;
 
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['nidn','lecture_name','study_program','status','jafung','ab','c','d','e','total','summary','description'];
-
-
-
+	/**
+	 * Attributes that should be mass-assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = ['nidn', 'period', 'lecture_name', 'study_program', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary', 'description'];
 }

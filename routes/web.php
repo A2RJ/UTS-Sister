@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\DSDMController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\Admin\DSDMController;
 use App\Http\Controllers\Admin\HumanResourceController;
 use App\Http\Controllers\Admin\StructuralPositionController;
 use App\Http\Controllers\Admin\StructureController;
@@ -12,12 +15,13 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\BKD\BkdController;
+use App\Http\Controllers\Presence\FilePresenceController;
+use App\Http\Controllers\Presence\PresencePermissionController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Presence\Teaching\ClassController;
 use App\Http\Controllers\Presence\Teaching\MeetingController;
 use App\Http\Controllers\Presence\Teaching\SubjectController;
-
+use App\Http\Controllers\BKD\BkdController;
 use App\Http\Controllers\BKD\SDMController;
 use App\Http\Controllers\BKD\KompetensiController;
 use App\Http\Controllers\BKD\KualifikasiController;
@@ -26,11 +30,6 @@ use App\Http\Controllers\BKD\PelaksPenelitian;
 use App\Http\Controllers\BKD\PelaksPengabdian;
 use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\DownloadController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Presence\FilePresenceController;
-use App\Http\Controllers\Presence\PresencePermissionController;
 use App\Http\Controllers\Sub\SubController;
 use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
@@ -39,9 +38,7 @@ use App\Http\Controllers\Wr3\RinovController;
 use App\Models\HumanResource;
 use App\Models\StudyProgram;
 use Rap2hpoutre\FastExcel\FastExcel;
-
 use Rap2hpoutre\FastExcel\SheetCollection;
-use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------

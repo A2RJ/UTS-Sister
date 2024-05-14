@@ -59,22 +59,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive min-vh-100">
+                    <div class="table-responsive">
                         <table class="table card-table table-vcenter text-nowrap datatable">
                             <thead>
                                 <tr>
-                                    <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices"></th>
-                                    <th class="w-1">No.
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <polyline points="6 15 12 9 18 15" />
-                                        </svg>
-                                    </th>
-
-                                    <th>Nidn</th>
-                                    <th>Lecture Name</th>
-                                    <th>Study Program</th>
+                                    <th class="w-1">No.</th>
+                                    <th>Nama Dosen</th>
+                                    <th>Program Studi</th>
+                                    <th>Periode</th>
                                     <th>Status</th>
                                     <th>Jafung</th>
                                     <th>Ab</th>
@@ -82,22 +74,17 @@
                                     <th>D</th>
                                     <th>E</th>
                                     <th>Total</th>
-                                    <th>Summary</th>
-                                    <th>Description</th>
-
-                                    <th class="w-1"></th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @forelse ($bkds as $bkd)
                                 <tr>
-                                    <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select bkd"></td>
                                     <td>{{ ++$i }}</td>
-
-                                    <td>{{ $bkd->nidn }}</td>
                                     <td>{{ $bkd->lecture_name }}</td>
                                     <td>{{ $bkd->study_program }}</td>
+                                    <td>{{ $bkd->period }}</td>
                                     <td>{{ $bkd->status }}</td>
                                     <td>{{ $bkd->jafung }}</td>
                                     <td>{{ $bkd->ab }}</td>
@@ -105,32 +92,21 @@
                                     <td>{{ $bkd->d }}</td>
                                     <td>{{ $bkd->e }}</td>
                                     <td>{{ $bkd->total }}</td>
-                                    <td>{{ $bkd->summary }}</td>
-                                    <td>{{ $bkd->description }}</td>
 
-                                    <td>
-                                        <div class="btn-list flex-nowrap">
-                                            <div class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                    Actions
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route('sub.profile',$bkd->nidn) }}">
-                                                        Profile Dosen
-                                                    </a>
-                                                    <a class="dropdown-item" href="{{ route('bkds.edit',$bkd->id) }}">
-                                                        Edit
-                                                    </a>
-                                                    <form action="{{ route('bkds.destroy',$bkd->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" onclick="if(!confirm('Do you Want to Proceed?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
-                                                            Delete
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <td class="">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('sub.profile',$bkd->nidn) }}">
+                                            Profile Dosen
+                                        </a>
+                                        <a class="btn btn-sm btn-warning" href="{{ route('bkds.edit',$bkd->id) }}">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('bkds.destroy',$bkd->id) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="if(!confirm('Do you Want to Proceed?')){return false;}">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @empty

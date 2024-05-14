@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BKD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bkd;
+use App\Models\HumanResource;
 use Illuminate\Http\Request;
 
 /**
@@ -33,7 +34,10 @@ class BkdController extends Controller
     public function create()
     {
         $bkd = new Bkd();
-        return view('BKD.create', compact('bkd'));
+        $lecturers = HumanResource::query()
+            ->get(['id', 'sdm_name']);
+
+        return view('BKD.create', compact('bkd', 'lecturers'));
     }
 
     /**

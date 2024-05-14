@@ -6,6 +6,12 @@
      </a>
  </li>
  <li class="nav-item">
+     <a href="{{ route('bkds.index') }}" class="nav-link">
+         <i class="link-icon" data-feather="align-right"></i>
+         <span class="link-title">BKD Dosen</span>
+     </a>
+ </li>
+ <li class="nav-item">
      <a href="{{ route('structure.index') }}" class="nav-link">
          <i class="link-icon" data-feather="align-right"></i>
          <span class="link-title">Jabatan Struktural</span>
