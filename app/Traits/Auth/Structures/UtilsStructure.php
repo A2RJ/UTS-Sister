@@ -34,8 +34,8 @@ trait UtilsStructure
         $sdm = User::query()
             ->where('sdm_id', $sdmId)
             ->first();
-        $sdmIds = $sdm->structure->where('id', '!=', '1')->pluck('id')->toArray();
-        return $sdmIds;
+        $structureIds = $sdm->structure->where('id', '!=', '1')->pluck('id')->toArray();
+        return $structureIds;
     }
 
     public static function getAllStructure($structureIds = false)

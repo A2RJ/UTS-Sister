@@ -30,17 +30,16 @@ class Bkd extends Model
 {
 
 	static $rules = [
-		'nidn' => 'required',
+		'nidn' => 'required|numeric',
 		'period' => 'required',
-		'lecture_name' => 'required',
-		'study_program' => 'required',
+		'lecture_name' => 'required|numeric',
 		'status' => 'required',
 		'jafung' => 'required',
-		'ab' => 'required',
-		'c' => 'required',
-		'd' => 'required',
-		'e' => 'required',
-		'total' => 'required',
+		'ab' => 'required|numeric',
+		'c' => 'required|numeric',
+		'd' => 'required|numeric',
+		'e' => 'required|numeric',
+		'total' => 'required|numeric',
 		'summary' => 'required',
 		'description' => 'required',
 	];
@@ -52,5 +51,10 @@ class Bkd extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['nidn', 'period', 'lecture_name', 'study_program', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary', 'description'];
+	protected $fillable = ['nidn', 'period', 'lecture_name', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary', 'description'];
+
+	public function sdm()
+	{
+		return $this->belongsTo(HumanResource::class, 'lecture_name', 'id');
+	}
 }

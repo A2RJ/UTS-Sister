@@ -60,6 +60,21 @@
 
     <div class="mb-3">
         <h5 class="mb-2"> <b>Anda mempunyai sub unit</b> </h5>
+        <div class="d-flex mb-3">
+            <div class="text-muted">
+                Show
+                <div class="mx-2 d-inline-block">
+                    <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
+                </div>
+                entries
+            </div>
+            <div class="ms-auto text-muted">
+                Search:
+                <div class="ms-2 d-inline-block">
+                    <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

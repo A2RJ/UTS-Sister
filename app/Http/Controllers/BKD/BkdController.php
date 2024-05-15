@@ -35,7 +35,7 @@ class BkdController extends Controller
     {
         $bkd = new Bkd();
         $lecturers = HumanResource::query()
-            ->get(['id', 'sdm_name']);
+            ->get(['id', 'sdm_name', 'nidn']);
 
         return view('BKD.create', compact('bkd', 'lecturers'));
     }
@@ -78,8 +78,10 @@ class BkdController extends Controller
     public function edit($id)
     {
         $bkd = Bkd::find($id);
+        $lecturers = HumanResource::query()
+            ->get(['id', 'sdm_name', 'nidn']);
 
-        return view('BKD.edit', compact('bkd'));
+        return view('BKD.edit', compact('bkd', 'lecturers'));
     }
 
     /**

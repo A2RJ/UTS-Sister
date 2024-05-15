@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 <script src="/dist/js/bootstrap-select.js"></script>
+<script src="/dist/js/jquery-select-chained/jquery-select-chained.js"></script>
 
 <div class="row">
     <div class="form-group col-md-6 mb-3">
@@ -18,38 +19,29 @@
         </div>
     </div>
     <div class="form-group col-md-6 mb-3">
-        <label class="form-label">{{ Form::label('lecture_name', 'Nama Dosen') }}</label>
-        <select class="w-100  border rounded selectpicker @error('lecture_name') is-invalid @enderror" id="lecture_name" name="lecture_name" data-live-search="true">
-            <option>Pilih Nomor PPUF</option>
-            @foreach ($lecturers as $ppuf)
-            <option value="{{ $ppuf->id }}" {{ old('lecture_name') == $ppuf->id ? 'selected' : '' }}>
-                {{ $ppuf->sdm_name }}
-            </option>
-            @endforeach
-        </select>
+        {{ Form::label('lecture_name', 'Nama Dosen', ['class' => 'form-label']) }}
+        {{ Form::select('lecture_name', 
+        $lecturers->pluck('sdm_name', 'id')->prepend('Pilih nama dosen', ''), 
+        old('lecture_name', $bkd->lecture_name), 
+        [
+            'class' => 'form-control w-100 border rounded selectpicker ' . ($errors->has('lecture_name') ? ' is-invalid' : ''), 
+            'id' => 'lecture_name', 
+            'data-live-search' => 'true'
+        ]) 
+        }}
         {!! $errors->first('lecture_name', '<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="form-group col-md-6 mb-3">
-        <label class="form-label"> {{ Form::label('nidn') }}</label>
+        <label class="form-label">{{ Form::label('nidn', 'NIDN') }}</label>
         <div>
-            {{ Form::text('nidn', $bkd->nidn, ['class' => 'form-control' .
-            ($errors->has('nidn') ? ' is-invalid' : ''), 'placeholder' => 'Nidn']) }}
+            <select name="nidn" id="nidn" class="form-control w-100 border rounded {{ $errors->has('nidn') ? ' is-invalid' : '' }}">
+                @foreach ($lecturers as $lecturer)
+                <option value="{{ $lecturer->id }}" data-chained="{{ $lecturer->id }}" {{ old('nidn', $bkd->nidn) == $lecturer->id ? 'selected' : '' }}>
+                    {{ $lecturer->nidn }}
+                </option>
+                @endforeach
+            </select>
             {!! $errors->first('nidn', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-    </div>
-    <div class="form-group col-md-6 mb-3">
-        <label class="form-label"> {{ Form::label('Program Studi') }}</label>
-        <div>
-            {{ Form::text('study_program', $bkd->study_program, ['class' => 'form-control' .
-            ($errors->has('study_program') ? ' is-invalid' : ''), 'placeholder' => 'Study Program']) }}
-            {!! $errors->first('study_program', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-    </div>
-    <div class="form-group col-md-6 mb-3">
-        <label class="form-label">{{ Form::label('status', 'Status') }}</label>
-        <div>
-            {{ Form::select('status', ['DS' => 'DS', 'DT' => 'DT'], $bkd->status, ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Select Status']) }}
-            {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
         </div>
     </div>
     <div class="form-group col-md-6 mb-3">
@@ -61,7 +53,7 @@
             'lektor' => 'Lektor',
             'lektor kepala' => 'Lektor Kepala',
             'asisten ahli' => 'Asisten Ahli',
-        ], $bkd->jafung, ['class' => 'form-control' . ($errors->has('jafung') ? ' is-invalid' : '')]) }}
+        ], $bkd->jafung, ['class' => 'form-control selectpicker ' . ($errors->has('jafung') ? ' is-invalid' : '')]) }}
             {!! $errors->first('jafung', '<div class="invalid-feedback">:message</div>') !!}
         </div>
     </div>
@@ -106,18 +98,31 @@
         </div>
     </div>
     <div class="form-group col-md-6 mb-3">
-        <label class="form-label"> {{ Form::label('summary') }}</label>
+        <label class="form-label">{{ Form::label('status', 'Status') }}</label>
         <div>
-            {{ Form::text('summary', $bkd->summary, ['class' => 'form-control' .
-            ($errors->has('summary') ? ' is-invalid' : ''), 'placeholder' => 'Summary']) }}
-            {!! $errors->first('summary', '<div class="invalid-feedback">:message</div>') !!}
+            {{ Form::select('status', ['DS' => 'DS', 'DT' => 'DT'], $bkd->status, ['class' => 'form-control selectpicker ' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Select Status']) }}
+            {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
         </div>
     </div>
     <div class="form-group col-md-6 mb-3">
+        <label class="form-label">{{ Form::label('summary', 'Summary') }}</label>
+        <div>
+            {{ Form::select('summary', 
+            ['TM' => 'TM', 'M' => 'M'], 
+            old('summary', $bkd->summary), 
+            [
+                'class' => 'form-control selectpicker ' . ($errors->has('summary') ? ' is-invalid' : ''), 
+                'placeholder' => 'Select Summary'
+            ]) 
+        }}
+            {!! $errors->first('summary', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+    </div>
+    <div class="form-group col-md-12 mb-3">
         <label class="form-label"> {{ Form::label('description') }}</label>
         <div>
-            {{ Form::text('description', $bkd->description, ['class' => 'form-control' .
-            ($errors->has('description') ? ' is-invalid' : ''), 'placeholder' => 'Description']) }}
+            {{ Form::textarea('description', $bkd->description, ['class' => 'form-control' .
+            ($errors->has('description') ? ' is-invalid' : ''), 'placeholder' => 'Description', 'rows' => 3]) }}
             {!! $errors->first('description', '<div class="invalid-feedback">:message</div>') !!}
         </div>
     </div>
@@ -132,5 +137,13 @@
     </div>
 </div>
 <script>
-    $('.selectpicker').selectpicker()
+    // jQuery(document).ready(function() {
+    // })
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.selectpicker').selectpicker()
+        $("#series").chained("#mark");
+        $("#nidn").chained("#lecture_name");
+    });
 </script>

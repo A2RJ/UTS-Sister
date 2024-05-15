@@ -218,4 +218,9 @@ class HumanResource extends Model
         $sdmIds = Structure::getSdmIdOneLevelUnder();
         return HumanResource::whereIn('id', $sdmIds)->get();
     }
+
+    public function bkd()
+    {
+        return $this->hasMany(Bkd::class, 'lecture_name', 'id');
+    }
 }

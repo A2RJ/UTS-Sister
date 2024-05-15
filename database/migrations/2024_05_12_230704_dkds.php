@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nidn');
             $table->string('period');
             $table->string('lecture_name');
-            $table->string('study_program');
             $table->string('status');
             $table->string('jafung');
             $table->string('ab');

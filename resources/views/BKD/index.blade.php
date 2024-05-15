@@ -65,15 +65,14 @@
                                 <tr>
                                     <th class="w-1">No.</th>
                                     <th>Nama Dosen</th>
-                                    <th>Program Studi</th>
+                                    <th>NIDN</th>
                                     <th>Periode</th>
-                                    <th>Status</th>
-                                    <th>Jafung</th>
                                     <th>Ab</th>
                                     <th>C</th>
                                     <th>D</th>
                                     <th>E</th>
                                     <th>Total</th>
+                                    <th>Kesimpulan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -82,19 +81,18 @@
                                 @forelse ($bkds as $bkd)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $bkd->lecture_name }}</td>
-                                    <td>{{ $bkd->study_program }}</td>
+                                    <td>{{ $bkd->sdm->sdm_name }}</td>
+                                    <td>{{ $bkd->sdm->nidn }}</td>
                                     <td>{{ $bkd->period }}</td>
-                                    <td>{{ $bkd->status }}</td>
-                                    <td>{{ $bkd->jafung }}</td>
                                     <td>{{ $bkd->ab }}</td>
                                     <td>{{ $bkd->c }}</td>
                                     <td>{{ $bkd->d }}</td>
                                     <td>{{ $bkd->e }}</td>
                                     <td>{{ $bkd->total }}</td>
+                                    <td>{{ $bkd->summary }}</td>
 
                                     <td class="">
-                                        <a class="btn btn-sm btn-primary" href="{{ route('sub.profile',$bkd->nidn) }}">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('sub.profile',$bkd->sdm->sdm_id) }}">
                                             Profile Dosen
                                         </a>
                                         <a class="btn btn-sm btn-warning" href="{{ route('bkds.edit',$bkd->id) }}">

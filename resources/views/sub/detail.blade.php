@@ -22,8 +22,23 @@
                         </tbody>
                     </table>
 
-                    <div class="mb-3">
+                    <div class="mb-3 table-responsive ">
                         <h5 class="mb-2">Unit <b>{{ ucfirst($sdm->sdmRole()) }}</b> </h5>
+                        <div class="d-flex mb-3">
+                            <div class="text-muted">
+                                Show
+                                <div class="mx-2 d-inline-block">
+                                    <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
+                                </div>
+                                entries
+                            </div>
+                            <div class="ms-auto text-muted">
+                                Search:
+                                <div class="ms-2 d-inline-block">
+                                    <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                                </div>
+                            </div>
+                        </div>
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -44,6 +59,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-3 float-end ">
+                            {{ $sdm_under->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
