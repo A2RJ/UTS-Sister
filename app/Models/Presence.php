@@ -240,7 +240,7 @@ class Presence extends Model
             ->appends(request()->except('page'));
     }
 
-    public static function perCivitas($sdmIds = false, $paginate = true)
+    public static function perCivitas(array|bool $sdmIds = false, $paginate = true)
     {
         $end = request('end');
         $start = request('start');

@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Bkd
  *
  * @property $id
- * @property $nidn
- * @property $lecture_name
+ * @property $human_resource_id
  * @property $study_program
  * @property $status
  * @property $jafung
@@ -30,9 +29,8 @@ class Bkd extends Model
 {
 
 	static $rules = [
-		'nidn' => 'required|numeric',
+		'human_resource_id' => 'required',
 		'period' => 'required',
-		'lecture_name' => 'required|numeric',
 		'status' => 'required',
 		'jafung' => 'required',
 		'ab' => 'required|numeric',
@@ -41,7 +39,7 @@ class Bkd extends Model
 		'e' => 'required|numeric',
 		'total' => 'required|numeric',
 		'summary' => 'required',
-		'description' => 'required',
+		'description' => 'nullable',
 	];
 
 	protected $perPage = 20;
@@ -51,10 +49,10 @@ class Bkd extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['nidn', 'period', 'lecture_name', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary', 'description'];
+	protected $fillable = ['human_resource_id', 'period', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary', 'description'];
 
 	public function sdm()
 	{
-		return $this->belongsTo(HumanResource::class, 'lecture_name', 'id');
+		return $this->belongsTo(HumanResource::class, 'human_resource_id', 'id');
 	}
 }

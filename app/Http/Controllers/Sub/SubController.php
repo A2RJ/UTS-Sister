@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sub;
 use App\Http\Controllers\Controller;
 use App\Models\Bkd;
 use App\Models\HumanResource;
+use App\Models\Presence;
 use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
 use Auth;
@@ -34,7 +35,7 @@ class SubController extends Controller
         $sdmIds = $sdm_under->pluck('id');
         $sdm_under = $this->paginate($sdm_under, 10);
         $bkds = Bkd::query()
-            ->whereIn('lecture_name', $sdmIds)
+            ->whereIn('human_resource_id', $sdmIds)
             ->paginate(10);
 
         return view('sub.sub', compact('sdm', 'sdm_under', 'bkds'));
@@ -43,8 +44,11 @@ class SubController extends Controller
     public function profile(HumanResource $sdm)
     {
         $bkds = Bkd::query()
-            ->where('lecture_name', $sdm->id)
-            ->paginate();
-        return view('sub.profile', compact('sdm', 'bkds'));
+            ->where('human_resource_id', $sdm->id)
+            ->paginate(10, ['*'], 'bkd');
+        $presences = Presence::getAllPresences([$sdm->id]);
+
+        return view('sub.profile', compact('sdm', 'bkds', 'presences'))
+            ->with('withDate', true);
     }
 }

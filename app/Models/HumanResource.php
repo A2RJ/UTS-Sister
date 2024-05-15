@@ -221,6 +221,6 @@ class HumanResource extends Model
 
     public function bkd()
     {
-        return $this->hasMany(Bkd::class, 'lecture_name', 'id');
+        return $this->hasMany(Bkd::class, 'human_resource_id', 'id');
     }
 }

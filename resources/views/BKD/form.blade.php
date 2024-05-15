@@ -1,6 +1,5 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="/dist/css/bootstrap-select.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
 
 <!-- Latest compiled and minified JavaScript -->
@@ -19,17 +18,17 @@
         </div>
     </div>
     <div class="form-group col-md-6 mb-3">
-        {{ Form::label('lecture_name', 'Nama Dosen', ['class' => 'form-label']) }}
-        {{ Form::select('lecture_name', 
+        {{ Form::label('human_resource_id', 'Nama Dosen', ['class' => 'form-label']) }}
+        {{ Form::select('human_resource_id', 
         $lecturers->pluck('sdm_name', 'id')->prepend('Pilih nama dosen', ''), 
-        old('lecture_name', $bkd->lecture_name), 
+        old('human_resource_id', $bkd->human_resource_id), 
         [
-            'class' => 'form-control w-100 border rounded selectpicker ' . ($errors->has('lecture_name') ? ' is-invalid' : ''), 
-            'id' => 'lecture_name', 
+            'class' => 'form-control w-100 border rounded selectpicker ' . ($errors->has('human_resource_id') ? ' is-invalid' : ''), 
+            'id' => 'human_resource_id', 
             'data-live-search' => 'true'
         ]) 
         }}
-        {!! $errors->first('lecture_name', '<div class="invalid-feedback">:message</div>') !!}
+        {!! $errors->first('human_resource_id', '<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="form-group col-md-6 mb-3">
         <label class="form-label">{{ Form::label('nidn', 'NIDN') }}</label>
@@ -144,6 +143,6 @@
     jQuery(document).ready(function($) {
         $('.selectpicker').selectpicker()
         $("#series").chained("#mark");
-        $("#nidn").chained("#lecture_name");
+        $("#nidn").chained("#human_resource_id");
     });
 </script>

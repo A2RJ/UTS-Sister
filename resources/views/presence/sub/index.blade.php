@@ -71,7 +71,7 @@
             <td>{{ $detail['targetWorkHours'] }}</td>
             <td>{{ $presence->effective_hours }}</td>
             <td>{{ $detail['less'] }}</td>
-            <td>{{ money($detail['penalty'], 'IDR', true) }}</td>
+            <td>{{ request('start') ? money($detail['penalty'], 'IDR', true) : money(0, 'IDR', true) }}</td>
             <td>{{ $detail['over'] }}</td>
             <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td>
         </tr>

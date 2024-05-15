@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('bkds', function (Blueprint $table) {
             $table->id();
-            $table->string('nidn');
+            $table->string('human_resource_id');
             $table->string('period');
-            $table->string('lecture_name');
             $table->string('status');
             $table->string('jafung');
             $table->string('ab');
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->string('e');
             $table->string('total');
             $table->string('summary');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
