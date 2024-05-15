@@ -30,6 +30,7 @@ use App\Http\Controllers\BKD\PelaksPenelitian;
 use App\Http\Controllers\BKD\PelaksPengabdian;
 use App\Http\Controllers\BKD\PenunjangController;
 use App\Http\Controllers\BKD\ProfilController;
+use App\Http\Controllers\Sub\JafungController;
 use App\Http\Controllers\Sub\SubController;
 use App\Http\Controllers\Verify\VerifyController;
 use App\Http\Controllers\Wr3\DedicationController;
@@ -90,7 +91,11 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('/bkds', BkdController::class);
+    Route::resource('/bkd', BkdController::class)->except('show');
+    Route::prefix('jafung')->controller(JafungController::class)->group(function () {
+        Route::get('/attachment/{path}', 'attachment')->name('jafung.attachment')->where('path', '.*');
+    });
+    Route::resource('/jafung', JafungController::class)->except('show');
 
     Route::prefix('sub')->controller(SubController::class)->group(function () {
         Route::get('/sub-unit', 'sub')->name('sub.sub');

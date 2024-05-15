@@ -15,8 +15,9 @@
                         - data jafung
                         - data bkd
                         - data SP
-                        - data rekapan absensi dan pemotongan pada bulan aktif
                         - data absensi
+                        Pada menu absensi memiliki
+                        - data rekapan absensi dan pemotongan pada bulan aktif
                      -->
 
                     <div class="table-responsive mb-5">
@@ -32,6 +33,10 @@
                                     <td>{{ $sdm->nidn }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Email</td>
+                                    <td>{{ $sdm->email }}</td>
+                                </tr>
+                                <tr>
                                     <td>Jabatan</td>
                                     <td>{!! ucfirst($sdm->roles()) !!}</td>
                                 </tr>
@@ -43,13 +48,13 @@
                                     <td>Jabatan Fungsional</td>
                                     <td>Ambil jafung terakhir</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Status Serdos</td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Status Keaktifan</td>
-                                    <td></td>
+                                    <td></td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -120,6 +125,85 @@
                         </div>
                         <div class="float-end ">
                             {!! $bkds->links() !!}
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <h3 class="card-title">Daftar Jabatan Fungsional</h3>
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
+                                    </div>
+                                    entries
+                                </div>
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1">No.</th>
+                                        <th>Human Resource Id</th>
+                                        <th>Jafung</th>
+                                        <th>Sk Number</th>
+                                        <th>Start From</th>
+                                        <th>Attachment</th>
+                                        <th class="w-1"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @forelse ($jafungs as $jafung)
+                                    <tr>
+                                        <td>{{ ($jafungs->currentPage() - 1) * $jafungs->perPage() + $loop->iteration }}</td>
+                                        <td>{{ $jafung->sdm->sdm_name }}</td>
+                                        <td>{{ $jafung->jafung }}</td>
+                                        <td>{{ $jafung->sk_number }}</td>
+                                        <td>{{ $jafung->start_from }}</td>
+                                        <td>
+                                            <a href="{{ route('jafung.attachment', $jafung->attachment) }}" target="_blank">View Attachment</a>
+                                        </td>
+
+                                        <td>
+                                            <div class="btn-list flex-nowrap">
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item" href="{{ route('jafung.edit',$jafung->id) }}">
+                                                            Edit
+                                                        </a>
+                                                        <form action="{{ route('jafung.destroy',$jafung->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" onclick="if(!confirm('Do you Want to Proceed?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <td>No Data Found</td>
+                                    @endforelse
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="float-end ">
+                            {!! $jafungs->links() !!}
                         </div>
                     </div>
 

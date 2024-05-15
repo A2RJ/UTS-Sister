@@ -223,4 +223,9 @@ class HumanResource extends Model
     {
         return $this->hasMany(Bkd::class, 'human_resource_id', 'id');
     }
+
+    public function jafung()
+    {
+        return $this->hasMany(Jafung::class, 'human_resource_id');
+    }
 }

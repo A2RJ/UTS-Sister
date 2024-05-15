@@ -75,25 +75,27 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Nama Subdivisi</th>
-                    <th>Peran</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (auth()->user()->subDivision() as $item)
-                <tr>
-                    <td>{{ ucwords($item->sdm_name) }}</td>
-                    <td>{{ ucwords($item->role) }}</td>
-                    <td>
-                        <a href="{{ route('sub.sdm', $item->sdm_id) }}" class="btn btn-sm btn-primary">Detail</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="table-responsive ">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Subdivisi</th>
+                        <th>Peran</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (auth()->user()->subDivision() as $item)
+                    <tr>
+                        <td>{{ ucwords($item->sdm_name) }}</td>
+                        <td>{{ ucwords($item->role) }}</td>
+                        <td>
+                            <a href="{{ route('sub.sdm', $item->sdm_id) }}" class="btn btn-sm btn-primary">Detail</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

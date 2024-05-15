@@ -1,6 +1,8 @@
 @extends('layouts.dashboard')
 
-@section('title', 'BKD')
+@section('title')
+Jafung
+@endsection
 
 @section('content')
 <!-- Page header -->
@@ -13,20 +15,20 @@
                     List
                 </div>
                 <h2 class="page-title">
-                    {{ __('Bkd ') }}
+                    {{ __('Jafung ') }}
                 </h2>
             </div>
             <!-- Page title actions -->
             <div class="col-12 col-md-auto ms-auto d-print-none">
                 <div class="btn-list">
-                    <a href="{{ route('bkd.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                    <a href="{{ route('jafung.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
-                        Create Bkd
+                        Create Jafung
                     </a>
                 </div>
             </div>
@@ -40,7 +42,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Bkd</h3>
+                        <h3 class="card-title">Jafung</h3>
                     </div>
                     <div class="card-body border-bottom py-3">
                         <div class="d-flex">
@@ -59,63 +61,62 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive min-vh-100">
                         <table class="table card-table table-vcenter text-nowrap datatable">
                             <thead>
                                 <tr>
                                     <th class="w-1">No.</th>
-                                    <th>Nama Dosen</th>
-                                    <th>NIDN</th>
-                                    <th>Periode</th>
-                                    <th>Ab</th>
-                                    <th>C</th>
-                                    <th>D</th>
-                                    <th>E</th>
-                                    <th>Total</th>
-                                    <th>Kesimpulan</th>
-                                    <th>Aksi</th>
+                                    <th>Human Resource Id</th>
+                                    <th>Jafung</th>
+                                    <th>Sk Number</th>
+                                    <th>Start From</th>
+                                    <th>Attachment</th>
+                                    <th class="w-1"></th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @forelse ($bkds as $bkd)
+                                @forelse ($jafungs as $jafung)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $bkd->sdm->sdm_name }}</td>
-                                    <td>{{ $bkd->sdm->nidn }}</td>
-                                    <td>{{ $bkd->period }}</td>
-                                    <td>{{ $bkd->ab }}</td>
-                                    <td>{{ $bkd->c }}</td>
-                                    <td>{{ $bkd->d }}</td>
-                                    <td>{{ $bkd->e }}</td>
-                                    <td>{{ $bkd->total }}</td>
-                                    <td>{{ $bkd->summary }}</td>
+                                    <td>{{ ($jafungs->currentPage() - 1) * $jafungs->perPage() + $loop->iteration }}</td>
+                                    <td>{{ $jafung->sdm->sdm_name }}</td>
+                                    <td>{{ $jafung->jafung }}</td>
+                                    <td>{{ $jafung->sk_number }}</td>
+                                    <td>{{ $jafung->start_from }}</td>
+                                    <td>
+                                        <a href="{{ route('jafung.attachment', $jafung->attachment) }}" target="_blank">View Attachment</a>
+                                    </td>
 
-                                    <td class="">
-                                        <a class="btn btn-sm btn-primary" href="{{ route('sub.profile',$bkd->sdm->sdm_id) }}">
-                                            Profile Dosen
-                                        </a>
-                                        <a class="btn btn-sm btn-warning" href="{{ route('bkd.edit',$bkd->id) }}">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('bkd.destroy',$bkd->id) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="if(!confirm('Do you Want to Proceed?')){return false;}">
-                                                Delete
-                                            </button>
-                                        </form>
+                                    <td>
+                                        <div class="btn-list flex-nowrap">
+                                            <div class="dropdown">
+                                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="{{ route('jafung.edit',$jafung->id) }}">
+                                                        Edit
+                                                    </a>
+                                                    <form action="{{ route('jafung.destroy',$jafung->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="if(!confirm('Do you Want to Proceed?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @empty
                                 <td>No Data Found</td>
                                 @endforelse
                             </tbody>
-
                         </table>
                     </div>
                     <div class="card-footer d-flex align-items-center">
-                        {!! $bkds->links() !!}
+                        {!! $jafungs->links() !!}
                     </div>
                 </div>
             </div>

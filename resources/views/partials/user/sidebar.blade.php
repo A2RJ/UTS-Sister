@@ -27,13 +27,12 @@
         <span class="link-title">SDM</span>
     </a>
 </li>
-<!-- <li class="nav-item nav-category">Dosen Menu</li>
 <li class="nav-item">
-    <a href="{{ route('subject.my-subject') }}" class="nav-link">
-        <i class="link-icon" data-feather="message-square"></i>
-        <span class="link-title">Pengajaran</span>
+    <a href="{{ route('jafung.index') }}" class="nav-link">
+        <i class="link-icon" data-feather="list"></i>
+        <span class="link-title">Jabatan Fungsional</span>
     </a>
-</li> -->
+</li>
 <li class="nav-item nav-category">Warek III</li>
 <li class="nav-item">
     <a href="{{ route('rinov.data-dosen') }}" class="nav-link">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sub;
 use App\Http\Controllers\Controller;
 use App\Models\Bkd;
 use App\Models\HumanResource;
+use App\Models\Jafung;
 use App\Models\Presence;
 use App\Models\User;
 use App\Traits\Utils\CustomPaginate;
@@ -46,9 +47,12 @@ class SubController extends Controller
         $bkds = Bkd::query()
             ->where('human_resource_id', $sdm->id)
             ->paginate(10, ['*'], 'bkd');
-        $presences = Presence::getAllPresences([$sdm->id]);
+        $jafungs = Jafung::query()
+            ->where('human_resource_id', $sdm->id)
+            ->paginate(10, ['*'], 'jafung');
+        $presences = $this->paginate(Presence::getAllPresences([$sdm->id], false), 10);
 
-        return view('sub.profile', compact('sdm', 'bkds', 'presences'))
+        return view('sub.profile', compact('sdm', 'bkds', 'jafungs', 'presences'))
             ->with('withDate', true);
     }
 }
