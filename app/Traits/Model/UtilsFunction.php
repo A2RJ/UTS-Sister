@@ -68,19 +68,19 @@ trait UtilsFunction
                 'TIME_FORMAT(
                         GREATEST(0, SEC_TO_TIME(SUM(
                             CASE  
-                                WHEN sdm_type = "Tenaga Kependidikan" THEN
+                                WHEN LOWER(sdm_type) = "tenaga kependidikan" THEN
                                     TIMESTAMPDIFF(
                                         SECOND, 
                                         GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 9 HOUR)),
                                         LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 16 HOUR))
                                     )
-                                WHEN sdm_type = "Dosen" THEN
+                                WHEN LOWER(sdm_type) = "dosen" THEN
                                     TIMESTAMPDIFF(
                                         SECOND, 
                                         GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
                                         LEAST(check_out_time, DATE_ADD(DATE(check_out_time), INTERVAL 19 HOUR))
                                     )
-                                WHEN sdm_type = "Dosen DT" THEN
+                                WHEN LOWER(sdm_type) = "dosen dt" THEN
                                     TIMESTAMPDIFF(
                                         SECOND, 
                                         GREATEST(check_in_time, DATE_ADD(DATE(check_in_time), INTERVAL 7 HOUR)),
@@ -134,16 +134,18 @@ trait UtilsFunction
         }, $endDate);
 
         $totalPenalty = 0;
+        $role = strtolower($role);
+
         switch ($role) {
-            case 'Dosen':
+            case 'dosen':
                 $dailyHours = 3.6;
                 $penalty = 83.33; // 5k
                 break;
-            case 'Dosen DT':
+            case 'dosen dt':
                 $dailyHours = 6;
                 $penalty = 83.33; // 5k
                 break;
-            case 'Tenaga Kependidikan':
+            case 'tenaga kependidikan':
                 $dailyHours = 7;
                 $penalty = 83.33; // 5k
                 break;
