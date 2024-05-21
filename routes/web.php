@@ -91,6 +91,12 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
 });
 
 Route::middleware('auth')->group(function () {
+    Route::prefix('bkd')->controller(BkdController::class)->group(function () {
+        Route::get('/import', 'import')->name('bkd.import');
+        Route::post('/import', 'importPost')->name('bkd.import');
+        Route::get('/remove-data', 'flushSession')->name('bkd.remove-session');
+        Route::get('/store-bkd', 'storeBkd')->name('bkd.store-bkd');
+    });
     Route::resource('/bkd', BkdController::class)->except('show');
     Route::prefix('jafung')->controller(JafungController::class)->group(function () {
         Route::get('/attachment/{path}', 'attachment')->name('jafung.attachment')->where('path', '.*');

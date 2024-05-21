@@ -19,9 +19,18 @@
             <!-- Page title actions -->
             <div class="col-12 col-md-auto ms-auto d-print-none">
                 <div class="btn-list">
+                    <a href="{{ route('bkd.import') }}" class="btn btn-primary d-none d-sm-inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-upload">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                            <path d="M12 11v6" />
+                            <path d="M9.5 13.5l2.5 -2.5l2.5 2.5" />
+                        </svg>
+                        Import BKD
+                    </a>
                     <a href="{{ route('bkd.create') }}" class="btn btn-primary d-none d-sm-inline-block">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
@@ -73,6 +82,7 @@
                                     <th>E</th>
                                     <th>Total</th>
                                     <th>Kesimpulan</th>
+                                    <th>Ket</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -90,6 +100,7 @@
                                     <td>{{ $bkd->e }}</td>
                                     <td>{{ $bkd->total }}</td>
                                     <td>{{ $bkd->summary }}</td>
+                                    <td>{{ $bkd->description }}</td>
 
                                     <td class="">
                                         <a class="btn btn-sm btn-primary" href="{{ route('sub.profile',$bkd->sdm->sdm_id) }}">

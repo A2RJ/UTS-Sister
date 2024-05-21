@@ -4,27 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Bkd
- *
- * @property $id
- * @property $human_resource_id
- * @property $study_program
- * @property $status
- * @property $jafung
- * @property $ab
- * @property $c
- * @property $d
- * @property $e
- * @property $total
- * @property $summary
- * @property $description
- * @property $created_at
- * @property $updated_at
- *
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Bkd extends Model
 {
 

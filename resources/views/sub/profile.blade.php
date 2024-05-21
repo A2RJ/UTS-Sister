@@ -44,10 +44,10 @@
                                     <td>Status Dosen</td>
                                     <td>{{ $sdm->sdm_type }}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Jabatan Fungsional</td>
                                     <td>Ambil jafung terakhir</td>
-                                </tr>
+                                </tr> -->
                                 <!-- <tr>
                                     <td>Status Serdos</td>
                                     <td></td>

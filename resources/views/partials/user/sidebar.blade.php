@@ -24,7 +24,7 @@
 <li class="nav-item">
     <a href="{{ route('sub.sub') }}" class="nav-link">
         <i class="link-icon" data-feather="list"></i>
-        <span class="link-title">SDM</span>
+        <span class="link-title">SDM Unit</span>
     </a>
 </li>
 <li class="nav-item">
