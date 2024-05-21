@@ -14,8 +14,18 @@ class JafungController extends Controller
 {
     public function index()
     {
+        $jafung = request('jafung', false);
         $jafungs = Jafung::query()
             ->with('sdm')
+            ->when($jafung, function ($query) use ($jafung) {
+                $query
+                    ->whereAny([
+                        'jafung', 'sk_number', 'start_from'
+                    ], "LIKE", "%$jafung%")
+                    ->orWhereHas('sdm', function ($query) use ($jafung) {
+                        $query->where('sdm_name', 'LIKE', "%$jafung%");
+                    });
+            })
             ->paginate(10);
 
         return view('sub.jafung.index', compact('jafungs'))

@@ -7,6 +7,7 @@ use App\Models\Bkd;
 use App\Models\HumanResource;
 use App\Traits\Utils\CustomPaginate;
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -19,7 +20,19 @@ class BkdController extends Controller
     use CustomPaginate;
     public function index()
     {
-        $bkds = Bkd::paginate(10);
+        $bkd = request('bkd', false);
+        $bkds = Bkd::query()
+            ->when($bkd, function ($query) use ($bkd) {
+                $query
+                    ->whereAny([
+                        'period', 'status', 'jafung', 'ab', 'c', 'd', 'e', 'total', 'summary'
+                    ], "LIKE", "%$bkd%")
+                    ->orWhereHas('sdm', function (Builder $query) use ($bkd) {
+                        $query->where('sdm_name', 'LIKE', "%$bkd%")
+                            ->orWhere('nidn', 'LIKE', "%$bkd%");
+                    });
+            })
+            ->paginate(10);
 
         return view('BKD.index', compact('bkds'))
             ->with('i', (request()->input('page', 1) - 1) * $bkds->perPage());

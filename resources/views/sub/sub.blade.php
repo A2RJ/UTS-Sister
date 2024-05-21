@@ -26,21 +26,25 @@
 
                     <div class="table-responsive ">
                         <h5 class="mb-2">Unit <b>{!! ucfirst($sdm->sdmRole()) !!}</b> </h5>
-                        <div class="d-flex mb-3">
-                            <div class="text-muted">
-                                Show
-                                <div class="mx-2 d-inline-block">
-                                    <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
+                        <form action="{{ url()->current() }}" method="get">
+                            <div class="d-flex mb-3">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" value="10" size="3">
+                                    </div>
+                                    entries
                                 </div>
-                                entries
-                            </div>
-                            <div class="ms-auto text-muted">
-                                Search:
-                                <div class="ms-2 d-inline-block">
-                                    <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" name="role" value="{{ request('role') }}">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                    <a href="{{ url()->current() }}" class="btn btn-sm btn-warning">Cancel</a>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -66,76 +70,80 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <h3 class="card-title">Daftar BKD</h3>
-                        <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                    Show
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
+                    <form action="{{ url()->current() }}" method="get">
+                        <div class="mb-3">
+                            <h3 class="card-title">Daftar BKD</h3>
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex">
+                                    <div class="text-muted">
+                                        Show
+                                        <div class="mx-2 d-inline-block">
+                                            <input type="text" class="form-control form-control-sm" value="10" size="3">
+                                        </div>
+                                        entries
                                     </div>
-                                    entries
-                                </div>
-                                <div class="ms-auto text-muted">
-                                    Search:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                                    <div class="ms-auto text-muted">
+                                        Search:
+                                        <div class="ms-2 d-inline-block">
+                                            <input type="text" class="form-control form-control-sm" name="bkd" value="{{ request('bkd') }}">
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                        <a href="{{ url()->current() }}" class="btn btn-sm btn-warning">Cancel</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap datatable">
-                                <thead>
-                                    <tr>
-                                        <th class="w-1">No.</th>
-                                        <th>Nama Dosen</th>
-                                        <th>NIDN</th>
-                                        <th>Periode</th>
-                                        <th>Status</th>
-                                        <th>Jafung</th>
-                                        <th>Ab</th>
-                                        <th>C</th>
-                                        <th>D</th>
-                                        <th>E</th>
-                                        <th>Total</th>
-                                        <th>Kesimpulan</th>
-                                        <th>Deskripsi</th>
-                                    </tr>
-                                </thead>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter text-nowrap datatable">
+                            <thead>
+                                <tr>
+                                    <th class="w-1">No.</th>
+                                    <th>Nama Dosen</th>
+                                    <th>NIDN</th>
+                                    <th>Periode</th>
+                                    <th>Status</th>
+                                    <th>Jafung</th>
+                                    <th>Ab</th>
+                                    <th>C</th>
+                                    <th>D</th>
+                                    <th>E</th>
+                                    <th>Total</th>
+                                    <th>Kesimpulan</th>
+                                    <th>Deskripsi</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    @forelse ($bkds as $bkd)
-                                    <tr>
-                                        <td>{{ ($bkds->currentPage() - 1) * $bkds->perPage() + $loop->iteration }}</td>
-                                        <td>{{ $bkd->sdm->sdm_name }}</td>
-                                        <td>{{ $bkd->sdm->nidn }}</td>
-                                        <td>{{ $bkd->period }}</td>
-                                        <td>{{ $bkd->status }}</td>
-                                        <td>{{ ucfirst($bkd->jafung) }}</td>
-                                        <td>{{ $bkd->ab }}</td>
-                                        <td>{{ $bkd->c }}</td>
-                                        <td>{{ $bkd->d }}</td>
-                                        <td>{{ $bkd->e }}</td>
-                                        <td>{{ $bkd->total }}</td>
-                                        <td>{{ $bkd->summary }}</td>
-                                        <td>{{ $bkd->description }}</td>
-                                    </tr>
-                                    @empty
-                                    <td>No Data Found</td>
-                                    @endforelse
-                                </tbody>
+                            <tbody>
+                                @forelse ($bkds as $bkd)
+                                <tr>
+                                    <td>{{ ($bkds->currentPage() - 1) * $bkds->perPage() + $loop->iteration }}</td>
+                                    <td>{{ $bkd->sdm->sdm_name }}</td>
+                                    <td>{{ $bkd->sdm->nidn }}</td>
+                                    <td>{{ $bkd->period }}</td>
+                                    <td>{{ $bkd->status }}</td>
+                                    <td>{{ ucfirst($bkd->jafung) }}</td>
+                                    <td>{{ $bkd->ab }}</td>
+                                    <td>{{ $bkd->c }}</td>
+                                    <td>{{ $bkd->d }}</td>
+                                    <td>{{ $bkd->e }}</td>
+                                    <td>{{ $bkd->total }}</td>
+                                    <td>{{ $bkd->summary }}</td>
+                                    <td>{{ $bkd->description }}</td>
+                                </tr>
+                                @empty
+                                <td>No Data Found</td>
+                                @endforelse
+                            </tbody>
 
-                            </table>
-                        </div>
-                        <div class="card-footer d-flex align-items-center">
-                            {!! $bkds->links() !!}
-                        </div>
+                        </table>
+                    </div>
+                    <div class="card-footer d-flex align-items-center">
+                        {!! $bkds->links() !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

@@ -61,24 +61,30 @@
                     </div>
 
                     <div class="mb-5">
-                        <h3 class="card-title">Daftar BKD</h3>
-                        <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                    Show
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
-                                    </div>
-                                    entries
-                                </div>
-                                <div class="ms-auto text-muted">
-                                    Search:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                        <form action="{{ url()->current() }}" method="get">
+                            <div class="mb-3">
+                                <h3 class="card-title">Daftar BKD</h3>
+                                <div class="card-body border-bottom py-3">
+                                    <div class="d-flex">
+                                        <div class="text-muted">
+                                            Show
+                                            <div class="mx-2 d-inline-block">
+                                                <input type="text" class="form-control form-control-sm" value="10" size="3">
+                                            </div>
+                                            entries
+                                        </div>
+                                        <div class="ms-auto text-muted">
+                                            Search:
+                                            <div class="ms-2 d-inline-block">
+                                                <input type="text" class="form-control form-control-sm" name="bkd" value="{{ request('bkd') }}">
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                            <a href="{{ url()->current() }}" class="btn btn-sm btn-warning">Cancel</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
@@ -129,24 +135,30 @@
                     </div>
 
                     <div class="mb-5">
-                        <h3 class="card-title">Daftar Jabatan Fungsional</h3>
-                        <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                    Show
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Invoices count">
-                                    </div>
-                                    entries
-                                </div>
-                                <div class="ms-auto text-muted">
-                                    Search:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                        <form action="{{ url()->current() }}" method="get">
+                            <div class="mb-3">
+                                <h3 class="card-title">Daftar BKD</h3>
+                                <div class="card-body border-bottom py-3">
+                                    <div class="d-flex">
+                                        <div class="text-muted">
+                                            Show
+                                            <div class="mx-2 d-inline-block">
+                                                <input type="text" class="form-control form-control-sm" value="10" size="3">
+                                            </div>
+                                            entries
+                                        </div>
+                                        <div class="ms-auto text-muted">
+                                            Search:
+                                            <div class="ms-2 d-inline-block">
+                                                <input type="text" class="form-control form-control-sm" name="jafung" value="{{ request('jafung') }}">
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                            <a href="{{ url()->current() }}" class="btn btn-sm btn-warning">Cancel</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
@@ -218,10 +230,10 @@
                                 <input type="date" name="end" class="form-control" value="{{ request('end')}}">
                                 @endif
                                 <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
-                                <a href="{{ url()->current(false, true) }}" class="btn btn-sm btn-outline-warning">Cancel</a>
+                                <a href="{{ url()->current() }}" class="btn btn-sm btn-outline-warning">Cancel</a>
                             </div>
                         </form>
-                        <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Denda', 'Jumlah lebih jam', 'Aksi']">
+                        <x-table :header="['Nama', 'NIDN', 'Jabatan', 'Status Kepegawaian', 'Jumlah minimal jam', 'Jumlah jam efektif', 'Jumlah kurang jam', 'Denda', 'Jumlah lebih jam']">
                             @foreach ($presences as $index => $presence)
                             @php
                             $detail = $presence->compareWorkHours(request('start'), request('end'), $presence->sdm_type, $presence)
@@ -237,7 +249,7 @@
                                 <td>{{ $detail['less'] }}</td>
                                 <td>{{ money($detail['penalty'], 'IDR', true) }}</td>
                                 <td>{{ $detail['over'] }}</td>
-                                <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td>
+                                <!-- <td><a href="{{ route('presence.per-civitas', ['sdm_id' => $presence->id]) }}">Detail</a></td> -->
                             </tr>
                             @endforeach
                         </x-table>
