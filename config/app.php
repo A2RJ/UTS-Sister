@@ -202,7 +202,6 @@ return [
         /**
          * Installed
          */
-        Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
     ],

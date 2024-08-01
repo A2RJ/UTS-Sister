@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.48.10.
+ * Generated for Laravel 10.48.18.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -4423,6 +4423,93 @@ namespace Illuminate\Support\Facades {
          */        public static function flushMacros()
         {
                         \Illuminate\Cookie\CookieJar::flushMacros();
+        }
+            }
+            /**
+     * 
+     *
+     * @see \Illuminate\Encryption\Encrypter
+     */        class Crypt {
+                    /**
+         * Determine if the given key and cipher combination is valid.
+         *
+         * @param string $key
+         * @param string $cipher
+         * @return bool 
+         * @static 
+         */        public static function supported($key, $cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
+        }
+                    /**
+         * Create a new encryption key for the given cipher.
+         *
+         * @param string $cipher
+         * @return string 
+         * @static 
+         */        public static function generateKey($cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::generateKey($cipher);
+        }
+                    /**
+         * Encrypt the given value.
+         *
+         * @param mixed $value
+         * @param bool $serialize
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */        public static function encrypt($value, $serialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encrypt($value, $serialize);
+        }
+                    /**
+         * Encrypt a string without serialization.
+         *
+         * @param string $value
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */        public static function encryptString($value)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encryptString($value);
+        }
+                    /**
+         * Decrypt the given value.
+         *
+         * @param string $payload
+         * @param bool $unserialize
+         * @return mixed 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */        public static function decrypt($payload, $unserialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decrypt($payload, $unserialize);
+        }
+                    /**
+         * Decrypt the given string without unserialization.
+         *
+         * @param string $payload
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */        public static function decryptString($payload)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decryptString($payload);
+        }
+                    /**
+         * Get the encryption key that the encrypter is currently using.
+         *
+         * @return string 
+         * @static 
+         */        public static function getKey()
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->getKey();
         }
             }
             /**
@@ -20318,26 +20405,6 @@ namespace Illuminate\Routing {
         {
                         return \Illuminate\Routing\Route::lazy($enabled);
         }
-                    /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $roles
-         * @static 
-         */        public static function role($roles = [])
-        {
-                        return \Illuminate\Routing\Route::role($roles);
-        }
-                    /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $permissions
-         * @static 
-         */        public static function permission($permissions = [])
-        {
-                        return \Illuminate\Routing\Route::permission($permissions);
-        }
             }
             /**
      * 
@@ -21183,6 +21250,64 @@ namespace Livewire\Features\SupportTesting {
          */        public static function assertFormFieldIsVisible($fieldName, $formName = 'form')
         {
                         return \Livewire\Features\SupportTesting\Testable::assertFormFieldIsVisible($fieldName, $formName);
+        }
+                    /**
+         * 
+         *
+         * @see \Filament\Forms\Testing\TestsForms::assertWizardStepExists()
+         * @param int $step
+         * @param string $formName
+         * @return static 
+         * @static 
+         */        public static function assertWizardStepExists($step, $formName = 'form')
+        {
+                        return \Livewire\Features\SupportTesting\Testable::assertWizardStepExists($step, $formName);
+        }
+                    /**
+         * 
+         *
+         * @see \Filament\Forms\Testing\TestsForms::assertWizardCurrentStep()
+         * @param int $step
+         * @param string $formName
+         * @return static 
+         * @static 
+         */        public static function assertWizardCurrentStep($step, $formName = 'form')
+        {
+                        return \Livewire\Features\SupportTesting\Testable::assertWizardCurrentStep($step, $formName);
+        }
+                    /**
+         * 
+         *
+         * @see \Filament\Forms\Testing\TestsForms::goToWizardStep()
+         * @param int $step
+         * @param string $formName
+         * @return static 
+         * @static 
+         */        public static function goToWizardStep($step, $formName = 'form')
+        {
+                        return \Livewire\Features\SupportTesting\Testable::goToWizardStep($step, $formName);
+        }
+                    /**
+         * 
+         *
+         * @see \Filament\Forms\Testing\TestsForms::goToNextWizardStep()
+         * @param string $formName
+         * @return static 
+         * @static 
+         */        public static function goToNextWizardStep($formName = 'form')
+        {
+                        return \Livewire\Features\SupportTesting\Testable::goToNextWizardStep($formName);
+        }
+                    /**
+         * 
+         *
+         * @see \Filament\Forms\Testing\TestsForms::goToPreviousWizardStep()
+         * @param string $formName
+         * @return static 
+         * @static 
+         */        public static function goToPreviousWizardStep($formName = 'form')
+        {
+                        return \Livewire\Features\SupportTesting\Testable::goToPreviousWizardStep($formName);
         }
                     /**
          * 
@@ -23148,6 +23273,7 @@ namespace  {
             class Cache extends \Illuminate\Support\Facades\Cache {}
             class Config extends \Illuminate\Support\Facades\Config {}
             class Cookie extends \Illuminate\Support\Facades\Cookie {}
+            class Crypt extends \Illuminate\Support\Facades\Crypt {}
             class Date extends \Illuminate\Support\Facades\Date {}
             class DB extends \Illuminate\Support\Facades\DB {}
             class Eloquent extends \Illuminate\Database\Eloquent\Model {                            /**

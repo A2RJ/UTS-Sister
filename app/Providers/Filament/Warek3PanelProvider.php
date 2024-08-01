@@ -27,6 +27,7 @@ class Warek3PanelProvider extends PanelProvider
             ->id('warek3')
             ->path('warek3')
             ->login()
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -9,11 +9,9 @@ use App\Models\Wr3\LecturerDetail;
 use App\Models\Wr3\ResearchProposal;
 use App\Traits\Auth\Structures\UtilsStructure;
 use App\Traits\Auth\User\RoleStructure;
-use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,14 +40,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read LecturerDetail|null $detail
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
  * @property-read int|null $presence_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
  * @property-read int|null $research_proposal_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read int|null $structure_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
@@ -83,7 +77,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleStructure, UtilsStructure;
+    use HasApiTokens, HasFactory, Notifiable, RoleStructure, UtilsStructure;
 
     public $table = 'human_resources';
     protected $fillable = [
@@ -122,7 +116,12 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return Auth::check();
+        return true;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->sdm_name;
     }
 
     public function structure()
