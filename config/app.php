@@ -197,6 +197,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\Warek3PanelProvider::class,
+        App\Providers\Filament\LecturePanelProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         /**

@@ -16,7 +16,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Responsive HTML Admin Dashboard Template based on Bootstrap 5">
     <meta name="author" content="NobleUI">
-    <meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta name="keywords"
+        content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <title>@yield('title') - {{ env('APP_NAME') }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
@@ -59,47 +60,47 @@
                     </li>
 
                     @if (auth()->check())
-                    @include('partials.user.sidebar')
+                        @include('partials.user.sidebar')
                     @endif
 
                     @if (auth()->user()->isRektor())
                     @endif
 
                     @if (auth()->user()->isLecturer())
-                    @include('partials.lecturer.sidebar')
+                        @include('partials.lecturer.sidebar')
                     @endif
 
                     @if (auth()->user()->isFaculty())
-                    @include('partials.faculty.sidebar')
+                        @include('partials.faculty.sidebar')
                     @endif
 
                     @if (auth()->user()->isStudyProgram())
-                    @include('partials.study-program.sidebar')
+                        @include('partials.study-program.sidebar')
                     @endif
 
                     @if (auth()->user()->isDirAkademik())
-                    @include('partials.akademik.sidebar')
+                        @include('partials.akademik.sidebar')
                     @endif
 
-                    @if (auth()->user()->isDirAkademik())
-                    @include('partials.akademik.sidebar')
-                    @endif
-
-                    @if (auth()->user()->rinov())
+                    <!-- @if (auth()->user()->rinov()) -->
                     @include('partials.warek3.rinov.sidebar')
-                    @endif
+                    <!-- @endif -->
 
-                    @if (auth()->user()->pengabdian())
+                    <!-- @if (auth()->user()->pengabdian()) -->
                     @include('partials.warek3.pengabdian.sidebar')
+                    <!-- @endif -->
+
+                    @if (auth()->user()->isDirAkademik())
+                        @include('partials.akademik.sidebar')
                     @endif
 
                     @if (auth()->user()->isDSDM() || auth()->user()->isRektor() || auth()->user()->isAdmin())
-                    @include('partials.dsdm.sidebar')
+                        @include('partials.dsdm.sidebar')
                     @endif
 
                     @if (auth()->user()->is_sister_exist)
-                    <li class="nav-item nav-category">SDM Menu</li>
-                    <x-sidebar-menu></x-sidebar-menu>
+                        <li class="nav-item nav-category">SDM Menu</li>
+                        <x-sidebar-menu></x-sidebar-menu>
                     @endif
 
                     <li class="nav-item nav-category">Auth</li>
@@ -133,9 +134,12 @@
                 @yield('content')
             </div>
 
-            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
-                <p class="text-muted mb-1 mb-md-0">Copyright © 2022 <a href="https://www.nobleui.com" target="_blank">NobleUI</a>.</p>
-                <p class="text-muted">Handcrafted With <i class="mb-1 text-primary ms-1 icon-sm" data-feather="heart"></i></p>
+            <footer
+                class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
+                <p class="text-muted mb-1 mb-md-0">Copyright © 2022 <a href="https://www.nobleui.com"
+                        target="_blank">NobleUI</a>.</p>
+                <p class="text-muted">Handcrafted With <i class="mb-1 text-primary ms-1 icon-sm"
+                        data-feather="heart"></i></p>
             </footer>
         </div>
     </div>

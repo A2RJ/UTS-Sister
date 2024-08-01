@@ -64,7 +64,7 @@ class Subject extends Model
 
     public static function selectOption()
     {
-        return self::select('id as value', 'subject as text')->get();
+        return self::select(['id as value', 'subject as text'])->get();
     }
 
     public static function show($sdm_id, $subject_id)
@@ -151,7 +151,7 @@ class Subject extends Model
     public static function bySdmId($sdm_id, $semester_id = false)
     {
         $search = request('search');
-        $result =  Subject::join('meetings', 'subjects.id', 'meetings.subject_id')
+        $result = Subject::join('meetings', 'subjects.id', 'meetings.subject_id')
             ->join('human_resources', 'subjects.sdm_id', 'human_resources.id')
             ->join('semesters', 'subjects.semester_id', 'semesters.id')
             ->join('classes', 'subjects.class_id', 'classes.id')

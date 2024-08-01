@@ -18,25 +18,22 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class Warek3PanelProvider extends PanelProvider
+class LecturePanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('warek3')
-            ->path('warek3')
-            ->login()
-            ->passwordReset()
+            ->id('lecture')
+            ->path('lecture')
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Lecture/Resources'), for: 'App\\Filament\\Lecture\\Resources')
+            ->discoverPages(in: app_path('Filament/Lecture/Pages'), for: 'App\\Filament\\Lecture\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Lecture/Widgets'), for: 'App\\Filament\\Lecture\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
