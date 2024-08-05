@@ -27,7 +27,7 @@
 -   dosen bisa download surat
 -   dosen upload proposal jika sudah selesai
 
-## Menu proposal riset
+## Menu proposal riset dan alur
 
 -   dosen tambah proposal riset
 -   admin tambah nomor surat
