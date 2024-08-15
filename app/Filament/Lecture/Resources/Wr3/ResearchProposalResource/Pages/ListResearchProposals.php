@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ResearchProposalResource\Pages;
+namespace App\Filament\Lecture\Resources\Wr3\ResearchProposalResource\Pages;
 
-use App\Filament\Resources\ResearchProposalResource;
+use App\Filament\Lecture\Resources\Wr3\ResearchProposalResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

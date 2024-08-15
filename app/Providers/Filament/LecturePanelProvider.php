@@ -52,6 +52,7 @@ class LecturePanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->viteTheme('resources/css/filament/lecture/theme.css')
             ->spa(true);
     }
 }
