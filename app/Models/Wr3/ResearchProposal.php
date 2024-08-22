@@ -2,13 +2,17 @@
 
 namespace App\Models\Wr3;
 
+use App\Casts\Json;
 use App\Models\HumanResource;
+use App\Models\Participant;
 use App\Traits\Model\UtilsFunction;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Wr3\ResearchProposal
@@ -67,6 +71,16 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal whereVerification($value)
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
+ * @property string $start
+ * @property string $end
+ * @property string $location
+ * @property mixed|null $participants
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Participant> $participant
+ * @property-read int|null $participant_count
+ * @method static Builder|ResearchProposal whereEnd($value)
+ * @method static Builder|ResearchProposal whereLocation($value)
+ * @method static Builder|ResearchProposal whereParticipants($value)
+ * @method static Builder|ResearchProposal whereStart($value)
  * @mixin \Eloquent
  */
 class ResearchProposal extends Model
@@ -98,10 +112,20 @@ class ResearchProposal extends Model
         'journal_pdf_file'
     ];
 
+    public function getParticipantsAttribute($value)
+    {
+        return json_decode($value, true); // Pastikan mengembalikan array
+    }
+
+    public function participant()
+    {
+        return $this->hasMany(Participant::class);
+    }
+
     public function humanResource(): BelongsTo
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
-    } 
+    }
 
     public function letterNumber()
     {

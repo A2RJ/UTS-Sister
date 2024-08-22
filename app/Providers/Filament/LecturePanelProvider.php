@@ -51,7 +51,7 @@ class LecturePanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
+            ], isPersistent: true)
             ->viteTheme('resources/css/filament/lecture/theme.css')
             ->spa(true);
     }

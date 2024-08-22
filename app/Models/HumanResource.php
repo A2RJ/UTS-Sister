@@ -59,6 +59,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource workHours()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bkd> $bkd
+ * @property-read int|null $bkd_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jafung> $jafung
+ * @property-read int|null $jafung_count
  * @mixin \Eloquent
  */
 class HumanResource extends Model

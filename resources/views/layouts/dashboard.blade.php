@@ -98,10 +98,10 @@
                         @include('partials.dsdm.sidebar')
                     @endif
 
-                    @if (auth()->user()->is_sister_exist)
+                    <!-- @if (auth()->user()->is_sister_exist)
                         <li class="nav-item nav-category">SDM Menu</li>
                         <x-sidebar-menu></x-sidebar-menu>
-                    @endif
+                    @endif -->
 
                     <li class="nav-item nav-category">Auth</li>
                     <li class="nav-item">

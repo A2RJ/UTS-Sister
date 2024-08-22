@@ -90,6 +90,10 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
     Route::get('pengabdian/{filename}', 'pengabdian')->name('download.pengabdian');
 });
 
+Route::middleware('auth')->prefix('filament')->group(function () {
+    Route::get('generate-letter/{proposal}', [ProposalController::class, 'generateLetter'])->name('filament.generateLetter');
+});
+
 Route::middleware('auth')->group(function () {
     Route::prefix('bkd')->controller(BkdController::class)->group(function () {
         Route::get('/import', 'import')->name('bkd.import');
@@ -208,7 +212,7 @@ Route::middleware("auth")->group(function () {
     Route::prefix('bkd')->group(function () {
         Route::prefix("sdm")->controller(SDMController::class)->group(function () {
             Route::get('/', 'index')->name('sdm.index');
-            Route::get('set-sdm/{sdm_id}/{sdm_name}',  'setSession')->name('sdm.set-sdm');
+            Route::get('set-sdm/{sdm_id}/{sdm_name}', 'setSession')->name('sdm.set-sdm');
         });
 
         Route::prefix('profil')->controller(ProfilController::class)->group(function () {

@@ -15,9 +15,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property $attachment
  * @property $created_at
  * @property $updated_at
- *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
+ * @property-read \App\Models\HumanResource|null $sdm
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereAttachment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereHumanResourceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereJafung($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereSkNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereStartFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Jafung extends Model
 {

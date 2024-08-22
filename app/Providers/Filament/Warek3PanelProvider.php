@@ -54,7 +54,7 @@ class Warek3PanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
+            ], isPersistent: true)
             ->spa(true);
     }
 }

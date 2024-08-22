@@ -49,6 +49,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereUpdatedAt($value)
+ * @property string $report_file
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereReportFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereStartDate($value)
  * @mixin \Eloquent
  */
 class Dedication extends Model
