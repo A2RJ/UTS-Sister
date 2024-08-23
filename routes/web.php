@@ -52,6 +52,8 @@ use Rap2hpoutre\FastExcel\SheetCollection;
 |
 */
 
+include 'filament.php';
+
 Route::prefix('/')->group(function () {
     Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
     Route::controller(Controller::class)->group(function () {
@@ -88,10 +90,6 @@ Route::prefix('download')->controller(DownloadController::class)->group(function
     Route::get('meeting/{filename}', 'meeting')->name('download.meeting');
     Route::get('riset/{filename}', 'riset')->name('download.riset');
     Route::get('pengabdian/{filename}', 'pengabdian')->name('download.pengabdian');
-});
-
-Route::middleware('auth')->prefix('filament')->group(function () {
-    Route::get('generate-letter/{proposal}', [ProposalController::class, 'generateLetter'])->name('filament.generateLetter');
 });
 
 Route::middleware('auth')->group(function () {

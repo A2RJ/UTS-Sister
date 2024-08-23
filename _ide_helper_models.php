@@ -15,10 +15,39 @@ namespace App\Models{
 /**
  * App\Models\Bkd
  *
+ * @property int $id
+ * @property string $human_resource_id
+ * @property string $period
+ * @property string $status
+ * @property string $jafung
+ * @property string $ab
+ * @property string $c
+ * @property string $d
+ * @property string $e
+ * @property string $total
+ * @property string $summary
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\HumanResource|null $sdm
  * @method static \Illuminate\Database\Eloquent\Builder|Bkd newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bkd newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bkd query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereAb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereC($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereD($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereE($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereHumanResourceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereJafung($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd wherePeriod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bkd whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Bkd extends \Eloquent {}
 }
@@ -86,8 +115,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Coordinate whereLongitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coordinate whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $lokasi
- * @method static \Illuminate\Database\Eloquent\Builder|Coordinate whereLokasi($value)
  */
 	class Coordinate extends \Eloquent {}
 }
@@ -161,11 +188,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HumanResource workHours()
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bkd> $bkd
  * @property-read int|null $bkd_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jafung> $jafung
  * @property-read int|null $jafung_count
+ * @mixin \Eloquent
  */
 	class HumanResource extends \Eloquent {}
 }
@@ -188,6 +215,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Jafung newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jafung newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jafung query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereAttachment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereHumanResourceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereJafung($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereSkNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereStartFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jafung whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Jafung extends \Eloquent {}
 }
@@ -239,6 +275,33 @@ namespace App\Models{
  * @mixin \Eloquent
  */
 	class Meeting extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Participant
+ *
+ * @property int $id
+ * @property int|null $human_resource_id
+ * @property int|null $research_proposal_id
+ * @property string $role
+ * @property string|null $attachment
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereAttachment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereHumanResourceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereResearchProposalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @property-read \App\Models\HumanResource|null $humanResource
+ */
+	class Participant extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -315,7 +378,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment query()
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment search()
- * @mixin \Eloquent
  * @property int $id
  * @property int|null $sdm_id
  * @property string $role
@@ -350,6 +412,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ResearchAssignment whereYear($value)
+ * @mixin \Eloquent
  */
 	class ResearchAssignment extends \Eloquent {}
 }
@@ -557,9 +620,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereTanggalMeninggalIbu($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereTempatTanggalLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereUpdatedAt($value)
- * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|Student withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|Student withoutRole($roles, $guard = null)
+ * @mixin \Eloquent
  */
 	class Student extends \Eloquent {}
 }
@@ -767,14 +830,10 @@ namespace App\Models{
  * @property-read LecturerDetail|null $detail
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
  * @property-read int|null $presence_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
  * @property-read int|null $research_proposal_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read int|null $structure_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
@@ -803,10 +862,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wr3\Dedication> $dedication
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Dedication> $dedication
  * @property-read int|null $dedication_count
  * @property-read mixed $name
+ * @mixin \Eloquent
  */
 	class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser {}
 }
@@ -855,11 +914,11 @@ namespace App\Models\Wr3{
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTheme($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property string|null $report_file
+ * @property string $report_file
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereReportFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereStartDate($value)
+ * @mixin \Eloquent
  */
 	class Dedication extends \Eloquent {}
 }
@@ -921,9 +980,9 @@ namespace App\Models\Wr3{
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereYear($value)
- * @mixin \Eloquent
  * @property string|null $accepted_date
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereAcceptedDate($value)
+ * @mixin \Eloquent
  */
 	class LetterNumber extends \Eloquent {}
 }
@@ -936,6 +995,10 @@ namespace App\Models\Wr3{
  * @property int|null $sdm_id
  * @property string $proposal_title
  * @property string $grant_scheme
+ * @property string $start
+ * @property string $end
+ * @property string $location
+ * @property mixed|null $participants
  * @property string $target_outcomes
  * @property string $proposal_file
  * @property string $application_status
@@ -956,6 +1019,8 @@ namespace App\Models\Wr3{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource|null $humanResource
  * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Participant> $participant
+ * @property-read int|null $participant_count
  * @method static Builder|ResearchProposal export(?array $columns = null)
  * @method static \Database\Factories\Wr3\ResearchProposalFactory factory($count = null, $state = [])
  * @method static Builder|ResearchProposal newModelQuery()
@@ -967,6 +1032,7 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal whereAuthorStatus($value)
  * @method static Builder|ResearchProposal whereContractPeriod($value)
  * @method static Builder|ResearchProposal whereCreatedAt($value)
+ * @method static Builder|ResearchProposal whereEnd($value)
  * @method static Builder|ResearchProposal whereFundingAmount($value)
  * @method static Builder|ResearchProposal whereGrantScheme($value)
  * @method static Builder|ResearchProposal whereId($value)
@@ -974,6 +1040,8 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal whereJournalName($value)
  * @method static Builder|ResearchProposal whereJournalPdfFile($value)
  * @method static Builder|ResearchProposal whereJournalPublicationLink($value)
+ * @method static Builder|ResearchProposal whereLocation($value)
+ * @method static Builder|ResearchProposal whereParticipants($value)
  * @method static Builder|ResearchProposal whereProposalFile($value)
  * @method static Builder|ResearchProposal whereProposalTitle($value)
  * @method static Builder|ResearchProposal wherePublicationDateYear($value)
@@ -981,20 +1049,13 @@ namespace App\Models\Wr3{
  * @method static Builder|ResearchProposal wherePublicationYear($value)
  * @method static Builder|ResearchProposal wherePublisher($value)
  * @method static Builder|ResearchProposal whereSdmId($value)
+ * @method static Builder|ResearchProposal whereStart($value)
  * @method static Builder|ResearchProposal whereTargetOutcomes($value)
  * @method static Builder|ResearchProposal whereUpdatedAt($value)
  * @method static Builder|ResearchProposal whereVerification($value)
  * @method static Builder|ResearchProposal whereVolumeNumber($value)
  * @method static Builder|ResearchProposal workHours()
  * @mixin \Eloquent
- * @property string $start
- * @property string $end
- * @property string $location
- * @property string $participants
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereParticipants($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ResearchProposal whereStart($value)
  */
 	class ResearchProposal extends \Eloquent {}
 }

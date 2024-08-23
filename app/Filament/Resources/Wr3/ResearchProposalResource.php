@@ -4,22 +4,13 @@ namespace App\Filament\Resources\Wr3;
 
 use App\Filament\Lecture\Resources\Wr3\ResearchProposalResource as Wr3ResearchProposalResource;
 use App\Filament\Resources\Wr3\ResearchProposalResource\Pages;
-use App\Filament\Resources\Wr3\ResearchProposalResource\RelationManagers;
-use App\Models\Participant;
-use App\Models\User;
 use App\Models\Wr3\ResearchProposal;
 use Carbon\Carbon;
-use Filament\Forms;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Html;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
 class ResearchProposalResource extends Resource
@@ -175,7 +166,7 @@ class ResearchProposalResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('addLetterNumber')
-                    ->label('Tambah nomor surat')
+                    ->label('Tambah/Ubah nomor surat')
                     ->visible(fn(ResearchProposal $record) => $record->participant->count() === $record->participant->whereNotNull('attachment')->count())
                     ->url(fn(ResearchProposal $record) => route('filament.warek3.resources.wr3.research-proposals.add-letter-number', ['record' => $record->id]))
             ])

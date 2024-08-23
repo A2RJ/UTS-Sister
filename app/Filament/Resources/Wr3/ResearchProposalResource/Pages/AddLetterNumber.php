@@ -13,30 +13,40 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
-use Js;
+use Illuminate\Support\Js;
 
 class AddLetterNumber extends Page
 {
     use InteractsWithRecord;
     public ?array $data = [];
-    public ?LetterNumber $letterNumber;
+    public LetterNumber $letterNumber;
+    protected static ?string $breadcrumb = "Form Nomor Surat";
+    protected static ?string $title = "Form Nomor Surat";
     protected static string $resource = ResearchProposalResource::class;
     protected static string $view = 'filament.resources.wr3.research-proposal-resource.pages.add-letter-number';
+
 
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
-        $this->letterNumber = LetterNumber::query()
+        $check = LetterNumber::query()
             ->whereProposalId($record)
             ->first();
-        $this->form->fill($this->letterNumber?->toArray());
+        if (is_null($check)) {
+            $this->letterNumber = LetterNumber::query()
+                ->create(['proposal_id' => $record]);
+        } else {
+            $this->letterNumber = $check;
+        }
+        $this->form->fill($this->letterNumber->toArray());
     }
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make('')
+                    ->label('Form')
                     ->description('Form Proposal Riset')
                     ->schema([
                         TextInput::make('number')
@@ -79,13 +89,13 @@ class AddLetterNumber extends Page
                             ->color('gray')
                     ])
             ])
-            ->statePath('data');
-        // ->model($this->letterNumber);
+            ->statePath('data')
+            ->model($this->letterNumber);
     }
 
     public function create(): void
     {
-        $this->letterNumber->updateOrCreate($this->form->getState());
+        $this->letterNumber->update($this->form->getState());
         Notification::make()
             ->title('Saved successfully')
             ->success()

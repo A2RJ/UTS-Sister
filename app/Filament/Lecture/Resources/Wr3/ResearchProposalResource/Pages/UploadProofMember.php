@@ -19,6 +19,8 @@ use Js;
 class UploadProofMember extends page
 {
     use InteractsWithRecord;
+    protected static ?string $breadcrumb = "Form Upload Bukti Riset";
+    protected static ?string $title = "Form Upload Bukti Riset";
     protected static string $resource = ResearchProposalResource::class;
     protected static string $view = "filament.lecture.resources.wr3.research-proposals.upload-proof-member";
     public ?array $data = [];
@@ -38,7 +40,8 @@ class UploadProofMember extends page
     {
         return $form
             ->schema([
-                Section::make('proof')
+                Section::make('')
+                    ->label('Form')
                     ->description('Form Proposal Riset')
                     ->schema([
                         TextInput::make('role')

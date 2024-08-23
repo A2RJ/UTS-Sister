@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Participant
@@ -36,4 +37,11 @@ class Participant extends Model
         'role',
         'attachment'
     ];
+
+
+
+    public function humanResource(): BelongsTo
+    {
+        return $this->belongsTo(HumanResource::class);
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Wr3\LetterNumber;
 use App\Models\Wr3\ResearchProposal;
 use Auth;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -18,10 +19,12 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Html;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 
 class ResearchProposalResource extends Resource
 {
@@ -186,6 +189,25 @@ class ResearchProposalResource extends Resource
                     ->label('Skema Hibah')
                     ->wrap()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('participant')
+                    ->label('Status Bukti Peserta')
+                    ->formatStateUsing(function (ResearchProposal $record): HtmlString {
+                        $isCompleted = $record->participant->count() === $record->participant->whereNotNull('attachment')->count();
+                        $status = $isCompleted ? 'Selesai' : 'Belum selesai';
+                        $badgeClass = $isCompleted ? 'text-green-500' : 'text-red-500';
+
+                        return Html::tag('p', $status, ['class' => $badgeClass . ' px-2 py-1 rounded']);
+                    })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('letterNumber.number')
+                    ->label('Nomor Surat')
+                    ->formatStateUsing(function (ResearchProposal $record) {
+                        $letterNumber = $record->letterNumber;
+                        return "$letterNumber->number/$letterNumber->month/$letterNumber->year - " .
+                            Carbon::createFromDate($record->letterNumber->accepted_date)->translatedFormat('l, j F Y');
+                    })
+                    ->wrap()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('start')
                     ->label('Terhitung Mulai')
                     ->wrap()
@@ -293,9 +315,10 @@ class ResearchProposalResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 // author
                 Tables\Actions\Action::make('donwload')
-                    ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
                     ->label('Unduh Surat')
-                    ->action(fn(array $data, ResearchProposal $record) => route('filament.generateLetter', ['proposal' => $record->id])),
+                    ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
+                    ->url(fn(ResearchProposal $record) => route('filament.generateLetter', ['researchProposal' => $record->id]))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()
                     ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id()),
                 Tables\Actions\DeleteAction::make()

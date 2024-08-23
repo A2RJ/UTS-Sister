@@ -24,10 +24,29 @@ class DateHelper
     public static function bulanToRomawi($bulan)
     {
         $romawi = [
-            1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
-            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII'
         ];
 
         return $romawi[$bulan] ?? '';
+    }
+
+    public static function isDateString($string)
+    {
+        // Coba parse string sebagai timestamp
+        $timestamp = strtotime($string);
+
+        // Periksa apakah konversi berhasil dan apakah tanggalnya sama dengan string input
+        return $timestamp !== false && date('Y-m-d', $timestamp) == $string;
     }
 }
