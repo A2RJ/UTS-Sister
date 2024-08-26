@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereResearchProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereUpdatedAt($value)
+ * @property int|null $dedication_id
+ * @property-read \App\Models\HumanResource|null $humanResource
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereDedicationId($value)
  * @mixin \Eloquent
  */
 class Participant extends Model

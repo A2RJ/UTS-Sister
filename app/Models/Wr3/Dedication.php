@@ -3,6 +3,7 @@
 namespace App\Models\Wr3;
 
 use App\Models\HumanResource;
+use App\Models\Participant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,6 +54,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereReportFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereStartDate($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Participant> $participant
+ * @property-read int|null $participant_count
  * @mixin \Eloquent
  */
 class Dedication extends Model
@@ -86,5 +89,10 @@ class Dedication extends Model
     public function letterNumber()
     {
         return $this->hasOne(LetterNumber::class);
+    }
+
+    public function participant()
+    {
+        return $this->hasMany(Participant::class);
     }
 }
