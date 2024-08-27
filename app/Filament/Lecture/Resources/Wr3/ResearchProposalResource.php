@@ -43,6 +43,19 @@ class ResearchProposalResource extends Resource
                     ->schema([
                         Forms\Components\Hidden::make('sdm_id')
                             ->default(auth()->id()),
+                        Forms\Components\Grid::make([
+                            'default' => 1,
+                            'sm' => 2
+                        ])
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->disabled()
+                                    ->default(auth()->user()->sdm_name),
+                                Forms\Components\TextInput::make('nidn')
+                                    ->label('NIDN')
+                                    ->disabled()
+                                    ->default(auth()->user()->nidn),
+                            ]),
                         Forms\Components\Textarea::make('proposal_title')
                             ->label('Judul Proposal')
                             ->required()
@@ -89,7 +102,7 @@ class ResearchProposalResource extends Resource
                                     ->label('Peran')
                                     ->required(),
                             ]),
-                        Forms\Components\TextInput::make('target_outcomes')
+                        Forms\Components\Textarea::make('target_outcomes')
                             ->label('Target Luaran')
                             ->required()
                             ->maxLength(255),
@@ -190,15 +203,19 @@ class ResearchProposalResource extends Resource
                     ->wrap()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('participant')
-                    ->label('Status Bukti Peserta')
-                    ->formatStateUsing(function (ResearchProposal $record): HtmlString {
-                        $isCompleted = $record->participant->count() === $record->participant->whereNotNull('attachment')->count();
-                        $status = $isCompleted ? 'Selesai' : 'Belum selesai';
-                        $badgeClass = $isCompleted ? 'text-green-500' : 'text-red-500';
+                    ->label('Bukti Pengabdian')
+                    ->formatStateUsing(function (ResearchProposal $record) {
+                        $participants = $record->participant;
+                        $listItems = $participants->map(function ($participant) {
+                            if ($participant->attachment) {
+                                return "<li class='list-disc'><a href='/storage/{$participant->attachment}' class='text-blue-500'>{$participant->humanResource->sdm_name}</a></li>";
+                            }
+                            return "<li class='list-disc'><a href='#' class=''>{$participant->humanResource->sdm_name}</a></li>";
+                        })->implode('');
 
-                        return Html::tag('p', $status, ['class' => $badgeClass . ' px-2 py-1 rounded']);
+                        return new HtmlString("<ul class='list-inside'>{$listItems}</ul>");
                     })
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('letterNumber.number')
                     ->label('Nomor Surat')
                     ->formatStateUsing(function (ResearchProposal $record) {
@@ -312,7 +329,16 @@ class ResearchProposalResource extends Resource
             ])
             ->selectable()
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        $user = User::query()
+                            ->whereId($data['sdm_id'])
+                            ->first();
+                        $data['name'] = $user?->sdm_name;
+                        $data['nidn'] = $user?->nidn;
+
+                        return $data;
+                    }),
                 // author
                 Tables\Actions\Action::make('donwload')
                     ->label('Unduh Surat')

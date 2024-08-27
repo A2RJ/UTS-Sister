@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Wr3\ResearchProposalResource\Pages;
+namespace App\Filament\Resources\Wr3\DedicationResource\Pages;
 
-use App\Filament\Resources\Wr3\ResearchProposalResource;
+use App\Filament\Resources\Wr3\DedicationResource;
 use App\Models\Wr3\LetterNumber;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
@@ -18,22 +18,24 @@ use Illuminate\Support\Js;
 class AddLetterNumber extends Page
 {
     use InteractsWithRecord;
-    protected static string $resource = ResearchProposalResource::class;
-    protected static string $view = 'filament.resources.wr3.research-proposal-resource.pages.add-letter-number';
+    protected static string $resource = DedicationResource::class;
+
+    protected static string $view = 'filament.resources.wr3.dedication-resource.pages.add-letter-number';
     public ?array $data = [];
     public LetterNumber $letterNumber;
     protected static ?string $breadcrumb = "Form Nomor Surat";
     protected static ?string $title = "Form Nomor Surat";
 
+
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
         $check = LetterNumber::query()
-            ->whereProposalId($record)
+            ->whereDedicationId($record)
             ->first();
         if (is_null($check)) {
             $this->letterNumber = LetterNumber::query()
-                ->create(['proposal_id' => $record]);
+                ->create(['dedication_id' => $record]);
         } else {
             $this->letterNumber = $check;
         }
@@ -46,7 +48,7 @@ class AddLetterNumber extends Page
             ->schema([
                 Section::make('')
                     ->label('Form')
-                    ->description('Form Proposal Riset')
+                    ->description('Form Pengabdian')
                     ->schema([
                         TextInput::make('number')
                             ->label('Nomor')

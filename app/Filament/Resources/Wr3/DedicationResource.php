@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Lecture\Resources\Wr3;
+namespace App\Filament\Resources\Wr3;
 
-use App\Filament\Lecture\Resources\Wr3\DedicationResource\Pages;
-use App\Filament\Lecture\Resources\Wr3\DedicationResource\RelationManagers;
+use App\Filament\Resources\Wr3\DedicationResource\Pages;
+use App\Filament\Resources\Wr3\DedicationResource\RelationManagers;
 use App\Models\User;
 use App\Models\Wr3\Dedication;
 use Carbon\Carbon;
@@ -22,6 +22,7 @@ class DedicationResource extends Resource
     protected static ?string $model = Dedication::class;
     protected static ?string $label = "Pengabdian";
     protected static ?string $navigationGroup = "Warek 3";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -38,9 +39,10 @@ class DedicationResource extends Resource
                             ->disabled()
                             ->default(auth()->user()->sdm_name),
                         Forms\Components\TextInput::make('nidn')
-                            ->label('NIDN')
                             ->disabled()
                             ->default(auth()->user()->nidn),
+                        Forms\Components\Hidden::make('sdm_id')
+                            ->default(auth()->id()),
                         Forms\Components\TextInput::make('role')
                             ->label('Jabatan')
                             ->required()
@@ -226,21 +228,10 @@ class DedicationResource extends Resource
 
                         return $data;
                     }),
-                // author
-                // Tables\Actions\Action::make('donwload')
-                //     ->label('Unduh Surat')
-                //     ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
-                //     ->url(fn(Dedication $record) => route('filament.generateLetter', ['researchProposal' => $record->id]))
-                //     ->openUrlInNewTab(),
-                Tables\Actions\EditAction::make()
-                    ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id()),
-                Tables\Actions\DeleteAction::make()
-                    ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id()),
-                // members
-                Tables\Actions\Action::make('updateByMembers')
-                    ->label('Upload bukti pengabdian')
-                    ->visible(fn(Dedication $record) => $record->sdm_id != auth()->id())
-                    ->url(fn(Dedication $record) => route('filament.lecture.resources.wr3.dedications.upload-proof-member', ['record' => $record->id]))
+                Tables\Actions\Action::make('addLetterNumber')
+                    ->label('Tambah/Ubah nomor surat')
+                    ->visible(fn(Dedication $record) => $record->participant->count() === $record->participant->whereNotNull('attachment')->count())
+                    ->url(fn(Dedication $record) => route('filament.warek3.resources.wr3.dedications.add-letter-number', ['record' => $record->id]))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -260,9 +251,7 @@ class DedicationResource extends Resource
     {
         return [
             'index' => Pages\ListDedications::route('/'),
-            'create' => Pages\CreateDedication::route('/create'),
-            'edit' => Pages\EditDedication::route('/{record}/edit'),
-            'upload-proof-member' => Pages\UploadProofMember::route('/{record}/upload-proof-member')
+            'add-letter-number' => Pages\AddLetterNumber::route('/{record}/letter-number')
         ];
     }
 }

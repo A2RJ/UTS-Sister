@@ -10,8 +10,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Html;
 use Illuminate\Support\HtmlString;
+use Nette\Utils\Html;
 
 class ResearchProposalResource extends Resource
 {
@@ -43,15 +43,19 @@ class ResearchProposalResource extends Resource
                     ->wrap()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('participant')
-                    ->label('Status Bukti Peserta')
-                    ->formatStateUsing(function (ResearchProposal $record): HtmlString {
-                        $isCompleted = $record->participant->count() === $record->participant->whereNotNull('attachment')->count();
-                        $status = $isCompleted ? 'Selesai' : 'Belum selesai';
-                        $badgeClass = $isCompleted ? 'text-green-500' : 'text-red-500';
+                    ->label('Bukti Pengabdian')
+                    ->formatStateUsing(function (ResearchProposal $record) {
+                        $participants = $record->participant;
+                        $listItems = $participants->map(function ($participant) {
+                            if ($participant->attachment) {
+                                return "<li class='list-disc'><a href='/storage/{$participant->attachment}' class='text-blue-500'>{$participant->humanResource->sdm_name}</a></li>";
+                            }
+                            return "<li class='list-disc'><a href='#' class=''>{$participant->humanResource->sdm_name}</a></li>";
+                        })->implode('');
 
-                        return Html::tag('p', $status, ['class' => $badgeClass . ' px-2 py-1 rounded']);
+                        return new HtmlString("<ul class='list-inside'>{$listItems}</ul>");
                     })
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('letterNumber.number')
                     ->label('Nomor Surat')
                     ->formatStateUsing(function (ResearchProposal $record) {
@@ -83,7 +87,7 @@ class ResearchProposalResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('proposal_file')
                     ->label('File Proposal')
-                    ->wrap()
+                    ->formatStateUsing(fn(ResearchProposal $record) => Html::tag('a', 'File', ['href' => "/storage/{$record->proposal_file}", 'class' => 'text-blue-500']))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('application_status')
@@ -147,6 +151,7 @@ class ResearchProposalResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('journal_pdf_file')
                     ->label('Jurnal File')
+                    ->formatStateUsing(fn(ResearchProposal $record) => Html::tag('a', 'File', ['href' => "/storage/{$record->journal_pdf_file}", 'class' => 'text-blue-500']))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
