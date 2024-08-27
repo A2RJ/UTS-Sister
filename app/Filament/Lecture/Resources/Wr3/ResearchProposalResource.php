@@ -343,7 +343,7 @@ class ResearchProposalResource extends Resource
                 Tables\Actions\Action::make('donwload')
                     ->label('Unduh Surat')
                     ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
-                    ->url(fn(ResearchProposal $record) => route('filament.generateLetter', ['researchProposal' => $record->id]))
+                    ->url(fn(ResearchProposal $record) => route('filament.generateLetter.proposal', ['researchProposal' => $record->id]))
                     ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()
                     ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id()),
