@@ -38,6 +38,7 @@ class Participant extends Model
     protected $fillable = [
         'human_resource_id',
         'role',
+        'detail',
         'attachment'
     ];
 

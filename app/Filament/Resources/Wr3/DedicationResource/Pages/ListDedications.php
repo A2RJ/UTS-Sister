@@ -13,7 +13,14 @@ class ListDedications extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
+    }
+
+    protected function getTableQuery(): \Illuminate\Database\Eloquent\Builder|null
+    {
+        return parent::getTableQuery()
+            ->whereDate('created_at', '>', '2024-08-01')
+            ->orderBy('created_at');
     }
 }

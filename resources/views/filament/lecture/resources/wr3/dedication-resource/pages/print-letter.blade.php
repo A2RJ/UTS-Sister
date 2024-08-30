@@ -18,9 +18,9 @@
         body {
             max-width: 210mm;
             min-height: 100vh;
-            /* padding: 50px 50px 0 50px;
+            padding: 50px 50px 0 50px;
             padding-left: 50px;
-            padding-right: 50px; */
+            padding-right: 50px;
             background-color: white;
             font-size: 12pt;
             font-family: "Times New Roman", serif;
@@ -85,7 +85,7 @@
         No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
         {{ $values['number'] }}/UTS.WRIII/TU/{{ $values['month'] }}/{{ $values['year'] }}
     </p>
-    <p class="line-height-6">Perihal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Surat Tugas Penelitian
+    <p class="line-height-6">Perihal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Surat Tugas Pengabdian
     </p>
     <p class="line-height-6">Lampiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: -</p>
 
@@ -105,7 +105,7 @@
         </tr>
     </table>
 
-    <p>Menugaskan Dosen Universitas Teknologi Sumbawa:</p>
+    <p>Menugaskan Dosen Universitas Teknologi Sumbawa;</p>
 
     <table class="max-width-table column">
         <thead>
@@ -113,7 +113,7 @@
                 <th>NO.</th>
                 <th>NAMA</th>
                 <th>NIDN</th>
-                <th>PERAN</th>
+                <th>KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
@@ -126,7 +126,7 @@
                 <td>{{ auth()->user()->nidn }}</td>
                 <td>Ketua</td>
             </tr>
-
+            
             @php
                 $index++;
             @endphp
@@ -138,21 +138,21 @@
                             <td>{{ $value->role }}</td>
                         </tr>
                         @php
-                            $index++;
+    $index++;
                         @endphp
             @endforeach
         </tbody>
     </table>
 
     <p style="text-align: justify;">
-        Untuk melakukan kegiatan penelitian dengan judul “{{ $values['title'] }}“,
-        yang akan dilaksanakan pada {{ $values['start'] }} - {{ $values['end'] }}, berlokasi di
-        {{ $values['location'] }}.
-    </p>
+        Untuk melaksanakan Kegiatan Pengabdian kepada Masyarakat sebagai {{ $values['as'] }}
+        dalam kegiatan {{ $values['activity'] }} “{{ $values['theme'] }}“.
+        Kegiatan ini dilaksanakan pada {{ $values['date'] }}, {{ $values['location'] }}.</p>
     <p style="text-align: justify;">Setelah selesai melaksanakan tugas,
-        harap saudara menyampaikan laporan kegiatan secara tertulis.
-        Demikian surat tugas ini dibuat untuk dilaksanakan dan digunakan sebagaimana mestinya.
+        harap saudara menyampaikan laporan kegiatan secara tertulis,
+        Demikian surat tugas ini dibuat untuk dilaksanakan dan dipergunakan sebagaimana mestinya.
     </p>
+
     <div class="signature-container">
         <div class="signature">
             <p>Sumbawa, {{ $values['accepted_date'] }}</p>

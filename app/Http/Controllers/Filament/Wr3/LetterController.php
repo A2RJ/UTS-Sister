@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Filament\Wr3;
 use App\Helpers\DateHelper;
 use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Wr3\Dedication;
 use App\Models\Wr3\ResearchProposal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LetterController extends Controller
 {
-    public function generateLetter(ResearchProposal $researchProposal)
+    public function generateProposal(ResearchProposal $researchProposal)
     {
         $researchProposal->load(['participant', 'participant.humanResource:id,sdm_name,nidn']);
         $proposal = $researchProposal;
@@ -100,5 +101,33 @@ class LetterController extends Controller
         ];
 
         return view('filament.resources.wr3.research-proposal-resource.pages.print-letter', compact('kop', 'values'));
+    }
+
+    public function generateDedication(Dedication $dedication)
+    {
+        $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
+        $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
+
+        $start = DateHelper::formatTglId($dedication->start_date, true);
+        $end = DateHelper::formatTglId($dedication->end_date, true);
+        $date = $end ? "$start sampai $end" : $start;
+
+
+        $values = [
+            'token' => "$url/v/peng/$dedication->id",
+            'number' => $dedication->letterNumber->number,
+            'month' => $dedication->letterNumber->month,
+            'year' => $dedication->letterNumber->year,
+            'activity' => $dedication->activity,
+            'participants' => $dedication->participant,
+            'as' => $dedication->as,
+            'theme' => $dedication->theme,
+            'date' => $date,
+            'location' => $dedication->location,
+            'updated_at' => DateHelper::formatTglId($dedication->letterNumber->updated_at, false),
+            'accepted_date' => DateHelper::formatTglId($dedication->letterNumber->accepted_date, false),
+        ];
+
+        return view('filament.lecture.resources.wr3.dedication-resource.pages.print-letter', compact('kop', 'values'));
     }
 }

@@ -298,8 +298,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereResearchProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Participant whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property int|null $dedication_id
  * @property-read \App\Models\HumanResource|null $humanResource
+ * @method static \Illuminate\Database\Eloquent\Builder|Participant whereDedicationId($value)
+ * @mixin \Eloquent
  */
 	class Participant extends \Eloquent {}
 }
@@ -918,6 +920,8 @@ namespace App\Models\Wr3{
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereReportFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dedication whereStartDate($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Participant> $participant
+ * @property-read int|null $participant_count
  * @mixin \Eloquent
  */
 	class Dedication extends \Eloquent {}

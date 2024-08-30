@@ -101,6 +101,10 @@ class ResearchProposalResource extends Resource
                                 Forms\Components\TextInput::make('role')
                                     ->label('Peran')
                                     ->required(),
+                                Forms\Components\TextInput::make('detail')
+                                    ->label('Uraian Tugas')
+                                    ->hiddenOn(['create', 'edit'])
+                                    ->disabled(),
                             ]),
                         Forms\Components\Textarea::make('target_outcomes')
                             ->label('Target Luaran')
@@ -139,7 +143,12 @@ class ResearchProposalResource extends Resource
                                 Forms\Components\Select::make('author_status')
                                     ->label('Status Penulis')
                                     ->required()
-                                    ->options([1, 2, 3, 'correspondence author']),
+                                    ->options([
+                                        1 => 1,
+                                        2 => 2,
+                                        3 => 3,
+                                        'correspondence author' => 'correspondence author'
+                                    ]),
                                 Forms\Components\TextInput::make('publication_title')
                                     ->label('Judul Publikasi')
                                     ->required()
@@ -214,8 +223,7 @@ class ResearchProposalResource extends Resource
                         })->implode('');
 
                         return new HtmlString("<ul class='list-inside'>{$listItems}</ul>");
-                    })
-                    ->searchable(),
+                    }),
                 Tables\Columns\TextColumn::make('letterNumber.number')
                     ->label('Nomor Surat')
                     ->formatStateUsing(function (ResearchProposal $record) {
@@ -247,6 +255,7 @@ class ResearchProposalResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('proposal_file')
                     ->label('File Proposal')
+                    ->formatStateUsing(fn(ResearchProposal $record) => Html::tag('a', 'File', ['href' => "/storage/{$record->proposal_file}", 'class' => 'text-blue-500']))
                     ->wrap()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -311,6 +320,7 @@ class ResearchProposalResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('journal_pdf_file')
                     ->label('Jurnal File')
+                    ->formatStateUsing(fn(ResearchProposal $record) => Html::tag('a', 'File', ['href' => "/storage/{$record->journal_pdf_file}", 'class' => 'text-blue-500']))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
@@ -343,7 +353,7 @@ class ResearchProposalResource extends Resource
                 Tables\Actions\Action::make('donwload')
                     ->label('Unduh Surat')
                     ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
-                    ->url(fn(ResearchProposal $record) => route('filament.generateLetter', ['researchProposal' => $record->id]))
+                    ->url(fn(ResearchProposal $record) => route('filament.generateLetter.proposal', ['researchProposal' => $record->id]))
                     ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()
                     ->visible(fn(ResearchProposal $record) => $record->sdm_id == auth()->id()),

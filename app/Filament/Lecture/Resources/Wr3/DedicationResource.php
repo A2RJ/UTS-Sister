@@ -121,6 +121,10 @@ class DedicationResource extends Resource
                                 Forms\Components\TextInput::make('role')
                                     ->label('Peran')
                                     ->required(),
+                                Forms\Components\TextInput::make('detail')
+                                    ->label('Uraian Tugas')
+                                    ->hiddenOn(['create', 'edit'])
+                                    ->disabled(),
                             ]),
                     ])
             ]);
@@ -227,11 +231,11 @@ class DedicationResource extends Resource
                         return $data;
                     }),
                 // author
-                // Tables\Actions\Action::make('donwload')
-                //     ->label('Unduh Surat')
-                //     ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
-                //     ->url(fn(Dedication $record) => route('filament.generateLetter', ['researchProposal' => $record->id]))
-                //     ->openUrlInNewTab(),
+                Tables\Actions\Action::make('donwload')
+                    ->label('Unduh Surat')
+                    ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id() && $record->letterNumber != null)
+                    ->url(fn(Dedication $record) => route('filament.generateLetter.dedication', ['dedication' => $record->id]))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()
                     ->visible(fn(Dedication $record) => $record->sdm_id == auth()->id()),
                 Tables\Actions\DeleteAction::make()

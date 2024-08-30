@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Wr3;
 
+use App\Filament\Lecture\Resources\Wr3\DedicationResource as Wr3DedicationResource;
 use App\Filament\Resources\Wr3\DedicationResource\Pages;
 use App\Filament\Resources\Wr3\DedicationResource\RelationManagers;
 use App\Models\User;
@@ -27,105 +28,8 @@ class DedicationResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('')
-                    ->description('Form Pengabdian')
-                    ->columns(2)
-                    ->schema([
-                        Forms\Components\Hidden::make('sdm_id')
-                            ->default(auth()->id()),
-                        Forms\Components\TextInput::make('name')
-                            ->disabled()
-                            ->default(auth()->user()->sdm_name),
-                        Forms\Components\TextInput::make('nidn')
-                            ->disabled()
-                            ->default(auth()->user()->nidn),
-                        Forms\Components\Hidden::make('sdm_id')
-                            ->default(auth()->id()),
-                        Forms\Components\TextInput::make('role')
-                            ->label('Jabatan')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('as')
-                            ->label('Sebagai')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Textarea::make('theme')
-                            ->label('Tema')
-                            ->required()
-                            ->maxLength(255)
-                            ->columnSpanFull(),
-                        Forms\Components\TextInput::make('title')
-                            ->label('Judul Pengabdian')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('funding_source')
-                            ->label('Sumber Pendanaan')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('funding_amount')
-                            ->label('Jumlah Pendanaan')
-                            ->prefix('RP.')
-                            ->numeric()
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('location')
-                            ->label('Tempat')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\FileUpload::make('proposal_file')
-                            ->label('File Proposal')
-                            ->acceptedFileTypes(['application/pdf'])
-                            ->required(),
-                        Forms\Components\FileUpload::make('report_file')
-                            ->label('Laporan Pengabdian')
-                            ->acceptedFileTypes(['application/pdf'])
-                            ->helperText('Diisi jika pengabdian telah selesai')
-                            ->nullable(),
-                        Forms\Components\DatePicker::make('start_date')
-                            ->label('Tanggal Dimulai')
-                            ->required(),
-                        Forms\Components\DatePicker::make('end_date')
-                            ->label('Tanggal Selesai')
-                            ->nullable(),
-                        Forms\Components\Textarea::make('target_activity_outputs')
-                            ->label('Target Luaran Kegiatan')
-                            ->required()
-                            ->columnSpanFull(),
-                        Forms\Components\Textarea::make('public_media_publications')
-                            ->label('Luaran Publikasi Media Masa')
-                            ->required()
-                            ->columnSpanFull(),
-                        Forms\Components\Textarea::make('scientific_publications')
-                            ->label('Luaran Publikasi Ilmiah')
-                            ->required()
-                            ->columnSpanFull(),
-                        Forms\Components\Repeater::make('participants')
-                            ->label('Anggota')
-                            ->relationship('participant')
-                            ->minItems(1)
-                            ->columnSpanFull()
-                            ->columns(2)
-                            ->schema([
-                                Forms\Components\Select::make('human_resource_id')
-                                    ->label('Nama')
-                                    ->searchable()
-                                    ->options(
-                                        User::query()
-                                            // ->whereSdmType('Dosen')
-                                            ->get(['sdm_name', 'nidn', 'id'])
-                                            ->mapWithKeys(function ($item) {
-                                                return [$item->id => $item->sdm_name . ' - ' . $item->nidn];
-                                            })
-                                    )
-                                    ->required(),
-                                Forms\Components\TextInput::make('role')
-                                    ->label('Peran')
-                                    ->required(),
-                            ]),
-                    ])
-            ]);
+        $currentForm = new Wr3DedicationResource();
+        return $currentForm->form($form);
     }
 
     public static function table(Table $table): Table

@@ -82,16 +82,12 @@
                         @include('partials.akademik.sidebar')
                     @endif
 
-                    <!-- @if (auth()->user()->rinov()) -->
-                    @include('partials.warek3.rinov.sidebar')
-                    <!-- @endif -->
+                    @if (auth()->user()->rinov())
+                        @include('partials.warek3.rinov.sidebar')
+                    @endif
 
-                    <!-- @if (auth()->user()->pengabdian()) -->
-                    @include('partials.warek3.pengabdian.sidebar')
-                    <!-- @endif -->
-
-                    @if (auth()->user()->isDirAkademik())
-                        @include('partials.akademik.sidebar')
+                    @if (auth()->user()->pengabdian())
+                        @include('partials.warek3.pengabdian.sidebar')
                     @endif
 
                     @if (auth()->user()->isDSDM() || auth()->user()->isRektor() || auth()->user()->isAdmin())

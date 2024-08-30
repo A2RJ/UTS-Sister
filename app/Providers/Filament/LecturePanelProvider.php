@@ -25,6 +25,10 @@ class LecturePanelProvider extends PanelProvider
         return $panel
             ->id('lecture')
             ->path('lecture')
+            ->brandName('DosenUTS')
+            ->login()
+            ->homeUrl('/')
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])
