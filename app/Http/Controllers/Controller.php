@@ -6,6 +6,7 @@ use App\Http\Requests\PresenceMahasiswa;
 use App\Models\Comment;
 use App\Models\Link;
 use App\Models\Meeting;
+use App\Models\Wr3\ResearchProposal;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -45,7 +46,10 @@ class Controller extends BaseController
 
     public function index()
     {
-        if (Auth::check()) return redirect()->route('home');
+        // $data = ResearchProposal::whereId(57)->first();
+        // return response($data);
+        if (Auth::check())
+            return redirect()->route('home');
         return view('auth.login');
     }
 

@@ -1,0 +1,17 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+@layer utilities {
+    .fi-layout {
+        @apply !bg-gray-50 dark:bg-gray-950;
+    }
+
+    .fi-sidebar-nav {
+        @apply border-t !bg-white dark:border-t-gray-900 dark:bg-gray-950;
+    }
+
+    .fi-main {
+        @apply bg-[#f5f5f5];
+    }
+}

@@ -196,12 +196,13 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\Filament\Warek3PanelProvider::class,
+        App\Providers\Filament\LecturePanelProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         /**
          * Installed
          */
-        Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
     ],

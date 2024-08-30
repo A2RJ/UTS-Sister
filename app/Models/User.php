@@ -10,10 +10,11 @@ use App\Models\Wr3\ResearchProposal;
 use App\Traits\Auth\Structures\UtilsStructure;
 use App\Traits\Auth\User\RoleStructure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * App\Models\User
@@ -39,14 +40,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read LecturerDetail|null $detail
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presence> $presence
  * @property-read int|null $presence_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ResearchProposal> $researchProposal
  * @property-read int|null $research_proposal_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Structure> $structure
  * @property-read int|null $structure_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
@@ -75,11 +72,15 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSdmTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Dedication> $dedication
+ * @property-read int|null $dedication_count
+ * @property-read mixed $name
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+
+class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleStructure, UtilsStructure;
+    use HasApiTokens, HasFactory, Notifiable, RoleStructure, UtilsStructure;
 
     public $table = 'human_resources';
     protected $fillable = [
@@ -115,6 +116,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->sdm_name;
+    }
 
     public function structure()
     {

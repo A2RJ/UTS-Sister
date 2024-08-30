@@ -17,9 +17,9 @@ use URL;
 
 class ProposalController extends Controller
 {
-    public  $statuses = ['Lolos pendanaan', 'Selesai penelitian'],
-        $author_statuses = [1, 2, 3, 'correspondence author'],
-        $journal_accreditation_statuses = ['International', 'Nationally accredited', 'Internal'];
+    public $statuses = ['Lolos pendanaan', 'Selesai penelitian'],
+    $author_statuses = [1, 2, 3, 'correspondence author'],
+    $journal_accreditation_statuses = ['International', 'Nationally accredited', 'Internal'];
 
     public function dosen()
     {
@@ -149,22 +149,13 @@ class ProposalController extends Controller
         return redirect()->route('proposal.index')->with('success', 'Berhasil set nomor surat');
     }
 
-    public function isDateString($string)
-    {
-        // Coba parse string sebagai timestamp
-        $timestamp = strtotime($string);
-
-        // Periksa apakah konversi berhasil dan apakah tanggalnya sama dengan string input
-        return $timestamp !== false && date('Y-m-d', $timestamp) == $string;
-    }
-
     public function generateLetter(ResearchProposal $proposal)
     {
         $kop = FileHelper::toBase64(public_path('kop-surat/pengabdian.png'));
 
         $activityStartDate = Carbon::parse($proposal->start);
         $activityEndDate = '';
-        if ($this->isDateString($proposal->end)) {
+        if (DateHelper::isDateString($proposal->end)) {
             $activityEndDate = Carbon::parse($proposal->end)->addMonths(1);
         } else {
             $parts = explode(" ", $proposal->end);
@@ -231,18 +222,19 @@ class ProposalController extends Controller
         $url = env('APP_ENV') == 'production' ? 'https://kepegawaian.uts.ac.id' : 'http://127.0.0.1:8000';
 
         $values = [
-            'token'        => "$url/v/rinov/$proposal->id",
-            'number'       => $proposal->letterNumber->number,
-            'month'        => DateHelper::bulanToRomawi($proposal->letterNumber->month),
-            'year'         => $proposal->letterNumber->year,
-            'title'        => $proposal->proposal_title,
+            'token' => "$url/v/rinov/$proposal->id",
+            'number' => $proposal->letterNumber->number,
+            'month' => DateHelper::bulanToRomawi($proposal->letterNumber->month),
+            'year' => $proposal->letterNumber->year,
+            'title' => $proposal->proposal_title,
             'participants' => json_decode($proposal->participants),
-            'start'        => $startMonth,
-            'end'          => $endMonth,
-            'location'     => $proposal->location,
-            'detail'       => $detail,
+            'start' => $startMonth,
+            'end' => $endMonth,
+            'location' => $proposal->location,
+            'detail' => $detail,
             'accepted_date' => DateHelper::formatTglId($proposal->letterNumber->accepted_date, false),
         ];
+
         return view('surat.surat-penelitian', compact('kop', 'values'));
         // $pdf = \PDF::loadView('surat/surat-penelitian', compact('kop', 'values'));
         // $pdf->setOption('enable-javascript', true);

@@ -9,8 +9,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         config(['app.locale' => 'id']);
-        Carbon::setLocale('id');
         App::setLocale('id');
         date_default_timezone_set('Asia/Makassar');
 
@@ -66,5 +63,5 @@ class AppServiceProvider extends ServiceProvider
             }
             return $collect;
         });
-    } 
+    }
 }

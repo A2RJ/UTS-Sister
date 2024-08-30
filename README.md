@@ -1,113 +1,37 @@
-# APP
+# TODO
 
--   Sebelum kerjakan fitur tertentu buat saja branch dev-features-name agar dev tetap bersih sehingga gampang kembali ke branch dev features sebelumnya
+## Sinkronisasi tabel local dan server
 
-## Dump autoload
+## menu pengabdian
 
--   php artisan ide-helper:meta
--   php artisan ide-helper:generate,
--   php artisan ide-helper:models
+-   nama
+-   nidn
+-   jabatan
+-   sebagai
+-   tema
+-   judul pengabdian
+-   sumber pendanaan
+-   jumlah pendanaan
+-   tanggal dimulai
+-   file proposal
+-   laporan pengabdian - opsional hanya jika pengabdian sudah selesai
+-   tanggal selesai
+-   tempat
+-   daftar anggota - repeater (name, nidn, program studi, detail)
+-   target luaran kegiatan
+-   luaran publikasi media masa
+-   luaran publikasi ilmiah
 
-## Sedang dikerjakan
+### alur
 
-## List testing
+-   dosen tambah pengabdian
+-   admin tambah nomor surat
+-   dosen bisa download surat
+-   dosen upload proposal jika sudah selesai
 
--   User
+## Menu proposal riset dan alur
 
-1. Staff
-
-```
-email: acuh.dharmawan.junaidi@uts.ac.id
-password: 7700018335
-```
-
-2. Dosen
-
-```
-email: ahmad.juliansyah@uts.ac.id
-password: 7700017859
-
-email: i.made.widiarta@uts.ac.id
-password: 0813018701
-```
-
-3. Prodi
-
-```
-email: i.made.widiarta@uts.ac.id
-password: 0813018701
-```
-
-4. Fakultas
-
-```
-email: mietra.anggara@uts.ac.id
-password: 0807039002
-```
-
-5. Dir Akdemik
-
-```
-email: abbyzar.aggasi@uts.ac.id
-password: 0818019001
-```
-
-6. Dir SDM
-
-```
-email: ihwan.khuldi@uts.ac.id
-password: 7700013494
-```
-
-## Databases
-
--   php artisan iseed human_resources,structures,structural_positions,classesy,subjects,meetings,presences
--   iseed before migrate:rollback
--   php artisan optimize:clear
--   php artisan config:clear
-
-## Tools
-
--   [Bootstrap form builder](https://startbootstrap.com/sb-form-builder)
-
-## Tutorial
-
--   [Laravel permission](https://imansugirman.com/menggunakan-laravel-permission-dari-spatie)
-    http://forum.centos-webpanel.com/index.php?topic=10177.0
--   Print partial page
-
-```
-@media print {
-      body {
-        visibility: hidden;
-      }
-      #div-yang-ingin-dicetak {
-        visibility: visible;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
-    }
-```
-
-## TIPS
-
--   // https://kepegawaian.uts.ac.id/presence/per-unit/54?search=&start=&end=&filter=per-unit
--   Validasi valid URL from server (bukan ketikan)
-
-```
-return URL::temporarySignedRoute(
-    'download.sub-lecturer',
-    now()->addMinutes(5),
-    ['query', request()->getQueryString()]
-);
-use Illuminate\Support\Facades\URL;
-
-if (URL::hasValidSignature($request)) {
-  // URL asli dan belum kadaluarsa
-} else {
-  // URL tidak asli atau telah kadaluarsa
-}
-```
+-   dosen tambah proposal riset
+-   admin tambah nomor surat
+-   dosen bisa download surat
+-   dosen upload proposal jika sudah selesai

@@ -98,10 +98,10 @@ Route::middleware('auth:sanctum')->group(function () {
 //     Route::controller(RandomUtilsController::class)->group(function () {
 //         Route::get('per-unit', 'getPerUnitData');
 //         Route::get('get-child', 'getChild');
-        //         Route::prefix('import')->group(function () {
-        //             Route::post('dosen', 'importDosen');
-        //             Route::post('tendik', 'importTendik');
-        //             Route::post('change-email', 'changeAllEmail');
-        //         });
+//         Route::prefix('import')->group(function () {
+//             Route::post('dosen', 'importDosen');
+//             Route::post('tendik', 'importTendik');
+//             Route::post('change-email', 'changeAllEmail');
+//         });
 //     });
 // });

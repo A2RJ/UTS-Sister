@@ -52,6 +52,8 @@ use Rap2hpoutre\FastExcel\SheetCollection;
 |
 */
 
+include 'filament.php';
+
 Route::prefix('/')->group(function () {
     Route::get('v/{s}/{t}', [VerifyController::class, 'verifyData'])->name('verify-qr');
     Route::controller(Controller::class)->group(function () {
@@ -208,7 +210,7 @@ Route::middleware("auth")->group(function () {
     Route::prefix('bkd')->group(function () {
         Route::prefix("sdm")->controller(SDMController::class)->group(function () {
             Route::get('/', 'index')->name('sdm.index');
-            Route::get('set-sdm/{sdm_id}/{sdm_name}',  'setSession')->name('sdm.set-sdm');
+            Route::get('set-sdm/{sdm_id}/{sdm_name}', 'setSession')->name('sdm.set-sdm');
         });
 
         Route::prefix('profil')->controller(ProfilController::class)->group(function () {

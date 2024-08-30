@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereYear($value)
+ * @property string|null $accepted_date
+ * @method static \Illuminate\Database\Eloquent\Builder|LetterNumber whereAcceptedDate($value)
  * @mixin \Eloquent
  */
 class LetterNumber extends Model

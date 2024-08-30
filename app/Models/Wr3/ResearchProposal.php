@@ -3,8 +3,8 @@
 namespace App\Models\Wr3;
 
 use App\Models\HumanResource;
+use App\Models\Participant;
 use App\Traits\Model\UtilsFunction;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int|null $sdm_id
  * @property string $proposal_title
  * @property string $grant_scheme
+ * @property string $start
+ * @property string $end
+ * @property string $location
+ * @property mixed|null $participants
  * @property string $target_outcomes
  * @property string $proposal_file
  * @property string $application_status
@@ -37,6 +41,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read HumanResource|null $humanResource
  * @property-read \App\Models\Wr3\LetterNumber|null $letterNumber
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Participant> $participant
+ * @property-read int|null $participant_count
  * @method static Builder|ResearchProposal export(?array $columns = null)
  * @method static \Database\Factories\Wr3\ResearchProposalFactory factory($count = null, $state = [])
  * @method static Builder|ResearchProposal newModelQuery()
@@ -48,6 +54,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal whereAuthorStatus($value)
  * @method static Builder|ResearchProposal whereContractPeriod($value)
  * @method static Builder|ResearchProposal whereCreatedAt($value)
+ * @method static Builder|ResearchProposal whereEnd($value)
  * @method static Builder|ResearchProposal whereFundingAmount($value)
  * @method static Builder|ResearchProposal whereGrantScheme($value)
  * @method static Builder|ResearchProposal whereId($value)
@@ -55,6 +62,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal whereJournalName($value)
  * @method static Builder|ResearchProposal whereJournalPdfFile($value)
  * @method static Builder|ResearchProposal whereJournalPublicationLink($value)
+ * @method static Builder|ResearchProposal whereLocation($value)
+ * @method static Builder|ResearchProposal whereParticipants($value)
  * @method static Builder|ResearchProposal whereProposalFile($value)
  * @method static Builder|ResearchProposal whereProposalTitle($value)
  * @method static Builder|ResearchProposal wherePublicationDateYear($value)
@@ -62,6 +71,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|ResearchProposal wherePublicationYear($value)
  * @method static Builder|ResearchProposal wherePublisher($value)
  * @method static Builder|ResearchProposal whereSdmId($value)
+ * @method static Builder|ResearchProposal whereStart($value)
  * @method static Builder|ResearchProposal whereTargetOutcomes($value)
  * @method static Builder|ResearchProposal whereUpdatedAt($value)
  * @method static Builder|ResearchProposal whereVerification($value)
@@ -98,10 +108,20 @@ class ResearchProposal extends Model
         'journal_pdf_file'
     ];
 
+    public function getParticipantsAttribute($value)
+    {
+        return json_decode($value, true); // Pastikan mengembalikan array
+    }
+
+    public function participant()
+    {
+        return $this->hasMany(Participant::class);
+    }
+
     public function humanResource(): BelongsTo
     {
         return $this->belongsTo(HumanResource::class, 'sdm_id');
-    } 
+    }
 
     public function letterNumber()
     {

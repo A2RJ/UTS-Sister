@@ -82,6 +82,8 @@ class Kernel extends HttpKernel
 
         "dynamic" => \App\Http\Middleware\Custom\Dynamic::class,
         'checkRole' => \App\Http\Middleware\Custom\CheckRole::class,
-        'admin' => \App\Http\Middleware\Custom\Admin::class
+        'admin' => \App\Http\Middleware\Custom\Admin::class,
+        'riset' => \App\Http\Middleware\Riset::class,
+        'pengabdian' => \App\Http\Middleware\Pengabdian::class,
     ];
 }
