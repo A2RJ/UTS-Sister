@@ -47,6 +47,9 @@ class UploadProofMember extends page
                         TextInput::make('role')
                             ->label('Peran')
                             ->disabled(),
+                        TextInput::make('detail')
+                            ->label('Uraian Tugas')
+                            ->required(),
                         FileUpload::make('attachment')
                             ->label('Upload File')
                             ->helperText('File .pdf')

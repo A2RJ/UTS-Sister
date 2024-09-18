@@ -1,5 +1,17 @@
 # TODO
 
+-   specify berapa role:
+    -   super admin
+    -   psdm
+    -   dosen
+    -   fakultas
+    -   prodi
+    -   dir akademik
+    -   rinov
+    -   pengabdian
+    -   tendik
+-   pisahkan akses admin pengabdian dengan riset
+
 ## Sinkronisasi tabel local dan server
 
 ## menu pengabdian
@@ -35,3 +47,6 @@
 -   admin tambah nomor surat
 -   dosen bisa download surat
 -   dosen upload proposal jika sudah selesai
+
+-   Uraian Tugas
+-   Ketua Otomatis ada

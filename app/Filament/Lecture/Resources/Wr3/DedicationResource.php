@@ -121,6 +121,10 @@ class DedicationResource extends Resource
                                 Forms\Components\TextInput::make('role')
                                     ->label('Peran')
                                     ->required(),
+                                Forms\Components\TextInput::make('detail')
+                                    ->label('Uraian Tugas')
+                                    ->hiddenOn(['create', 'edit'])
+                                    ->disabled(),
                             ]),
                     ])
             ]);

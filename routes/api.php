@@ -10,8 +10,10 @@ use App\Http\Controllers\API\SanctumAuthController;
 use App\Http\Controllers\API\StudentAPIController;
 use App\Http\Controllers\API\StudyProgramAPIController;
 use App\Http\Controllers\API\SubjectAPIController;
+use App\Http\Controllers\Admin\SuperAdminController;
 use App\Http\Controllers\API\CoordinateController;
 use App\Http\Controllers\Utils\RandomUtilsController;
+use App\Models\Presence;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,9 @@ Route::get('/', [HomeController::class, 'api']);
 // Route::post('/import-user', [StudentAPIController::class, 'import']);
 Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function () {
     Route::post('/', 'login');
-    Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm', 'admin'])->group(function () {
+    Route::prefix('/')->middleware(['auth:sanctum,users', 'checkRole:sdm'])->group(function () {
         Route::get('/user', 'user');
-        Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm', 'admin']);
+        Route::post('/token', 'token')->withoutMiddleware(['auth:sanctum,users', 'checkRole:sdm']);
         Route::post('change-password', 'changePasswordSDM');
         Route::post('/admin/change-password', 'changePassword');
         Route::post('/admin/reset-password', 'resetPassword');
@@ -93,6 +95,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', 'index');
     });
 });
+
+// Route::prefix('super-admin')
+//     ->middleware(['auth:sanctum,users', 'admin'])
+//     ->controller(SuperAdminController::class)
+//     ->group(function () {
+//         define('STDIN', fopen("php://stdin", "r"));
+//         Route::get('migrate', 'migrate');
+//         Route::get('rollback', 'rollback');
+//         Route::get('seed', 'seed');
+//         Route::get('ubah', [StudentAPIController::class, 'changeAllStudentId']);
+//     });
 
 // Route::prefix('utils')->group(function () {
 //     Route::controller(RandomUtilsController::class)->group(function () {

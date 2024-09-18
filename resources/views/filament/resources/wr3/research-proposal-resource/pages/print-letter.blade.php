@@ -120,6 +120,16 @@
             @php
                 $index = 1;
             @endphp
+            <tr>
+                <td>{{ $index }}</td>
+                <td>{{ auth()->user()->sdm_name }}</td>
+                <td>{{ auth()->user()->nidn }}</td>
+                <td>Ketua</td>
+            </tr>
+
+            @php
+                $index++;
+            @endphp
             @foreach ($values['participants'] as $value)
                         <tr>
                             <td>{{ $index }}</td>
