@@ -5,11 +5,8 @@ namespace App\Filament\Lecture\Resources\Wr3;
 use App\Filament\Lecture\Resources\Wr3\ResearchProposalResource\Pages;
 use App\Filament\Lecture\Resources\Wr3\ResearchProposalResource\RelationManagers;
 use App\Http\Middleware\Riset;
-use App\Models\Participant;
 use App\Models\User;
-use App\Models\Wr3\LetterNumber;
 use App\Models\Wr3\ResearchProposal;
-use Auth;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -19,12 +16,8 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Html;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
+use Nette\Utils\Html;
 
 class ResearchProposalResource extends Resource
 {
@@ -83,7 +76,7 @@ class ResearchProposalResource extends Resource
                         Forms\Components\Repeater::make('participants')
                             ->label('Anggota')
                             ->relationship('participant')
-                            ->minItems(1)
+                            ->nullable()
                             ->columns(2)
                             ->schema([
                                 Forms\Components\Select::make('human_resource_id')

@@ -12,10 +12,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Html;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
+use Nette\Utils\Html;
 
 class DedicationResource extends Resource
 {
@@ -102,7 +100,7 @@ class DedicationResource extends Resource
                         Forms\Components\Repeater::make('participants')
                             ->label('Anggota')
                             ->relationship('participant')
-                            ->minItems(1)
+                            ->nullable()
                             ->columnSpanFull()
                             ->columns(2)
                             ->schema([

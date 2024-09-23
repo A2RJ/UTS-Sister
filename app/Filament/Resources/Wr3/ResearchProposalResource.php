@@ -172,7 +172,7 @@ class ResearchProposalResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('addLetterNumber')
                     ->label('Tambah/Ubah nomor surat')
-                    ->visible(fn(ResearchProposal $record) => $record->participant->count() === $record->participant->whereNotNull('attachment')->count())
+                    ->visible(fn(ResearchProposal $record) => $record->participant->count() ? true : $record->participant->count() === $record->participant->whereNotNull('attachment')->count())
                     ->url(fn(ResearchProposal $record) => route('filament.warek3.resources.wr3.research-proposals.add-letter-number', ['record' => $record->id]))
             ])
             ->bulkActions([
