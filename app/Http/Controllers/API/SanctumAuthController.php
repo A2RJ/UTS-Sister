@@ -41,11 +41,14 @@ class SanctumAuthController extends Controller
     {
         try {
             $user = User::where('email', $request->email)->first();
-            if (!$user) throw new Exception('Your account is not registered.', 404);
-            if (!Hash::check($request->password, $user->password)) throw new Exception('The provided credentials are incorrect.', 401);
+            if (!$user)
+                throw new Exception('Your account is not registered.', 404);
+            if (!Hash::check($request->password, $user->password))
+                throw new Exception('The provided credentials are incorrect.', 401);
 
             $macAddress = $request->mac_address;
-            if ($user->mac_address && $user->mac_address !== $macAddress) throw new Exception('You have logged from a different device.', 200);
+            if ($user->mac_address && $user->mac_address !== $macAddress)
+                throw new Exception('You have logged from a different device.', 200);
 
             $user->mac_address = $macAddress;
             $user->save();
@@ -78,7 +81,8 @@ class SanctumAuthController extends Controller
     {
         $student = Student::where('nim', $request->nim)->first();
 
-        if (!$student || !Hash::check($request->password, $student->password)) throw new Exception('The provided credentials are incorrect.', 401);
+        if (!$student || !Hash::check($request->password, $student->password))
+            throw new Exception('The provided credentials are incorrect.', 401);
 
         return response([
             'data' => [
@@ -105,7 +109,8 @@ class SanctumAuthController extends Controller
     {
         try {
             $student = Student::where('student_id', $request->user()->student_id)->first();
-            if (!$student) throw new Exception('Data not found.', 404);
+            if (!$student)
+                throw new Exception('Data not found.', 404);
 
             $student->update([
                 'password' => Hash::make($request->password)
@@ -122,20 +127,20 @@ class SanctumAuthController extends Controller
             ->orWhere('nidn', $username)
             ->first();
         if ($user) {
-            $result = new stdClass();
-            $result->role = $user->sdm_type == 'Tenaga Kependidikan' ? 'tendik' : 'dosen';
-            $result->user = $user;
-            $result->id = $user->sdm_id;
-            return $result;
+            // $result = new stdClass();
+            $user->role = $user->sdm_type == 'Tenaga Kependidikan' ? 'tendik' : 'dosen';
+            $user->user = $user;
+            $user->id = $user->sdm_id;
+            return $user;
         }
 
-        $student = Student::where('nim', $username)->first();
-        if ($student) {
-            $result = new stdClass();
-            $result->role = 'mahasiswa';
-            $result->user = $student;
-            $result->id = $student->student_id;
-            return $result;
+        $user = Student::where('nim', $username)->first();
+        if ($user) {
+            // $result = new stdClass();
+            $user->role = 'mahasiswa';
+            $user->user = $user;
+            $user->id = $user->student_id;
+            return $user;
         }
 
         return false;
@@ -145,13 +150,18 @@ class SanctumAuthController extends Controller
     {
         try {
             $userInfo = $this->findUserOrStudent($request->username);
-            if (!$userInfo) throw new Exception('Your account is not registered.', 404);
-            if (!Hash::check($request->password, $userInfo->user->password)) throw new Exception('The provided credentials are incorrect.', 401);
-            // if ($userInfo->user->mac_address && $userInfo->user->mac_address !== $request->mac_address) throw new Exception('You have logged from a different device.', 422);
+            if (!$userInfo)
+                throw new Exception('Your account is not registered.', 404);
+            if (!Hash::check($request->password, $userInfo->user->password))
+                throw new Exception('The provided credentials are incorrect.', 401);
 
-            // if (in_array($userInfo->role, ['dosen', 'tendik'])) {
-            //     User::where('id', $userInfo->user->id)->update(['mac_address' => $request->mac_address]);
-            // }
+            if ($userInfo->user->mac_address && $userInfo->user->mac_address !== $request->mac_address)
+                throw new Exception('You have logged from a different device.', 422);
+
+            if (in_array($userInfo->role, ['dosen', 'tendik'])) {
+                $userInfo->user()->currentAccessToken()->delete();
+                User::where('id', $userInfo->user->id)->update(['mac_address' => $request->mac_address]);
+            }
 
             return response([
                 'data' => [
@@ -267,5 +277,26 @@ class SanctumAuthController extends Controller
         } catch (Exception $th) {
             throw $th;
         }
+    }
+
+    function checkDosen(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $user = User::where('email', $username)
+            ->orWhere('nidn', $username)
+            ->first();
+
+        if ($user) {
+            $isTrue = Hash::check($password, $user->password);
+            if ($isTrue) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Invalid credentials']);
+            }
+        }
+
+        return response()->json(['success' => false, 'message' => 'Your account is not registered']);
     }
 }

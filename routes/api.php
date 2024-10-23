@@ -13,7 +13,6 @@ use App\Http\Controllers\API\SubjectAPIController;
 use App\Http\Controllers\Admin\SuperAdminController;
 use App\Http\Controllers\API\CoordinateController;
 use App\Http\Controllers\Utils\RandomUtilsController;
-use App\Models\Presence;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +36,7 @@ Route::prefix('/auth')->controller(SanctumAuthController::class)->group(function
         Route::post('change-password', 'changePasswordSDM');
         Route::post('/admin/change-password', 'changePassword');
         Route::post('/admin/reset-password', 'resetPassword');
+        Route::post('/check-dosen', 'checkDosen');
     });
     Route::prefix('student')->middleware(['auth:sanctum,students', 'checkRole:student'])->group(function () {
         Route::get('/', 'student');
